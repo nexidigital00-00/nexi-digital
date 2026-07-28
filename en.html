@@ -1,0 +1,661 @@
+<style>
+  :root {
+    --paper: #F1ECE6;
+    --ink: #241B2E;
+    --ink-soft: #6B5F72;
+    --coral: #D6455C;
+    --coral-soft: rgba(214, 69, 92, 0.12);
+    --teal: #17948C;
+    --teal-soft: rgba(23, 148, 140, 0.12);
+    --surface: #FBF9F6;
+    --border: rgba(36, 27, 46, 0.14);
+    --dot: rgba(36, 27, 46, 0.55);
+    --line: rgba(36, 27, 46, 0.16);
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #1A1420;
+      --ink: #F3EFEF;
+      --ink-soft: #B9AEC2;
+      --coral: #FF7C8E;
+      --coral-soft: rgba(255, 124, 142, 0.14);
+      --teal: #3FD9CE;
+      --teal-soft: rgba(63, 217, 206, 0.14);
+      --surface: #241B2E;
+      --border: rgba(243, 239, 239, 0.14);
+      --dot: rgba(243, 239, 239, 0.55);
+      --line: rgba(243, 239, 239, 0.18);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #1A1420;
+    --ink: #F3EFEF;
+    --ink-soft: #B9AEC2;
+    --coral: #FF7C8E;
+    --coral-soft: rgba(255, 124, 142, 0.14);
+    --teal: #3FD9CE;
+    --teal-soft: rgba(63, 217, 206, 0.14);
+    --surface: #241B2E;
+    --border: rgba(243, 239, 239, 0.14);
+    --dot: rgba(243, 239, 239, 0.55);
+    --line: rgba(243, 239, 239, 0.18);
+  }
+  :root[data-theme="light"] {
+    --paper: #F1ECE6;
+    --ink: #241B2E;
+    --ink-soft: #6B5F72;
+    --coral: #D6455C;
+    --coral-soft: rgba(214, 69, 92, 0.12);
+    --teal: #17948C;
+    --teal-soft: rgba(23, 148, 140, 0.12);
+    --surface: #FBF9F6;
+    --border: rgba(36, 27, 46, 0.14);
+    --dot: rgba(36, 27, 46, 0.55);
+    --line: rgba(36, 27, 46, 0.16);
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); }
+
+  .site {
+    font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .mono {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", monospace;
+  }
+
+  h1, h2, h3 { font-family: Georgia, "Iowan Old Style", "Times New Roman", serif; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+
+  /* ---------- Nav ---------- */
+  nav.top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 26px 0;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand .mark { width: 30px; height: 30px; flex: none; display: block; }
+  .brand .name { font-family: Georgia, serif; font-weight: 700; font-size: 1.15rem; letter-spacing: -0.01em; }
+  .navLinks { display: flex; gap: 26px; font-size: 0.9rem; color: var(--ink-soft); }
+  .navLinks a { color: inherit; text-decoration: none; }
+  .navLinks a:hover { color: var(--ink); }
+  nav.top { position: relative; }
+  .navToggle {
+    display: none; background: none; border: none; cursor: pointer; padding: 8px;
+    flex-direction: column; gap: 4px;
+  }
+  .navToggle .bar { display: block; width: 20px; height: 2px; background: var(--ink); border-radius: 2px; }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; padding: 64px 0 84px; overflow: hidden; }
+  .heroCanvasWrap {
+    position: absolute; inset: 0; z-index: 0;
+    mask-image: linear-gradient(to bottom, black 55%, transparent 96%);
+  }
+  #netCanvas { width: 100%; height: 100%; display: block; }
+  .heroInner { position: relative; z-index: 1; max-width: 680px; }
+  .eyebrow {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+    font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--teal); margin: 0 0 18px; font-weight: 600;
+  }
+  h1.headline {
+    font-size: clamp(2.1rem, 5.2vw, 3.4rem);
+    line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 22px; text-wrap: balance;
+  }
+  h1.headline em { font-style: italic; color: var(--coral); }
+  .heroLede {
+    font-size: 1.08rem; color: var(--ink-soft); line-height: 1.6;
+    max-width: 54ch; margin: 0 0 34px;
+  }
+  .ctaRow { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .btnPrimary {
+    background: var(--ink); color: var(--paper);
+    padding: 13px 26px; border-radius: 999px; text-decoration: none;
+    font-size: 0.94rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;
+    transition: transform 0.15s ease;
+  }
+  .btnPrimary:hover { transform: translateY(-2px); }
+  .btnGhost {
+    color: var(--ink); text-decoration: none; font-size: 0.94rem;
+    border-bottom: 1px solid var(--ink-soft); padding-bottom: 2px;
+  }
+
+  /* ---------- Sections ---------- */
+  section { padding: 56px 0; border-top: 1px solid var(--border); }
+  .sectionHead { max-width: 60ch; margin-bottom: 36px; }
+  .kicker {
+    font-family: ui-monospace, monospace; font-size: 0.72rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--coral); margin: 0 0 10px; font-weight: 600;
+  }
+  h2.sectionTitle { font-size: clamp(1.5rem, 3vw, 2rem); margin: 0 0 12px; letter-spacing: -0.01em; text-wrap: balance; }
+  .sectionSub { color: var(--ink-soft); line-height: 1.55; margin: 0; font-size: 1rem; }
+
+  /* ---------- Services ---------- */
+  .serviceGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
+  .serviceCard {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    padding: 26px 24px; transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .serviceCard:hover { transform: translateY(-3px); box-shadow: 0 10px 30px -18px rgba(0,0,0,0.4); }
+  .serviceNum { font-family: ui-monospace, monospace; font-size: 0.78rem; color: var(--ink-soft); margin-bottom: 14px; }
+  .serviceCard h3 { font-size: 1.08rem; margin: 0 0 8px; font-family: -apple-system, sans-serif; font-weight: 700; }
+  .serviceCard p { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.55; margin: 0; }
+
+  /* ---------- Pricing ---------- */
+  .pricingGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .priceCard {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    padding: 28px 24px; display: flex; flex-direction: column;
+  }
+  .priceCard.featured { border-color: var(--coral); border-width: 2px; }
+  .priceBadge {
+    font-family: ui-monospace, monospace; font-size: 0.68rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--coral); margin: 0 0 10px;
+  }
+  .priceCard h3 { font-size: 1.15rem; margin: 0 0 6px; font-family: -apple-system, sans-serif; font-weight: 700; }
+  .priceFor { font-size: 0.86rem; color: var(--ink-soft); margin: 0 0 18px; }
+  .priceFeatures { list-style: none; margin: 0 0 22px; padding: 0; flex: 1; }
+  .priceFeatures li {
+    font-size: 0.88rem; color: var(--ink); padding: 7px 0 7px 20px; position: relative;
+    border-top: 1px solid var(--border);
+  }
+  .priceFeatures li:first-child { border-top: none; }
+  .priceFeatures li::before { content: "+"; position: absolute; left: 0; color: var(--teal); font-weight: 700; }
+  .priceCard .btnGhost { align-self: flex-start; }
+  .pricingNote { font-size: 0.86rem; color: var(--ink-soft); margin-top: 22px; }
+
+  /* ---------- Case study ---------- */
+  .caseCard {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
+    padding: 34px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 32px; align-items: center;
+  }
+  .caseTag {
+    display: inline-block; font-family: ui-monospace, monospace; font-size: 0.7rem;
+    letter-spacing: 0.08em; text-transform: uppercase; background: var(--coral-soft);
+    color: var(--coral); padding: 5px 12px; border-radius: 999px; margin-bottom: 14px;
+  }
+  .caseCard h3 { font-size: 1.3rem; margin: 0 0 12px; }
+  .caseCard p { color: var(--ink-soft); line-height: 1.6; margin: 0 0 20px; font-size: 0.96rem; }
+  .caseStats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .statBox { background: var(--paper); border-radius: 10px; padding: 16px 18px; }
+  .statBox .n { font-family: ui-monospace, monospace; font-size: 1.4rem; font-weight: 600; color: var(--teal); }
+  .statBox .l { font-size: 0.76rem; color: var(--ink-soft); margin-top: 4px; }
+
+  /* ---------- About ---------- */
+  .aboutGrid { display: grid; grid-template-columns: 88px 1fr; gap: 24px; align-items: start; }
+  .avatar {
+    width: 88px; height: 88px; border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(135deg, var(--coral), var(--teal));
+    flex: none;
+  }
+  .avatar img {
+    width: 100%; height: 100%; border-radius: 50%;
+    object-fit: cover; display: block;
+    border: 2px solid var(--surface);
+  }
+  .aboutText p { color: var(--ink-soft); line-height: 1.65; font-size: 1rem; max-width: 62ch; }
+  .aboutText strong { color: var(--ink); }
+
+  /* ---------- Contact ---------- */
+  .contactCard {
+    background: var(--ink); color: var(--paper);
+    border-radius: 20px 20px 0 0; padding: 40px 40px 34px;
+  }
+  .contactCard h2 { color: var(--paper); margin: 0 0 8px; font-size: 1.5rem; }
+  .contactCard p { color: rgba(243,239,239,0.7); margin: 0; max-width: 46ch; line-height: 1.5; }
+  .contactCard .btnPrimary { background: var(--coral); color: var(--surface); }
+  .contactActions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+  .formCard {
+    background: var(--surface); border: 1px solid var(--border); border-top: none;
+    border-radius: 0 0 20px 20px; padding: 34px 40px 40px;
+  }
+  .contactForm { display: flex; flex-direction: column; gap: 16px; }
+  .formRow { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .contactForm label {
+    display: flex; flex-direction: column; gap: 6px;
+    font-size: 0.82rem; color: var(--ink-soft);
+  }
+  .optTag { font-weight: 400; color: var(--ink-soft); opacity: 0.75; }
+  .contactForm input, .contactForm textarea {
+    font: inherit; font-size: 0.96rem; color: var(--ink);
+    background: var(--paper); border: 1px solid var(--border); border-radius: 10px;
+    padding: 11px 14px; outline: none; transition: border-color 0.15s ease;
+  }
+  .contactForm input::placeholder, .contactForm textarea::placeholder { color: var(--ink-soft); opacity: 0.6; }
+  .contactForm input:focus, .contactForm textarea:focus { border-color: var(--coral); }
+  .contactForm textarea { resize: vertical; min-height: 80px; }
+  .formSubmit { border: none; cursor: pointer; align-self: flex-start; font: inherit; }
+  .formNote { font-size: 0.86rem; margin: 0; min-height: 1.2em; }
+  .formNote.ok { color: var(--teal); }
+  .formNote.err { color: var(--coral); }
+  .contactAlt {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
+    margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--border);
+    font-size: 0.86rem; color: var(--ink-soft);
+  }
+  @media (max-width: 560px) { .formRow { grid-template-columns: 1fr; } }
+  .btnWhatsapp {
+    background: #25D366; color: #ffffff;
+    padding: 13px 24px; border-radius: 999px; text-decoration: none;
+    font-size: 0.94rem; font-weight: 600; display: inline-flex; align-items: center; gap: 9px;
+    transition: transform 0.15s ease;
+  }
+  .btnWhatsapp:hover { transform: translateY(-2px); }
+  .btnWhatsapp svg { width: 17px; height: 17px; flex: none; }
+
+  .waFloat {
+    position: fixed; bottom: 22px; right: 22px; z-index: 30;
+    width: 56px; height: 56px; border-radius: 50%; background: #25D366;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 10px 26px rgba(0,0,0,0.28);
+    text-decoration: none; transition: transform 0.15s ease;
+  }
+  .waFloat:hover { transform: scale(1.07); }
+  .waFloat svg { width: 27px; height: 27px; fill: #ffffff; }
+  @media (prefers-reduced-motion: reduce) {
+    .btnWhatsapp, .waFloat { transition: none; }
+  }
+
+  footer.siteFoot {
+    padding: 28px 0 48px; font-size: 0.82rem; color: var(--ink-soft);
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
+  }
+
+  @media (max-width: 700px) {
+    .caseCard { grid-template-columns: 1fr; }
+    .aboutGrid { grid-template-columns: 1fr; }
+    .navToggle { display: flex; }
+    .navLinks {
+      display: none; position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; gap: 16px; background: var(--surface);
+      border: 1px solid var(--border); border-top: none; border-radius: 0 0 14px 14px;
+      padding: 18px 24px 22px; z-index: 25;
+    }
+    .navLinks.open { display: flex; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .serviceCard, .btnPrimary { transition: none; }
+  }
+
+  :focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
+</style>
+
+<div class="site">
+<div class="wrap">
+  <nav class="top">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+        <defs>
+          <linearGradient id="navMarkMid" x1="22" y1="18" x2="78" y2="82" gradientUnits="userSpaceOnUse">
+            <stop offset="0.42" stop-color="var(--coral)"/>
+            <stop offset="0.58" stop-color="var(--teal)"/>
+          </linearGradient>
+        </defs>
+        <g fill="none" stroke="var(--ink-soft)" stroke-opacity="0.4" stroke-width="5" stroke-linecap="round">
+          <line x1="22" y1="18" x2="22" y2="82"/>
+          <line x1="22" y1="18" x2="50" y2="50"/>
+          <line x1="50" y1="50" x2="78" y2="82"/>
+          <line x1="78" y1="18" x2="78" y2="82"/>
+        </g>
+        <circle cx="22" cy="18" r="9" fill="var(--coral)"/>
+        <circle cx="22" cy="82" r="9" fill="var(--coral)"/>
+        <circle cx="78" cy="18" r="9" fill="var(--teal)"/>
+        <circle cx="78" cy="82" r="9" fill="var(--teal)"/>
+        <circle cx="50" cy="50" r="11" fill="url(#navMarkMid)"/>
+      </svg>
+      <span class="name">Nexi Digital</span>
+    </div>
+    <button class="navToggle" id="navToggleBtn" aria-label="Toggle menu" aria-expanded="false">
+      <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+    <div class="navLinks" id="navLinks">
+      <a href="#services">Services</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#case-study">Case Study</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="index.html" style="font-weight:600;">TR</a>
+    </div>
+  </nav>
+</div>
+
+<div class="hero">
+  <div class="heroCanvasWrap" aria-hidden="true"><canvas id="netCanvas"></canvas></div>
+  <div class="wrap">
+    <div class="heroInner">
+      <p class="eyebrow">Based in Sakarya, Turkey · Data-Driven Marketing for Independent Businesses</p>
+      <h1 class="headline">A marketing partner that <em>actually</em> knows your customers.</h1>
+      <p class="heroLede">I find out from your records which customers are about to forget you, and which ones deserve a nudge right now — then I write the email/SMS that gets them back.</p>
+      <div class="ctaRow">
+        <a class="btnPrimary" href="#contact">Request a Free Consultation →</a>
+        <a class="btnGhost" href="#case-study">See the case study</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section id="services">
+    <div class="sectionHead">
+      <p class="kicker">Services</p>
+      <h2 class="sectionTitle">Four ways I add real value</h2>
+      <p class="sectionSub">Not a template — I understand your data first, then build around it.</p>
+    </div>
+    <div class="serviceGrid">
+      <div class="serviceCard">
+        <p class="serviceNum mono">01</p>
+        <h3>Customer Segmentation</h3>
+        <p>Who visits often, who's about to disappear, who's new — found in your existing records.</p>
+      </div>
+      <div class="serviceCard">
+        <p class="serviceNum mono">02</p>
+        <h3>Email &amp; SMS Campaigns</h3>
+        <p>Custom copy and a send plan for each segment — never generic.</p>
+      </div>
+      <div class="serviceCard">
+        <p class="serviceNum mono">03</p>
+        <h3>Website Setup</h3>
+        <p>A professional site built from scratch — booking form, gallery, even payments.</p>
+      </div>
+      <div class="serviceCard">
+        <p class="serviceNum mono">04</p>
+        <h3>AI-Powered Automation</h3>
+        <p>Chatbots, automatic reminders — repetitive tasks handed off to AI.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="sectionHead">
+      <p class="kicker">Pricing</p>
+      <h2 class="sectionTitle">Scope that fits your size</h2>
+      <p class="sectionSub">Pricing is set during the first call based on your scale and needs — here's what's included at each level.</p>
+    </div>
+    <div class="pricingGrid">
+      <div class="priceCard">
+        <p class="priceBadge">Starter</p>
+        <h3>Start with one channel</h3>
+        <p class="priceFor">For businesses sending their very first campaign.</p>
+        <ul class="priceFeatures">
+          <li>Customer segmentation</li>
+          <li>One channel campaign (email or WhatsApp)</li>
+          <li>Setup support</li>
+        </ul>
+        <a class="btnGhost js-mail-link" data-subject="Inquiry about the Starter Package" href="#">Get a Quote →</a>
+      </div>
+      <div class="priceCard featured">
+        <p class="priceBadge">Growth</p>
+        <h3>Multi-channel, tracked monthly</h3>
+        <p class="priceFor">For growing businesses reaching customers across multiple channels.</p>
+        <ul class="priceFeatures">
+          <li>Segmentation + multi-channel campaigns (email &amp; SMS/WhatsApp)</li>
+          <li>Website updates</li>
+          <li>Monthly results review</li>
+        </ul>
+        <a class="btnGhost js-mail-link" data-subject="Inquiry about the Growth Package" href="#">Get a Quote →</a>
+      </div>
+      <div class="priceCard">
+        <p class="priceBadge">Enterprise</p>
+        <h3>For multiple locations or larger data</h3>
+        <p class="priceFor">For businesses with multiple branches or a larger data volume.</p>
+        <ul class="priceFeatures">
+          <li>Custom integrations</li>
+          <li>Automation (chatbots, etc.)</li>
+          <li>Priority support</li>
+        </ul>
+        <a class="btnGhost js-mail-link" data-subject="Inquiry about the Enterprise Package" href="#">Get a Quote →</a>
+      </div>
+    </div>
+    <p class="pricingNote">Not sure which package fits? We'll figure it out together on the free consultation call.</p>
+  </section>
+
+  <section id="case-study">
+    <div class="sectionHead">
+      <p class="kicker">Method</p>
+      <h2 class="sectionTitle">This is exactly how I work</h2>
+      <p class="sectionSub">This analysis I built for a beauty salon shows exactly what I'll build for your business, for free, in our first call.</p>
+    </div>
+    <div class="caseCard">
+      <div>
+        <span class="caseTag">Method Demo</span>
+        <h3>1,000 sample customers, split into 6 segments</h3>
+        <p>Customers were grouped by recency, frequency, and spend; each group got its own email/SMS copy and a send-order plan. I'll run this same analysis on your real records for free in our first call.</p>
+        <a class="btnGhost" href="https://claude.ai/code/artifact/61ae4686-f95d-4123-a3ed-ed7d0851541f" target="_blank" rel="noopener noreferrer">View the analysis panel →</a>
+      </div>
+      <div class="caseStats">
+        <div class="statBox"><div class="n mono">6</div><div class="l">customer segments</div></div>
+        <div class="statBox"><div class="n mono">%25</div><div class="l">of revenue from the most loyal 11%</div></div>
+        <div class="statBox"><div class="n mono">5.388</div><div class="l">transactions analyzed</div></div>
+        <div class="statBox"><div class="n mono">12</div><div class="l">service types compared</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="sectionHead">
+      <p class="kicker">About</p>
+      <h2 class="sectionTitle">I don't code — I understand your business</h2>
+    </div>
+    <div class="aboutGrid">
+      <div class="avatar"><img src="data:image/jpeg;base64,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" alt="Pınar, Nexi Digital kurucusu" loading="lazy"></div>
+      <div class="aboutText">
+        <p><strong>I'm Pınar.</strong> I'm not a software engineer in the traditional sense — but I've learned to turn independent businesses' data into real marketing strategy using AI tools, and I've built a practice around it.</p>
+        <p>This takes more than it looks like: asking the right question, looking at the right data, and taking the right action at the right time. Anyone can open an AI tool — turning it into a result that actually fits your business is its own expertise.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="border-top:none;">
+    <div class="contactCard">
+      <h2>Let's have a short conversation</h2>
+      <p>The first review is always free — let's see together whether this genuinely helps your business. Fill in the form and I'll get back to you within one business day.</p>
+    </div>
+    <div class="formCard">
+      <form class="contactForm" id="contactForm" action="https://formspree.io/f/mkodyrzb" method="POST">
+        <input type="hidden" name="_subject" value="Free consultation request from the website">
+        <div class="formRow">
+          <label>Full name
+            <input type="text" name="name" required placeholder="Your name">
+          </label>
+          <label>Business name
+            <input type="text" name="business" required placeholder="e.g. Bloom Hair Studio">
+          </label>
+        </div>
+        <div class="formRow">
+          <label>Email
+            <input type="email" name="email" required placeholder="you@example.com">
+          </label>
+          <label>Phone <span class="optTag">(optional)</span>
+            <input type="tel" name="phone" placeholder="+1 555 000 0000">
+          </label>
+        </div>
+        <label>Tell me a bit <span class="optTag">(optional)</span>
+          <textarea name="message" rows="3" placeholder="What are you struggling with most, what do you know about your customers..."></textarea>
+        </label>
+        <button type="submit" class="btnPrimary formSubmit">Request My Free Consultation →</button>
+        <p class="formNote" id="formNote" role="status"></p>
+      </form>
+      <div class="contactAlt">
+        <span>or write directly:</span>
+        <div class="contactActions">
+          <a class="btnGhost js-mail-link" href="#">nexidigital.00@gmail.com</a>
+          <a class="btnWhatsapp js-wa-link" href="#" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z" fill="#ffffff"/></svg>
+            Message on WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="siteFoot">
+    <span>© 2026 Nexi Digital — Sakarya, Turkey</span>
+    <span class="mono">nexidigital.00@gmail.com</span>
+  </footer>
+  <p style="font-size:0.76rem; color:var(--ink-soft); line-height:1.5; margin:-24px 0 24px;">This site does not automatically collect personal data; any information you share when contacting us is used only to respond to you.</p>
+
+</div>
+
+<a class="waFloat js-wa-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Message on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+</a>
+</div>
+
+<script>
+(function () {
+  var canvas = document.getElementById('netCanvas');
+  var ctx = canvas.getContext('2d');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var pts = [];
+  var W, H;
+
+  var dotColor, lineColor;
+
+  function getColor(varName) {
+    return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+  }
+
+  function updateColors() {
+    dotColor = getColor('--dot');
+    lineColor = getColor('--line');
+  }
+
+  function resize() {
+    var hero = canvas.parentElement.parentElement;
+    W = canvas.width = hero.offsetWidth * devicePixelRatio;
+    H = canvas.height = hero.offsetHeight * devicePixelRatio;
+    canvas.style.width = hero.offsetWidth + 'px';
+    canvas.style.height = hero.offsetHeight + 'px';
+    var count = Math.min(46, Math.floor((hero.offsetWidth * hero.offsetHeight) / 26000));
+    pts = [];
+    for (var i = 0; i < count; i++) {
+      pts.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.25 * devicePixelRatio,
+        vy: (Math.random() - 0.5) * 0.25 * devicePixelRatio,
+      });
+    }
+  }
+
+  function step() {
+    ctx.clearRect(0, 0, W, H);
+    var maxDist = 150 * devicePixelRatio;
+
+    for (var i = 0; i < pts.length; i++) {
+      var p = pts[i];
+      if (!reduceMotion) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > W) p.vx *= -1;
+        if (p.y < 0 || p.y > H) p.vy *= -1;
+      }
+      for (var j = i + 1; j < pts.length; j++) {
+        var q = pts[j];
+        var dx = p.x - q.x, dy = p.y - q.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < maxDist) {
+          ctx.strokeStyle = lineColor;
+          ctx.globalAlpha = 1 - dist / maxDist;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(q.x, q.y);
+          ctx.stroke();
+        }
+      }
+    }
+    ctx.globalAlpha = 1;
+    for (var k = 0; k < pts.length; k++) {
+      ctx.fillStyle = dotColor;
+      ctx.beginPath();
+      ctx.arc(pts[k].x, pts[k].y, 2 * devicePixelRatio, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    if (!reduceMotion) requestAnimationFrame(step);
+  }
+
+  window.addEventListener('resize', resize);
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateColors);
+  new MutationObserver(updateColors).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  updateColors();
+  resize();
+  step();
+})();
+
+(function () {
+  var CONTACT = {
+    email: 'nexidigital.00@gmail.com',
+    defaultSubject: 'Free Consultation Request',
+    body: "Hello,\n\nMy business: \nWhat I need: \n\n(A short note is enough, we can cover details on the call.)",
+    whatsappNumber: '905358758848',
+    whatsappText: "Hello, I'd like to learn more about Nexi Digital."
+  };
+
+  function mailtoHref(subject) {
+    return 'mailto:' + CONTACT.email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(CONTACT.body);
+  }
+  function waHref() {
+    return 'https://wa.me/' + CONTACT.whatsappNumber + '?text=' + encodeURIComponent(CONTACT.whatsappText);
+  }
+
+  document.querySelectorAll('.js-mail-link').forEach(function (a) {
+    a.href = mailtoHref(a.dataset.subject || CONTACT.defaultSubject);
+  });
+  document.querySelectorAll('.js-wa-link').forEach(function (a) {
+    a.href = waHref();
+  });
+
+  var toggleBtn = document.getElementById('navToggleBtn');
+  var navLinks = document.getElementById('navLinks');
+  if (toggleBtn && navLinks) {
+    toggleBtn.addEventListener('click', function () {
+      var open = navLinks.classList.toggle('open');
+      toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    navLinks.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        navLinks.classList.remove('open');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  var contactForm = document.getElementById('contactForm');
+  var formNote = document.getElementById('formNote');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = contactForm.querySelector('.formSubmit');
+      btn.disabled = true;
+      formNote.textContent = 'Sending...';
+      formNote.className = 'formNote';
+      fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: { 'Accept': 'application/json' },
+      }).then(function (res) {
+        if (res.ok) {
+          formNote.textContent = 'Thanks! I\'ll get back to you shortly.';
+          formNote.className = 'formNote ok';
+          contactForm.reset();
+        } else {
+          throw new Error('submit failed');
+        }
+      }).catch(function () {
+        formNote.textContent = 'Something went wrong — feel free to email me directly at ' + CONTACT.email + '.';
+        formNote.className = 'formNote err';
+      }).finally(function () {
+        btn.disabled = false;
+      });
+    });
+  }
+})();
+</script>

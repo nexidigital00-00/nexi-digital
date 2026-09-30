@@ -1,0 +1,308 @@
+import json, re, sys, pathlib
+
+HERE = pathlib.Path(__file__).parent
+SITE = HERE.parent
+tpl = (HERE / "template.html").read_text(encoding="utf-8")
+
+
+def logo(uid):
+    return (
+        f'<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="nxg-{uid}" x1="0" y1="0" x2="1" y2="1">'
+        '<stop offset=".2" stop-color="#4A67FF"/><stop offset=".8" stop-color="#FF7A3D"/></linearGradient></defs>'
+        '<path class="mk-line" d="M24 20v60M24 20l52 60M76 20v60"/>'
+        '<circle class="mk-node mk-c" cx="24" cy="20" r="10"/><circle class="mk-node mk-c" cx="24" cy="80" r="10"/>'
+        '<circle class="mk-node mk-t" cx="76" cy="20" r="10"/><circle class="mk-node mk-t" cx="76" cy="80" r="10"/>'
+        f'<circle class="mk-node" cx="50" cy="50" r="12.5" fill="url(#nxg-{uid})"/></svg>'
+    )
+
+
+TR = {
+    "lang": "tr", "selfFile": "", "ogLocale": "tr_TR",
+    "title": "Nexi Digital | Bağımsız işletmeler için veri destekli pazarlama",
+    "metaDesc": "Müşteri kayıtlarını segmentlere ayırıyor, her gruba uygun e-posta, SMS ve WhatsApp mesajını yazıyorum. İlk analiz ücretsiz. Sakarya.",
+    "ogTitle": "Nexi Digital: Müşterini gerçekten tanıyan bir pazarlama ortağı",
+    "skip": "İçeriğe geç", "homeHref": "./", "homeLabel": "Nexi Digital ana sayfa", "navLabel": "Ana menü",
+    "navServices": "Hizmetler", "navProcess": "Süreç", "navCase": "Örnek çalışma", "navPackages": "Paketler",
+    "navAbout": "Hakkımda", "navContact": "İletişim", "navCta": "Ön görüşme",
+    "altHref": "en.html", "altLang": "en", "altLabel": "English version", "altShort": "EN",
+    "menuOpen": "Menüyü aç",
+    "heroTitle": "Müşterini gerçekten tanıyan bir pazarlama ortağı.",
+    "heroLede": "Kayıtlarından kimin seni unutmak üzere olduğunu buluyor, her birine uygun e-posta, SMS ya da WhatsApp mesajını yazıyorum.",
+    "cta": "Ön görüşme iste",
+    "sublyMark": "Nexi Digital ürünü",
+    "sublyTitle": "Subly: videolarına watermark'sız altyazı",
+    "sublyLede": "TikTok, Reels ve Shorts içerik üreticileri için geliştirdiğim kendi ürünüm. Videonu yükle, dilini seç, altyazılı halini indir.",
+    "f1t": "14 dile çeviri", "f1p": "Altyazıyı videonun kendi dilinde bırak ya da 14 dilden birine çevir.",
+    "f2t": "Watermark yok", "f2p": "Ücretsiz planda bile videonun üstünde logo çıkmaz.",
+    "f3t": "Ücretsiz başla", "f3p": "Ayda 3 video, video başına 3 dakikaya kadar. Google hesabınla giriş yapman yeterli.",
+    "f4t": "Videon saklanmaz", "f4p": "İşlem bitince videon sunucudan silinir.",
+    "sublyCta": "Subly'yi ücretsiz dene", "sublySoon": "Ücretli planlar yakında.",
+    "sublyAltDesk": "Subly ana sayfası: videona watermark'sız altyazı ekleme ekranı",
+    "sublyAltPhone": "Subly'nin telefondaki görünümü",
+    "heroCta": "Ücretsiz ön görüşme iste", "heroCta2": "Örnek çalışmayı incele",
+    "fact1": "İlk analiz ücretsiz", "fact2": "Bir iş günü içinde dönüş", "fact3": "Veri yalnızca senin işin için",
+    "vizTitle": "Örnek analiz: Papatya Kuaför", "vizCount": "28 müşteri",
+    "vizAria": "Örnek bir kuaförün 28 müşterisinin üç segmente ayrılışını gösteren ağ: 12 geri kazanılacak, 7 sadık, 9 yeni müşteri.",
+    "segGroup": "Segment seç", "segKayip": "Geri kazanılacak", "segSadik": "Sadık", "segYeni": "Yeni",
+    "msgToKayip": "Ayşe Kaya'ya, son ziyaret 94 gün önce",
+    "msgKayip": "Ayşe Hanım, sizi 3 aydır göremedik. Bu ay saç bakımında size özel %15 indirim var; randevu için bu mesajı yanıtlamanız yeterli.",
+    "servicesTitle": "Dört başlıkta, işine gerçek katkı",
+    "servicesLede": "Hazır şablon yok. Önce senin verini anlıyorum, sonra ona göre kuruyorum.",
+    "s1t": "Müşteri segmentasyonu", "s1p": "Kim sık geliyor, kim kaybolmak üzere, kim yeni: hepsini mevcut kayıtlarından çıkarıyorum.",
+    "s2t": "E-posta ve SMS kampanyası", "s2p": "Her segmente özel metin ve gönderim planı. Herkese aynı mesaj değil, o gruba yazılmış mesaj.",
+    "s3t": "Web sitesi kurulumu", "s3p": "Randevu formu, galeri, hatta ödeme alma dahil, sıfırdan profesyonel bir site.",
+    "s4t": "Yapay zeka destekli otomasyon", "s4p": "Chatbot, otomatik hatırlatma gibi tekrar eden işleri senin yerine yapay zekaya bırakıyoruz.",
+    "processTitle": "Nasıl çalışıyorum",
+    "processLede": "Senin tek yapman gereken ilk görüşmede işini anlatmak. Gerisini adım adım ben yürütüyorum.",
+    "p1t": "Ön görüşme", "p1p": "İşini ve elindeki müşteri kayıtlarını konuşuyoruz. Excel, randevu uygulaması ya da başka bir liste, fark etmez.",
+    "free": "Ücretsiz",
+    "p2t": "Analiz", "p2p": "Kayıtlarını son ziyaret, sıklık ve harcamaya göre segmentlere ayırıyorum.",
+    "p3t": "Mesajlar", "p3p": "Her segment için e-posta, SMS ya da WhatsApp metnini ve gönderim sırasını yazıyorum.",
+    "p4t": "Takip", "p4p": "Kimin geri geldiğini birlikte izliyoruz. Sonuçlar WhatsApp ya da e-postayla önüne geliyor.",
+    "caseTitle": "1.000 müşterilik örnek veri, 6 segmente ayrıldı",
+    "caseLede": "Bir güzellik salonu için kurguladığım bu analizde müşteriler son ziyaret, sıklık ve harcamaya göre gruplandı. Her grup için ayrı bir mesaj ve kampanya sırası çıkarıldı. Aynı analizi senin gerçek kayıtlarınla ilk görüşmede ücretsiz yaparım.",
+    "caseLink": "Analiz panelini aç", "newTab": "(yeni sekmede açılır)",
+    "st1n": "%25", "st1l": "gelirin en sadık %11'lik müşteriden geldiği",
+    "st2l": "anlamlı müşteri segmenti", "st3n": "5.388", "st3l": "işlem analiz edildi", "st4l": "hizmet türü karşılaştırıldı",
+    "packTitle": "İşletmenin büyüklüğüne göre kapsam",
+    "packLede": "Fiyat, ilk görüşmede işletmenin ölçeğine ve ihtiyacına göre netleşir. Burada her pakete neyin dahil olduğunu görebilirsin.",
+    "k1tier": "Başlangıç", "k1t": "Tek kanaldan başla", "k1for": "İlk kampanyasını atacak, yeni başlayan işletmeler için.",
+    "k1a": "Müşteri segmentasyonu", "k1b": "Tek kanal kampanya (e-posta veya WhatsApp)", "k1c": "Kurulum desteği",
+    "k1subj": "Başlangıç Paketi Hakkında Bilgi",
+    "k2tier": "Büyüme", "k2badge": "Çok kanallı", "k2t": "Çok kanallı, düzenli takip",
+    "k2for": "Birden fazla kanaldan müşteriye ulaşmak isteyen, aktif büyüyen işletmeler için.",
+    "k2a": "Segmentasyon ve çok kanallı kampanya (e-posta, SMS, WhatsApp)", "k2b": "Web sitesi güncellemeleri", "k2c": "Aylık sonuç takibi",
+    "k2subj": "Büyüme Paketi Hakkında Bilgi",
+    "k3tier": "Kurumsal", "k3t": "Şube ve veri ölçeği büyüdükçe", "k3for": "Birden fazla şubesi olan ya da büyük veri hacmiyle çalışan işletmeler için.",
+    "k3a": "Özel entegrasyon", "k3b": "Otomasyon (chatbot vb.)", "k3c": "Öncelikli destek",
+    "k3subj": "Kurumsal Paket Hakkında Bilgi",
+    "quote": "Teklif iste",
+    "packNote": "Hangi paketin uygun olduğuna karar veremiyorsan, ücretsiz ön görüşmede birlikte netleştiririz.",
+    "aboutTitle": "Doğru soruyu sormayı biliyorum.",
+    "photoAlt": "Pınar, Nexi Digital kurucusu", "personRole": "Nexi Digital kurucusu, Sakarya",
+    "aboutP": "Sakarya'da yaşıyorum. Bağımsız işletmelerin müşteri verisini, yapay zeka araçlarını kullanarak gerçek pazarlama sonuçlarına çeviriyorum.",
+    "objQ": "\"Bunu yapay zeka ile mi yapıyorsun? O zaman gerçek bir uzmanlık mı bu, yoksa herkesin beş dakikada yapabileceği bir şey mi?\"",
+    "objA": "<strong>Gerçek bir uzmanlık.</strong> Aracı sadece açmıyorum. Verinde hangi sorunun saklı olduğunu bulmak, doğru soruyu sormak ve bulguyu doğru müşteriye doğru mesajla ulaştırmak deneyim ister. Bunu iddia etmiyorum, <a class=\"inlineLink\" href=\"#ornek\">1.000 müşterilik örnek çalışmada</a> gösteriyorum.",
+    "faqTitle": "Muhtemelen bunları soracaktın",
+    "faqLede": "Aklına takılan başka bir şey varsa WhatsApp'tan yazman yeterli.",
+    "q1": "Teknolojiden hiç anlamıyorum, benim de bir şeyler öğrenmem gerekecek mi?",
+    "a1": "Hayır. Sen bana işini anlatıyorsun, kurulumu ve takibi ben yapıyorum. Bir panele girip bir şey öğrenmen gerekmiyor; sonuçlar WhatsApp ya da e-posta ile önüne geliyor.",
+    "q2": "Müşteri verimi paylaşmak beni tedirgin ediyor, güvenli mi?",
+    "a2": "Haklısın, olmalı da. Verin sadece senin işin için kullanılır, üçüncü kişiyle paylaşılmaz. Nasıl saklandığını ve ne zaman sileceğimizi ilk görüşmede birlikte netleştiriyoruz.",
+    "q3": "Küçük bir salonum, az müşterim var. Yine de değer mi?",
+    "a3": "Genelde en çok orada işe yarıyor. Küçük bir listede bile \"geri gelmesi gereken ama unutulmuş\" birkaç müşteri bulmak tek başına karşılığını çıkarır.",
+    "q4": "Neden sitede bir fiyat göremiyorum?",
+    "a4": "Çünkü 10 müşterilik bir salonla 500 müşterilik bir zincirin ihtiyacı aynı olmamalı. İlk görüşmede işine bakıp net bir teklif çıkarıyorum, sürpriz yok.",
+    "contactTitle": "Kısa bir görüşme yapalım",
+    "contactLede": "İlk değerlendirme her zaman ücretsiz. İşine gerçekten katkı sağlayıp sağlamayacağımızı birlikte görelim.",
+    "cl1": "En geç bir iş günü içinde dönüş", "cl2": "Görüşme sonunda net bir teklif",
+    "waBtn": "WhatsApp'tan yaz",
+    "formSubject": "Web sitesinden ücretsiz ön görüşme talebi",
+    "fName": "Ad soyad", "fNamePh": "Adın soyadın", "fBiz": "İşletme adı", "fBizPh": "Örn. Papatya Kuaför",
+    "fEmail": "E-posta", "fEmailPh": "sen@ornek.com", "fPhone": "Telefon", "fPhonePh": "05xx xxx xx xx",
+    "optional": "(isteğe bağlı)", "fMsg": "Kısaca anlat", "fMsgPh": "En çok neyle uğraşıyorsun, müşterilerin hakkında ne biliyorsun?",
+    "fSubmit": "Ön görüşme iste",
+    "footNav": "Alt menü", "copyright": "© 2026 Nexi Digital, Sakarya",
+    "privacy": "Bu site kişisel verilerinizi otomatik olarak toplamaz. İletişime geçtiğinizde paylaştığınız bilgiler yalnızca size dönüş yapmak için kullanılır.",
+}
+
+TR.update({
+    "navWork": "İşler", "navWhat": "Ne yapıyorum", "navFaq": "SSS",
+    "h1": "Unutulan müşterilerini geri getiriyorum.",
+    "heroLede": "Ben Pınar. Kayıtlarından kimin seni unutmak üzere olduğunu buluyor, her birine uygun e-posta, SMS ya da WhatsApp mesajını yazıyorum. <strong>İlk analiz ücretsiz.</strong>",
+    "tickerLabel": "Yaptığım işler",
+    "ticker": ["Müşteri segmentasyonu", "Geri kazanım mesajları", "WhatsApp kampanyaları", "SMS hatırlatmaları",
+               "E-posta serileri", "Web sitesi kurulumu", "Yapay zeka otomasyonu", "Subly"],
+    "heroCta2": "Yaptıklarıma bak",
+    "workTitle": "Yaptıklarım",
+    "w1kind": "Kendi ürünüm, yayında", "w1t": "Subly",
+    "w1p": "TikTok, Reels ve Shorts içerik üreticileri için watermark'sız altyazı aracı. Fikirden canlı ürüne kadar kendim geliştirdim.",
+    "w1f1": "dile altyazı çevirisi", "w1f2": "watermark, ücretsiz planda bile", "w1f3": "ücretsiz video, her ay",
+    "w2kind": "Yöntem demosu, örnek veri", "w2t": "Bir kuaförün müşteri listesi, 6 segmente ayrıldı",
+    "w2p": "1.000 müşterilik örnek veriyi son ziyaret, sıklık ve harcamaya göre grupladım, her gruba ayrı mesaj yazdım. En üstteki canlı ağ bunun 28 müşterilik küçük bir kesiti: bir segmente dokun, gidecek mesajı gör.",
+    "vizTitle": "Örnek: Papatya Kuaför", "caseLink": "Analiz panelinin tamamını aç",
+    "whatTitle": "Ne yapıyorum",
+    "whatBig": "Müşteri kayıtlarını okuyup kimin sadık, kimin kaybolmak üzere, kimin yeni olduğunu çıkarıyorum. Sonra her gruba <strong>e-posta, SMS ya da WhatsApp</strong> mesajını yazıyor, gerekirse <strong>web siteni</strong> kuruyor, tekrar eden işleri <strong>yapay zekaya</strong> devrediyorum.",
+    "fitTitle": "Birlikte çalışmamız ne zaman mantıklı?",
+    "fitYesT": "Sana uygun, eğer", "fitNoT": "Sana uygun değil, eğer",
+    "y1": "Müşterilerin tekrar geliyorsa: kuaför, güzellik salonu, klinik, kafe gibi.",
+    "y2": "Elinde bir müşteri listesi var ama onunla bir şey yapmıyorsan.",
+    "y3": "Kampanya yazmaya da takip etmeye de vaktin yoksa.",
+    "n1": "Sosyal medya takipçisi ya da reklam yönetimi arıyorsan.",
+    "n2": "Tek seferlik, herkese aynı bir duyuru atıp bitirmek istiyorsan.",
+    "n3": "Kampanyanın ne işe yaradığını takip etmek istemiyorsan.",
+    "objQ": "Bunu yapay zeka ile mi yapıyorsun? O zaman gerçek bir uzmanlık mı bu?",
+})
+
+TR_JS = {
+    "mailBody": "Merhaba,\n\nİşletmemin adı: \nİhtiyacım olan şey: \n\n(Kısa bilgi yeterli, detayları görüşmede konuşabiliriz.)",
+    "waText": "Merhaba, Nexi Digital hakkında bilgi almak istiyorum.",
+    "menuOpen": "Menüyü aç", "menuClose": "Menüyü kapat",
+    "sending": "Gönderiliyor", "submit": TR["cta"],
+    "sent": "Talebin ulaştı. En geç bir iş günü içinde sana dönüş yapacağım.",
+    "failed": "Form gönderilemedi. Bağlantını kontrol edip tekrar dene ya da nexidigital.00@gmail.com adresine doğrudan yaz.",
+    "segs": {
+        "kayip": {"name": "Geri kazanılacak", "count": "12 müşteri", "ch": "SMS", "to": TR["msgToKayip"], "msg": TR["msgKayip"]},
+        "sadik": {"name": "Sadık", "count": "7 müşteri", "ch": "WhatsApp", "to": "Merve Tunç'a, 14. ziyaret",
+                  "msg": "Merve Hanım, 14. ziyaretiniz için teşekkür ederiz! Yeni sezon renklerini sadık müşterilerimize herkesten önce deniyoruz. Bu hafta uğramak ister misiniz?"},
+        "yeni": {"name": "Yeni", "count": "9 müşteri", "ch": "E-posta", "to": "Elif Şahin'e, ilk ziyaret 3 gün önce",
+                 "msg": "Elif Hanım, Papatya Kuaför'e hoş geldiniz. İkinci ziyaretinizde fön bizden. Sizi yeniden görmek isteriz!"},
+    },
+}
+
+EN = {
+    "lang": "en", "selfFile": "en.html", "ogLocale": "en_US",
+    "title": "Nexi Digital | Data-driven marketing for independent businesses",
+    "metaDesc": "I split your customer records into segments and write the right email, SMS and WhatsApp message for each group. The first analysis is free.",
+    "ogTitle": "Nexi Digital: A marketing partner that actually knows your customers",
+    "skip": "Skip to content", "homeHref": "en.html", "homeLabel": "Nexi Digital home", "navLabel": "Main menu",
+    "navServices": "Services", "navProcess": "Process", "navCase": "Case study", "navPackages": "Packages",
+    "navAbout": "About", "navContact": "Contact", "navCta": "Free consultation",
+    "altHref": "./", "altLang": "tr", "altLabel": "Türkçe sürüm", "altShort": "TR",
+    "menuOpen": "Open menu",
+    "heroTitle": "A marketing partner that actually knows your customers.",
+    "heroLede": "I find which customers are drifting away, then write the email, SMS or WhatsApp message that brings each one back.",
+    "cta": "Book a free call",
+    "sublyMark": "A Nexi Digital product",
+    "sublyTitle": "Subly: captions for your videos, no watermark",
+    "sublyLede": "My own product for TikTok, Reels and Shorts creators. Upload a video, pick a language, download it captioned.",
+    "f1t": "14 languages", "f1p": "Keep captions in the video's language or translate them into one of 14 languages.",
+    "f2t": "No watermark", "f2p": "Not even on the free plan.",
+    "f3t": "Free to start", "f3p": "3 videos a month, up to 3 minutes each. Sign in with your Google account.",
+    "f4t": "Your video isn't kept", "f4p": "Videos are deleted from the server once processing is done.",
+    "sublyCta": "Try Subly free", "sublySoon": "Paid plans coming soon.",
+    "sublyAltDesk": "Subly home page: the screen for adding watermark-free captions to a video",
+    "sublyAltPhone": "Subly on a phone",
+    "heroCta": "Request a free consultation", "heroCta2": "See the case study",
+    "fact1": "First analysis is free", "fact2": "Reply within one business day", "fact3": "Your data is used only for you",
+    "vizTitle": "Sample analysis: Papatya Salon", "vizCount": "28 customers",
+    "vizAria": "Network showing a sample salon's 28 customers split into three segments: 12 to win back, 7 loyal, 9 new.",
+    "segGroup": "Choose a segment", "segKayip": "Win back", "segSadik": "Loyal", "segYeni": "New",
+    "msgToKayip": "To Ayşe Kaya, last visit 94 days ago",
+    "msgKayip": "Hi Ayşe, we haven't seen you in 3 months. This month there's 15% off hair care just for you. Reply to this message to book.",
+    "servicesTitle": "Four ways I add real value",
+    "servicesLede": "No templates. I understand your data first, then build around it.",
+    "s1t": "Customer segmentation", "s1p": "Who comes often, who's about to drift away, who's new: I pull it all from your existing records.",
+    "s2t": "Email and SMS campaigns", "s2p": "Custom copy and a send plan for each segment. Not one message for everyone, but one written for that group.",
+    "s3t": "Website setup", "s3p": "A professional site built from scratch, with a booking form, gallery and even payments.",
+    "s4t": "AI-powered automation", "s4p": "Chatbots, automatic reminders: repetitive tasks handed off to AI so you don't have to do them.",
+    "processTitle": "How I work",
+    "processLede": "All you do is tell me about your business on the first call. I take it from there, step by step.",
+    "p1t": "Consultation", "p1p": "We talk about your business and the customer records you have. Excel, a booking app or any other list works.",
+    "free": "Free",
+    "p2t": "Analysis", "p2p": "I split your records into segments by recency, frequency and spend.",
+    "p3t": "Messages", "p3p": "I write the email, SMS or WhatsApp copy for each segment, plus the order to send it in.",
+    "p4t": "Follow-up", "p4p": "We track who comes back together. Results land in your WhatsApp or inbox.",
+    "caseTitle": "1,000 sample customers, split into 6 segments",
+    "caseLede": "In this analysis I built for a beauty salon, customers were grouped by recency, frequency and spend, and each group got its own message and campaign order. I'll run the same analysis on your real records for free in our first call.",
+    "caseLink": "Open the analysis panel", "newTab": "(opens in a new tab)",
+    "st1n": "25%", "st1l": "of revenue comes from the most loyal 11%",
+    "st2l": "meaningful customer segments", "st3n": "5,388", "st3l": "transactions analyzed", "st4l": "service types compared",
+    "packTitle": "Scope that fits your size",
+    "packLede": "Pricing is set on the first call, based on your scale and needs. Here's what each package includes.",
+    "k1tier": "Starter", "k1t": "Start with one channel", "k1for": "For businesses sending their very first campaign.",
+    "k1a": "Customer segmentation", "k1b": "One-channel campaign (email or WhatsApp)", "k1c": "Setup support",
+    "k1subj": "About the Starter Package",
+    "k2tier": "Growth", "k2badge": "Multi-channel", "k2t": "Multi-channel, tracked monthly",
+    "k2for": "For growing businesses reaching customers across several channels.",
+    "k2a": "Segmentation and multi-channel campaigns (email, SMS, WhatsApp)", "k2b": "Website updates", "k2c": "Monthly results review",
+    "k2subj": "About the Growth Package",
+    "k3tier": "Enterprise", "k3t": "For more locations or more data", "k3for": "For businesses with several branches or a larger data volume.",
+    "k3a": "Custom integrations", "k3b": "Automation (chatbots, etc.)", "k3c": "Priority support",
+    "k3subj": "About the Enterprise Package",
+    "quote": "Get a quote",
+    "packNote": "Not sure which package fits? We'll figure it out together on the free consultation call.",
+    "aboutTitle": "I ask the right question.",
+    "photoAlt": "Pınar, founder of Nexi Digital", "personRole": "Founder of Nexi Digital, Sakarya, Turkey",
+    "aboutP": "I'm based in Sakarya, Turkey. I turn independent businesses' customer data into real marketing results, using AI tools.",
+    "objQ": "\"So you're doing this with AI? Is that real expertise, or something anyone could do in five minutes?\"",
+    "objA": "<strong>Real expertise.</strong> I'm not just opening a tool. Finding the question your data is hiding, asking it correctly, and getting the finding to the right customer with the right message takes experience. I'm not just claiming it; the <a class=\"inlineLink\" href=\"#ornek\">1,000-customer case study</a> shows it.",
+    "faqTitle": "You're probably wondering about these",
+    "faqLede": "Anything else on your mind? Just send a WhatsApp message.",
+    "q1": "I know nothing about technology. Will I need to learn something?",
+    "a1": "No. You tell me about your business, and I handle the setup and the tracking. There's no dashboard to learn; results land in your WhatsApp or inbox.",
+    "q2": "Sharing my customer data makes me uneasy. Is it safe?",
+    "a2": "It should make you careful. Your data is used only for your business and never shared with a third party. We agree on exactly how it's stored and when it's deleted on the first call.",
+    "q3": "I'm a small business with few customers. Is it still worth it?",
+    "a3": "That's usually where it pays off most. Even a small list almost always has a few customers who \"should have come back but were forgotten\", and finding them alone covers the cost.",
+    "q4": "Why can't I see a price on the site?",
+    "a4": "Because a 10-customer salon and a 500-customer chain shouldn't need the same thing. I look at your business on the first call and give you a clear quote, with no surprises.",
+    "contactTitle": "Let's have a short conversation",
+    "contactLede": "The first review is always free. Let's see together whether this genuinely helps your business.",
+    "cl1": "Reply within one business day", "cl2": "A clear quote at the end of the call",
+    "waBtn": "Message on WhatsApp",
+    "formSubject": "Free consultation request from the website (EN)",
+    "fName": "Full name", "fNamePh": "Your full name", "fBiz": "Business name", "fBizPh": "e.g. Papatya Salon",
+    "fEmail": "Email", "fEmailPh": "you@example.com", "fPhone": "Phone", "fPhonePh": "+90 5xx xxx xx xx",
+    "optional": "(optional)", "fMsg": "Tell me a bit", "fMsgPh": "What are you struggling with most, and what do you know about your customers?",
+    "fSubmit": "Request a consultation",
+    "footNav": "Footer menu", "copyright": "© 2026 Nexi Digital, Sakarya, Turkey",
+    "privacy": "This site does not automatically collect personal data. Any information you share when contacting us is used only to respond to you.",
+}
+
+EN.update({
+    "navWork": "Work", "navWhat": "What I do", "navFaq": "FAQ",
+    "h1": "I bring back the customers you've lost touch with.",
+    "heroLede": "I'm Pınar. I find which of your customers are drifting away, then write the email, SMS or WhatsApp message that brings each one back. <strong>The first analysis is free.</strong>",
+    "tickerLabel": "What I work on",
+    "ticker": ["Customer segmentation", "Win-back messages", "WhatsApp campaigns", "SMS reminders",
+               "Email sequences", "Website builds", "AI automation", "Subly"],
+    "heroCta2": "See my work",
+    "workTitle": "My work",
+    "w1kind": "My own product, live", "w1t": "Subly",
+    "w1p": "A watermark-free captioning tool for TikTok, Reels and Shorts creators. I took it from idea to live product myself.",
+    "w1f1": "caption languages", "w1f2": "watermarks, even on the free plan", "w1f3": "free videos every month",
+    "w2kind": "Method demo, sample data", "w2t": "A salon's customer list, split into 6 segments",
+    "w2p": "I grouped 1,000 sample customers by recency, frequency and spend, and wrote a separate message for each group. The live network at the top is a 28-customer slice of it: tap a segment to see its message.",
+    "vizTitle": "Sample: Papatya Salon", "caseLink": "Open the full analysis panel",
+    "whatTitle": "What I do",
+    "whatBig": "I read your customer records and work out who's loyal, who's drifting away and who's new. Then I write the <strong>email, SMS or WhatsApp</strong> message for each group, build your <strong>website</strong> if you need one, and hand repetitive work over to <strong>AI</strong>.",
+    "fitTitle": "When does working together make sense?",
+    "fitYesT": "A good fit if", "fitNoT": "Not a fit if",
+    "y1": "Your customers come back: salons, clinics, cafés and the like.",
+    "y2": "You have a customer list but aren't doing anything with it.",
+    "y3": "You don't have time to write campaigns or follow up on them.",
+    "n1": "You're looking for social media followers or ad management.",
+    "n2": "You want to send one bulk announcement to everyone and be done.",
+    "n3": "You'd rather not track what a campaign actually did.",
+    "objQ": "So you do this with AI? Is that real expertise?",
+})
+
+EN_JS = {
+    "mailBody": "Hello,\n\nMy business name: \nWhat I need: \n\n(A short note is enough, we can go into detail on the call.)",
+    "waText": "Hello, I'd like to learn more about Nexi Digital.",
+    "menuOpen": "Open menu", "menuClose": "Close menu",
+    "sending": "Sending", "submit": EN["cta"],
+    "sent": "Your request arrived. I'll get back to you within one business day.",
+    "failed": "The form couldn't be sent. Check your connection and try again, or write directly to nexidigital.00@gmail.com.",
+    "segs": {
+        "kayip": {"name": "Win back", "count": "12 customers", "ch": "SMS", "to": EN["msgToKayip"], "msg": EN["msgKayip"]},
+        "sadik": {"name": "Loyal", "count": "7 customers", "ch": "WhatsApp", "to": "To Merve Tunç, 14th visit",
+                  "msg": "Merve, thank you for your 14th visit! Our loyal customers get to try the new season's colours first. Would you like to drop by this week?"},
+        "yeni": {"name": "New", "count": "9 customers", "ch": "Email", "to": "To Elif Şahin, first visit 3 days ago",
+                 "msg": "Welcome to Papatya Salon, Elif. Your blow-dry is on us on your second visit. We'd love to see you again!"},
+    },
+}
+
+
+SEP = ('<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/>'
+       '<circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg>')
+
+
+def render(strings, js, out):
+    strings = dict(strings)
+    ticker = strings.pop("ticker")
+    html = tpl.replace("[[TICKER]]", "".join(f"<span>{t}</span>{SEP}" for t in ticker))
+    html = html.replace("[[LOGO:h]]", logo("h")).replace("[[LOGO:f]]", logo("f")).replace("[[LOGO:s]]", logo("s"))
+    html = html.replace("[[JS]]", json.dumps(js, ensure_ascii=False).replace("</", "<\\/"))
+    for k, v in strings.items():
+        html = html.replace(f"[[{k}]]", v)
+    left = re.findall(r"\[\[[^\]]+\]\]", html)
+    if left:
+        sys.exit(f"{out}: unfilled {sorted(set(left))}")
+    (SITE / out).write_text(html, encoding="utf-8")
+    print("wrote", out, len(html))
+
+
+render(TR, TR_JS, "index.html")
+render(EN, EN_JS, "en.html")

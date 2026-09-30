@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nexi Digital | Data-driven marketing for independent businesses</title>
-<meta name="description" content="I split your customer records into segments and write the right email, SMS and WhatsApp message for each group. The first analysis is free.">
+<title>Nexi Digital | YouTube automation, social media, websites and customer marketing</title>
+<meta name="description" content="I use AI agents to produce YouTube videos and social media content, design websites and apps for businesses, and run customer win-back campaigns. The first call is free.">
 <meta name="theme-color" content="#F5F6FA" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1024" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nexi Digital">
-<meta property="og:title" content="Nexi Digital: A marketing partner that actually knows your customers">
-<meta property="og:description" content="I split your customer records into segments and write the right email, SMS and WhatsApp message for each group. The first analysis is free.">
+<meta property="og:title" content="Nexi Digital: I grow your videos, your site and your customers with AI agents">
+<meta property="og:description" content="I use AI agents to produce YouTube videos and social media content, design websites and apps for businesses, and run customer win-back campaigns. The first call is free.">
 <meta property="og:url" content="https://nexidigitalai.com/en.html">
 <meta property="og:image" content="https://nexidigitalai.com/img/og-en.png">
 <meta property="og:image:width" content="1200">
@@ -79,7 +79,7 @@
 
   /* ---------- Base ---------- */
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+  html { scroll-behavior: smooth; scroll-padding-top: 84px; overflow-x: clip; }
   body {
     margin: 0; overflow-x: clip; background: var(--bg); color: var(--ink);
     font-family: var(--font); font-size: 1.0625rem; line-height: 1.6; -webkit-font-smoothing: antialiased;
@@ -155,7 +155,7 @@
   /* ---------- Hero: headline left, the live customer network right ---------- */
   .hero { position: relative; padding-top: 72px; }
   .heroGrid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 48px; align-items: center; }
-  .hero h1 { font-size: clamp(2.2rem, 3.9vw, 3.5rem); line-height: 1.06; letter-spacing: -0.035em; }
+  .hero h1 { font-size: clamp(2.1rem, 3.6vw, 3.2rem); line-height: 1.06; letter-spacing: -0.035em; }
   .hero h1 .w { display: inline-block; }
   .heroLede { color: var(--ink-soft); font-size: 1.18rem; max-width: 44ch; margin-top: 26px; }
   .heroLede strong { color: var(--ink); font-weight: 600; }
@@ -230,15 +230,25 @@
   .workHead { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 56px; align-items: end; margin-bottom: 44px; }
   .shots { position: relative; padding: 0 12% 7% 0; }
   .shots img { width: 100%; height: auto; }
-  .shotPhone { position: absolute; right: 0; bottom: 0; width: 23%; padding: 5px; border-radius: 30px; background: color-mix(in srgb, var(--ink) 6%, transparent); box-shadow: inset 0 0 0 1px var(--line), var(--shadow); }
+  .shotPhone { position: absolute; right: 0; bottom: 0; width: 23%; transform-origin: 100% 100%; padding: 5px; border-radius: 30px; background: color-mix(in srgb, var(--ink) 6%, transparent); box-shadow: inset 0 0 0 1px var(--line), var(--shadow); }
   .shotPhone img { border-radius: 25px; background: var(--scr-2); }
   .workFoot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; margin-top: 36px; }
   .facts { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 20px 48px; }
   .facts li { display: flex; align-items: baseline; gap: 10px; }
   .facts b { font-family: var(--display); font-size: 2rem; font-weight: 600; letter-spacing: -0.04em; line-height: 1; color: var(--blue-text); }
   .facts span { color: var(--ink-soft); font-size: 0.95rem; max-width: 18ch; line-height: 1.35; }
-  .workCase .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 28px; margin-bottom: 28px; }
-  .workCase .stat:nth-child(odd) { padding-right: 0; }
+  .ytName { display: flex; align-items: center; gap: 14px; }
+  .ytName img { width: 0.95em; height: 0.95em; border-radius: 50%; box-shadow: 0 0 0 3px var(--bg), 0 0 0 4px var(--line); }
+  .shorts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; align-items: start; }
+  .short { position: relative; display: block; padding: 5px; border-radius: 26px; background: color-mix(in srgb, var(--ink) 6%, transparent); box-shadow: inset 0 0 0 1px var(--line), var(--shadow); transition: transform 0.5s var(--spring), box-shadow 0.5s var(--ease); }
+  .short:nth-child(even) { margin-top: 44px; }
+  .short img { width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 21px; background: var(--scr-2); }
+  .short::after { content: ""; position: absolute; left: 50%; top: 50%; width: 48px; height: 48px; margin: -24px 0 0 -24px; border-radius: 50%; background: rgba(7, 11, 28, 0.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 7l8 5-8 5z' fill='%23fff'/%3E%3C/svg%3E") center / 22px no-repeat; opacity: 0; transform: scale(0.7); transition: opacity 0.3s var(--ease), transform 0.4s var(--spring); }
+  .short:hover { transform: translateY(-8px) rotate(-1.5deg); box-shadow: inset 0 0 0 1px var(--line), 0 30px 60px -28px rgba(46, 75, 240, 0.5); }
+  .short:hover::after { opacity: 1; transform: none; }
+  .workCase { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 64px; align-items: center; }
+  .caseBody { display: grid; gap: 18px; justify-items: start; }
+  .caseBody .stats { width: 100%; margin: 8px 0 4px; }
 
   /* ---------- What I do ---------- */
   .what { display: grid; grid-template-columns: minmax(0, 0.55fr) minmax(0, 1.45fr); gap: 32px 64px; margin-bottom: 72px; align-items: start; }
@@ -282,20 +292,196 @@
   .stat.c b { color: var(--tang-text); }
   .stat.t b { color: var(--blue-text); }
 
-  /* ---------- Packages ---------- */
-  .packages { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-  .pack { background: var(--surface); border-radius: 20px; box-shadow: var(--shadow); padding: 32px 28px; display: grid; grid-template-rows: auto auto auto 1fr auto; gap: 12px; transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease); }
-  .pack:hover { transform: translateY(-6px); box-shadow: 0 1px 2px rgba(15, 22, 51, 0.05), 0 30px 60px -28px rgba(46, 75, 240, 0.45); }
-  .pack.featured { box-shadow: var(--shadow), inset 0 0 0 1.5px var(--blue); }
-  .pack.featured:hover { box-shadow: 0 30px 60px -28px rgba(46, 75, 240, 0.5), inset 0 0 0 1.5px var(--blue); }
-  .packTier { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 0.93rem; font-weight: 600; color: var(--ink-soft); min-height: 26px; }
-  .packTier em { font-style: normal; font-size: 0.78rem; color: var(--blue-text); background: color-mix(in srgb, var(--blue) 11%, transparent); padding: 3px 10px; border-radius: 6px; }
-  .pack h3 { font-family: var(--display); font-size: 1.25rem; font-weight: 600; letter-spacing: -0.025em; }
-  .pack .for { color: var(--ink-soft); font-size: 0.97rem; min-height: 3.1em; }
-  .pack ul { list-style: none; margin: 10px 0 22px; padding: 0; align-self: start; }
-  .pack li { position: relative; padding: 11px 0 11px 28px; border-top: 1px solid var(--line); font-size: 0.97rem; }
-  .pack li::before { content: ""; position: absolute; left: 3px; top: 18px; width: 11px; height: 6px; border-left: 2px solid var(--blue); border-bottom: 2px solid var(--blue); transform: rotate(-45deg); }
-  .packNote { margin-top: 28px; color: var(--ink-soft); }
+
+
+  /* ---------- Scroll progress ---------- */
+  .progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: linear-gradient(90deg, var(--blue), var(--tang)); transform-origin: left; transform: scaleX(0); }
+
+  /* ---------- Hero stage: one screen, four live services ---------- */
+  .stage { position: relative; }
+  .stage .core { color: var(--scr-text); display: grid; grid-template-rows: auto 1fr auto; }
+  .stageTabs { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 6px; gap: 2px; border-bottom: 1px solid var(--scr-line); }
+  .stageTabs button {
+    position: relative; z-index: 1; min-height: 42px; padding: 0 8px; border: 0; border-radius: 999px; cursor: pointer; background: none;
+    font: inherit; font-size: 0.84rem; font-weight: 600; color: var(--scr-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    transition: color 0.3s var(--ease);
+  }
+  .stageTabs button:hover { color: var(--scr-text); }
+  .stageTabs button[aria-selected="true"] { color: #fff; }
+  .tabInk { position: absolute; top: 6px; bottom: 6px; left: 6px; width: calc((100% - 12px) / 4); border-radius: 999px; background: rgba(123, 147, 255, 0.22); box-shadow: inset 0 0 0 1px rgba(123, 147, 255, 0.5); transition: transform 0.55s var(--spring); }
+  .scenes { position: relative; height: 348px; overflow: hidden; }
+  .scene { position: absolute; inset: 0; padding: 22px; }
+  .scene[hidden] { display: none; }
+  .scene.on { animation: sceneIn 0.6s var(--ease) both; }
+  .stageFoot { display: flex; align-items: center; gap: 16px; padding: 14px 20px 16px; border-top: 1px solid var(--scr-line); }
+  .stageFoot p { flex: 1; font-size: 0.9rem; color: var(--scr-soft); line-height: 1.45; min-height: 2.9em; }
+  .timer { flex: none; width: 54px; height: 3px; border-radius: 3px; background: var(--scr-line); overflow: hidden; }
+  .timer i { display: block; height: 100%; background: var(--scr-text); transform-origin: left; transform: scaleX(0); }
+
+  /* Scene: YouTube pipeline */
+  .pipe { list-style: none; margin: 0 0 18px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .pipe li { font-size: 0.76rem; font-weight: 600; padding: 4px 10px; border-radius: 999px; color: var(--scr-soft); box-shadow: inset 0 0 0 1px var(--scr-line); }
+  .scene.on .pipe li { animation: pipeOn 0.5s var(--ease) both; }
+  .scene.on .pipe li:nth-child(2) { animation-delay: 0.55s; }
+  .scene.on .pipe li:nth-child(3) { animation-delay: 1.1s; }
+  .scene.on .pipe li:nth-child(4) { animation-delay: 1.65s; }
+  .scene.on .pipe li:nth-child(5) { animation-delay: 2.2s; }
+  .scene.on .pipe li:nth-child(6) { animation-delay: 2.75s; }
+  .ytFrame { position: relative; aspect-ratio: 16 / 9; max-height: 196px; width: 100%; border-radius: 12px; overflow: hidden; background: #070B1C; }
+  .ytImg { position: absolute; inset: 0; opacity: 0; }
+  .ytImg.a { background: radial-gradient(60% 80% at 30% 40%, #3B55F0, transparent 70%), radial-gradient(50% 60% at 80% 70%, #1B2A6B, transparent 70%), #0A0F24; }
+  .ytImg.b { background: radial-gradient(60% 80% at 70% 30%, #FF7A3D, transparent 70%), radial-gradient(50% 60% at 20% 80%, #5A2A1A, transparent 70%), #0A0F24; }
+  .ytImg.c { background: radial-gradient(55% 75% at 50% 45%, #FFC94D, transparent 65%), radial-gradient(50% 60% at 15% 20%, #2E4BF0, transparent 70%), #0A0F24; }
+  .scene.on .ytImg { animation: broll 4.5s linear infinite; }
+  .scene.on .ytImg.b { animation-delay: 1.5s; }
+  .scene.on .ytImg.c { animation-delay: 3s; }
+  .ytWave { position: absolute; left: 14px; bottom: 44px; display: flex; align-items: flex-end; gap: 3px; height: 28px; }
+  .ytWave i { width: 3px; height: 100%; border-radius: 3px; background: rgba(255, 255, 255, 0.85); transform-origin: bottom; transform: scaleY(0.3); }
+  .scene.on .ytWave i { animation: wave 0.9s ease-in-out infinite alternate; }
+  .ytCap { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); white-space: nowrap; font-family: var(--display); font-weight: 600; font-size: 0.8rem; color: #fff; background: rgba(7, 11, 28, 0.6); padding: 3px 9px; border-radius: 6px; }
+  .ytDur { position: absolute; right: 10px; top: 10px; font-size: 0.7rem; font-weight: 700; background: rgba(7, 11, 28, 0.75); padding: 2px 7px; border-radius: 5px; }
+  .ytMeta { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin-top: 14px; font-size: 0.86rem; }
+  .ytMeta b { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ytMeta span { flex: none; color: var(--scr-soft); }
+  .ytMeta em { font-style: normal; color: var(--scr-text); font-variant-numeric: tabular-nums; }
+  .ytBar { margin-top: 10px; height: 4px; border-radius: 4px; background: var(--scr-line); overflow: hidden; }
+  .ytBar i { display: block; height: 100%; background: linear-gradient(90deg, var(--blue-glow), var(--tang-glow)); transform-origin: left; }
+  .scene.on .ytBar i { animation: grow 5.6s var(--ease) both; }
+
+  /* Scene: social edit */
+  .soc { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 22px; height: 100%; align-items: center; }
+  .socPhone { position: relative; aspect-ratio: 9 / 16; border-radius: 18px; overflow: hidden; background: #070B1C; isolation: isolate; box-shadow: 0 0 0 4px rgba(236, 240, 255, 0.08); }
+  .socPhone .blob { position: absolute; width: 90%; aspect-ratio: 1; border-radius: 50%; filter: blur(22px); z-index: -1; }
+  .socPhone .b1 { background: #3B55F0; top: 5%; left: -20%; }
+  .socPhone .b2 { background: #FF7A3D; bottom: 10%; right: -30%; }
+  .scene.on .socPhone .b1 { animation: drift1 5s ease-in-out infinite alternate; }
+  .scene.on .socPhone .b2 { animation: drift2 6s ease-in-out infinite alternate; }
+  .socCut { position: absolute; inset: 0; background: #fff; opacity: 0; }
+  .scene.on .socCut { animation: flash 2.4s linear infinite 1s; }
+  .socCap { position: absolute; left: 8px; right: 8px; bottom: 22px; text-align: center; font-family: var(--display); font-weight: 600; font-size: 0.72rem; line-height: 1.35; color: #fff; }
+  .socCap span { padding: 0 3px; border-radius: 4px; }
+  .scene.on .socCap span { animation: karaoke 3.2s steps(1) infinite; }
+  .scene.on .socCap span:nth-child(2) { animation-delay: 0.4s; }
+  .scene.on .socCap span:nth-child(3) { animation-delay: 0.8s; }
+  .scene.on .socCap span:nth-child(4) { animation-delay: 1.2s; }
+  .scene.on .socCap span:nth-child(5) { animation-delay: 1.6s; }
+  .scene.on .socCap span:nth-child(6) { animation-delay: 2s; }
+  .socLabel { font-size: 0.78rem; color: var(--scr-soft); margin-bottom: 6px; }
+  .clip { display: flex; gap: 3px; height: 22px; margin-bottom: 14px; }
+  .clip i { border-radius: 5px; background: rgba(123, 147, 255, 0.55); }
+  .clip.raw i:nth-child(1) { flex: 3; } .clip.raw i:nth-child(2) { flex: 1.4; background: rgba(236, 240, 255, 0.14); }
+  .clip.raw i:nth-child(3) { flex: 2.4; } .clip.raw i:nth-child(4) { flex: 1.2; background: rgba(236, 240, 255, 0.14); } .clip.raw i:nth-child(5) { flex: 2; }
+  .clip.edit i { flex: 1; background: linear-gradient(90deg, var(--blue-glow), var(--tang-glow)); transform-origin: left; }
+  .scene.on .clip.raw i:nth-child(2), .scene.on .clip.raw i:nth-child(4) { animation: strike 0.5s var(--ease) both 0.6s; }
+  .scene.on .clip.edit i { animation: grow 0.6s var(--ease) both 1.1s; }
+  .scene.on .clip.edit i:nth-child(2) { animation-delay: 1.3s; }
+  .scene.on .clip.edit i:nth-child(3) { animation-delay: 1.5s; }
+  .checks { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 7px; font-size: 0.86rem; }
+  .checks li { display: flex; align-items: center; gap: 9px; }
+  .checks li::before { content: "\2713"; width: 20px; height: 20px; flex: none; border-radius: 50%; display: grid; place-items: center; font-size: 0.7rem; font-weight: 800; color: #0A0F24; background: var(--sun); }
+  .scene.on .checks li { animation: pop 0.45s var(--spring) both 1.8s; }
+  .scene.on .checks li:nth-child(2) { animation-delay: 2.1s; }
+  .scene.on .checks li:nth-child(3) { animation-delay: 2.4s; }
+  .scene.on .checks li:nth-child(4) { animation-delay: 2.7s; }
+
+  /* Scene: site build */
+  .browser { height: 100%; border-radius: 12px; overflow: hidden; background: #F5F6FA; color: #0F1633; display: grid; grid-template-rows: auto 1fr; }
+  .brBar { display: flex; align-items: center; gap: 6px; padding: 9px 12px; background: #E3E7F1; }
+  .brBar span { width: 9px; height: 9px; border-radius: 50%; background: #C3C9D8; }
+  .brBar em { margin-left: 10px; font-style: normal; font-size: 0.72rem; color: #4E5775; background: #fff; padding: 2px 12px; border-radius: 999px; }
+  .brBody { position: relative; padding: 14px 16px; display: grid; gap: 14px; align-content: start; }
+  .bNav { display: flex; align-items: center; gap: 8px; }
+  .bNav b { width: 18px; height: 18px; border-radius: 6px; background: linear-gradient(135deg, #4A67FF, #FF7A3D); }
+  .bNav i { width: 34px; height: 6px; border-radius: 6px; background: #DDE1EC; }
+  .bNav i:first-of-type { margin-left: auto; }
+  .bNav u { width: 50px; height: 16px; border-radius: 999px; background: #2E4BF0; }
+  .bHero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 14px; align-items: center; }
+  .bText { display: grid; gap: 7px; justify-items: start; }
+  .bH { font-family: var(--display); font-weight: 600; font-size: 0.92rem; line-height: 1.15; letter-spacing: -0.02em; }
+  .bText i { width: 100%; height: 6px; border-radius: 6px; background: #DDE1EC; }
+  .bText i.s { width: 70%; }
+  .bBtn { margin-top: 4px; font-size: 0.66rem; font-weight: 700; color: #fff; background: #2E4BF0; padding: 5px 11px; border-radius: 999px; }
+  .bImg { aspect-ratio: 4 / 3; border-radius: 10px; background: radial-gradient(60% 70% at 30% 30%, #7B93FF, transparent 70%), radial-gradient(60% 70% at 80% 80%, #FF8A4C, transparent 70%), #111936; }
+  .bCards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .bCards i { height: 44px; border-radius: 9px; background: #fff; box-shadow: 0 6px 16px -10px rgba(15, 22, 51, 0.4), inset 0 0 0 1px #E3E7F1; }
+  .scene.on .bNav, .scene.on .bText > *, .scene.on .bImg, .scene.on .bCards i { animation: build 0.6s var(--spring) both; }
+  .scene.on .bText > :nth-child(1) { animation-delay: 0.3s; }
+  .scene.on .bText > :nth-child(2) { animation-delay: 0.45s; }
+  .scene.on .bText > :nth-child(3) { animation-delay: 0.6s; }
+  .scene.on .bText > :nth-child(4) { animation-delay: 0.75s; }
+  .scene.on .bImg { animation-delay: 0.9s; }
+  .scene.on .bCards i:nth-child(1) { animation-delay: 1.15s; }
+  .scene.on .bCards i:nth-child(2) { animation-delay: 1.3s; }
+  .scene.on .bCards i:nth-child(3) { animation-delay: 1.45s; }
+  .cursor { position: absolute; width: 20px; height: 20px; left: 70%; top: 85%; opacity: 0; }
+  .scene.on .cursor { animation: cursorMove 2.2s var(--ease) both 1.7s; }
+  .ripple { position: absolute; left: 16px; top: 134px; width: 60px; height: 60px; margin: -18px 0 0 6px; border-radius: 50%; border: 2px solid #2E4BF0; opacity: 0; }
+  .scene.on .ripple { animation: ripple 0.7s ease-out both 3.5s; }
+  .toast { position: absolute; right: 14px; bottom: 12px; font-size: 0.74rem; font-weight: 700; color: #0F1633; background: var(--sun); padding: 6px 12px; border-radius: 999px; opacity: 0; }
+  .scene.on .toast { animation: pop 0.5s var(--spring) both 3.8s; }
+
+  /* Scene: customer sort */
+  .crm { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .crm li { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr) auto auto; gap: 10px; align-items: center; padding: 11px 14px; border-radius: 12px; background: rgba(236, 240, 255, 0.05); font-size: 0.86rem; }
+  .crm b { font-weight: 600; white-space: nowrap; }
+  .crm span { color: var(--scr-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .crm em { font-style: normal; font-size: 0.74rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; color: #0A0F24; }
+  .crm em.k { background: var(--tang-glow); }
+  .crm em.s { background: var(--blue-glow); }
+  .crm em.y { background: var(--sun); }
+  .crm s { text-decoration: none; font-size: 0.74rem; color: var(--scr-soft); min-width: 74px; text-align: right; }
+  .crm s::after { content: " \2713"; color: #3BD671; font-weight: 800; }
+  .scene.on .crm li { animation: slideIn 0.5s var(--ease) both; }
+  .scene.on .crm em { animation: pop 0.45s var(--spring) both; }
+  .scene.on .crm s { animation: fadeIn 0.4s ease both; }
+  .scene.on .crm li:nth-child(1) em { animation-delay: 0.9s; } .scene.on .crm li:nth-child(1) s { animation-delay: 2.3s; }
+  .scene.on .crm li:nth-child(2) { animation-delay: 0.12s; } .scene.on .crm li:nth-child(2) em { animation-delay: 1.15s; } .scene.on .crm li:nth-child(2) s { animation-delay: 2.5s; }
+  .scene.on .crm li:nth-child(3) { animation-delay: 0.24s; } .scene.on .crm li:nth-child(3) em { animation-delay: 1.4s; } .scene.on .crm li:nth-child(3) s { animation-delay: 2.7s; }
+  .scene.on .crm li:nth-child(4) { animation-delay: 0.36s; } .scene.on .crm li:nth-child(4) em { animation-delay: 1.65s; } .scene.on .crm li:nth-child(4) s { animation-delay: 2.9s; }
+  .scene.on .crm li:nth-child(5) { animation-delay: 0.48s; } .scene.on .crm li:nth-child(5) em { animation-delay: 1.9s; } .scene.on .crm li:nth-child(5) s { animation-delay: 3.1s; }
+
+  /* ---------- Services bento ---------- */
+  .bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; }
+  .svc {
+    --accent: var(--blue); position: relative; overflow: hidden; isolation: isolate;
+    grid-column: span 6; display: grid; gap: 16px; align-content: start; padding: 34px 32px 30px; border-radius: 24px;
+    background: var(--surface); box-shadow: var(--shadow), inset 0 0 0 1px var(--line);
+    transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+  }
+  .svc-video { grid-column: span 7; }
+  .svc-social { grid-column: span 5; --accent: var(--tang); }
+  .svc-site { grid-column: span 5; --accent: var(--tang); }
+  .svc-crm { grid-column: span 7; }
+  .svc::before {
+    content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0; transition: opacity 0.4s var(--ease);
+    background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
+  }
+  .svc:hover { transform: translateY(-4px); box-shadow: 0 30px 60px -30px color-mix(in srgb, var(--accent) 55%, transparent), inset 0 0 0 1px color-mix(in srgb, var(--accent) 45%, var(--line)); }
+  .svc:hover::before { opacity: 1; }
+  .svcTop { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 10px 20px; }
+  .svc h3 { font-family: var(--display); font-size: clamp(1.35rem, 2.2vw, 1.75rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.15; }
+  .svc .for { display: flex; gap: 6px; font-size: 0.8rem; font-weight: 600; color: var(--ink-soft); }
+  .forTag { padding: 3px 10px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); }
+  .svcText { color: var(--ink-soft); font-size: 1.02rem; max-width: 52ch; }
+  .svc ul { list-style: none; margin: 0; padding: 0; }
+  .svc li { position: relative; padding: 10px 0 10px 26px; border-top: 1px solid var(--line); font-size: 0.97rem; }
+  .svc li::before { content: ""; position: absolute; left: 3px; top: 17px; width: 10px; height: 6px; border-left: 2px solid var(--accent); border-bottom: 2px solid var(--accent); transform: rotate(-45deg); }
+  .svc .textLink { justify-self: start; }
+
+  /* ---------- Service picker in the form ---------- */
+  .pick { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .pick legend { font-size: 0.92rem; font-weight: 600; margin-bottom: 10px; padding: 0; }
+  .pick label { cursor: pointer; }
+  .pick input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .pick span {
+    display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 15px; border-radius: 999px; font-size: 0.9rem; font-weight: 600;
+    box-shadow: inset 0 0 0 1px var(--line); color: var(--ink-soft); background: var(--bg);
+    transition: background-color 0.3s var(--ease), color 0.3s var(--ease), box-shadow 0.3s var(--ease), transform 0.4s var(--spring);
+  }
+  .pick label:hover span { color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink-soft); }
+  .pick input:checked + span { background: var(--blue); color: #fff; box-shadow: none; transform: scale(1.03); }
+  .pick input:checked + span::before { content: "\2713"; font-weight: 800; }
+  .pick input:focus-visible + span { outline: 2px solid var(--blue); outline-offset: 3px; }
 
   /* ---------- FAQ: open two-column list ---------- */
   .faqLead { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 16px 64px; padding: 36px 0; margin-bottom: 44px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
@@ -352,9 +538,9 @@
      so browsers without animation-timeline simply show the final state. */
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
-      .rv, .steps li, .pack, .faq > div, .fitList li, .stat, .facts li { animation: rise linear both; animation-timeline: view(); animation-range: entry 5% entry 75%; }
-      .steps li:nth-child(2), .pack:nth-child(2), .fitList li:nth-child(2), .stat:nth-child(2), .facts li:nth-child(2) { animation-range: entry 12% entry 85%; }
-      .steps li:nth-child(3), .pack:nth-child(3), .fitList li:nth-child(3), .stat:nth-child(3), .facts li:nth-child(3) { animation-range: entry 19% entry 95%; }
+      .rv, .steps li, .svc, .faq > div, .fitList li, .stat, .facts li, .short { animation: rise linear both; animation-timeline: view(); animation-range: entry 5% entry 75%; }
+      .steps li:nth-child(2), .short:nth-child(2), .svc:nth-child(2), .fitList li:nth-child(2), .stat:nth-child(2), .facts li:nth-child(2) { animation-range: entry 12% entry 85%; }
+      .steps li:nth-child(3), .short:nth-child(3), .svc:nth-child(3), .fitList li:nth-child(3), .stat:nth-child(3), .facts li:nth-child(3) { animation-range: entry 19% entry 95%; }
       .steps li:nth-child(4), .stat:nth-child(4) { animation-range: entry 26% cover 40%; }
       .shots .bezel { animation: tilt linear both; animation-timeline: view(); animation-range: entry 0% cover 50%; }
       .shotPhone { animation: phoneIn linear both; animation-timeline: view(); animation-range: entry 10% cover 55%; }
@@ -367,15 +553,37 @@
       }
       .whatBig .fill strong { color: transparent; }
       .ticker { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
+      .svc:nth-child(4), .short:nth-child(4) { animation-range: entry 26% cover 35%; }
     }
     .steps li::before { animation: nodeBreath 3.2s var(--ease) infinite; }
     .steps li:nth-child(2)::before { animation-delay: 0.8s; }
     .steps li:nth-child(3)::before { animation-delay: 1.6s; }
     .steps li:nth-child(4)::before { animation-delay: 2.4s; }
   }
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+      .progress { animation: grow linear both; animation-timeline: scroll(root); }
+    }
+  }
+  @keyframes sceneIn { from { opacity: 0; transform: translateY(12px) scale(0.985); } to { opacity: 1; transform: none; } }
+  @keyframes pipeOn { to { color: #0A0F24; background: var(--sun); box-shadow: none; } }
+  @keyframes broll { 0% { opacity: 0; transform: scale(1.08); } 8%, 33% { opacity: 1; } 42%, 100% { opacity: 0; transform: scale(1); } }
+  @keyframes wave { to { transform: scaleY(1); } }
+  @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes drift1 { to { transform: translate(30%, 22%) scale(1.15); } }
+  @keyframes drift2 { to { transform: translate(-28%, -30%) scale(0.9); } }
+  @keyframes flash { 0%, 96%, 100% { opacity: 0; } 97% { opacity: 0.5; } }
+  @keyframes karaoke { 0%, 12.5% { background: var(--sun); color: #0A0F24; } 12.6%, 100% { background: transparent; color: #fff; } }
+  @keyframes strike { to { opacity: 0.15; transform: scaleY(0.4); } }
+  @keyframes pop { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: none; } }
+  @keyframes build { from { opacity: 0; transform: translateY(10px) scale(0.92); } to { opacity: 1; transform: none; } }
+  @keyframes cursorMove { 0% { opacity: 0; left: 70%; top: 85%; } 15% { opacity: 1; } 80%, 100% { opacity: 1; left: 20%; top: 132px; } }
+  @keyframes ripple { from { opacity: 0.9; transform: scale(0.3); } to { opacity: 0; transform: scale(1.2); } }
+  @keyframes slideIn { from { opacity: 0; transform: translateX(-18px); } to { opacity: 1; transform: none; } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes rise { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
   @keyframes tilt { from { opacity: 0.3; transform: perspective(1400px) rotateX(14deg) translateY(60px) scale(0.94); } to { opacity: 1; transform: none; } }
-  @keyframes phoneIn { from { opacity: 0; transform: translate(40px, 80px) rotate(6deg); } to { opacity: 1; transform: none; } }
+  @keyframes phoneIn { from { opacity: 0; transform: translateY(80px) rotate(-5deg); } to { opacity: 1; transform: none; } }
   @keyframes draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
   @keyframes fillText { to { background-size: 100% 100%, 100% 100%; } }
   @keyframes tick { to { transform: translateX(-50%); } }
@@ -384,8 +592,9 @@
   @keyframes nodeBreath { 0%, 60%, 100% { transform: scale(1); } 25% { transform: scale(1.12); } }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .btn, .segTab, .waFloat, .vn, .vl, .vh, .textLink, .navLinks a, .pack, .btn .arr { transition: none !important; }
-    .tickTrack, .live::before, .logo .mk-c, .logo .mk-t { animation: none !important; }
+    .btn, .segTab, .waFloat, .vn, .vl, .vh, .textLink, .navLinks a, .short, .short::after, .btn .arr { transition: none !important; }
+    .tickTrack, .live::before, .logo .mk-c, .logo .mk-t, .scene *, .scene.on { animation: none !important; }
+    .tabInk, .svc, .pick span { transition: none !important; }
     .tickTrack { flex-wrap: wrap; width: auto; }
     .ticker { -webkit-mask-image: none; mask-image: none; }
     .tickSet[aria-hidden] { display: none; }
@@ -394,14 +603,14 @@
 
   /* ---------- Responsive ---------- */
   @media (max-width: 1020px) {
-    .heroGrid, .workHead, .what, .faqLead, .contact { grid-template-columns: minmax(0, 1fr); }
+    .heroGrid, .workHead, .workCase, .what, .faqLead, .contact { grid-template-columns: minmax(0, 1fr); }
+    .workCase { gap: 44px; }
+    .svc, .svc-video, .svc-social, .svc-site, .svc-crm { grid-column: span 12; }
+    .shorts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .heroGrid { gap: 48px; }
     .hero h1 { font-size: clamp(2.2rem, 6.4vw, 3.4rem); max-width: 18ch; }
-    .workCase .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; }
     .what { margin-bottom: 52px; }
     .what h2 { padding-top: 0; }
-    .packages { grid-template-columns: minmax(0, 1fr); max-width: 580px; }
-    .pack .for { min-height: 0; }
     .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 44px; }
     .steps::before { display: none; }
   }
@@ -439,6 +648,15 @@
     .steps { grid-template-columns: minmax(0, 1fr); }
     .contactSide, .formSide { padding: 32px 22px; }
     .formRow { grid-template-columns: minmax(0, 1fr); }
+    .stageTabs button { font-size: 0.74rem; padding: 0 4px; }
+    .scenes { height: 330px; }
+    .scene { padding: 16px; }
+    .soc { grid-template-columns: 104px minmax(0, 1fr); gap: 16px; }
+    .crm li { grid-template-columns: minmax(0, 1fr) auto auto; padding: 10px 12px; }
+    .crm span { display: none; }
+    .crm s { min-width: 0; }
+    .bHero { grid-template-columns: 1fr 0.8fr; }
+    .svc { padding: 28px 22px 24px; }
   }
 </style>
 </head>
@@ -446,15 +664,16 @@
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="siteHead">
+  <div class="progress" aria-hidden="true"></div>
   <div class="wrap nav">
     <a class="logo" href="en.html" aria-label="Nexi Digital home">
       <svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="nxg-h" x1="0" y1="0" x2="1" y2="1"><stop offset=".2" stop-color="#4A67FF"/><stop offset=".8" stop-color="#FF7A3D"/></linearGradient></defs><path class="mk-line" d="M24 20v60M24 20l52 60M76 20v60"/><circle class="mk-node mk-c" cx="24" cy="20" r="10"/><circle class="mk-node mk-c" cx="24" cy="80" r="10"/><circle class="mk-node mk-t" cx="76" cy="20" r="10"/><circle class="mk-node mk-t" cx="76" cy="80" r="10"/><circle class="mk-node" cx="50" cy="50" r="12.5" fill="url(#nxg-h)"/></svg>
       <span class="word">Nexi <span>Digital</span></span>
     </a>
     <nav class="navLinks" id="navLinks" aria-label="Main menu">
+      <a href="#hizmetler">Services</a>
       <a href="#isler">Work</a>
-      <a href="#ne-yapiyorum">What I do</a>
-      <a href="#paketler">Packages</a>
+      <a href="#nasil">How I work</a>
       <a href="#sss">FAQ</a>
     </nav>
     <div class="navEnd">
@@ -471,44 +690,166 @@
   <section class="hero" aria-labelledby="heroTitle">
     <div class="wrap heroGrid">
       <div class="heroText">
-        <h1 id="heroTitle">I bring back the customers you've lost touch with.</h1>
-        <p class="heroLede">I'm Pınar. I find which of your customers are drifting away, then write the email, SMS or WhatsApp message that brings each one back. <strong>The first analysis is free.</strong></p>
+        <h1 id="heroTitle">I grow your videos, your site and your customers with AI agents.</h1>
+        <p class="heroLede">I'm Pınar. I use AI agents to produce YouTube videos and social media content, design websites and apps for businesses, and turn customer lists into win-back campaigns. <strong>The first call is free.</strong></p>
         <div class="ctaRow">
           <a class="btn btnPrimary" href="#iletisim">Book a free call<span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M6 4h6v6"/></svg></span></a>
-          <a class="textLink" href="#isler">See my work</a>
+          <a class="textLink" href="#hizmetler">See what I do</a>
         </div>
       </div>
-    <figure class="viz bezel heroViz" id="viz">
-      <div class="core">
-        <div class="vizHead"><strong>Sample: Papatya Salon</strong><span class="live">28 customers</span></div>
-        <div class="vizCanvas">
-          <svg id="vizSvg" viewBox="0 0 560 440" role="img" aria-label="Network showing a sample salon's 28 customers split into three segments: 12 to win back, 7 loyal, 9 new."></svg>
-        </div>
-        <div class="vizFoot">
-          <div class="segTabs" role="group" aria-label="Choose a segment">
-            <button type="button" class="segTab seg-kayip" data-seg="kayip" aria-pressed="true"><i></i>Win back</button>
-            <button type="button" class="segTab seg-sadik" data-seg="sadik" aria-pressed="false"><i></i>Loyal</button>
-            <button type="button" class="segTab seg-yeni" data-seg="yeni" aria-pressed="false"><i></i>New</button>
+
+      <div class="stage bezel heroViz" id="stage">
+        <div class="core">
+          <div class="stageTabs" role="tablist" aria-label="Pick a service">
+            <button type="button" role="tab" id="tab-video" aria-controls="sc-video" aria-selected="true" data-scene="video">YouTube</button>
+            <button type="button" role="tab" id="tab-social" aria-controls="sc-social" aria-selected="false" tabindex="-1" data-scene="social">Social media</button>
+            <button type="button" role="tab" id="tab-site" aria-controls="sc-site" aria-selected="false" tabindex="-1" data-scene="site">Sites, apps</button>
+            <button type="button" role="tab" id="tab-crm" aria-controls="sc-crm" aria-selected="false" tabindex="-1" data-scene="crm">Customers</button>
+            <i class="tabInk" aria-hidden="true"></i>
           </div>
-          <div class="msg seg-kayip" id="msg" aria-live="off">
-            <span class="msgCh" id="msgCh">SMS</span>
-            <span class="msgTo" id="msgTo">To Ayşe Kaya, last visit 94 days ago</span>
-            <p class="msgText" id="msgText">Hi Ayşe, we haven't seen you in 3 months. This month there's 15% off hair care just for you. Reply to this message to book.</p>
+
+          <div class="scenes">
+            <div class="scene on" id="sc-video" role="tabpanel" aria-labelledby="tab-video">
+              <ol class="pipe">
+                <li>Topic</li><li>Script</li><li>Voiceover</li><li>Visuals</li><li>Edit</li><li>Upload</li>
+              </ol>
+              <div class="yt">
+                <div class="ytFrame" aria-hidden="true">
+                  <span class="ytImg a"></span><span class="ytImg b"></span><span class="ytImg c"></span>
+                  <span class="ytWave"><i style="animation-delay:-0.00s"></i><i style="animation-delay:-0.37s"></i><i style="animation-delay:-0.74s"></i><i style="animation-delay:-0.21s"></i><i style="animation-delay:-0.58s"></i><i style="animation-delay:-0.05s"></i><i style="animation-delay:-0.42s"></i><i style="animation-delay:-0.79s"></i><i style="animation-delay:-0.26s"></i><i style="animation-delay:-0.63s"></i><i style="animation-delay:-0.10s"></i><i style="animation-delay:-0.47s"></i><i style="animation-delay:-0.84s"></i><i style="animation-delay:-0.31s"></i><i style="animation-delay:-0.68s"></i><i style="animation-delay:-0.15s"></i><i style="animation-delay:-0.52s"></i><i style="animation-delay:-0.89s"></i></span>
+                  <span class="ytCap">Nobody in this town goes out at night</span>
+                  <span class="ytDur">8:42</span>
+                </div>
+                <div class="ytMeta">
+                  <b>The true story of 5 abandoned towns</b>
+                  <span>Uploading <em class="ytPct" id="ytPct">100</em>%</span>
+                </div>
+                <div class="ytBar"><i></i></div>
+              </div>
+            </div>
+
+            <div class="scene" id="sc-social" role="tabpanel" aria-labelledby="tab-social" hidden>
+              <div class="soc">
+                <div class="socPhone" aria-hidden="true">
+                  <span class="blob b1"></span><span class="blob b2"></span>
+                  <span class="socCut"></span>
+                  <p class="socCap"><span>Nobody</span> <span>told</span> <span>you</span> <span>this</span> <span>but</span></p>
+                </div>
+                <div class="socSide">
+                  <p class="socLabel">Raw footage, 2:40</p>
+                  <div class="clip raw" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+                  <p class="socLabel">Edited, 0:58</p>
+                  <div class="clip edit" aria-hidden="true"><i></i><i></i><i></i></div>
+                  <ul class="checks">
+                    <li>Dead air cut</li><li>Captions added</li><li>9:16 format</li><li>Thumbnail ready</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="scene" id="sc-site" role="tabpanel" aria-labelledby="tab-site" hidden>
+              <div class="browser" aria-hidden="true">
+                <div class="brBar"><span></span><span></span><span></span><em>papatyasalon.com</em></div>
+                <div class="brBody">
+                  <div class="bNav"><b></b><i></i><i></i><i></i><u></u></div>
+                  <div class="bHero">
+                    <div class="bText"><p class="bH">Book in 30 seconds</p><i></i><i class="s"></i><span class="bBtn">Book now</span></div>
+                    <div class="bImg"></div>
+                  </div>
+                  <div class="bCards"><i></i><i></i><i></i></div>
+                  <svg class="cursor" viewBox="0 0 24 24"><path d="M4 3l16 7-7 2-3 7z" fill="#fff" stroke="#0A0F24" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                  <span class="ripple"></span>
+                  <span class="toast">New booking</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="scene" id="sc-crm" role="tabpanel" aria-labelledby="tab-crm" hidden>
+              <ul class="crm">
+                <li><b>Ayşe K.</b><span>Last visit 94 days ago</span><em class="k">Win back</em><s>SMS</s></li>
+                <li><b>Merve T.</b><span>14th visit</span><em class="s">Loyal</em><s>WhatsApp</s></li>
+                <li><b>Elif Ş.</b><span>First visit 3 days ago</span><em class="y">New</em><s>Email</s></li>
+                <li><b>Can D.</b><span>Last visit 61 days ago</span><em class="k">Win back</em><s>SMS</s></li>
+                <li><b>Zeynep A.</b><span>9th visit</span><em class="s">Loyal</em><s>WhatsApp</s></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="stageFoot">
+            <p id="stageNote" aria-live="off">A production line for a faceless YouTube channel: topic, script, voice, visuals, edit and upload.</p>
+            <span class="timer" aria-hidden="true"><i id="stageTimer"></i></span>
           </div>
         </div>
       </div>
-    </figure>
     </div>
+
     <div class="ticker" aria-label="What I work on">
       <div class="tickTrack">
-        <div class="tickSet"><span>Customer segmentation</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Win-back messages</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>WhatsApp campaigns</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>SMS reminders</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Email sequences</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Website builds</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>AI automation</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Subly</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg></div>
-        <div class="tickSet" aria-hidden="true"><span>Customer segmentation</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Win-back messages</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>WhatsApp campaigns</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>SMS reminders</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Email sequences</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Website builds</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>AI automation</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Subly</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg></div>
+        <div class="tickSet"><span>YouTube automation</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Faceless channels</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Reels and TikTok editing</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Captions and translation</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Websites</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Web and mobile apps</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Customer segmentation</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>WhatsApp campaigns</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>AI agents</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Subly</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg></div>
+        <div class="tickSet" aria-hidden="true"><span>YouTube automation</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Faceless channels</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Reels and TikTok editing</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Captions and translation</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Websites</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Web and mobile apps</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Customer segmentation</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>WhatsApp campaigns</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>AI agents</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Subly</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg></div>
       </div>
+    </div>
+  </section>
+
+  <section class="wrap block" id="hizmetler" aria-labelledby="svcTitle">
+    <div class="sectionHead rv">
+      <h2 id="svcTitle">What I do</h2>
+      <p class="lede">I work with creators and with businesses. Agents handle the repetitive production; I own the decisions and the quality.</p>
+    </div>
+    <div class="bento">
+      <article class="svc svc-video" data-service="video">
+        <div class="svcTop"><h3>YouTube automation</h3><p class="for"><span class="forTag">Creators</span><span class="forTag">Businesses</span></p></div>
+        <p class="svcText">A production line for faceless channels, from finding the topic to uploading. I grew my own channel, GlowTips, on it: 182 videos and more than 850,000 views. I set up the same line for yours.</p>
+        <ul><li>Topic and script research</li><li>AI voiceover and visuals</li><li>Editing, thumbnails and an upload schedule</li></ul>
+        <a class="textLink" href="#iletisim" data-pick="video">Ask me about this</a>
+      </article>
+      <article class="svc svc-social" data-service="social">
+        <div class="svcTop"><h3>Social media editing</h3><p class="for"><span class="forTag">Creators</span><span class="forTag">Businesses</span></p></div>
+        <p class="svcText">I use agents to get your raw videos ready for Reels, TikTok and Shorts: cuts, captions, format.</p>
+        <ul><li>Dead air and silences cut</li><li>Captions, translated into 14 languages</li><li>Vertical format and thumbnail</li></ul>
+        <a class="textLink" href="#iletisim" data-pick="social">Ask me about this</a>
+      </article>
+      <article class="svc svc-site" data-service="site">
+        <div class="svcTop"><h3>Website and app design</h3><p class="for"><span class="forTag">Businesses</span></p></div>
+        <p class="svcText">Fast, mobile-friendly websites and web apps for businesses. I took Subly from idea to live product myself.</p>
+        <ul><li>Business and booking websites</li><li>Web and mobile app interfaces</li><li>Domain, launch and upkeep</li></ul>
+        <a class="textLink" href="#iletisim" data-pick="site">Ask me about this</a>
+      </article>
+      <article class="svc svc-crm" data-service="crm">
+        <div class="svcTop"><h3>Customer win-back</h3><p class="for"><span class="forTag">Businesses</span></p></div>
+        <p class="svcText">I work out from your customer records who's loyal and who's drifting away, then write the email, SMS or WhatsApp message for each group.</p>
+        <ul><li>Customer segmentation</li><li>Multi-channel campaign copy</li><li>Monthly results review</li></ul>
+        <a class="textLink" href="#iletisim" data-pick="crm">Ask me about this</a>
+      </article>
     </div>
   </section>
 
   <section class="wrap block" id="isler" aria-labelledby="workTitle">
     <h2 class="workTitle" id="workTitle">My work</h2>
+
+    <article class="work workYt rv" aria-labelledby="w0Title">
+      <div class="workHead">
+        <div>
+          <p class="workKind">My own faceless channel</p>
+          <h3 id="w0Title" class="ytName"><img src="img/yt-avatar.webp" width="120" height="120" alt="" loading="lazy">GlowTips</h3>
+        </div>
+        <p class="workText">A beauty and aesthetics "This or That" Shorts channel. I built its production with agents, from topic to upload; 182 videos have gone out since June 2024.</p>
+      </div>
+      <div class="shorts">
+          <a class="short" href="https://www.youtube.com/shorts/ZHec1DFwmjI" target="_blank" rel="noopener"><img src="img/yt-1.webp" width="360" height="640" alt="A Shorts cover from the GlowTips channel" loading="lazy" decoding="async"><span class="sr"> (opens in a new tab)</span></a>
+          <a class="short" href="https://www.youtube.com/shorts/sWFJ_irOlgU" target="_blank" rel="noopener"><img src="img/yt-2.webp" width="360" height="640" alt="A Shorts cover from the GlowTips channel" loading="lazy" decoding="async"><span class="sr"> (opens in a new tab)</span></a>
+          <a class="short" href="https://www.youtube.com/shorts/v32FLReuWuM" target="_blank" rel="noopener"><img src="img/yt-3.webp" width="360" height="640" alt="A Shorts cover from the GlowTips channel" loading="lazy" decoding="async"><span class="sr"> (opens in a new tab)</span></a>
+          <a class="short" href="https://www.youtube.com/shorts/zMC6IflB5xQ" target="_blank" rel="noopener"><img src="img/yt-4.webp" width="360" height="640" alt="A Shorts cover from the GlowTips channel" loading="lazy" decoding="async"><span class="sr"> (opens in a new tab)</span></a>
+      </div>
+      <div class="workFoot">
+        <ul class="facts">
+          <li><b data-count>182</b><span>videos published</span></li>
+          <li><b data-count>850K+</b><span>total views</span></li>
+          <li><b>3.9K</b><span>subscribers</span></li>
+        </ul>
+        <a class="btn btnQuiet" href="https://www.youtube.com/@glowtips777" target="_blank" rel="noopener">Open the channel on YouTube<span class="sr"> (opens in a new tab)</span></a>
+      </div>
+    </article>
 
     <article class="work workSubly rv" aria-labelledby="w1Title">
       <div class="workHead">
@@ -533,33 +874,51 @@
     </article>
 
     <article class="work workCase" id="ornek" aria-labelledby="w2Title">
-      <div class="workHead">
-        <div>
-          <p class="workKind">Method demo, sample data</p>
-          <h3 id="w2Title">A salon's customer list, split into 6 segments</h3>
+      <figure class="viz bezel" id="viz">
+        <div class="core">
+          <div class="vizHead"><strong>Sample: Papatya Salon</strong><span class="live">28 customers</span></div>
+          <div class="vizCanvas">
+            <svg id="vizSvg" viewBox="0 0 560 440" role="img" aria-label="Network showing a sample salon's 28 customers split into three segments: 12 to win back, 7 loyal, 9 new."></svg>
+          </div>
+          <div class="vizFoot">
+            <div class="segTabs" role="group" aria-label="Choose a segment">
+              <button type="button" class="segTab seg-kayip" data-seg="kayip" aria-pressed="true"><i></i>Win back</button>
+              <button type="button" class="segTab seg-sadik" data-seg="sadik" aria-pressed="false"><i></i>Loyal</button>
+              <button type="button" class="segTab seg-yeni" data-seg="yeni" aria-pressed="false"><i></i>New</button>
+            </div>
+            <div class="msg seg-kayip" id="msg" aria-live="off">
+              <span class="msgCh" id="msgCh">SMS</span>
+              <span class="msgTo" id="msgTo">To Ayşe Kaya, last visit 94 days ago</span>
+              <p class="msgText" id="msgText">Hi Ayşe, we haven't seen you in 3 months. This month there's 15% off hair care just for you. Reply to this message to book.</p>
+            </div>
+          </div>
         </div>
-        <p class="workText">I grouped 1,000 sample customers by recency, frequency and spend, and wrote a separate message for each group. The live network at the top is a 28-customer slice of it: tap a segment to see its message.</p>
+      </figure>
+      <div class="caseBody">
+        <p class="workKind">Method demo, sample data</p>
+        <h3 id="w2Title">A salon's customer list, split into 6 segments</h3>
+        <p class="workText">I grouped 1,000 sample customers by recency, frequency and spend, and wrote a separate message for each group. The network on the left is a 28-customer slice of it: tap a segment to see its message.</p>
+        <div class="stats">
+          <div class="stat c"><b data-count>25%</b><span>of revenue comes from the most loyal 11%</span></div>
+          <div class="stat t"><b data-count>6</b><span>meaningful customer segments</span></div>
+          <div class="stat"><b data-count>5,388</b><span>transactions analyzed</span></div>
+          <div class="stat"><b data-count>12</b><span>service types compared</span></div>
+        </div>
+        <a class="textLink" href="https://claude.ai/code/artifact/61ae4686-f95d-4123-a3ed-ed7d0851541f" target="_blank" rel="noopener noreferrer">Open the full analysis panel<span class="sr"> (opens in a new tab)</span></a>
       </div>
-      <div class="stats">
-        <div class="stat c"><b data-count>25%</b><span>of revenue comes from the most loyal 11%</span></div>
-        <div class="stat t"><b data-count>6</b><span>meaningful customer segments</span></div>
-        <div class="stat"><b data-count>5,388</b><span>transactions analyzed</span></div>
-        <div class="stat"><b data-count>12</b><span>service types compared</span></div>
-      </div>
-      <a class="textLink" href="https://claude.ai/code/artifact/61ae4686-f95d-4123-a3ed-ed7d0851541f" target="_blank" rel="noopener noreferrer">Open the full analysis panel<span class="sr"> (opens in a new tab)</span></a>
     </article>
   </section>
 
-  <section class="wrap block" id="ne-yapiyorum" aria-labelledby="whatTitle">
+  <section class="wrap block" id="nasil" aria-labelledby="whatTitle">
     <div class="what rv">
-      <h2 id="whatTitle">What I do</h2>
-      <p class="whatBig"><span class="fill">I read your customer records and work out who's loyal, who's drifting away and who's new. Then I write the <strong>email, SMS or WhatsApp</strong> message for each group, build your <strong>website</strong> if you need one, and hand repetitive work over to <strong>AI</strong>.</span></p>
+      <h2 id="whatTitle">How I work</h2>
+      <p class="whatBig"><span class="fill">Agents produce fast, but I decide what's good. I check <strong>every video, every page and every message</strong> myself before it goes live.</span></p>
     </div>
     <ol class="steps">
-      <li><h3>Consultation</h3><p>We talk about your business and the customer records you have. Excel, a booking app or any other list works.</p><span class="stepTag">Free</span></li>
-      <li><h3>Analysis</h3><p>I split your records into segments by recency, frequency and spend.</p></li>
-      <li><h3>Messages</h3><p>I write the email, SMS or WhatsApp copy for each segment, plus the order to send it in.</p></li>
-      <li><h3>Follow-up</h3><p>We track who comes back together. Results land in your WhatsApp or inbox.</p></li>
+      <li><h3>Intro call</h3><p>We talk about your business or channel and what you want from it, and see what makes sense.</p><span class="stepTag">Free</span></li>
+      <li><h3>Plan</h3><p>I decide which work goes to agents and which stays with me, then send a schedule and a quote.</p></li>
+      <li><h3>Production</h3><p>Agents produce; I check and fix every output.</p></li>
+      <li><h3>Delivery and follow-up</h3><p>I deliver, we watch the results together and change what needs changing.</p></li>
     </ol>
   </section>
 
@@ -569,61 +928,30 @@
       <div class="fit">
         <div>
           <h3 class="fitYes">A good fit if</h3>
-          <ul class="fitList yes"><li>Your customers come back: salons, clinics, cafés and the like.</li><li>You have a customer list but aren't doing anything with it.</li><li>You don't have time to write campaigns or follow up on them.</li></ul>
+          <ul class="fitList yes"><li>You want regular YouTube or social media content but don't have time to make it.</li><li>Your business needs a new website or app.</li><li>You have a customer list but aren't doing anything with it.</li></ul>
         </div>
         <div>
           <h3 class="fitNo">Not a fit if</h3>
-          <ul class="fitList no"><li>You're looking for social media followers or ad management.</li><li>You want to send one bulk announcement to everyone and be done.</li><li>You'd rather not track what a campaign actually did.</li></ul>
+          <ul class="fitList no"><li>You want to buy followers or likes.</li><li>You expect everything to be ready overnight.</li><li>You'd rather not measure or track results.</li></ul>
         </div>
       </div>
     </div>
   </section>
 
   <div class="wrap">
-    <section class="block" id="paketler" aria-labelledby="packTitle">
-      <div class="sectionHead">
-        <h2 id="packTitle">Scope that fits your size</h2>
-        <p class="lede">Pricing is set on the first call, based on your scale and needs. Here's what each package includes.</p>
-      </div>
-      <div class="packages">
-        <article class="pack">
-          <p class="packTier">Starter</p>
-          <h3>Start with one channel</h3>
-          <p class="for">For businesses sending their very first campaign.</p>
-          <ul><li>Customer segmentation</li><li>One-channel campaign (email or WhatsApp)</li><li>Setup support</li></ul>
-          <a class="btn btnQuiet js-mail" data-subject="About the Starter Package" href="mailto:nexidigital.00@gmail.com">Get a quote</a>
-        </article>
-        <article class="pack featured">
-          <p class="packTier">Growth<em>Multi-channel</em></p>
-          <h3>Multi-channel, tracked monthly</h3>
-          <p class="for">For growing businesses reaching customers across several channels.</p>
-          <ul><li>Segmentation and multi-channel campaigns (email, SMS, WhatsApp)</li><li>Website updates</li><li>Monthly results review</li></ul>
-          <a class="btn btnPrimary js-mail" data-subject="About the Growth Package" href="mailto:nexidigital.00@gmail.com">Get a quote</a>
-        </article>
-        <article class="pack">
-          <p class="packTier">Enterprise</p>
-          <h3>For more locations or more data</h3>
-          <p class="for">For businesses with several branches or a larger data volume.</p>
-          <ul><li>Custom integrations</li><li>Automation (chatbots, etc.)</li><li>Priority support</li></ul>
-          <a class="btn btnQuiet js-mail" data-subject="About the Enterprise Package" href="mailto:nexidigital.00@gmail.com">Get a quote</a>
-        </article>
-      </div>
-      <p class="packNote">Not sure which package fits? We'll figure it out together on the free consultation call.</p>
-    </section>
-
     <section class="block" id="sss" aria-labelledby="faqTitle">
       <div class="sectionHead">
         <h2 id="faqTitle">You're probably wondering about these</h2>
       </div>
       <div class="faqLead">
         <h3>So you do this with AI? Is that real expertise?</h3>
-        <p><strong>Real expertise.</strong> I'm not just opening a tool. Finding the question your data is hiding, asking it correctly, and getting the finding to the right customer with the right message takes experience. I'm not just claiming it; the <a class="inlineLink" href="#ornek">1,000-customer case study</a> shows it.</p>
+        <p><strong>Real expertise.</strong> Opening the tool is the easy part. Knowing which video gets watched, which page brings customers and which message brings them back takes experience. I'm not just claiming it; <a class="inlineLink" href="#isler">my work</a> shows it.</p>
       </div>
       <div class="faq">
-        <div><h3>I know nothing about technology. Will I need to learn something?</h3><p>No. You tell me about your business, and I handle the setup and the tracking. There's no dashboard to learn; results land in your WhatsApp or inbox.</p></div>
+        <div><h3>Do you only work with businesses?</h3><p>No. I work with creators too: producing videos for your YouTube channel or editing your social media videos. For businesses I build websites and apps and run customer campaigns.</p></div>
+        <div><h3>I know nothing about technology. Will I need to learn something?</h3><p>No. You tell me what you want; I handle the setup and the production. There's no dashboard to learn, and results land in your WhatsApp or inbox.</p></div>
         <div><h3>Sharing my customer data makes me uneasy. Is it safe?</h3><p>It should make you careful. Your data is used only for your business and never shared with a third party. We agree on exactly how it's stored and when it's deleted on the first call.</p></div>
-        <div><h3>I'm a small business with few customers. Is it still worth it?</h3><p>That's usually where it pays off most. Even a small list almost always has a few customers who "should have come back but were forgotten", and finding them alone covers the cost.</p></div>
-        <div><h3>Why can't I see a price on the site?</h3><p>Because a 10-customer salon and a 500-customer chain shouldn't need the same thing. I look at your business on the first call and give you a clear quote, with no surprises.</p></div>
+        <div><h3>Why is there no price on the site?</h3><p>Because a channel that wants one video a week and a five-page website aren't the same job. I look at what you need on the first call and give you a clear quote, with no surprises.</p></div>
       </div>
     </section>
 
@@ -631,7 +959,7 @@
       <div class="contact rv">
         <div class="contactSide">
           <h2 id="contactTitle">Let's have a short conversation</h2>
-          <p>The first review is always free. Let's see together whether this genuinely helps your business.</p>
+          <p>The first call is always free. Let's see together what makes sense for your channel or business.</p>
           <ul class="contactList">
             <li>Reply within one business day</li>
             <li>A clear quote at the end of the call</li>
@@ -644,15 +972,22 @@
         <div class="formSide">
           <form class="form" id="contactForm" action="https://formspree.io/f/mkodyrzb" method="POST">
             <input type="hidden" name="_subject" value="Free consultation request from the website (EN)">
+            <fieldset class="pick">
+              <legend>What are you writing about?</legend>
+              <label><input type="checkbox" name="service" value="YouTube automation" data-svc="video"><span>YouTube automation</span></label>
+              <label><input type="checkbox" name="service" value="Social media editing" data-svc="social"><span>Social media editing</span></label>
+              <label><input type="checkbox" name="service" value="Website and app design" data-svc="site"><span>Website and app design</span></label>
+              <label><input type="checkbox" name="service" value="Customer win-back" data-svc="crm"><span>Customer win-back</span></label>
+            </fieldset>
             <div class="formRow">
               <label class="field">Full name<input type="text" name="name" required autocomplete="name" placeholder="Your full name"></label>
-              <label class="field">Business name<input type="text" name="business" required autocomplete="organization" placeholder="e.g. Papatya Salon"></label>
+              <label class="field">Business or channel name<input type="text" name="business" required autocomplete="organization" placeholder="e.g. Papatya Salon"></label>
             </div>
             <div class="formRow">
               <label class="field">Email<input type="email" name="email" required autocomplete="email" placeholder="you@example.com"></label>
               <label class="field"><span>Phone <small>(optional)</small></span><input type="tel" name="phone" autocomplete="tel" placeholder="+90 5xx xxx xx xx"></label>
             </div>
-            <label class="field"><span>Tell me a bit <small>(optional)</small></span><textarea name="message" rows="3" placeholder="What are you struggling with most, and what do you know about your customers?"></textarea></label>
+            <label class="field"><span>Tell me a bit <small>(optional)</small></span><textarea name="message" rows="3" placeholder="What do you want to do, and where are you stuck right now?"></textarea></label>
             <button type="submit" class="btn btnPrimary">Book a free call</button>
             <p class="formNote" id="formNote" role="status"></p>
           </form>
@@ -670,9 +1005,9 @@
         <span class="word">Nexi <span>Digital</span></span>
       </a>
       <nav class="footLinks" aria-label="Footer menu">
+        <a href="#hizmetler">Services</a>
         <a href="#isler">Work</a>
         <a href="https://subly.nexidigitalai.com/" target="_blank" rel="noopener">Subly</a>
-        <a href="#paketler">Packages</a>
         <a href="mailto:nexidigital.00@gmail.com">nexidigital.00@gmail.com</a>
       </nav>
     </div>
@@ -689,7 +1024,7 @@
 
 <script>
 (function () {
-  var T = {"mailBody": "Hello,\n\nMy business name: \nWhat I need: \n\n(A short note is enough, we can go into detail on the call.)", "waText": "Hello, I'd like to learn more about Nexi Digital.", "menuOpen": "Open menu", "menuClose": "Close menu", "sending": "Sending", "submit": "Book a free call", "sent": "Your request arrived. I'll get back to you within one business day.", "failed": "The form couldn't be sent. Check your connection and try again, or write directly to nexidigital.00@gmail.com.", "segs": {"kayip": {"name": "Win back", "count": "12 customers", "ch": "SMS", "to": "To Ayşe Kaya, last visit 94 days ago", "msg": "Hi Ayşe, we haven't seen you in 3 months. This month there's 15% off hair care just for you. Reply to this message to book."}, "sadik": {"name": "Loyal", "count": "7 customers", "ch": "WhatsApp", "to": "To Merve Tunç, 14th visit", "msg": "Merve, thank you for your 14th visit! Our loyal customers get to try the new season's colours first. Would you like to drop by this week?"}, "yeni": {"name": "New", "count": "9 customers", "ch": "Email", "to": "To Elif Şahin, first visit 3 days ago", "msg": "Welcome to Papatya Salon, Elif. Your blow-dry is on us on your second visit. We'd love to see you again!"}}};
+  var T = {"mailBody": "Hello,\n\nMy business name: \nWhat I need: \n\n(A short note is enough, we can go into detail on the call.)", "waText": "Hello, I'd like to learn more about Nexi Digital.", "menuOpen": "Open menu", "menuClose": "Close menu", "sending": "Sending", "submit": "Book a free call", "notes": {"video": "A production line for a faceless YouTube channel: topic, script, voice, visuals, edit and upload.", "social": "Agents cut, caption and reframe the raw video into vertical format; I check the final cut.", "site": "A mobile-friendly website or app for your business, domain and launch included.", "crm": "I split customer records into segments and send each group the right message."}, "sent": "Your request arrived. I'll get back to you within one business day.", "failed": "The form couldn't be sent. Check your connection and try again, or write directly to nexidigital.00@gmail.com.", "segs": {"kayip": {"name": "Win back", "count": "12 customers", "ch": "SMS", "to": "To Ayşe Kaya, last visit 94 days ago", "msg": "Hi Ayşe, we haven't seen you in 3 months. This month there's 15% off hair care just for you. Reply to this message to book."}, "sadik": {"name": "Loyal", "count": "7 customers", "ch": "WhatsApp", "to": "To Merve Tunç, 14th visit", "msg": "Merve, thank you for your 14th visit! Our loyal customers get to try the new season's colours first. Would you like to drop by this week?"}, "yeni": {"name": "New", "count": "9 customers", "ch": "Email", "to": "To Elif Şahin, first visit 3 days ago", "msg": "Welcome to Papatya Salon, Elif. Your blow-dry is on us on your second visit. We'd love to see you again!"}}};
 
   // Contact links
   document.querySelectorAll('.js-mail').forEach(function (a) {
@@ -888,6 +1223,86 @@
     }, { threshold: 0.6 });
     document.querySelectorAll('[data-count]').forEach(function (b) { counter.observe(b); });
   }
+
+  // Hero stage: four services take turns until the visitor picks one.
+  var stage = document.getElementById('stage');
+  var stageTabs = [].slice.call(stage.querySelectorAll('[role="tab"]'));
+  var ink = stage.querySelector('.tabInk');
+  var stageNote = document.getElementById('stageNote');
+  var timerBar = document.getElementById('stageTimer');
+  var pct = document.getElementById('ytPct');
+  var sceneIdx = 0, stageUser = false, stageActive = true, SCENE_MS = 7000, pctRaf;
+  function countPct() {
+    if (!pct) return;
+    cancelAnimationFrame(pctRaf);
+    if (reduce) { pct.textContent = '100'; return; }
+    var t0 = performance.now();
+    (function step(now) {
+      var k = Math.min(1, (now - t0) / 5600);
+      pct.textContent = String(Math.round(100 * (1 - Math.pow(1 - k, 3))));
+      if (k < 1) pctRaf = requestAnimationFrame(step);
+    })(t0);
+  }
+  function showScene(i, fromUser) {
+    sceneIdx = i;
+    stageTabs.forEach(function (t, k) {
+      var on = k === i;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      var panel = document.getElementById(t.getAttribute('aria-controls'));
+      panel.hidden = !on;
+      panel.classList.toggle('on', on);
+    });
+    ink.style.transform = 'translateX(' + (i * 100) + '%)';
+    stageNote.textContent = T.notes[stageTabs[i].dataset.scene];
+    if (stageTabs[i].dataset.scene === 'video') countPct();
+    if (fromUser) {
+      stageUser = true;
+      if (timerBar.getAnimations) timerBar.getAnimations().forEach(function (a) { a.cancel(); });
+      stageNote.setAttribute('aria-live', 'polite');
+      timerBar.style.transform = 'scaleX(0)';
+    } else if (!reduce && timerBar.animate) {
+      timerBar.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: SCENE_MS, fill: 'forwards' });
+    }
+  }
+  stageTabs.forEach(function (t, k) {
+    t.addEventListener('click', function () { showScene(k, true); });
+    t.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      var n = (k + d + stageTabs.length) % stageTabs.length;
+      showScene(n, true);
+      stageTabs[n].focus();
+    });
+  });
+  showScene(0, false);
+  if (!reduce) {
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { stageActive = es[0].isIntersecting; }).observe(stage);
+    }
+    setInterval(function () {
+      if (stageUser || !stageActive || document.hidden) return;
+      showScene((sceneIdx + 1) % stageTabs.length, false);
+    }, SCENE_MS);
+  }
+
+  // Service cards: a soft light follows the pointer.
+  document.querySelectorAll('.svc').forEach(function (card) {
+    card.addEventListener('pointermove', function (e) {
+      var r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
+
+  // "Write to me about this" links pre-select the service in the form.
+  document.querySelectorAll('[data-pick]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      var box = document.querySelector('.pick input[data-svc="' + a.dataset.pick + '"]');
+      if (box) box.checked = true;
+    });
+  });
 
   // Contact form
   var form = document.getElementById('contactForm');

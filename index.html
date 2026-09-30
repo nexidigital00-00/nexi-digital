@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nexi Digital | Bağımsız işletmeler için veri destekli pazarlama</title>
-<meta name="description" content="Müşteri kayıtlarını segmentlere ayırıyor, her gruba uygun e-posta, SMS ve WhatsApp mesajını yazıyorum. İlk analiz ücretsiz. Sakarya.">
+<title>Nexi Digital | YouTube otomasyonu, sosyal medya, site ve müşteri pazarlaması</title>
+<meta name="description" content="Yapay zeka ajanlarıyla YouTube videoları ve sosyal medya içerikleri üretiyor, şirketlere site ve uygulama tasarlıyor, müşteri kampanyaları kuruyorum. İlk görüşme ücretsiz.">
 <meta name="theme-color" content="#F5F6FA" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1024" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nexi Digital">
-<meta property="og:title" content="Nexi Digital: Müşterini gerçekten tanıyan bir pazarlama ortağı">
-<meta property="og:description" content="Müşteri kayıtlarını segmentlere ayırıyor, her gruba uygun e-posta, SMS ve WhatsApp mesajını yazıyorum. İlk analiz ücretsiz. Sakarya.">
+<meta property="og:title" content="Nexi Digital: Videonu, siteni ve müşterini ajanlarla büyütüyorum">
+<meta property="og:description" content="Yapay zeka ajanlarıyla YouTube videoları ve sosyal medya içerikleri üretiyor, şirketlere site ve uygulama tasarlıyor, müşteri kampanyaları kuruyorum. İlk görüşme ücretsiz.">
 <meta property="og:url" content="https://nexidigitalai.com/">
 <meta property="og:image" content="https://nexidigitalai.com/img/og-tr.png">
 <meta property="og:image:width" content="1200">
@@ -79,7 +79,7 @@
 
   /* ---------- Base ---------- */
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+  html { scroll-behavior: smooth; scroll-padding-top: 84px; overflow-x: clip; }
   body {
     margin: 0; overflow-x: clip; background: var(--bg); color: var(--ink);
     font-family: var(--font); font-size: 1.0625rem; line-height: 1.6; -webkit-font-smoothing: antialiased;
@@ -155,7 +155,7 @@
   /* ---------- Hero: headline left, the live customer network right ---------- */
   .hero { position: relative; padding-top: 72px; }
   .heroGrid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 48px; align-items: center; }
-  .hero h1 { font-size: clamp(2.2rem, 3.9vw, 3.5rem); line-height: 1.06; letter-spacing: -0.035em; }
+  .hero h1 { font-size: clamp(2.1rem, 3.6vw, 3.2rem); line-height: 1.06; letter-spacing: -0.035em; }
   .hero h1 .w { display: inline-block; }
   .heroLede { color: var(--ink-soft); font-size: 1.18rem; max-width: 44ch; margin-top: 26px; }
   .heroLede strong { color: var(--ink); font-weight: 600; }
@@ -230,15 +230,25 @@
   .workHead { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 56px; align-items: end; margin-bottom: 44px; }
   .shots { position: relative; padding: 0 12% 7% 0; }
   .shots img { width: 100%; height: auto; }
-  .shotPhone { position: absolute; right: 0; bottom: 0; width: 23%; padding: 5px; border-radius: 30px; background: color-mix(in srgb, var(--ink) 6%, transparent); box-shadow: inset 0 0 0 1px var(--line), var(--shadow); }
+  .shotPhone { position: absolute; right: 0; bottom: 0; width: 23%; transform-origin: 100% 100%; padding: 5px; border-radius: 30px; background: color-mix(in srgb, var(--ink) 6%, transparent); box-shadow: inset 0 0 0 1px var(--line), var(--shadow); }
   .shotPhone img { border-radius: 25px; background: var(--scr-2); }
   .workFoot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; margin-top: 36px; }
   .facts { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 20px 48px; }
   .facts li { display: flex; align-items: baseline; gap: 10px; }
   .facts b { font-family: var(--display); font-size: 2rem; font-weight: 600; letter-spacing: -0.04em; line-height: 1; color: var(--blue-text); }
   .facts span { color: var(--ink-soft); font-size: 0.95rem; max-width: 18ch; line-height: 1.35; }
-  .workCase .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 28px; margin-bottom: 28px; }
-  .workCase .stat:nth-child(odd) { padding-right: 0; }
+  .ytName { display: flex; align-items: center; gap: 14px; }
+  .ytName img { width: 0.95em; height: 0.95em; border-radius: 50%; box-shadow: 0 0 0 3px var(--bg), 0 0 0 4px var(--line); }
+  .shorts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; align-items: start; }
+  .short { position: relative; display: block; padding: 5px; border-radius: 26px; background: color-mix(in srgb, var(--ink) 6%, transparent); box-shadow: inset 0 0 0 1px var(--line), var(--shadow); transition: transform 0.5s var(--spring), box-shadow 0.5s var(--ease); }
+  .short:nth-child(even) { margin-top: 44px; }
+  .short img { width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 21px; background: var(--scr-2); }
+  .short::after { content: ""; position: absolute; left: 50%; top: 50%; width: 48px; height: 48px; margin: -24px 0 0 -24px; border-radius: 50%; background: rgba(7, 11, 28, 0.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 7l8 5-8 5z' fill='%23fff'/%3E%3C/svg%3E") center / 22px no-repeat; opacity: 0; transform: scale(0.7); transition: opacity 0.3s var(--ease), transform 0.4s var(--spring); }
+  .short:hover { transform: translateY(-8px) rotate(-1.5deg); box-shadow: inset 0 0 0 1px var(--line), 0 30px 60px -28px rgba(46, 75, 240, 0.5); }
+  .short:hover::after { opacity: 1; transform: none; }
+  .workCase { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 64px; align-items: center; }
+  .caseBody { display: grid; gap: 18px; justify-items: start; }
+  .caseBody .stats { width: 100%; margin: 8px 0 4px; }
 
   /* ---------- What I do ---------- */
   .what { display: grid; grid-template-columns: minmax(0, 0.55fr) minmax(0, 1.45fr); gap: 32px 64px; margin-bottom: 72px; align-items: start; }
@@ -282,20 +292,196 @@
   .stat.c b { color: var(--tang-text); }
   .stat.t b { color: var(--blue-text); }
 
-  /* ---------- Packages ---------- */
-  .packages { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-  .pack { background: var(--surface); border-radius: 20px; box-shadow: var(--shadow); padding: 32px 28px; display: grid; grid-template-rows: auto auto auto 1fr auto; gap: 12px; transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease); }
-  .pack:hover { transform: translateY(-6px); box-shadow: 0 1px 2px rgba(15, 22, 51, 0.05), 0 30px 60px -28px rgba(46, 75, 240, 0.45); }
-  .pack.featured { box-shadow: var(--shadow), inset 0 0 0 1.5px var(--blue); }
-  .pack.featured:hover { box-shadow: 0 30px 60px -28px rgba(46, 75, 240, 0.5), inset 0 0 0 1.5px var(--blue); }
-  .packTier { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 0.93rem; font-weight: 600; color: var(--ink-soft); min-height: 26px; }
-  .packTier em { font-style: normal; font-size: 0.78rem; color: var(--blue-text); background: color-mix(in srgb, var(--blue) 11%, transparent); padding: 3px 10px; border-radius: 6px; }
-  .pack h3 { font-family: var(--display); font-size: 1.25rem; font-weight: 600; letter-spacing: -0.025em; }
-  .pack .for { color: var(--ink-soft); font-size: 0.97rem; min-height: 3.1em; }
-  .pack ul { list-style: none; margin: 10px 0 22px; padding: 0; align-self: start; }
-  .pack li { position: relative; padding: 11px 0 11px 28px; border-top: 1px solid var(--line); font-size: 0.97rem; }
-  .pack li::before { content: ""; position: absolute; left: 3px; top: 18px; width: 11px; height: 6px; border-left: 2px solid var(--blue); border-bottom: 2px solid var(--blue); transform: rotate(-45deg); }
-  .packNote { margin-top: 28px; color: var(--ink-soft); }
+
+
+  /* ---------- Scroll progress ---------- */
+  .progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: linear-gradient(90deg, var(--blue), var(--tang)); transform-origin: left; transform: scaleX(0); }
+
+  /* ---------- Hero stage: one screen, four live services ---------- */
+  .stage { position: relative; }
+  .stage .core { color: var(--scr-text); display: grid; grid-template-rows: auto 1fr auto; }
+  .stageTabs { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 6px; gap: 2px; border-bottom: 1px solid var(--scr-line); }
+  .stageTabs button {
+    position: relative; z-index: 1; min-height: 42px; padding: 0 8px; border: 0; border-radius: 999px; cursor: pointer; background: none;
+    font: inherit; font-size: 0.84rem; font-weight: 600; color: var(--scr-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    transition: color 0.3s var(--ease);
+  }
+  .stageTabs button:hover { color: var(--scr-text); }
+  .stageTabs button[aria-selected="true"] { color: #fff; }
+  .tabInk { position: absolute; top: 6px; bottom: 6px; left: 6px; width: calc((100% - 12px) / 4); border-radius: 999px; background: rgba(123, 147, 255, 0.22); box-shadow: inset 0 0 0 1px rgba(123, 147, 255, 0.5); transition: transform 0.55s var(--spring); }
+  .scenes { position: relative; height: 348px; overflow: hidden; }
+  .scene { position: absolute; inset: 0; padding: 22px; }
+  .scene[hidden] { display: none; }
+  .scene.on { animation: sceneIn 0.6s var(--ease) both; }
+  .stageFoot { display: flex; align-items: center; gap: 16px; padding: 14px 20px 16px; border-top: 1px solid var(--scr-line); }
+  .stageFoot p { flex: 1; font-size: 0.9rem; color: var(--scr-soft); line-height: 1.45; min-height: 2.9em; }
+  .timer { flex: none; width: 54px; height: 3px; border-radius: 3px; background: var(--scr-line); overflow: hidden; }
+  .timer i { display: block; height: 100%; background: var(--scr-text); transform-origin: left; transform: scaleX(0); }
+
+  /* Scene: YouTube pipeline */
+  .pipe { list-style: none; margin: 0 0 18px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .pipe li { font-size: 0.76rem; font-weight: 600; padding: 4px 10px; border-radius: 999px; color: var(--scr-soft); box-shadow: inset 0 0 0 1px var(--scr-line); }
+  .scene.on .pipe li { animation: pipeOn 0.5s var(--ease) both; }
+  .scene.on .pipe li:nth-child(2) { animation-delay: 0.55s; }
+  .scene.on .pipe li:nth-child(3) { animation-delay: 1.1s; }
+  .scene.on .pipe li:nth-child(4) { animation-delay: 1.65s; }
+  .scene.on .pipe li:nth-child(5) { animation-delay: 2.2s; }
+  .scene.on .pipe li:nth-child(6) { animation-delay: 2.75s; }
+  .ytFrame { position: relative; aspect-ratio: 16 / 9; max-height: 196px; width: 100%; border-radius: 12px; overflow: hidden; background: #070B1C; }
+  .ytImg { position: absolute; inset: 0; opacity: 0; }
+  .ytImg.a { background: radial-gradient(60% 80% at 30% 40%, #3B55F0, transparent 70%), radial-gradient(50% 60% at 80% 70%, #1B2A6B, transparent 70%), #0A0F24; }
+  .ytImg.b { background: radial-gradient(60% 80% at 70% 30%, #FF7A3D, transparent 70%), radial-gradient(50% 60% at 20% 80%, #5A2A1A, transparent 70%), #0A0F24; }
+  .ytImg.c { background: radial-gradient(55% 75% at 50% 45%, #FFC94D, transparent 65%), radial-gradient(50% 60% at 15% 20%, #2E4BF0, transparent 70%), #0A0F24; }
+  .scene.on .ytImg { animation: broll 4.5s linear infinite; }
+  .scene.on .ytImg.b { animation-delay: 1.5s; }
+  .scene.on .ytImg.c { animation-delay: 3s; }
+  .ytWave { position: absolute; left: 14px; bottom: 44px; display: flex; align-items: flex-end; gap: 3px; height: 28px; }
+  .ytWave i { width: 3px; height: 100%; border-radius: 3px; background: rgba(255, 255, 255, 0.85); transform-origin: bottom; transform: scaleY(0.3); }
+  .scene.on .ytWave i { animation: wave 0.9s ease-in-out infinite alternate; }
+  .ytCap { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); white-space: nowrap; font-family: var(--display); font-weight: 600; font-size: 0.8rem; color: #fff; background: rgba(7, 11, 28, 0.6); padding: 3px 9px; border-radius: 6px; }
+  .ytDur { position: absolute; right: 10px; top: 10px; font-size: 0.7rem; font-weight: 700; background: rgba(7, 11, 28, 0.75); padding: 2px 7px; border-radius: 5px; }
+  .ytMeta { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin-top: 14px; font-size: 0.86rem; }
+  .ytMeta b { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ytMeta span { flex: none; color: var(--scr-soft); }
+  .ytMeta em { font-style: normal; color: var(--scr-text); font-variant-numeric: tabular-nums; }
+  .ytBar { margin-top: 10px; height: 4px; border-radius: 4px; background: var(--scr-line); overflow: hidden; }
+  .ytBar i { display: block; height: 100%; background: linear-gradient(90deg, var(--blue-glow), var(--tang-glow)); transform-origin: left; }
+  .scene.on .ytBar i { animation: grow 5.6s var(--ease) both; }
+
+  /* Scene: social edit */
+  .soc { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 22px; height: 100%; align-items: center; }
+  .socPhone { position: relative; aspect-ratio: 9 / 16; border-radius: 18px; overflow: hidden; background: #070B1C; isolation: isolate; box-shadow: 0 0 0 4px rgba(236, 240, 255, 0.08); }
+  .socPhone .blob { position: absolute; width: 90%; aspect-ratio: 1; border-radius: 50%; filter: blur(22px); z-index: -1; }
+  .socPhone .b1 { background: #3B55F0; top: 5%; left: -20%; }
+  .socPhone .b2 { background: #FF7A3D; bottom: 10%; right: -30%; }
+  .scene.on .socPhone .b1 { animation: drift1 5s ease-in-out infinite alternate; }
+  .scene.on .socPhone .b2 { animation: drift2 6s ease-in-out infinite alternate; }
+  .socCut { position: absolute; inset: 0; background: #fff; opacity: 0; }
+  .scene.on .socCut { animation: flash 2.4s linear infinite 1s; }
+  .socCap { position: absolute; left: 8px; right: 8px; bottom: 22px; text-align: center; font-family: var(--display); font-weight: 600; font-size: 0.72rem; line-height: 1.35; color: #fff; }
+  .socCap span { padding: 0 3px; border-radius: 4px; }
+  .scene.on .socCap span { animation: karaoke 3.2s steps(1) infinite; }
+  .scene.on .socCap span:nth-child(2) { animation-delay: 0.4s; }
+  .scene.on .socCap span:nth-child(3) { animation-delay: 0.8s; }
+  .scene.on .socCap span:nth-child(4) { animation-delay: 1.2s; }
+  .scene.on .socCap span:nth-child(5) { animation-delay: 1.6s; }
+  .scene.on .socCap span:nth-child(6) { animation-delay: 2s; }
+  .socLabel { font-size: 0.78rem; color: var(--scr-soft); margin-bottom: 6px; }
+  .clip { display: flex; gap: 3px; height: 22px; margin-bottom: 14px; }
+  .clip i { border-radius: 5px; background: rgba(123, 147, 255, 0.55); }
+  .clip.raw i:nth-child(1) { flex: 3; } .clip.raw i:nth-child(2) { flex: 1.4; background: rgba(236, 240, 255, 0.14); }
+  .clip.raw i:nth-child(3) { flex: 2.4; } .clip.raw i:nth-child(4) { flex: 1.2; background: rgba(236, 240, 255, 0.14); } .clip.raw i:nth-child(5) { flex: 2; }
+  .clip.edit i { flex: 1; background: linear-gradient(90deg, var(--blue-glow), var(--tang-glow)); transform-origin: left; }
+  .scene.on .clip.raw i:nth-child(2), .scene.on .clip.raw i:nth-child(4) { animation: strike 0.5s var(--ease) both 0.6s; }
+  .scene.on .clip.edit i { animation: grow 0.6s var(--ease) both 1.1s; }
+  .scene.on .clip.edit i:nth-child(2) { animation-delay: 1.3s; }
+  .scene.on .clip.edit i:nth-child(3) { animation-delay: 1.5s; }
+  .checks { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 7px; font-size: 0.86rem; }
+  .checks li { display: flex; align-items: center; gap: 9px; }
+  .checks li::before { content: "\2713"; width: 20px; height: 20px; flex: none; border-radius: 50%; display: grid; place-items: center; font-size: 0.7rem; font-weight: 800; color: #0A0F24; background: var(--sun); }
+  .scene.on .checks li { animation: pop 0.45s var(--spring) both 1.8s; }
+  .scene.on .checks li:nth-child(2) { animation-delay: 2.1s; }
+  .scene.on .checks li:nth-child(3) { animation-delay: 2.4s; }
+  .scene.on .checks li:nth-child(4) { animation-delay: 2.7s; }
+
+  /* Scene: site build */
+  .browser { height: 100%; border-radius: 12px; overflow: hidden; background: #F5F6FA; color: #0F1633; display: grid; grid-template-rows: auto 1fr; }
+  .brBar { display: flex; align-items: center; gap: 6px; padding: 9px 12px; background: #E3E7F1; }
+  .brBar span { width: 9px; height: 9px; border-radius: 50%; background: #C3C9D8; }
+  .brBar em { margin-left: 10px; font-style: normal; font-size: 0.72rem; color: #4E5775; background: #fff; padding: 2px 12px; border-radius: 999px; }
+  .brBody { position: relative; padding: 14px 16px; display: grid; gap: 14px; align-content: start; }
+  .bNav { display: flex; align-items: center; gap: 8px; }
+  .bNav b { width: 18px; height: 18px; border-radius: 6px; background: linear-gradient(135deg, #4A67FF, #FF7A3D); }
+  .bNav i { width: 34px; height: 6px; border-radius: 6px; background: #DDE1EC; }
+  .bNav i:first-of-type { margin-left: auto; }
+  .bNav u { width: 50px; height: 16px; border-radius: 999px; background: #2E4BF0; }
+  .bHero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 14px; align-items: center; }
+  .bText { display: grid; gap: 7px; justify-items: start; }
+  .bH { font-family: var(--display); font-weight: 600; font-size: 0.92rem; line-height: 1.15; letter-spacing: -0.02em; }
+  .bText i { width: 100%; height: 6px; border-radius: 6px; background: #DDE1EC; }
+  .bText i.s { width: 70%; }
+  .bBtn { margin-top: 4px; font-size: 0.66rem; font-weight: 700; color: #fff; background: #2E4BF0; padding: 5px 11px; border-radius: 999px; }
+  .bImg { aspect-ratio: 4 / 3; border-radius: 10px; background: radial-gradient(60% 70% at 30% 30%, #7B93FF, transparent 70%), radial-gradient(60% 70% at 80% 80%, #FF8A4C, transparent 70%), #111936; }
+  .bCards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .bCards i { height: 44px; border-radius: 9px; background: #fff; box-shadow: 0 6px 16px -10px rgba(15, 22, 51, 0.4), inset 0 0 0 1px #E3E7F1; }
+  .scene.on .bNav, .scene.on .bText > *, .scene.on .bImg, .scene.on .bCards i { animation: build 0.6s var(--spring) both; }
+  .scene.on .bText > :nth-child(1) { animation-delay: 0.3s; }
+  .scene.on .bText > :nth-child(2) { animation-delay: 0.45s; }
+  .scene.on .bText > :nth-child(3) { animation-delay: 0.6s; }
+  .scene.on .bText > :nth-child(4) { animation-delay: 0.75s; }
+  .scene.on .bImg { animation-delay: 0.9s; }
+  .scene.on .bCards i:nth-child(1) { animation-delay: 1.15s; }
+  .scene.on .bCards i:nth-child(2) { animation-delay: 1.3s; }
+  .scene.on .bCards i:nth-child(3) { animation-delay: 1.45s; }
+  .cursor { position: absolute; width: 20px; height: 20px; left: 70%; top: 85%; opacity: 0; }
+  .scene.on .cursor { animation: cursorMove 2.2s var(--ease) both 1.7s; }
+  .ripple { position: absolute; left: 16px; top: 134px; width: 60px; height: 60px; margin: -18px 0 0 6px; border-radius: 50%; border: 2px solid #2E4BF0; opacity: 0; }
+  .scene.on .ripple { animation: ripple 0.7s ease-out both 3.5s; }
+  .toast { position: absolute; right: 14px; bottom: 12px; font-size: 0.74rem; font-weight: 700; color: #0F1633; background: var(--sun); padding: 6px 12px; border-radius: 999px; opacity: 0; }
+  .scene.on .toast { animation: pop 0.5s var(--spring) both 3.8s; }
+
+  /* Scene: customer sort */
+  .crm { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .crm li { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr) auto auto; gap: 10px; align-items: center; padding: 11px 14px; border-radius: 12px; background: rgba(236, 240, 255, 0.05); font-size: 0.86rem; }
+  .crm b { font-weight: 600; white-space: nowrap; }
+  .crm span { color: var(--scr-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .crm em { font-style: normal; font-size: 0.74rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; color: #0A0F24; }
+  .crm em.k { background: var(--tang-glow); }
+  .crm em.s { background: var(--blue-glow); }
+  .crm em.y { background: var(--sun); }
+  .crm s { text-decoration: none; font-size: 0.74rem; color: var(--scr-soft); min-width: 74px; text-align: right; }
+  .crm s::after { content: " \2713"; color: #3BD671; font-weight: 800; }
+  .scene.on .crm li { animation: slideIn 0.5s var(--ease) both; }
+  .scene.on .crm em { animation: pop 0.45s var(--spring) both; }
+  .scene.on .crm s { animation: fadeIn 0.4s ease both; }
+  .scene.on .crm li:nth-child(1) em { animation-delay: 0.9s; } .scene.on .crm li:nth-child(1) s { animation-delay: 2.3s; }
+  .scene.on .crm li:nth-child(2) { animation-delay: 0.12s; } .scene.on .crm li:nth-child(2) em { animation-delay: 1.15s; } .scene.on .crm li:nth-child(2) s { animation-delay: 2.5s; }
+  .scene.on .crm li:nth-child(3) { animation-delay: 0.24s; } .scene.on .crm li:nth-child(3) em { animation-delay: 1.4s; } .scene.on .crm li:nth-child(3) s { animation-delay: 2.7s; }
+  .scene.on .crm li:nth-child(4) { animation-delay: 0.36s; } .scene.on .crm li:nth-child(4) em { animation-delay: 1.65s; } .scene.on .crm li:nth-child(4) s { animation-delay: 2.9s; }
+  .scene.on .crm li:nth-child(5) { animation-delay: 0.48s; } .scene.on .crm li:nth-child(5) em { animation-delay: 1.9s; } .scene.on .crm li:nth-child(5) s { animation-delay: 3.1s; }
+
+  /* ---------- Services bento ---------- */
+  .bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; }
+  .svc {
+    --accent: var(--blue); position: relative; overflow: hidden; isolation: isolate;
+    grid-column: span 6; display: grid; gap: 16px; align-content: start; padding: 34px 32px 30px; border-radius: 24px;
+    background: var(--surface); box-shadow: var(--shadow), inset 0 0 0 1px var(--line);
+    transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+  }
+  .svc-video { grid-column: span 7; }
+  .svc-social { grid-column: span 5; --accent: var(--tang); }
+  .svc-site { grid-column: span 5; --accent: var(--tang); }
+  .svc-crm { grid-column: span 7; }
+  .svc::before {
+    content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0; transition: opacity 0.4s var(--ease);
+    background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
+  }
+  .svc:hover { transform: translateY(-4px); box-shadow: 0 30px 60px -30px color-mix(in srgb, var(--accent) 55%, transparent), inset 0 0 0 1px color-mix(in srgb, var(--accent) 45%, var(--line)); }
+  .svc:hover::before { opacity: 1; }
+  .svcTop { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 10px 20px; }
+  .svc h3 { font-family: var(--display); font-size: clamp(1.35rem, 2.2vw, 1.75rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.15; }
+  .svc .for { display: flex; gap: 6px; font-size: 0.8rem; font-weight: 600; color: var(--ink-soft); }
+  .forTag { padding: 3px 10px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); }
+  .svcText { color: var(--ink-soft); font-size: 1.02rem; max-width: 52ch; }
+  .svc ul { list-style: none; margin: 0; padding: 0; }
+  .svc li { position: relative; padding: 10px 0 10px 26px; border-top: 1px solid var(--line); font-size: 0.97rem; }
+  .svc li::before { content: ""; position: absolute; left: 3px; top: 17px; width: 10px; height: 6px; border-left: 2px solid var(--accent); border-bottom: 2px solid var(--accent); transform: rotate(-45deg); }
+  .svc .textLink { justify-self: start; }
+
+  /* ---------- Service picker in the form ---------- */
+  .pick { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .pick legend { font-size: 0.92rem; font-weight: 600; margin-bottom: 10px; padding: 0; }
+  .pick label { cursor: pointer; }
+  .pick input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .pick span {
+    display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 15px; border-radius: 999px; font-size: 0.9rem; font-weight: 600;
+    box-shadow: inset 0 0 0 1px var(--line); color: var(--ink-soft); background: var(--bg);
+    transition: background-color 0.3s var(--ease), color 0.3s var(--ease), box-shadow 0.3s var(--ease), transform 0.4s var(--spring);
+  }
+  .pick label:hover span { color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink-soft); }
+  .pick input:checked + span { background: var(--blue); color: #fff; box-shadow: none; transform: scale(1.03); }
+  .pick input:checked + span::before { content: "\2713"; font-weight: 800; }
+  .pick input:focus-visible + span { outline: 2px solid var(--blue); outline-offset: 3px; }
 
   /* ---------- FAQ: open two-column list ---------- */
   .faqLead { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 16px 64px; padding: 36px 0; margin-bottom: 44px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
@@ -352,9 +538,9 @@
      so browsers without animation-timeline simply show the final state. */
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
-      .rv, .steps li, .pack, .faq > div, .fitList li, .stat, .facts li { animation: rise linear both; animation-timeline: view(); animation-range: entry 5% entry 75%; }
-      .steps li:nth-child(2), .pack:nth-child(2), .fitList li:nth-child(2), .stat:nth-child(2), .facts li:nth-child(2) { animation-range: entry 12% entry 85%; }
-      .steps li:nth-child(3), .pack:nth-child(3), .fitList li:nth-child(3), .stat:nth-child(3), .facts li:nth-child(3) { animation-range: entry 19% entry 95%; }
+      .rv, .steps li, .svc, .faq > div, .fitList li, .stat, .facts li, .short { animation: rise linear both; animation-timeline: view(); animation-range: entry 5% entry 75%; }
+      .steps li:nth-child(2), .short:nth-child(2), .svc:nth-child(2), .fitList li:nth-child(2), .stat:nth-child(2), .facts li:nth-child(2) { animation-range: entry 12% entry 85%; }
+      .steps li:nth-child(3), .short:nth-child(3), .svc:nth-child(3), .fitList li:nth-child(3), .stat:nth-child(3), .facts li:nth-child(3) { animation-range: entry 19% entry 95%; }
       .steps li:nth-child(4), .stat:nth-child(4) { animation-range: entry 26% cover 40%; }
       .shots .bezel { animation: tilt linear both; animation-timeline: view(); animation-range: entry 0% cover 50%; }
       .shotPhone { animation: phoneIn linear both; animation-timeline: view(); animation-range: entry 10% cover 55%; }
@@ -367,15 +553,37 @@
       }
       .whatBig .fill strong { color: transparent; }
       .ticker { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
+      .svc:nth-child(4), .short:nth-child(4) { animation-range: entry 26% cover 35%; }
     }
     .steps li::before { animation: nodeBreath 3.2s var(--ease) infinite; }
     .steps li:nth-child(2)::before { animation-delay: 0.8s; }
     .steps li:nth-child(3)::before { animation-delay: 1.6s; }
     .steps li:nth-child(4)::before { animation-delay: 2.4s; }
   }
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+      .progress { animation: grow linear both; animation-timeline: scroll(root); }
+    }
+  }
+  @keyframes sceneIn { from { opacity: 0; transform: translateY(12px) scale(0.985); } to { opacity: 1; transform: none; } }
+  @keyframes pipeOn { to { color: #0A0F24; background: var(--sun); box-shadow: none; } }
+  @keyframes broll { 0% { opacity: 0; transform: scale(1.08); } 8%, 33% { opacity: 1; } 42%, 100% { opacity: 0; transform: scale(1); } }
+  @keyframes wave { to { transform: scaleY(1); } }
+  @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes drift1 { to { transform: translate(30%, 22%) scale(1.15); } }
+  @keyframes drift2 { to { transform: translate(-28%, -30%) scale(0.9); } }
+  @keyframes flash { 0%, 96%, 100% { opacity: 0; } 97% { opacity: 0.5; } }
+  @keyframes karaoke { 0%, 12.5% { background: var(--sun); color: #0A0F24; } 12.6%, 100% { background: transparent; color: #fff; } }
+  @keyframes strike { to { opacity: 0.15; transform: scaleY(0.4); } }
+  @keyframes pop { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: none; } }
+  @keyframes build { from { opacity: 0; transform: translateY(10px) scale(0.92); } to { opacity: 1; transform: none; } }
+  @keyframes cursorMove { 0% { opacity: 0; left: 70%; top: 85%; } 15% { opacity: 1; } 80%, 100% { opacity: 1; left: 20%; top: 132px; } }
+  @keyframes ripple { from { opacity: 0.9; transform: scale(0.3); } to { opacity: 0; transform: scale(1.2); } }
+  @keyframes slideIn { from { opacity: 0; transform: translateX(-18px); } to { opacity: 1; transform: none; } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes rise { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
   @keyframes tilt { from { opacity: 0.3; transform: perspective(1400px) rotateX(14deg) translateY(60px) scale(0.94); } to { opacity: 1; transform: none; } }
-  @keyframes phoneIn { from { opacity: 0; transform: translate(40px, 80px) rotate(6deg); } to { opacity: 1; transform: none; } }
+  @keyframes phoneIn { from { opacity: 0; transform: translateY(80px) rotate(-5deg); } to { opacity: 1; transform: none; } }
   @keyframes draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
   @keyframes fillText { to { background-size: 100% 100%, 100% 100%; } }
   @keyframes tick { to { transform: translateX(-50%); } }
@@ -384,8 +592,9 @@
   @keyframes nodeBreath { 0%, 60%, 100% { transform: scale(1); } 25% { transform: scale(1.12); } }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .btn, .segTab, .waFloat, .vn, .vl, .vh, .textLink, .navLinks a, .pack, .btn .arr { transition: none !important; }
-    .tickTrack, .live::before, .logo .mk-c, .logo .mk-t { animation: none !important; }
+    .btn, .segTab, .waFloat, .vn, .vl, .vh, .textLink, .navLinks a, .short, .short::after, .btn .arr { transition: none !important; }
+    .tickTrack, .live::before, .logo .mk-c, .logo .mk-t, .scene *, .scene.on { animation: none !important; }
+    .tabInk, .svc, .pick span { transition: none !important; }
     .tickTrack { flex-wrap: wrap; width: auto; }
     .ticker { -webkit-mask-image: none; mask-image: none; }
     .tickSet[aria-hidden] { display: none; }
@@ -394,14 +603,14 @@
 
   /* ---------- Responsive ---------- */
   @media (max-width: 1020px) {
-    .heroGrid, .workHead, .what, .faqLead, .contact { grid-template-columns: minmax(0, 1fr); }
+    .heroGrid, .workHead, .workCase, .what, .faqLead, .contact { grid-template-columns: minmax(0, 1fr); }
+    .workCase { gap: 44px; }
+    .svc, .svc-video, .svc-social, .svc-site, .svc-crm { grid-column: span 12; }
+    .shorts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .heroGrid { gap: 48px; }
     .hero h1 { font-size: clamp(2.2rem, 6.4vw, 3.4rem); max-width: 18ch; }
-    .workCase .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; }
     .what { margin-bottom: 52px; }
     .what h2 { padding-top: 0; }
-    .packages { grid-template-columns: minmax(0, 1fr); max-width: 580px; }
-    .pack .for { min-height: 0; }
     .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 44px; }
     .steps::before { display: none; }
   }
@@ -439,6 +648,15 @@
     .steps { grid-template-columns: minmax(0, 1fr); }
     .contactSide, .formSide { padding: 32px 22px; }
     .formRow { grid-template-columns: minmax(0, 1fr); }
+    .stageTabs button { font-size: 0.74rem; padding: 0 4px; }
+    .scenes { height: 330px; }
+    .scene { padding: 16px; }
+    .soc { grid-template-columns: 104px minmax(0, 1fr); gap: 16px; }
+    .crm li { grid-template-columns: minmax(0, 1fr) auto auto; padding: 10px 12px; }
+    .crm span { display: none; }
+    .crm s { min-width: 0; }
+    .bHero { grid-template-columns: 1fr 0.8fr; }
+    .svc { padding: 28px 22px 24px; }
   }
 </style>
 </head>
@@ -446,15 +664,16 @@
 <a class="skip" href="#main">İçeriğe geç</a>
 
 <header class="siteHead">
+  <div class="progress" aria-hidden="true"></div>
   <div class="wrap nav">
     <a class="logo" href="./" aria-label="Nexi Digital ana sayfa">
       <svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="nxg-h" x1="0" y1="0" x2="1" y2="1"><stop offset=".2" stop-color="#4A67FF"/><stop offset=".8" stop-color="#FF7A3D"/></linearGradient></defs><path class="mk-line" d="M24 20v60M24 20l52 60M76 20v60"/><circle class="mk-node mk-c" cx="24" cy="20" r="10"/><circle class="mk-node mk-c" cx="24" cy="80" r="10"/><circle class="mk-node mk-t" cx="76" cy="20" r="10"/><circle class="mk-node mk-t" cx="76" cy="80" r="10"/><circle class="mk-node" cx="50" cy="50" r="12.5" fill="url(#nxg-h)"/></svg>
       <span class="word">Nexi <span>Digital</span></span>
     </a>
     <nav class="navLinks" id="navLinks" aria-label="Ana menü">
+      <a href="#hizmetler">Hizmetler</a>
       <a href="#isler">İşler</a>
-      <a href="#ne-yapiyorum">Ne yapıyorum</a>
-      <a href="#paketler">Paketler</a>
+      <a href="#nasil">Nasıl çalışıyorum</a>
       <a href="#sss">SSS</a>
     </nav>
     <div class="navEnd">
@@ -471,44 +690,166 @@
   <section class="hero" aria-labelledby="heroTitle">
     <div class="wrap heroGrid">
       <div class="heroText">
-        <h1 id="heroTitle">Unutulan müşterilerini geri getiriyorum.</h1>
-        <p class="heroLede">Ben Pınar. Kayıtlarından kimin seni unutmak üzere olduğunu buluyor, her birine uygun e-posta, SMS ya da WhatsApp mesajını yazıyorum. <strong>İlk analiz ücretsiz.</strong></p>
+        <h1 id="heroTitle">Videonu, siteni ve müşterini ajanlarla büyütüyorum.</h1>
+        <p class="heroLede">Ben Pınar. Yapay zeka ajanlarıyla YouTube videoları ve sosyal medya içerikleri üretiyor, şirketlere site ve uygulama tasarlıyor, müşteri listelerinden geri dönüş kampanyaları çıkarıyorum. <strong>İlk görüşme ücretsiz.</strong></p>
         <div class="ctaRow">
           <a class="btn btnPrimary" href="#iletisim">Ön görüşme iste<span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M6 4h6v6"/></svg></span></a>
-          <a class="textLink" href="#isler">Yaptıklarıma bak</a>
+          <a class="textLink" href="#hizmetler">Neler yaptığıma bak</a>
         </div>
       </div>
-    <figure class="viz bezel heroViz" id="viz">
-      <div class="core">
-        <div class="vizHead"><strong>Örnek: Papatya Kuaför</strong><span class="live">28 müşteri</span></div>
-        <div class="vizCanvas">
-          <svg id="vizSvg" viewBox="0 0 560 440" role="img" aria-label="Örnek bir kuaförün 28 müşterisinin üç segmente ayrılışını gösteren ağ: 12 geri kazanılacak, 7 sadık, 9 yeni müşteri."></svg>
-        </div>
-        <div class="vizFoot">
-          <div class="segTabs" role="group" aria-label="Segment seç">
-            <button type="button" class="segTab seg-kayip" data-seg="kayip" aria-pressed="true"><i></i>Geri kazanılacak</button>
-            <button type="button" class="segTab seg-sadik" data-seg="sadik" aria-pressed="false"><i></i>Sadık</button>
-            <button type="button" class="segTab seg-yeni" data-seg="yeni" aria-pressed="false"><i></i>Yeni</button>
+
+      <div class="stage bezel heroViz" id="stage">
+        <div class="core">
+          <div class="stageTabs" role="tablist" aria-label="Hizmet seç">
+            <button type="button" role="tab" id="tab-video" aria-controls="sc-video" aria-selected="true" data-scene="video">YouTube</button>
+            <button type="button" role="tab" id="tab-social" aria-controls="sc-social" aria-selected="false" tabindex="-1" data-scene="social">Sosyal medya</button>
+            <button type="button" role="tab" id="tab-site" aria-controls="sc-site" aria-selected="false" tabindex="-1" data-scene="site">Site, uygulama</button>
+            <button type="button" role="tab" id="tab-crm" aria-controls="sc-crm" aria-selected="false" tabindex="-1" data-scene="crm">Müşteri</button>
+            <i class="tabInk" aria-hidden="true"></i>
           </div>
-          <div class="msg seg-kayip" id="msg" aria-live="off">
-            <span class="msgCh" id="msgCh">SMS</span>
-            <span class="msgTo" id="msgTo">Ayşe Kaya'ya, son ziyaret 94 gün önce</span>
-            <p class="msgText" id="msgText">Ayşe Hanım, sizi 3 aydır göremedik. Bu ay saç bakımında size özel %15 indirim var; randevu için bu mesajı yanıtlamanız yeterli.</p>
+
+          <div class="scenes">
+            <div class="scene on" id="sc-video" role="tabpanel" aria-labelledby="tab-video">
+              <ol class="pipe">
+                <li>Konu</li><li>Senaryo</li><li>Seslendirme</li><li>Görseller</li><li>Kurgu</li><li>Yükleme</li>
+              </ol>
+              <div class="yt">
+                <div class="ytFrame" aria-hidden="true">
+                  <span class="ytImg a"></span><span class="ytImg b"></span><span class="ytImg c"></span>
+                  <span class="ytWave"><i style="animation-delay:-0.00s"></i><i style="animation-delay:-0.37s"></i><i style="animation-delay:-0.74s"></i><i style="animation-delay:-0.21s"></i><i style="animation-delay:-0.58s"></i><i style="animation-delay:-0.05s"></i><i style="animation-delay:-0.42s"></i><i style="animation-delay:-0.79s"></i><i style="animation-delay:-0.26s"></i><i style="animation-delay:-0.63s"></i><i style="animation-delay:-0.10s"></i><i style="animation-delay:-0.47s"></i><i style="animation-delay:-0.84s"></i><i style="animation-delay:-0.31s"></i><i style="animation-delay:-0.68s"></i><i style="animation-delay:-0.15s"></i><i style="animation-delay:-0.52s"></i><i style="animation-delay:-0.89s"></i></span>
+                  <span class="ytCap">Bu şehirde kimse geceleri dışarı çıkmıyor</span>
+                  <span class="ytDur">8:42</span>
+                </div>
+                <div class="ytMeta">
+                  <b>Terk edilmiş 5 şehrin gerçek hikayesi</b>
+                  <span>Yükleniyor <em class="ytPct" id="ytPct">100</em>%</span>
+                </div>
+                <div class="ytBar"><i></i></div>
+              </div>
+            </div>
+
+            <div class="scene" id="sc-social" role="tabpanel" aria-labelledby="tab-social" hidden>
+              <div class="soc">
+                <div class="socPhone" aria-hidden="true">
+                  <span class="blob b1"></span><span class="blob b2"></span>
+                  <span class="socCut"></span>
+                  <p class="socCap"><span>Bunu</span> <span>kimse</span> <span>sana</span> <span>söylemedi</span> <span>ama</span></p>
+                </div>
+                <div class="socSide">
+                  <p class="socLabel">Ham çekim, 2:40</p>
+                  <div class="clip raw" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+                  <p class="socLabel">Kurgulanmış, 0:58</p>
+                  <div class="clip edit" aria-hidden="true"><i></i><i></i><i></i></div>
+                  <ul class="checks">
+                    <li>Boş anlar kesildi</li><li>Altyazı eklendi</li><li>9:16 formatı</li><li>Kapak hazır</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="scene" id="sc-site" role="tabpanel" aria-labelledby="tab-site" hidden>
+              <div class="browser" aria-hidden="true">
+                <div class="brBar"><span></span><span></span><span></span><em>papatyakuafor.com</em></div>
+                <div class="brBody">
+                  <div class="bNav"><b></b><i></i><i></i><i></i><u></u></div>
+                  <div class="bHero">
+                    <div class="bText"><p class="bH">Randevunu 30 saniyede al</p><i></i><i class="s"></i><span class="bBtn">Randevu al</span></div>
+                    <div class="bImg"></div>
+                  </div>
+                  <div class="bCards"><i></i><i></i><i></i></div>
+                  <svg class="cursor" viewBox="0 0 24 24"><path d="M4 3l16 7-7 2-3 7z" fill="#fff" stroke="#0A0F24" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                  <span class="ripple"></span>
+                  <span class="toast">Yeni randevu geldi</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="scene" id="sc-crm" role="tabpanel" aria-labelledby="tab-crm" hidden>
+              <ul class="crm">
+                <li><b>Ayşe K.</b><span>Son ziyaret 94 gün önce</span><em class="k">Geri kazanılacak</em><s>SMS</s></li>
+                <li><b>Merve T.</b><span>14. ziyaret</span><em class="s">Sadık</em><s>WhatsApp</s></li>
+                <li><b>Elif Ş.</b><span>İlk ziyaret 3 gün önce</span><em class="y">Yeni</em><s>E-posta</s></li>
+                <li><b>Can D.</b><span>Son ziyaret 61 gün önce</span><em class="k">Geri kazanılacak</em><s>SMS</s></li>
+                <li><b>Zeynep A.</b><span>9. ziyaret</span><em class="s">Sadık</em><s>WhatsApp</s></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="stageFoot">
+            <p id="stageNote" aria-live="off">Yüzsüz bir YouTube kanalı için üretim hattı: konu, senaryo, ses, görsel, kurgu ve yükleme.</p>
+            <span class="timer" aria-hidden="true"><i id="stageTimer"></i></span>
           </div>
         </div>
       </div>
-    </figure>
     </div>
+
     <div class="ticker" aria-label="Yaptığım işler">
       <div class="tickTrack">
-        <div class="tickSet"><span>Müşteri segmentasyonu</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Geri kazanım mesajları</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>WhatsApp kampanyaları</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>SMS hatırlatmaları</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>E-posta serileri</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Web sitesi kurulumu</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Yapay zeka otomasyonu</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Subly</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg></div>
-        <div class="tickSet" aria-hidden="true"><span>Müşteri segmentasyonu</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Geri kazanım mesajları</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>WhatsApp kampanyaları</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>SMS hatırlatmaları</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>E-posta serileri</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Web sitesi kurulumu</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Yapay zeka otomasyonu</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Subly</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg></div>
+        <div class="tickSet"><span>YouTube otomasyonu</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Yüzsüz kanallar</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Reels ve TikTok kurgusu</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Altyazı ve çeviri</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Web sitesi</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Web ve mobil uygulama</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Müşteri segmentasyonu</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>WhatsApp kampanyaları</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Yapay zeka ajanları</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Subly</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg></div>
+        <div class="tickSet" aria-hidden="true"><span>YouTube otomasyonu</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Yüzsüz kanallar</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Reels ve TikTok kurgusu</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Altyazı ve çeviri</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Web sitesi</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Web ve mobil uygulama</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Müşteri segmentasyonu</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>WhatsApp kampanyaları</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Yapay zeka ajanları</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Subly</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg></div>
       </div>
+    </div>
+  </section>
+
+  <section class="wrap block" id="hizmetler" aria-labelledby="svcTitle">
+    <div class="sectionHead rv">
+      <h2 id="svcTitle">Neler yapıyorum</h2>
+      <p class="lede">İçerik üreticileriyle de şirketlerle de çalışıyorum. Tekrar eden üretimi ajanlara veriyorum, karar ve kaliteyi ben üstleniyorum.</p>
+    </div>
+    <div class="bento">
+      <article class="svc svc-video" data-service="video">
+        <div class="svcTop"><h3>YouTube otomasyonu</h3><p class="for"><span class="forTag">İçerik üreticileri</span><span class="forTag">Şirketler</span></p></div>
+        <p class="svcText">Yüzsüz kanallar için konu bulmaktan yüklemeye kadar bir üretim hattı. Kendi kanalım GlowTips'i bu hatla büyüttüm: 182 video, 850 binden fazla izlenme. Aynısını senin kanalın için kuruyorum.</p>
+        <ul><li>Konu ve senaryo araştırması</li><li>Yapay zeka seslendirme ve görseller</li><li>Kurgu, kapak ve yükleme takvimi</li></ul>
+        <a class="textLink" href="#iletisim" data-pick="video">Bunun için yaz</a>
+      </article>
+      <article class="svc svc-social" data-service="social">
+        <div class="svcTop"><h3>Sosyal medya içerik düzenleme</h3><p class="for"><span class="forTag">İçerik üreticileri</span><span class="forTag">Şirketler</span></p></div>
+        <p class="svcText">Ham videolarını ajanlarla Reels, TikTok ve Shorts için hazırlıyorum: kesim, altyazı, format.</p>
+        <ul><li>Boş ve sessiz anların kesilmesi</li><li>Altyazı ve 14 dile çeviri</li><li>Dikey format ve kapak</li></ul>
+        <a class="textLink" href="#iletisim" data-pick="social">Bunun için yaz</a>
+      </article>
+      <article class="svc svc-site" data-service="site">
+        <div class="svcTop"><h3>Site ve uygulama tasarımı</h3><p class="for"><span class="forTag">Şirketler</span></p></div>
+        <p class="svcText">Şirketlere hızlı ve mobil uyumlu site ya da web uygulaması. Subly'yi fikirden canlı ürüne kadar ben geliştirdim.</p>
+        <ul><li>Tanıtım ve randevu siteleri</li><li>Web ve mobil uygulama arayüzleri</li><li>Alan adı, yayın ve bakım</li></ul>
+        <a class="textLink" href="#iletisim" data-pick="site">Bunun için yaz</a>
+      </article>
+      <article class="svc svc-crm" data-service="crm">
+        <div class="svcTop"><h3>Müşteri geri kazanımı</h3><p class="for"><span class="forTag">Şirketler</span></p></div>
+        <p class="svcText">Müşteri kayıtlarından kimin sadık, kimin kaybolmak üzere olduğunu buluyor, her gruba e-posta, SMS ya da WhatsApp mesajını yazıyorum.</p>
+        <ul><li>Müşteri segmentasyonu</li><li>Çok kanallı kampanya metinleri</li><li>Aylık sonuç takibi</li></ul>
+        <a class="textLink" href="#iletisim" data-pick="crm">Bunun için yaz</a>
+      </article>
     </div>
   </section>
 
   <section class="wrap block" id="isler" aria-labelledby="workTitle">
     <h2 class="workTitle" id="workTitle">Yaptıklarım</h2>
+
+    <article class="work workYt rv" aria-labelledby="w0Title">
+      <div class="workHead">
+        <div>
+          <p class="workKind">Kendi yüzsüz kanalım</p>
+          <h3 id="w0Title" class="ytName"><img src="img/yt-avatar.webp" width="120" height="120" alt="" loading="lazy">GlowTips</h3>
+        </div>
+        <p class="workText">Güzellik ve estetik temalı "This or That" Shorts kanalı. Konudan yüklemeye kadar üretimi ajanlarla kurdum; Haziran 2024'ten bu yana 182 video yayınlandı.</p>
+      </div>
+      <div class="shorts">
+          <a class="short" href="https://www.youtube.com/shorts/ZHec1DFwmjI" target="_blank" rel="noopener"><img src="img/yt-1.webp" width="360" height="640" alt="GlowTips kanalından bir Shorts kapağı" loading="lazy" decoding="async"><span class="sr"> (yeni sekmede açılır)</span></a>
+          <a class="short" href="https://www.youtube.com/shorts/sWFJ_irOlgU" target="_blank" rel="noopener"><img src="img/yt-2.webp" width="360" height="640" alt="GlowTips kanalından bir Shorts kapağı" loading="lazy" decoding="async"><span class="sr"> (yeni sekmede açılır)</span></a>
+          <a class="short" href="https://www.youtube.com/shorts/v32FLReuWuM" target="_blank" rel="noopener"><img src="img/yt-3.webp" width="360" height="640" alt="GlowTips kanalından bir Shorts kapağı" loading="lazy" decoding="async"><span class="sr"> (yeni sekmede açılır)</span></a>
+          <a class="short" href="https://www.youtube.com/shorts/zMC6IflB5xQ" target="_blank" rel="noopener"><img src="img/yt-4.webp" width="360" height="640" alt="GlowTips kanalından bir Shorts kapağı" loading="lazy" decoding="async"><span class="sr"> (yeni sekmede açılır)</span></a>
+      </div>
+      <div class="workFoot">
+        <ul class="facts">
+          <li><b data-count>182</b><span>video yayında</span></li>
+          <li><b data-count>850 bin+</b><span>toplam izlenme</span></li>
+          <li><b>3,9 bin</b><span>abone</span></li>
+        </ul>
+        <a class="btn btnQuiet" href="https://www.youtube.com/@glowtips777" target="_blank" rel="noopener">Kanalı YouTube'da aç<span class="sr"> (yeni sekmede açılır)</span></a>
+      </div>
+    </article>
 
     <article class="work workSubly rv" aria-labelledby="w1Title">
       <div class="workHead">
@@ -533,33 +874,51 @@
     </article>
 
     <article class="work workCase" id="ornek" aria-labelledby="w2Title">
-      <div class="workHead">
-        <div>
-          <p class="workKind">Yöntem demosu, örnek veri</p>
-          <h3 id="w2Title">Bir kuaförün müşteri listesi, 6 segmente ayrıldı</h3>
+      <figure class="viz bezel" id="viz">
+        <div class="core">
+          <div class="vizHead"><strong>Örnek: Papatya Kuaför</strong><span class="live">28 müşteri</span></div>
+          <div class="vizCanvas">
+            <svg id="vizSvg" viewBox="0 0 560 440" role="img" aria-label="Örnek bir kuaförün 28 müşterisinin üç segmente ayrılışını gösteren ağ: 12 geri kazanılacak, 7 sadık, 9 yeni müşteri."></svg>
+          </div>
+          <div class="vizFoot">
+            <div class="segTabs" role="group" aria-label="Segment seç">
+              <button type="button" class="segTab seg-kayip" data-seg="kayip" aria-pressed="true"><i></i>Geri kazanılacak</button>
+              <button type="button" class="segTab seg-sadik" data-seg="sadik" aria-pressed="false"><i></i>Sadık</button>
+              <button type="button" class="segTab seg-yeni" data-seg="yeni" aria-pressed="false"><i></i>Yeni</button>
+            </div>
+            <div class="msg seg-kayip" id="msg" aria-live="off">
+              <span class="msgCh" id="msgCh">SMS</span>
+              <span class="msgTo" id="msgTo">Ayşe Kaya'ya, son ziyaret 94 gün önce</span>
+              <p class="msgText" id="msgText">Ayşe Hanım, sizi 3 aydır göremedik. Bu ay saç bakımında size özel %15 indirim var; randevu için bu mesajı yanıtlamanız yeterli.</p>
+            </div>
+          </div>
         </div>
-        <p class="workText">1.000 müşterilik örnek veriyi son ziyaret, sıklık ve harcamaya göre grupladım, her gruba ayrı mesaj yazdım. En üstteki canlı ağ bunun 28 müşterilik küçük bir kesiti: bir segmente dokun, gidecek mesajı gör.</p>
+      </figure>
+      <div class="caseBody">
+        <p class="workKind">Yöntem demosu, örnek veri</p>
+        <h3 id="w2Title">Bir kuaförün müşteri listesi, 6 segmente ayrıldı</h3>
+        <p class="workText">1.000 müşterilik örnek veriyi son ziyaret, sıklık ve harcamaya göre grupladım, her gruba ayrı mesaj yazdım. Soldaki ağ bunun 28 müşterilik kesiti: bir segmente dokun, gidecek mesajı gör.</p>
+        <div class="stats">
+          <div class="stat c"><b data-count>%25</b><span>gelirin en sadık %11'lik müşteriden geldiği</span></div>
+          <div class="stat t"><b data-count>6</b><span>anlamlı müşteri segmenti</span></div>
+          <div class="stat"><b data-count>5.388</b><span>işlem analiz edildi</span></div>
+          <div class="stat"><b data-count>12</b><span>hizmet türü karşılaştırıldı</span></div>
+        </div>
+        <a class="textLink" href="https://claude.ai/code/artifact/61ae4686-f95d-4123-a3ed-ed7d0851541f" target="_blank" rel="noopener noreferrer">Analiz panelinin tamamını aç<span class="sr"> (yeni sekmede açılır)</span></a>
       </div>
-      <div class="stats">
-        <div class="stat c"><b data-count>%25</b><span>gelirin en sadık %11'lik müşteriden geldiği</span></div>
-        <div class="stat t"><b data-count>6</b><span>anlamlı müşteri segmenti</span></div>
-        <div class="stat"><b data-count>5.388</b><span>işlem analiz edildi</span></div>
-        <div class="stat"><b data-count>12</b><span>hizmet türü karşılaştırıldı</span></div>
-      </div>
-      <a class="textLink" href="https://claude.ai/code/artifact/61ae4686-f95d-4123-a3ed-ed7d0851541f" target="_blank" rel="noopener noreferrer">Analiz panelinin tamamını aç<span class="sr"> (yeni sekmede açılır)</span></a>
     </article>
   </section>
 
-  <section class="wrap block" id="ne-yapiyorum" aria-labelledby="whatTitle">
+  <section class="wrap block" id="nasil" aria-labelledby="whatTitle">
     <div class="what rv">
-      <h2 id="whatTitle">Ne yapıyorum</h2>
-      <p class="whatBig"><span class="fill">Müşteri kayıtlarını okuyup kimin sadık, kimin kaybolmak üzere, kimin yeni olduğunu çıkarıyorum. Sonra her gruba <strong>e-posta, SMS ya da WhatsApp</strong> mesajını yazıyor, gerekirse <strong>web siteni</strong> kuruyor, tekrar eden işleri <strong>yapay zekaya</strong> devrediyorum.</span></p>
+      <h2 id="whatTitle">Nasıl çalışıyorum</h2>
+      <p class="whatBig"><span class="fill">Ajanlar hızlı üretir, ama neyin iyi olduğuna ben karar veririm. <strong>Her videoyu, her sayfayı, her mesajı</strong> yayına çıkmadan önce kendim kontrol ediyorum.</span></p>
     </div>
     <ol class="steps">
-      <li><h3>Ön görüşme</h3><p>İşini ve elindeki müşteri kayıtlarını konuşuyoruz. Excel, randevu uygulaması ya da başka bir liste, fark etmez.</p><span class="stepTag">Ücretsiz</span></li>
-      <li><h3>Analiz</h3><p>Kayıtlarını son ziyaret, sıklık ve harcamaya göre segmentlere ayırıyorum.</p></li>
-      <li><h3>Mesajlar</h3><p>Her segment için e-posta, SMS ya da WhatsApp metnini ve gönderim sırasını yazıyorum.</p></li>
-      <li><h3>Takip</h3><p>Kimin geri geldiğini birlikte izliyoruz. Sonuçlar WhatsApp ya da e-postayla önüne geliyor.</p></li>
+      <li><h3>Ön görüşme</h3><p>İşini ya da kanalını, hedefini konuşuyoruz. Neyin mantıklı olduğunu birlikte görüyoruz.</p><span class="stepTag">Ücretsiz</span></li>
+      <li><h3>Plan</h3><p>Hangi işin ajanlara, hangisinin bana kalacağını netleştiriyor, takvimi ve teklifi çıkarıyorum.</p></li>
+      <li><h3>Üretim</h3><p>Ajanlar üretiyor, ben her çıktıyı kontrol edip düzeltiyorum.</p></li>
+      <li><h3>Teslim ve takip</h3><p>Teslim ediyorum, sonuçları birlikte izliyor, gerekeni değiştiriyoruz.</p></li>
     </ol>
   </section>
 
@@ -569,61 +928,30 @@
       <div class="fit">
         <div>
           <h3 class="fitYes">Sana uygun, eğer</h3>
-          <ul class="fitList yes"><li>Müşterilerin tekrar geliyorsa: kuaför, güzellik salonu, klinik, kafe gibi.</li><li>Elinde bir müşteri listesi var ama onunla bir şey yapmıyorsan.</li><li>Kampanya yazmaya da takip etmeye de vaktin yoksa.</li></ul>
+          <ul class="fitList yes"><li>Düzenli YouTube ya da sosyal medya içeriği istiyor ama üretmeye vaktin yoksa.</li><li>İşin için yeni bir site ya da uygulamaya ihtiyacın varsa.</li><li>Elinde bir müşteri listesi var ama onunla bir şey yapmıyorsan.</li></ul>
         </div>
         <div>
           <h3 class="fitNo">Sana uygun değil, eğer</h3>
-          <ul class="fitList no"><li>Sosyal medya takipçisi ya da reklam yönetimi arıyorsan.</li><li>Tek seferlik, herkese aynı bir duyuru atıp bitirmek istiyorsan.</li><li>Kampanyanın ne işe yaradığını takip etmek istemiyorsan.</li></ul>
+          <ul class="fitList no"><li>Takipçi ya da beğeni satın almak istiyorsan.</li><li>Her şeyin bir gecede hazır olmasını bekliyorsan.</li><li>Sonuçları ölçmek ve takip etmek istemiyorsan.</li></ul>
         </div>
       </div>
     </div>
   </section>
 
   <div class="wrap">
-    <section class="block" id="paketler" aria-labelledby="packTitle">
-      <div class="sectionHead">
-        <h2 id="packTitle">İşletmenin büyüklüğüne göre kapsam</h2>
-        <p class="lede">Fiyat, ilk görüşmede işletmenin ölçeğine ve ihtiyacına göre netleşir. Burada her pakete neyin dahil olduğunu görebilirsin.</p>
-      </div>
-      <div class="packages">
-        <article class="pack">
-          <p class="packTier">Başlangıç</p>
-          <h3>Tek kanaldan başla</h3>
-          <p class="for">İlk kampanyasını atacak, yeni başlayan işletmeler için.</p>
-          <ul><li>Müşteri segmentasyonu</li><li>Tek kanal kampanya (e-posta veya WhatsApp)</li><li>Kurulum desteği</li></ul>
-          <a class="btn btnQuiet js-mail" data-subject="Başlangıç Paketi Hakkında Bilgi" href="mailto:nexidigital.00@gmail.com">Teklif iste</a>
-        </article>
-        <article class="pack featured">
-          <p class="packTier">Büyüme<em>Çok kanallı</em></p>
-          <h3>Çok kanallı, düzenli takip</h3>
-          <p class="for">Birden fazla kanaldan müşteriye ulaşmak isteyen, aktif büyüyen işletmeler için.</p>
-          <ul><li>Segmentasyon ve çok kanallı kampanya (e-posta, SMS, WhatsApp)</li><li>Web sitesi güncellemeleri</li><li>Aylık sonuç takibi</li></ul>
-          <a class="btn btnPrimary js-mail" data-subject="Büyüme Paketi Hakkında Bilgi" href="mailto:nexidigital.00@gmail.com">Teklif iste</a>
-        </article>
-        <article class="pack">
-          <p class="packTier">Kurumsal</p>
-          <h3>Şube ve veri ölçeği büyüdükçe</h3>
-          <p class="for">Birden fazla şubesi olan ya da büyük veri hacmiyle çalışan işletmeler için.</p>
-          <ul><li>Özel entegrasyon</li><li>Otomasyon (chatbot vb.)</li><li>Öncelikli destek</li></ul>
-          <a class="btn btnQuiet js-mail" data-subject="Kurumsal Paket Hakkında Bilgi" href="mailto:nexidigital.00@gmail.com">Teklif iste</a>
-        </article>
-      </div>
-      <p class="packNote">Hangi paketin uygun olduğuna karar veremiyorsan, ücretsiz ön görüşmede birlikte netleştiririz.</p>
-    </section>
-
     <section class="block" id="sss" aria-labelledby="faqTitle">
       <div class="sectionHead">
         <h2 id="faqTitle">Muhtemelen bunları soracaktın</h2>
       </div>
       <div class="faqLead">
         <h3>Bunu yapay zeka ile mi yapıyorsun? O zaman gerçek bir uzmanlık mı bu?</h3>
-        <p><strong>Gerçek bir uzmanlık.</strong> Aracı sadece açmıyorum. Verinde hangi sorunun saklı olduğunu bulmak, doğru soruyu sormak ve bulguyu doğru müşteriye doğru mesajla ulaştırmak deneyim ister. Bunu iddia etmiyorum, <a class="inlineLink" href="#ornek">1.000 müşterilik örnek çalışmada</a> gösteriyorum.</p>
+        <p><strong>Gerçek bir uzmanlık.</strong> Aracı açmak işin kolay kısmı. Hangi videonun izleneceğini, hangi sayfanın müşteri getireceğini, hangi mesajın geri dönüş sağlayacağını bilmek deneyim ister. Bunu iddia etmiyorum, <a class="inlineLink" href="#isler">yaptığım işlerde</a> gösteriyorum.</p>
       </div>
       <div class="faq">
-        <div><h3>Teknolojiden hiç anlamıyorum, benim de bir şeyler öğrenmem gerekecek mi?</h3><p>Hayır. Sen bana işini anlatıyorsun, kurulumu ve takibi ben yapıyorum. Bir panele girip bir şey öğrenmen gerekmiyor; sonuçlar WhatsApp ya da e-posta ile önüne geliyor.</p></div>
+        <div><h3>Sadece şirketlerle mi çalışıyorsun?</h3><p>Hayır. İçerik üreticileriyle de çalışıyorum: YouTube kanalın için video üretimi ya da sosyal medya videolarının düzenlenmesi gibi. Şirketlere ise site, uygulama ve müşteri kampanyaları yapıyorum.</p></div>
+        <div><h3>Teknolojiden hiç anlamıyorum, benim de bir şeyler öğrenmem gerekecek mi?</h3><p>Hayır. Sen bana ne istediğini anlatıyorsun, kurulumu ve üretimi ben yapıyorum. Bir panele girip bir şey öğrenmen gerekmiyor; sonuçlar WhatsApp ya da e-posta ile önüne geliyor.</p></div>
         <div><h3>Müşteri verimi paylaşmak beni tedirgin ediyor, güvenli mi?</h3><p>Haklısın, olmalı da. Verin sadece senin işin için kullanılır, üçüncü kişiyle paylaşılmaz. Nasıl saklandığını ve ne zaman sileceğimizi ilk görüşmede birlikte netleştiriyoruz.</p></div>
-        <div><h3>Küçük bir salonum, az müşterim var. Yine de değer mi?</h3><p>Genelde en çok orada işe yarıyor. Küçük bir listede bile "geri gelmesi gereken ama unutulmuş" birkaç müşteri bulmak tek başına karşılığını çıkarır.</p></div>
-        <div><h3>Neden sitede bir fiyat göremiyorum?</h3><p>Çünkü 10 müşterilik bir salonla 500 müşterilik bir zincirin ihtiyacı aynı olmamalı. İlk görüşmede işine bakıp net bir teklif çıkarıyorum, sürpriz yok.</p></div>
+        <div><h3>Neden sitede fiyat yok?</h3><p>Çünkü haftada bir video isteyen bir kanalla beş sayfalık bir site aynı işi gerektirmiyor. İlk görüşmede ihtiyacına bakıp net bir teklif çıkarıyorum, sürpriz yok.</p></div>
       </div>
     </section>
 
@@ -631,7 +959,7 @@
       <div class="contact rv">
         <div class="contactSide">
           <h2 id="contactTitle">Kısa bir görüşme yapalım</h2>
-          <p>İlk değerlendirme her zaman ücretsiz. İşine gerçekten katkı sağlayıp sağlamayacağımızı birlikte görelim.</p>
+          <p>İlk görüşme her zaman ücretsiz. Kanalın ya da işin için neyin mantıklı olduğunu birlikte görelim.</p>
           <ul class="contactList">
             <li>En geç bir iş günü içinde dönüş</li>
             <li>Görüşme sonunda net bir teklif</li>
@@ -644,15 +972,22 @@
         <div class="formSide">
           <form class="form" id="contactForm" action="https://formspree.io/f/mkodyrzb" method="POST">
             <input type="hidden" name="_subject" value="Web sitesinden ücretsiz ön görüşme talebi">
+            <fieldset class="pick">
+              <legend>Ne için yazıyorsun?</legend>
+              <label><input type="checkbox" name="service" value="YouTube otomasyonu" data-svc="video"><span>YouTube otomasyonu</span></label>
+              <label><input type="checkbox" name="service" value="Sosyal medya içerik düzenleme" data-svc="social"><span>Sosyal medya içerik düzenleme</span></label>
+              <label><input type="checkbox" name="service" value="Site ve uygulama tasarımı" data-svc="site"><span>Site ve uygulama tasarımı</span></label>
+              <label><input type="checkbox" name="service" value="Müşteri geri kazanımı" data-svc="crm"><span>Müşteri geri kazanımı</span></label>
+            </fieldset>
             <div class="formRow">
               <label class="field">Ad soyad<input type="text" name="name" required autocomplete="name" placeholder="Adın soyadın"></label>
-              <label class="field">İşletme adı<input type="text" name="business" required autocomplete="organization" placeholder="Örn. Papatya Kuaför"></label>
+              <label class="field">İşletme ya da kanal adı<input type="text" name="business" required autocomplete="organization" placeholder="Örn. Papatya Kuaför"></label>
             </div>
             <div class="formRow">
               <label class="field">E-posta<input type="email" name="email" required autocomplete="email" placeholder="sen@ornek.com"></label>
               <label class="field"><span>Telefon <small>(isteğe bağlı)</small></span><input type="tel" name="phone" autocomplete="tel" placeholder="05xx xxx xx xx"></label>
             </div>
-            <label class="field"><span>Kısaca anlat <small>(isteğe bağlı)</small></span><textarea name="message" rows="3" placeholder="En çok neyle uğraşıyorsun, müşterilerin hakkında ne biliyorsun?"></textarea></label>
+            <label class="field"><span>Kısaca anlat <small>(isteğe bağlı)</small></span><textarea name="message" rows="3" placeholder="Ne yapmak istiyorsun, şu an nerede takılıyorsun?"></textarea></label>
             <button type="submit" class="btn btnPrimary">Ön görüşme iste</button>
             <p class="formNote" id="formNote" role="status"></p>
           </form>
@@ -670,9 +1005,9 @@
         <span class="word">Nexi <span>Digital</span></span>
       </a>
       <nav class="footLinks" aria-label="Alt menü">
+        <a href="#hizmetler">Hizmetler</a>
         <a href="#isler">İşler</a>
         <a href="https://subly.nexidigitalai.com/" target="_blank" rel="noopener">Subly</a>
-        <a href="#paketler">Paketler</a>
         <a href="mailto:nexidigital.00@gmail.com">nexidigital.00@gmail.com</a>
       </nav>
     </div>
@@ -689,7 +1024,7 @@
 
 <script>
 (function () {
-  var T = {"mailBody": "Merhaba,\n\nİşletmemin adı: \nİhtiyacım olan şey: \n\n(Kısa bilgi yeterli, detayları görüşmede konuşabiliriz.)", "waText": "Merhaba, Nexi Digital hakkında bilgi almak istiyorum.", "menuOpen": "Menüyü aç", "menuClose": "Menüyü kapat", "sending": "Gönderiliyor", "submit": "Ön görüşme iste", "sent": "Talebin ulaştı. En geç bir iş günü içinde sana dönüş yapacağım.", "failed": "Form gönderilemedi. Bağlantını kontrol edip tekrar dene ya da nexidigital.00@gmail.com adresine doğrudan yaz.", "segs": {"kayip": {"name": "Geri kazanılacak", "count": "12 müşteri", "ch": "SMS", "to": "Ayşe Kaya'ya, son ziyaret 94 gün önce", "msg": "Ayşe Hanım, sizi 3 aydır göremedik. Bu ay saç bakımında size özel %15 indirim var; randevu için bu mesajı yanıtlamanız yeterli."}, "sadik": {"name": "Sadık", "count": "7 müşteri", "ch": "WhatsApp", "to": "Merve Tunç'a, 14. ziyaret", "msg": "Merve Hanım, 14. ziyaretiniz için teşekkür ederiz! Yeni sezon renklerini sadık müşterilerimize herkesten önce deniyoruz. Bu hafta uğramak ister misiniz?"}, "yeni": {"name": "Yeni", "count": "9 müşteri", "ch": "E-posta", "to": "Elif Şahin'e, ilk ziyaret 3 gün önce", "msg": "Elif Hanım, Papatya Kuaför'e hoş geldiniz. İkinci ziyaretinizde fön bizden. Sizi yeniden görmek isteriz!"}}};
+  var T = {"mailBody": "Merhaba,\n\nİşletmemin adı: \nİhtiyacım olan şey: \n\n(Kısa bilgi yeterli, detayları görüşmede konuşabiliriz.)", "waText": "Merhaba, Nexi Digital hakkında bilgi almak istiyorum.", "menuOpen": "Menüyü aç", "menuClose": "Menüyü kapat", "sending": "Gönderiliyor", "submit": "Ön görüşme iste", "notes": {"video": "Yüzsüz bir YouTube kanalı için üretim hattı: konu, senaryo, ses, görsel, kurgu ve yükleme.", "social": "Ham videoyu ajanlar kesiyor, altyazılıyor ve dikey formata çeviriyor; ben son hali kontrol ediyorum.", "site": "Şirketin için mobil uyumlu site ya da uygulama, alan adı ve yayın dahil.", "crm": "Müşteri kayıtlarını segmentlere ayırıp her gruba uygun mesajı gönderiyorum."}, "sent": "Talebin ulaştı. En geç bir iş günü içinde sana dönüş yapacağım.", "failed": "Form gönderilemedi. Bağlantını kontrol edip tekrar dene ya da nexidigital.00@gmail.com adresine doğrudan yaz.", "segs": {"kayip": {"name": "Geri kazanılacak", "count": "12 müşteri", "ch": "SMS", "to": "Ayşe Kaya'ya, son ziyaret 94 gün önce", "msg": "Ayşe Hanım, sizi 3 aydır göremedik. Bu ay saç bakımında size özel %15 indirim var; randevu için bu mesajı yanıtlamanız yeterli."}, "sadik": {"name": "Sadık", "count": "7 müşteri", "ch": "WhatsApp", "to": "Merve Tunç'a, 14. ziyaret", "msg": "Merve Hanım, 14. ziyaretiniz için teşekkür ederiz! Yeni sezon renklerini sadık müşterilerimize herkesten önce deniyoruz. Bu hafta uğramak ister misiniz?"}, "yeni": {"name": "Yeni", "count": "9 müşteri", "ch": "E-posta", "to": "Elif Şahin'e, ilk ziyaret 3 gün önce", "msg": "Elif Hanım, Papatya Kuaför'e hoş geldiniz. İkinci ziyaretinizde fön bizden. Sizi yeniden görmek isteriz!"}}};
 
   // Contact links
   document.querySelectorAll('.js-mail').forEach(function (a) {
@@ -888,6 +1223,86 @@
     }, { threshold: 0.6 });
     document.querySelectorAll('[data-count]').forEach(function (b) { counter.observe(b); });
   }
+
+  // Hero stage: four services take turns until the visitor picks one.
+  var stage = document.getElementById('stage');
+  var stageTabs = [].slice.call(stage.querySelectorAll('[role="tab"]'));
+  var ink = stage.querySelector('.tabInk');
+  var stageNote = document.getElementById('stageNote');
+  var timerBar = document.getElementById('stageTimer');
+  var pct = document.getElementById('ytPct');
+  var sceneIdx = 0, stageUser = false, stageActive = true, SCENE_MS = 7000, pctRaf;
+  function countPct() {
+    if (!pct) return;
+    cancelAnimationFrame(pctRaf);
+    if (reduce) { pct.textContent = '100'; return; }
+    var t0 = performance.now();
+    (function step(now) {
+      var k = Math.min(1, (now - t0) / 5600);
+      pct.textContent = String(Math.round(100 * (1 - Math.pow(1 - k, 3))));
+      if (k < 1) pctRaf = requestAnimationFrame(step);
+    })(t0);
+  }
+  function showScene(i, fromUser) {
+    sceneIdx = i;
+    stageTabs.forEach(function (t, k) {
+      var on = k === i;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      var panel = document.getElementById(t.getAttribute('aria-controls'));
+      panel.hidden = !on;
+      panel.classList.toggle('on', on);
+    });
+    ink.style.transform = 'translateX(' + (i * 100) + '%)';
+    stageNote.textContent = T.notes[stageTabs[i].dataset.scene];
+    if (stageTabs[i].dataset.scene === 'video') countPct();
+    if (fromUser) {
+      stageUser = true;
+      if (timerBar.getAnimations) timerBar.getAnimations().forEach(function (a) { a.cancel(); });
+      stageNote.setAttribute('aria-live', 'polite');
+      timerBar.style.transform = 'scaleX(0)';
+    } else if (!reduce && timerBar.animate) {
+      timerBar.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: SCENE_MS, fill: 'forwards' });
+    }
+  }
+  stageTabs.forEach(function (t, k) {
+    t.addEventListener('click', function () { showScene(k, true); });
+    t.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      var n = (k + d + stageTabs.length) % stageTabs.length;
+      showScene(n, true);
+      stageTabs[n].focus();
+    });
+  });
+  showScene(0, false);
+  if (!reduce) {
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { stageActive = es[0].isIntersecting; }).observe(stage);
+    }
+    setInterval(function () {
+      if (stageUser || !stageActive || document.hidden) return;
+      showScene((sceneIdx + 1) % stageTabs.length, false);
+    }, SCENE_MS);
+  }
+
+  // Service cards: a soft light follows the pointer.
+  document.querySelectorAll('.svc').forEach(function (card) {
+    card.addEventListener('pointermove', function (e) {
+      var r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
+
+  // "Write to me about this" links pre-select the service in the form.
+  document.querySelectorAll('[data-pick]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      var box = document.querySelector('.pick input[data-svc="' + a.dataset.pick + '"]');
+      if (box) box.checked = true;
+    });
+  });
 
   // Contact form
   var form = document.getElementById('contactForm');

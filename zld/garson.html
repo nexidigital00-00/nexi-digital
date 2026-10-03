@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="tr">
 <head>
+<meta name="zld-surum" content="202610032050">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#12443f">
@@ -8,9 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="ortak/app.css?v=202610032043">
+<link rel="stylesheet" href="ortak/app.css?v=202610032050">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="ortak/menu.js?v=202610032043"></script>
+<script src="ortak/menu.js?v=202610032050"></script>
 <title>ZLD | Garson</title>
 <meta name="robots" content="noindex">
 </head>
@@ -239,6 +240,15 @@ async function refresh(){
   const {data, error} = await db.from("orders").select("id,masa,kind,created_at,order_items(id,product_key,name,option,price,qty,status,note,guest_id,paid,created_at)").eq("status", "acik").eq("kind", "masa");
   $("offline").classList.toggle("on", !!error);
   if(error) return;
+  // Mutfağa yanlışlıkla düşmüş içecekleri düzelt (eski sürümle açık kalmış bir ekrandan gelmiş olabilir):
+  // garsonun eklediği içecek "servis edildi", müşterinin onaylanmış içeceği "hazır" olur
+  const stray = data.flatMap(o => (o.order_items || []).filter(i => noKitchen(i.product_key) && (i.status === "yeni" || i.status === "hazirlaniyor")));
+  if(stray.length){
+    const toServed = stray.filter(i => !i.guest_id).map(i => i.id), toReady = stray.filter(i => i.guest_id).map(i => i.id);
+    await Promise.all([toServed.length && db.from("order_items").update({status:"servis"}).in("id", toServed),
+                       toReady.length && db.from("order_items").update({status:"hazir"}).in("id", toReady)]);
+    stray.forEach(i => { i.status = i.guest_id ? "hazir" : "servis"; });
+  }
   openOrders = data.map(o => ({...o, items:(o.order_items || []).sort((a, b) => a.created_at.localeCompare(b.created_at))}));
   const pend = new Set(openOrders.flatMap(o => pendingOf(o).map(i => i.id)));
   if(knownPending){

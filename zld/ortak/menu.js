@@ -447,3 +447,23 @@ async function addTableItems(masa, lines, extra){
   if(error) throw error;
   return orderId;
 }
+
+/* ===== Kendini güncelleme =====
+   Garson, mutfak ve kasa ekranları saatlerce açık kalır. Yeni sürüm yayınlanınca
+   eski kodla çalışmasınlar diye 2 dakikada bir kontrol edip sayfayı yeniler.
+   Bir panel açıkken ya da yazı yazılırken beklenir; sepetler telefonda saklı olduğu için kaybolmaz. */
+(function(){
+  const meta = document.querySelector('meta[name="zld-surum"]'); if(!meta || location.protocol === "file:") return;
+  const mine = meta.content;
+  const busy = () => document.querySelector(".open, #sheetWrap.open") || ["INPUT", "TEXTAREA"].includes((document.activeElement || {}).tagName);
+  let pending = false;
+  const check = async () => {
+    try{
+      const r = await fetch("ortak/surum.txt?x=" + Date.now(), {cache:"no-store"}); if(!r.ok) return;
+      if((await r.text()).trim() !== mine) pending = true;
+    }catch(e){}
+    if(pending && !busy()) location.reload();
+  };
+  setInterval(check, 120000);
+  document.addEventListener("visibilitychange", () => { if(!document.hidden) check(); });
+})();

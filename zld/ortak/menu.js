@@ -504,8 +504,11 @@ let installEvt = null;
 addEventListener("beforeinstallprompt", e => { e.preventDefault(); installEvt = e; document.dispatchEvent(new Event("zld-install")); });
 const isApp = () => matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
 const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-if("serviceWorker" in navigator && location.protocol === "https:" && document.querySelector('link[rel="manifest"]'))
-  addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+// manifest bağlantısı bu dosyadan sonra geldiği için kontrol sayfa yüklenince yapılır
+addEventListener("load", () => {
+  if("serviceWorker" in navigator && location.protocol === "https:" && document.querySelector('link[rel="manifest"]'))
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+});
 // Tarayıcı izin veriyorsa doğrudan yükleme penceresini açar; vermiyorsa false döner
 async function promptInstall(){
   if(!installEvt) return false;

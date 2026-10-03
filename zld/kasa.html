@@ -11,29 +11,29 @@
 <link rel="stylesheet" href="ortak/app.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="ortak/menu.js"></script>
-<title>ZLD | Mutfak</title>
+<title>ZLD | Kasa</title>
 <meta name="robots" content="noindex">
 </head>
 <body>
 <div class="staff-top">
   <img src="logo.png" alt="" width="38" height="38">
-  <h1>Mutfak</h1>
+  <h1>Kasa</h1>
   <span class="live" id="live">Bağlanıyor</span>
-  
+  <a href="garson.html">Garson</a>
 </div>
 <p class="offline" id="offline">Sunucuya bağlanılamadı. İnternet bağlantısını kontrol edin.</p>
 <div class="filters">
-  <button type="button" id="sound" aria-pressed="false">Sesli uyarıyı aç</button>
+  
   <span class="daysum" id="daysum"></span>
 </div>
 <section class="board" id="board" aria-live="polite"></section>
-
+<form class="pinbox adm" id="gate" hidden><h2>Kasa girişi</h2><p class="note">Ödeme ve hesap kapatma için PIN girin.</p><input class="field" id="gatePin" type="password" inputmode="numeric" autocomplete="off" maxlength="8" aria-label="PIN"><p class="err" id="gateErr" role="alert" style="color:var(--pepper)"></p><button class="btn" type="submit" style="width:100%">Giriş yap</button></form>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
 const STATUS_TR = {yeni:"Yeni", hazirlaniyor:"Hazırlanıyor", hazir:"Hazır", servis:"Servis edildi"};
 const ACTIVE = new Set(["yeni", "hazirlaniyor"]);
 // Mutfak ve kasa ayrı sayfalar: mutfak.html ödeme göremez, kasa.html PIN ister
-const mode = "mutfak";
+const mode = "kasa";
 let orders = [], soundOn = false, known = null;
 const picked = new Set();   // mutfakta seçilen (önden gidecek) ürünler; yenilemede korunur
 const mins = iso => Math.max(0, Math.floor((Date.now() - new Date(iso)) / 60000));

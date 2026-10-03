@@ -81,6 +81,7 @@
     <div id="newBox">
       <h3>Yeni siparişiniz</h3>
       <div id="lines"></div>
+      <div class="sum"><span>Toplam</span><strong id="newTot">0 TL</strong></div>
       <p class="err" id="oerr" role="alert" style="color:var(--pepper);margin:10px 0 0"></p>
       <button class="btn-wa" id="send" type="button">Siparişi garsona gönder</button>
       <p class="dep" style="margin-top:8px">Garsonumuz onaylayınca siparişiniz mutfağa gider.</p>
@@ -129,6 +130,7 @@ function renderSheet(){
   const {L} = updateBar();
   $("sheet-h").textContent = "Masa " + masa;
   $("newBox").hidden = !L.length;
+  $("newTot").textContent = tl(L.reduce((x, l) => x + l.sum, 0));
   $("lines").innerHTML = L.map(l => `<div class="line">
     <div class="n"><b>${esc(l.p.ad)}</b><span>${l.o.l ? esc(l.o.l) + ", " : ""}${tl(l.o.p)}</span></div>
     <div class="qty light"><button data-l="${l.k}" data-d="-1" aria-label="Bir azalt">−</button><span>${l.q}</span><button data-l="${l.k}" data-d="1" aria-label="Bir artır">+</button></div>

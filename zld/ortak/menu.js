@@ -223,10 +223,10 @@ function MenuView({root, chips, search, empty, mode, cart, onChange, onAdd}){
     }
     return `<article class="item" data-key="${p.key}">
       <div class="row">
-        <div class="name"><h3>${esc(p.ad)}</h3>${p.ing ? `<p class="ing">${esc(p.ing)}</p>` : ""}</div>
-        <div class="price">${tl(o.p)}${!multi && o.l ? `<small>${esc(o.l)}</small>` : ""}</div>
+        <div class="head"><h3>${esc(p.ad)}</h3><span class="dots" aria-hidden="true"></span><div class="price">${tl(o.p)}${!multi && o.l ? `<small>${esc(o.l)}</small>` : ""}</div></div>
         ${ctrl}
       </div>
+      ${p.ing ? `<p class="ing">${esc(p.ing)}</p>` : ""}
       ${multi ? `<div class="portions" role="group" aria-label="${esc(p.ad)} porsiyon seçimi">${p.opts.map((x, i) =>
         `<button type="button" data-opt="${p.key}" data-i="${i}" aria-pressed="${i === j}"><b>${esc(x.l)}</b><i>${tl(x.p)}</i></button>`).join("")}</div>` : ""}
       ${multi && o.l === "Az" ? `<span class="az-note">Az porsiyon: normal porsiyonun yarısı</span>` : ""}
@@ -296,6 +296,9 @@ function MenuView({root, chips, search, empty, mode, cart, onChange, onAdd}){
     const secs = [...root.querySelectorAll(".cat")];
     let cur = secs[0] && secs[0].id;
     secs.forEach(s => { if(s.getBoundingClientRect().top < line) cur = s.id; });
+    // sayfa sonunda son bölüm çizgiye çıkamaz; ekranda görünen son bölümü seç
+    if(innerHeight + scrollY >= document.documentElement.scrollHeight - 4)
+      secs.forEach(s => { if(s.getBoundingClientRect().top < innerHeight * .6) cur = s.id; });
     chips.querySelectorAll(".chip").forEach(c => {
       const on = "c-" + c.dataset.go === cur;
       if(on && c.getAttribute("aria-current") !== "true" && Date.now() > touching) centerChip(c, false);

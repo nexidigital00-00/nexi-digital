@@ -340,3 +340,72 @@ html:has(body.staff){scroll-padding-top:190px}
 .st.stg-servis{background:var(--s-servis-bg);color:var(--s-servis)}
 .st.stg-odendi{background:var(--s-odendi-bg);color:var(--s-odendi)}
 .alert.ready{background:var(--s-hazir)}
+
+/* ===== Müşteri menüsü: görünüm ===== */
+/* Başlığın alt kenarı oya / tepsi kenarı gibi dantelli */
+.top{padding:20px 16px 38px;overflow:visible}
+.top::after{content:"";position:absolute;left:0;right:0;bottom:-1px;top:auto;width:auto;height:26px;border:0;border-radius:0;box-shadow:none;
+  background:
+    radial-gradient(circle at 9px 10px, var(--paper) 7.5px, transparent 8px) 0 100%/18px 10px repeat-x,
+    radial-gradient(circle at 9px 3px, var(--gold) 1.7px, transparent 2.3px) 0 0/18px 8px repeat-x;
+  opacity:1}
+.brand{align-items:center}
+.brand img{width:54px;height:54px}
+.brand-t{flex:1;min-width:0}
+.brand h1{font-size:24px}
+.brand p{font-size:14px;margin-top:3px}
+.masa-plate{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;width:66px;height:66px;border-radius:50%;
+  background:var(--gold);color:var(--green);box-shadow:0 0 0 3px var(--green),0 0 0 4.5px rgba(230,192,138,.6)}
+.masa-plate[hidden]{display:none}
+.masa-plate small{font:600 11.5px/1 var(--sans);margin-top:2px}
+.masa-plate b{font:800 28px/1 var(--serif);font-variant-numeric:lining-nums}
+.pickup{background:none;padding:0;margin-top:16px;color:#d6e3df;font-size:14.5px}
+.pickup svg{color:var(--gold)}
+
+/* Kategori çubuğu: kaydırılabildiğini kenar solmasıyla göster */
+.chips{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 16px,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,transparent 0,#000 16px,#000 calc(100% - 28px),transparent)}
+.chip{transition:background-color .2s,color .2s,border-color .2s}
+
+/* Bölüm başlıkları */
+.cat{padding-top:26px}
+.cat h2{display:flex;align-items:center;gap:12px;font-size:28px;margin-bottom:2px}
+.cat h2::after{content:"";flex:1;height:2px;margin-top:6px;background:radial-gradient(circle,var(--gold-2) 1.2px,transparent 1.7px) 0 50%/9px 2px repeat-x;opacity:.7}
+.cat .hint{margin-bottom:10px}
+
+/* Ürün satırı: ad ....... fiyat, lokanta menüsü gibi */
+.list{border-radius:14px;box-shadow:0 1px 0 rgba(18,68,63,.04)}
+.item{padding:12px 12px 12px 16px}
+.row{align-items:center;gap:12px}
+.head{flex:1;min-width:0;display:flex;align-items:baseline;gap:8px}
+.head h3{flex:0 1 auto;min-width:0;font:600 16.5px/1.3 var(--sans);margin:0}
+.dots{flex:1 1 14px;min-width:14px;height:2px;align-self:baseline;background:radial-gradient(circle,#b9c6c0 1px,transparent 1.5px) 0 0/7px 2px repeat-x}
+.head .price{min-width:0;font-size:18px}
+.item > .ing{margin:2px 52px 0 0;color:var(--muted);font-size:13.5px;line-height:1.4}
+.add{width:38px;height:38px;background:var(--card);color:var(--green);box-shadow:inset 0 0 0 2px var(--green);transition:background-color .15s,color .15s}
+.add:hover{background:var(--green);color:#fff}
+.qty{height:38px}
+.qty button{height:38px;width:34px}
+.portions{margin-top:8px}
+.portions button{background:var(--card);border-radius:12px;padding:6px 12px 5px}
+.portions button[aria-pressed="true"]{background:var(--green);border-color:var(--green);box-shadow:none;color:#fff}
+.portions button[aria-pressed="true"] i{color:var(--gold)}
+.az-note{font-size:12.5px}
+
+/* Sepet ve panel */
+.cartbar button{border-radius:18px}
+.sheet{background:var(--paper)}
+.sheet h2{padding-right:44px}
+#newBox,#billBox{background:var(--card);border:1px solid var(--line);border-radius:var(--r-m);padding:4px 14px 14px;margin-bottom:12px}
+#newBox[hidden],#billBox[hidden]{display:none}
+.sheet .line:last-child{border-bottom:0}
+.sum{border-top:2px dotted var(--line);margin-top:2px}
+.btn-wa{background:var(--green);border-radius:14px;font:700 17px var(--sans)}
+.btn-wa::after{content:"";width:9px;height:9px;border:solid var(--gold);border-width:2.5px 2.5px 0 0;transform:rotate(45deg)}
+.btn-wa:disabled::after{display:none}
+.dep{margin-bottom:0}
+#billBox .mycode{margin:10px 0 4px}
+
+/* Bildirim: alttaki düğmeleri kapatmasın, üstte görünsün */
+.toast{top:calc(12px + env(safe-area-inset-top));bottom:auto;transform:translate(-50%,-20px);background:var(--green);box-shadow:0 8px 24px rgba(18,68,63,.3)}
+
+@media (min-width:700px){ .top{border-radius:0} }

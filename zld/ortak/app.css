@@ -578,3 +578,39 @@ html:has(body.staff){scroll-padding-top:190px}
 .eve-l i,.foot-eve i{width:10px;height:10px;border-radius:50%;flex:none}
 .foot-eve{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px}
 .foot-eve span{display:contents}
+
+/* Mutfak: saat yaklaşınca uyarılar ve platform siparişi */
+.pickup-tag.urgent{background:var(--pepper);color:#fff;border-color:var(--pepper);animation:pulse 1.6s ease-in-out infinite}
+.pickup-tag.late{background:#7a1d0e;color:#fff;border-color:#7a1d0e}
+.kcard.due-urgent{border-color:var(--pepper);box-shadow:0 0 0 3px rgba(180,68,44,.25)}
+.kcard.due-late{border-color:#7a1d0e;box-shadow:0 0 0 4px rgba(122,29,14,.35);animation:dueblink 1.4s ease-in-out infinite}
+@keyframes dueblink{50%{box-shadow:0 0 0 9px rgba(122,29,14,.15)}}
+.pdot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:8px;vertical-align:middle;flex:none}
+.alarms{display:flex;flex-direction:column;gap:8px;padding:12px 16px 0}
+.alarms:empty{display:none}
+.alarm{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:var(--r-m);color:#fff;box-shadow:0 10px 24px -10px rgba(0,0,0,.4);animation:alarmin .4s cubic-bezier(.2,1.4,.4,1)}
+.alarm div{flex:1;display:flex;flex-direction:column;gap:2px}
+.alarm b{font:800 22px/1.15 var(--serif)}
+.alarm span{font-size:18px;font-weight:700}
+.alarm small{font-size:14px;opacity:.85}
+.alarm button{flex:none;height:48px;padding:0 18px;border:0;border-radius:999px;background:#fff;color:var(--ink);font-weight:800;font-size:16px}
+.alarm.l1{background:var(--green);border-left:8px solid var(--gold)}
+.alarm.l2{background:#c26a14}
+.alarm.l3{background:var(--pepper);animation:alarmin .4s cubic-bezier(.2,1.4,.4,1),pulse 1.6s .4s ease-in-out infinite}
+.alarm.l4{background:#7a1d0e;animation:alarmin .4s cubic-bezier(.2,1.4,.4,1),alarmflash 1s .4s steps(2) infinite}
+@keyframes alarmin{from{transform:translateY(-14px);opacity:0}}
+@keyframes alarmflash{50%{background:var(--pepper)}}
+.ses-ac{display:block;width:calc(100% - 32px);margin:12px 16px 0;padding:14px;border:2px dashed var(--gold-2);border-radius:var(--r-m);background:#fbf3e6;color:#6b4a1c;font-weight:800;font-size:16px}
+.ses-ac[hidden]{display:none}
+.pf-wrap{position:fixed;inset:0;z-index:60;background:rgba(18,30,28,.55);display:grid;place-items:center;padding:16px;overflow:auto}
+.pf-wrap[hidden]{display:none}
+.pf{position:relative;width:100%;max-width:480px;background:var(--paper);border-radius:var(--r-m);padding:20px 18px}
+.pf h2{font:800 24px var(--serif);color:var(--green);margin:0 0 4px;padding-right:40px}
+.pf label,.pf-l{display:block;font-weight:700;margin:14px 0 6px}
+.pf textarea{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:var(--r-s);background:var(--card)}
+.pf-x{position:absolute;top:10px;right:10px;width:40px;height:40px;border:0;background:transparent;font-size:28px;color:var(--muted)}
+.pf-ch{display:flex;flex-wrap:wrap;gap:8px}
+.pf-ch button{display:inline-flex;align-items:center;height:42px;padding:0 14px;border:1.5px solid var(--line);border-radius:999px;background:var(--card);font-weight:700;color:var(--ink)}
+.pf-ch button[aria-pressed="true"]{border-color:var(--green);background:var(--green);color:#fff}
+.pf .err{color:var(--pepper);font-weight:600;min-height:1em}
+@media (prefers-reduced-motion:reduce){.alarm,.kcard.due-late,.pickup-tag.urgent{animation:none!important}}

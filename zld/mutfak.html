@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="tr">
 <head>
-<meta name="zld-surum" content="202610032203">
+<meta name="zld-surum" content="202610032213">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#12443f">
@@ -9,9 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="ortak/app.css?v=202610032203">
+<link rel="stylesheet" href="ortak/app.css?v=202610032213">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="ortak/menu.js?v=202610032203"></script>
+<script src="ortak/menu.js?v=202610032213"></script>
 <title>ZLD | Mutfak</title>
 <meta name="robots" content="noindex">
 </head>
@@ -24,10 +24,31 @@
 </div>
 <p class="offline" id="offline">Sunucuya bağlanılamadı. İnternet bağlantısını kontrol edin.</p>
 <div class="filters">
-  <button type="button" id="sound" aria-pressed="false">Sesli uyarıyı aç</button>
+  <button type="button" id="sound" aria-pressed="true">Ses açık</button>
+  <button type="button" id="addPlat">+ Platform siparişi</button>
   <span class="daysum" id="daysum"></span>
 </div>
+<button type="button" class="ses-ac" id="sesAc" hidden>Sesli uyarılar için ekrana bir kez dokunun</button>
+<section class="alarms" id="alarms" aria-live="assertive"></section>
 <section class="board" id="board" aria-live="polite"></section>
+<div class="pf-wrap" id="pfWrap" hidden>
+  <form class="pf" id="pf" role="dialog" aria-modal="true" aria-labelledby="pf-h">
+    <button type="button" class="pf-x" id="pfX" aria-label="Kapat">×</button>
+    <h2 id="pf-h">Platform siparişi ekle</h2>
+    <p class="note">Yemeksepeti, Trendyol Go ya da Uber Eats'ten gelen siparişi buraya yazın. Kurye saati yaklaşınca ekran uyarır.</p>
+    <div class="pf-l">Platform</div>
+    <div class="pf-ch" id="pfPlat"></div>
+    <label for="pfNo">Sipariş no ya da müşteri adı</label>
+    <input class="field" id="pfNo" maxlength="40" placeholder="#48213 Ayşe">
+    <div class="pf-l">Kurye ne zaman alacak?</div>
+    <div class="pf-ch" id="pfDk"></div>
+    <input class="field" id="pfSaat" type="time" aria-label="Kurye saati" style="max-width:160px;margin-top:8px">
+    <label for="pfUrun">Ürünler (her satıra bir ürün)</label>
+    <textarea class="field" id="pfUrun" rows="4" placeholder="2 Mercimek Çorbası&#10;1 Su Böreği Porsiyon"></textarea>
+    <p class="err" id="pfErr" role="alert"></p>
+    <button class="btn" type="submit" style="width:100%">Mutfağa ekle</button>
+  </form>
+</div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
@@ -37,54 +58,133 @@ const ACTIVE = new Set(["yeni", "hazirlaniyor"]);
 const cooks = (o, i) => ACTIVE.has(i.status) && !(o.kind === "masa" && noKitchen(i.product_key));
 // Mutfak ve kasa ayrı sayfalar: mutfak.html ödeme göremez, kasa.html PIN ister
 const mode = "mutfak";
-let orders = [], soundOn = false, known = null;
+let orders = [], known = null;
+let soundOn = true; try{ soundOn = localStorage.getItem("zld_ses") !== "0"; }catch(e){}
 const picked = new Set();   // mutfakta seçilen (önden gidecek) ürünler; yenilemede korunur
 const mins = iso => Math.max(0, Math.floor((Date.now() - new Date(iso)) / 60000));
 const ago = iso => { const m = mins(iso); return m < 1 ? "şimdi" : m < 60 ? m + " dk" : Math.floor(m / 60) + " sa " + (m % 60) + " dk"; };
 const clock = iso => new Date(iso).toLocaleTimeString("tr-TR", {hour:"2-digit", minute:"2-digit"});
 
-function beep(){
+/* ---------- ses: tarayıcı ilk dokunuştan önce ses çalmaya izin vermez ---------- */
+let actx = null;
+function audio(){
+  if(!actx){ try{ actx = new (window.AudioContext || window.webkitAudioContext)(); }catch(e){ return null; } }
+  if(actx.state === "suspended") actx.resume().catch(() => {});
+  return actx;
+}
+function sesDurum(){ const b = $("sesAc"); if(b) b.hidden = !(mode === "mutfak" && soundOn && (!actx || actx.state !== "running")); }
+["pointerdown", "keydown"].forEach(ev => addEventListener(ev, () => { audio(); setTimeout(sesDurum, 300); }, {capture:true}));
+// notes: [frekans, başlangıç sn, süre sn]
+function play(notes, vol = .3){
   if(!soundOn) return;
-  try{ const c = new (window.AudioContext || window.webkitAudioContext)(), o = c.createOscillator(), g = c.createGain();
-    o.frequency.value = 880; o.connect(g); g.connect(c.destination); g.gain.setValueAtTime(.25, c.currentTime); g.gain.exponentialRampToValueAtTime(.001, c.currentTime + .6);
-    o.start(); o.stop(c.currentTime + .6); }catch(e){}
+  const c = audio(); if(!c || c.state !== "running"){ sesDurum(); return; }
+  notes.forEach(([f, t, d]) => { const o = c.createOscillator(), g = c.createGain(); o.type = "triangle"; o.frequency.value = f;
+    o.connect(g); g.connect(c.destination); const s = c.currentTime + t;
+    g.gain.setValueAtTime(.0001, s); g.gain.exponentialRampToValueAtTime(vol, s + .02); g.gain.exponentialRampToValueAtTime(.0001, s + d);
+    o.start(s); o.stop(s + d + .05); });
+}
+const beep = () => play([[880, 0, .35], [1320, .18, .5]]);   // yeni sipariş
+const alarmSes = lvl => lvl >= 3
+  ? play([[1046, 0, .22], [1046, .28, .22], [1046, .56, .22], [1396, .9, .5], [1046, 1.6, .22], [1396, 1.9, .5]], .45)
+  : play([[784, 0, .3], [988, .35, .3], [1175, .7, .5]], .35);
+/* ---------- saatli siparişler: Gel Al (alış aralığı) ve platform (kurye saati) ---------- */
+function dueOf(o){
+  if(o.kind === "online"){ const p = parseSlot(o.pickup_time); return p ? p.start.getTime() : null; }
+  if(o.kind === "platform"){ const m = /^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})$/.exec(o.pickup_time || ""); return m ? new Date(+m[1], m[2] - 1, +m[3], +m[4], +m[5]).getTime() : null; }
+  return null;
+}
+const dueLabel = o => o.kind === "platform" ? `Kurye ${(o.pickup_time || "").slice(11)}` : `Alış ${slotLabel(o.pickup_time)}`;
+function leftText(ms){
+  const m = Math.round(ms / 60000);
+  if(m > 0) return m >= 60 ? `${Math.floor(m / 60)} sa ${m % 60} dk kaldı` : `${m} dk kaldı`;
+  return m === 0 ? "saati geldi" : `${-m} dk gecikti`;
 }
 function pickupTag(o){
-  if(o.kind !== "online") return "";
-  const p = parseSlot(o.pickup_time), now = Date.now();
-  const cls = !p ? "" : (p.start - now < 3600000 && p.end > now) ? "soon" : (p.start - now > 6 * 3600000) ? "later" : "";
-  return `<span class="pickup-tag ${cls}">Alış: ${esc(slotLabel(o.pickup_time))}${cls === "soon" ? ", yaklaşıyor" : ""}</span>`;
+  const due = dueOf(o); if(due === null) return o.kind === "masa" ? "" : `<span class="pickup-tag">${esc(dueLabel(o))}</span>`;
+  const m = (due - Date.now()) / 60000;
+  const cls = m <= 0 ? "late" : m <= 15 ? "urgent" : m <= 60 ? "soon" : m > 360 ? "later" : "";
+  return `<span class="pickup-tag ${cls}">${esc(dueLabel(o))}, <b>${leftText(due - Date.now())}</b></span>`;
 }
-const titleOf = o => o.kind === "masa" ? `Masa ${o.masa}` : `Gel Al, ${esc(o.customer_name || "")}`;
+const PLAT = Object.fromEntries(ZLD.PLATFORMLAR.map(p => [p.ad, p.renk]));
+const titleOf = o => o.kind === "masa" ? `Masa ${o.masa}`
+  : o.kind === "platform" ? `<i class="pdot" style="background:${PLAT[o.customer_name] || "#999"}"></i>${esc(o.customer_name || "Platform")}`
+  : `Gel Al, ${esc(o.customer_name || "")}`;
+
+/* ---------- zaman yaklaşınca uyarı ---------- */
+const ADIM = {
+  online:   [[60, 1, "1 saat kaldı, hazırlığa başlayın"], [30, 2, "30 dk kaldı"], [15, 3, "15 dk kaldı, müşteri geliyor"], [0, 4, "Müşteri gelme saati başladı, sipariş hâlâ hazır değil"]],
+  platform: [[20, 2, "Kuryeye 20 dk kaldı"], [10, 3, "Kuryeye 10 dk kaldı"], [0, 4, "Kurye saati geldi, sipariş hâlâ hazır değil"]]
+};
+let fired = {}; try{ fired = JSON.parse(localStorage.getItem("zld_alarm") || "{}"); }catch(e){}
+let alarms = [];   // ekranda duran, "Gördüm" denmemiş uyarılar (sayfa yenilense de kalır)
+try{ alarms = JSON.parse(localStorage.getItem("zld_alarm_list") || "[]"); }catch(e){}
+function runAlarms(){
+  if(mode !== "mutfak") return;
+  const now = Date.now(); let yeni = 0;
+  Object.keys(fired).forEach(k => { if(now - fired[k] > 86400000) delete fired[k]; });
+  const open = new Set();
+  orders.forEach(o => {
+    const steps = ADIM[o.kind], due = dueOf(o); if(!steps || due === null) return;
+    if(!o.items.some(i => cooks(o, i))) return;   // hazır olan siparişe uyarı yok
+    open.add(o.id);
+    const m = (due - now) / 60000;
+    const hit = steps.filter(([dk]) => m <= dk); if(!hit.length) return;
+    const [dk, lvl, txt] = hit[hit.length - 1], key = o.id + ":" + dk;
+    if(fired[key]) return;
+    steps.forEach(([d]) => { if(m <= d) fired[o.id + ":" + d] = now; });   // geçmiş adımlar tekrar çalmasın
+    alarms = alarms.filter(a => a.oid !== o.id);
+    alarms.push({key, oid:o.id, lvl, title:o.kind === "platform" ? (o.customer_name || "Platform") + (o.note ? " " + o.note : "") : "Gel Al, " + (o.customer_name || ""), txt, when:dueLabel(o)});
+    yeni = Math.max(yeni, lvl);
+  });
+  alarms = alarms.filter(a => open.has(a.oid));
+  try{ localStorage.setItem("zld_alarm", JSON.stringify(fired)); }catch(e){}
+  if(yeni) alarmSes(yeni);
+  paintAlarms();
+}
+function paintAlarms(){
+  try{ localStorage.setItem("zld_alarm_list", JSON.stringify(alarms)); }catch(e){}
+  $("alarms").innerHTML = alarms.slice().sort((a, b) => b.lvl - a.lvl).map(a => `<div class="alarm l${a.lvl}">
+    <div><b>${esc(a.title)}</b><span>${esc(a.txt)}</span><small>${esc(a.when)}</small></div>
+    <button type="button" data-ack="${a.key}">Gördüm</button></div>`).join("");
+}
+$("alarms").addEventListener("click", e => { const b = e.target.closest("[data-ack]"); if(!b) return; alarms = alarms.filter(a => a.key !== b.dataset.ack); paintAlarms(); });
+// acil uyarı "Gördüm" denene kadar her 45 sn'de bir tekrar çalar
+setInterval(() => { const top = Math.max(0, ...alarms.map(a => a.lvl)); if(top >= 3) alarmSes(top); }, 45000);
 
 /* ---------- MUTFAK: sadece hazırlanacaklar, kart başına tek "Hazır" ---------- */
 function kitchenHTML(fresh){
   // Gel Al: alış saatine 3 saatten fazla varsa henüz mutfağa düşmez, altta "sonra" listesinde durur
-  const startOf = o => { const p = parseSlot(o.pickup_time); return p ? p.start.getTime() : Date.now(); };
-  const later = o => o.kind === "online" && startOf(o) - Date.now() > 3 * 3600000;
+  const startOf = o => dueOf(o) ?? Date.now();
+  const later = o => o.kind !== "masa" && startOf(o) - Date.now() > 3 * 3600000;
+  const lead = o => o.kind === "platform" ? 1800000 : 3600000;
   const all = orders.map(o => ({o, act: o.items.filter(i => cooks(o, i))})).filter(x => x.act.length);
   const now = all.filter(x => !later(x.o)).sort((a, b) => {
-    const ta = a.o.kind === "online" ? startOf(a.o) - 3600000 : new Date(a.act[0].created_at).getTime();
-    const tb = b.o.kind === "online" ? startOf(b.o) - 3600000 : new Date(b.act[0].created_at).getTime();
+    // saati 15 dk'dan az kalan ya da geçen siparişler en başa
+    const key = x => x.o.kind === "masa" ? new Date(x.act[0].created_at).getTime()
+      : startOf(x.o) - Date.now() <= 900000 ? startOf(x.o) - 864e5 : startOf(x.o) - lead(x.o);
+    const ta = key(a), tb = key(b);
     return ta - tb;   // Gel Al, alış saatinden 1 saat önce sıraya girer
   });
   const next = all.filter(x => later(x.o)).sort((a, b) => startOf(a.o) - startOf(b.o));
-  const nextHTML = next.length ? `<div class="knext"><h4>Sonra hazırlanacak Gel Al</h4>${next.map(({o, act}) =>
-    `<p><b>${esc(slotLabel(o.pickup_time))}</b> ${esc(o.customer_name || "")}: ${act.map(i => `${i.qty}× ${esc(itemLabel(i.name, i.option))}`).join(", ")}</p>`).join("")}</div>` : "";
+  const nextHTML = next.length ? `<div class="knext"><h4>Sonra hazırlanacak</h4>${next.map(({o, act}) =>
+    `<p><b>${esc(dueLabel(o))}</b> ${esc(o.customer_name || "")}: ${act.map(i => `${i.qty}× ${esc(itemLabel(i.name, i.option))}`).join(", ")}</p>`).join("")}</div>` : "";
   if(!now.length) return `<p class="board-empty">Şu an hazırlanacak sipariş yok. Yeni sipariş gelince burada belirir${soundOn ? " ve ses çıkar" : ""}.</p>` + nextHTML;
   return now.map(({o, act}) => {
     const lab = o.kind === "masa" ? makeLabeler(o.masa, o.allItems) : null;
     const m = mins(act[0].created_at), late = m >= 20 ? "late" : m >= 10 ? "warn" : "";
     const done = o.items.filter(i => !cooks(o, i) && !(o.kind === "masa" && noKitchen(i.product_key))).reduce((a, i) => a + i.qty, 0);
-    return `<article class="kcard ${fresh.has(o.id) ? "flash" : ""}" data-o="${o.id}">
+    const dm = dueOf(o) === null ? null : (dueOf(o) - Date.now()) / 60000;
+    const urg = dm === null ? "" : dm <= 0 ? "due-late" : dm <= 15 ? "due-urgent" : "";
+    return `<article class="kcard ${fresh.has(o.id) ? "flash" : ""} ${urg}" data-o="${o.id}">
       <header><b>${titleOf(o)}</b><span class="age ${late}">${ago(act[0].created_at)}</span></header>${pickupTag(o)}
       ${o.kind === "online" && o.note ? `<p class="knote">Not: ${esc(o.note)}</p>` : ""}
+      ${o.kind === "platform" && o.note ? `<p class="knote">Sipariş: ${esc(o.note)}</p>` : ""}
       <ul class="pick">${act.map(i => `<li role="checkbox" tabindex="0" aria-checked="${picked.has(i.id)}" data-pick="${i.id}"><span class="box" aria-hidden="true"></span><span class="q">${i.qty}×</span><span class="t">${esc(itemLabel(i.name, i.option))}${i.note ? `<em>${esc(i.note)}</em>` : ""}</span>${lab && i.guest_id ? `<small>${esc(lab(i))}</small>` : ""}</li>`).join("")}</ul>
       ${done ? `<p class="kdone">Bu ${o.kind === "masa" ? "masada" : "siparişte"} önceden hazırlanan: ${done} ürün</p>` : ""}
       ${(() => { const sel = act.filter(i => picked.has(i.id)); const n = sel.reduce((a, i) => a + i.qty, 0), all = act.reduce((a, i) => a + i.qty, 0);
         return sel.length
-          ? `<button class="kready part" type="button" data-ready="${o.id}" data-ids="${sel.map(i => i.id).join(",")}" data-title="${o.kind === "masa" ? "Masa " + o.masa : "Gel Al"}">Seçilenler hazır (${n} / ${all})</button>`
-          : `<button class="kready" type="button" data-ready="${o.id}" data-title="${o.kind === "masa" ? "Masa " + o.masa : "Gel Al"}">Hepsi hazır${all > 1 ? ` (${all})` : ""}</button>`; })()}
+          ? `<button class="kready part" type="button" data-ready="${o.id}" data-ids="${sel.map(i => i.id).join(",")}" data-title="${o.kind === "masa" ? "Masa " + o.masa : o.kind === "platform" ? esc(o.customer_name) : "Gel Al"}">Seçilenler hazır (${n} / ${all})</button>`
+          : `<button class="kready" type="button" data-ready="${o.id}" data-title="${o.kind === "masa" ? "Masa " + o.masa : o.kind === "platform" ? esc(o.customer_name) : "Gel Al"}">Hepsi hazır${all > 1 ? ` (${all})` : ""}</button>`; })()}
       ${act.length > 1 ? `<p class="khint">Önden çıkacakları seçmek için ürünlere dokunun.</p>` : ""}
     </article>`;
   }).join("") + nextHTML;
@@ -106,21 +206,22 @@ function tillHTML(){
       groups[k].sum += i.price * i.qty; if(!i.paid) groups[k].unpaid += i.price * i.qty;
     });
     const G = Object.entries(groups).sort(([a, x], [b, y]) => a === "garson" ? 1 : b === "garson" ? -1 : x.name.localeCompare(y.name, "tr", {numeric:true})).map(([, g]) => g);
-    const title = o.kind === "masa" ? `Masa ${o.masa}` : `Gel Al`;
-    return `<article class="ticket ${o.kind === "online" ? "online" : ""}" data-o="${o.id}">
+    const title = o.kind === "masa" ? `Masa ${o.masa}` : o.kind === "platform" ? esc(o.customer_name || "Platform") : `Gel Al`;
+    return `<article class="ticket ${o.kind !== "masa" ? "online" : ""}" data-o="${o.id}">
       <header><b>${title}</b><span>Açılış ${clock(o.created_at)}</span></header>${pickupTag(o)}
+      ${o.kind === "platform" ? `<div class="who">${esc(o.note || "")} Ödeme platform üzerinden.</div>` : ""}
       ${o.kind === "online" ? `<div class="who">${esc(o.customer_name || "")} ${o.customer_phone ? `<a href="tel:+90${esc(o.customer_phone.replace(/^90|^0/, ""))}">0${esc(o.customer_phone.replace(/^90|^0/, ""))}</a>` : ""}</div>` : ""}
       <ul>${o.items.map(i => `<li class="${i.status}">
         <span class="q">${i.qty}×</span>
         <span class="t">${esc(itemLabel(i.name, i.option))}<small>${STATUS_TR[i.status]}${o.kind === "masa" ? ", " + esc(lab(i)) : ""}</small></span>
-        <span class="lp">${tl(i.price * i.qty)}</span>
+        <span class="lp">${o.kind === "platform" ? "" : tl(i.price * i.qty)}</span>
       </li>`).join("") || `<li><span class="t">Henüz ürün yok</span></li>`}</ul>
       ${G.length > 1 ? `<div class="split"><h4>Kişi kişi hesap</h4>${G.map(g => `<div class="srow ${g.unpaid ? "" : "paid"}">
         <span>${esc(g.name)}</span><b>${tl(g.sum)}</b>
         ${g.unpaid ? `<button type="button" data-pay="${g.ids.join(",")}" data-name="${esc(g.name)}" data-sum="${g.unpaid}">Ödendi</button>` : `<em>Ödendi</em>`}
       </div>`).join("")}</div>` : ""}
-      <footer><strong>${due !== total ? `Kalan ${tl(due)}` : tl(total)}</strong>
-        <button class="btn" type="button" data-close="${o.id}" data-total="${due}" data-title="${title}" data-kind="${o.kind}">${o.kind === "online" ? "Teslim edildi" : "Hesabı kapat"}</button></footer>
+      <footer><strong>${o.kind === "platform" ? "" : due !== total ? `Kalan ${tl(due)}` : tl(total)}</strong>
+        <button class="btn" type="button" data-close="${o.id}" data-total="${due}" data-title="${title}" data-kind="${o.kind}">${o.kind === "online" ? "Teslim edildi" : o.kind === "platform" ? "Kuryeye verildi" : "Hesabı kapat"}</button></footer>
     </article>`;
   }).join("");
 }
@@ -128,8 +229,9 @@ function tillHTML(){
 function render(fresh = new Set()){
   $("board").className = "board " + mode;
   $("board").innerHTML = mode === "mutfak" ? kitchenHTML(fresh) : tillHTML();
-  const act = $("board").querySelectorAll(".kcard").length || orders.filter(o => o.items.some(i => cooks(o, i)) && !(o.kind === "online" && parseSlot(o.pickup_time) && parseSlot(o.pickup_time).start - Date.now() > 3 * 3600000)).length;
-  document.title = (mode === "mutfak" ? (act ? `(${act}) ` : "") + "ZLD | Mutfak" : "ZLD | Kasa");
+  const act = $("board").querySelectorAll(".kcard").length || orders.filter(o => o.items.some(i => cooks(o, i)) && !(o.kind !== "masa" && dueOf(o) !== null && dueOf(o) - Date.now() > 3 * 3600000)).length;
+  runAlarms();
+  document.title = (mode === "mutfak" ? (alarms.length ? "⚠ " : "") + (act ? `(${act}) ` : "") + "ZLD | Mutfak" : "ZLD | Kasa");
 }
 
 function togglePick(li){
@@ -162,20 +264,63 @@ $("board").addEventListener("click", async e => {
     toast(`${b.dataset.name} ödedi`);
   }
   if(b.dataset.close){
-    const q = b.dataset.kind === "online"
+    const q = b.dataset.kind === "platform" ? `${b.dataset.title} siparişi kuryeye verildi mi?`
+      : b.dataset.kind === "online"
       ? `Gel Al siparişi ${tl(+b.dataset.total)}. Müşteri teslim aldı ve ödedi mi?`
       : `${b.dataset.title} hesabı ${tl(+b.dataset.total)}. Ödeme alındı mı? Hesap kapatılsın mı?`;
     if(!confirm(q)) return;
     b.disabled = true;
     const {error} = await db.from("orders").update({status:"kapandi", closed_at:new Date().toISOString()}).eq("id", b.dataset.close);
     if(error){ toast("Hesap kapatılamadı, tekrar deneyin"); b.disabled = false; return; }
-    toast(b.dataset.kind === "online" ? "Gel Al siparişi teslim edildi" : `${b.dataset.title} hesabı kapatıldı`);
+    toast(b.dataset.kind === "online" ? "Gel Al siparişi teslim edildi" : b.dataset.kind === "platform" ? "Sipariş kuryeye verildi" : `${b.dataset.title} hesabı kapatıldı`);
   }
 });
 document.querySelector(".filters").addEventListener("click", e => {
-  if(!$("sound")) return;
   const b = e.target.closest("button"); if(!b) return;
-  if(b.id === "sound"){ soundOn = !soundOn; b.setAttribute("aria-pressed", soundOn); b.textContent = soundOn ? "Sesli uyarı açık" : "Sesli uyarıyı aç"; if(soundOn) beep(); return; }
+  if(b.id === "addPlat"){ openPf(); return; }
+  if(!$("sound")) return;
+  if(b.id === "sound"){ soundOn = !soundOn; try{ localStorage.setItem("zld_ses", soundOn ? "1" : "0"); }catch(e){} paintSound(); if(soundOn) beep(); return; }
+});
+
+function paintSound(){ const b = $("sound"); if(!b) return; b.setAttribute("aria-pressed", soundOn); b.textContent = soundOn ? "Ses açık" : "Ses kapalı"; sesDurum(); }
+paintSound();
+
+/* ---------- platform siparişi: elle giriş ---------- */
+let pfPlat = "", pfDk = 30;
+function openPf(){
+  pfPlat = ""; pfDk = 30; $("pfNo").value = $("pfUrun").value = ""; $("pfErr").textContent = "";
+  $("pfPlat").innerHTML = ZLD.PLATFORMLAR.map(p => `<button type="button" data-plat="${p.ad}"><i class="pdot" style="background:${p.renk}"></i>${p.ad}</button>`).join("");
+  $("pfDk").innerHTML = [15, 20, 30, 45, 60].map(d => `<button type="button" data-dk="${d}" aria-pressed="${d === pfDk}">${d} dk sonra</button>`).join("");
+  pfSetTime(); $("pfWrap").hidden = false; $("pfPlat").querySelector("button").focus();
+}
+function pfSetTime(){ const t = new Date(Date.now() + pfDk * 60000); $("pfSaat").value = `${pad(t.getHours())}:${pad(t.getMinutes())}`; }
+$("pfX").onclick = () => $("pfWrap").hidden = true;
+$("pfWrap").addEventListener("click", e => {
+  if(e.target === $("pfWrap")){ $("pfWrap").hidden = true; return; }
+  const p = e.target.closest("[data-plat]"), d = e.target.closest("[data-dk]");
+  if(p){ pfPlat = p.dataset.plat; $("pfPlat").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === p)); }
+  if(d){ pfDk = +d.dataset.dk; $("pfDk").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === d)); pfSetTime(); }
+});
+$("pfSaat").addEventListener("input", () => $("pfDk").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", false)));
+addEventListener("keydown", e => { if(e.key === "Escape" && !$("pfWrap").hidden) $("pfWrap").hidden = true; });
+$("pf").addEventListener("submit", async e => {
+  e.preventDefault();
+  const err = $("pfErr"), saat = $("pfSaat").value;
+  const lines = $("pfUrun").value.split("\n").map(l => l.trim()).filter(Boolean).map(l => {
+    const m = /^(\d+)\s*[x×*]?\s+(.+)$/i.exec(l); return m ? {qty:+m[1], name:m[2]} : {qty:1, name:l};
+  });
+  if(!pfPlat){ err.textContent = "Siparişin geldiği platformu seçin."; return; }
+  if(!saat){ err.textContent = "Kuryenin geleceği saati seçin."; return; }
+  if(!lines.length){ err.textContent = "En az bir ürün yazın."; $("pfUrun").focus(); return; }
+  const d = new Date(), [h, mi] = saat.split(":").map(Number);
+  if(h * 60 + mi < d.getHours() * 60 + d.getMinutes() - 120) d.setDate(d.getDate() + 1);   // gece yarısını geçen saat ertesi güne
+  const btn = $("pf").querySelector("[type=submit]"); btn.disabled = true;
+  const ins = await db.from("orders").insert({kind:"platform", customer_name:pfPlat, note:$("pfNo").value.trim() || null, pickup_time:`${ymd(d)} ${saat}`}).select("id").single();
+  if(ins.error){ btn.disabled = false; err.textContent = /kind/.test(ins.error.message) ? "Platform siparişi için Supabase'e supabase_guncelleme_4_platform.sql eklenmeli." : "Kaydedilemedi: " + ins.error.message; return; }
+  const r = await db.from("order_items").insert(lines.map(l => ({order_id:ins.data.id, product_key:"platform", name:l.name, option:"", price:0, qty:l.qty, paid:true})));
+  btn.disabled = false;
+  if(r.error){ await db.from("orders").delete().eq("id", ins.data.id); err.textContent = "Ürünler kaydedilemedi, tekrar deneyin."; return; }
+  $("pfWrap").hidden = true; toast(`${pfPlat} siparişi mutfağa eklendi, kurye ${saat}`); refresh();
 });
 
 async function refresh(){

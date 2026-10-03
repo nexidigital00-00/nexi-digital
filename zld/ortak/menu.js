@@ -535,29 +535,31 @@ document.addEventListener("click", async e => {
 
 /* ===== Masada yandan kayan Gel Al bildirimi ===== */
 const BAG_SVG = `<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/><path d="M9.5 13.5l1.8 1.8 3.4-3.6"/></svg>`;
-function gelAlPop(after = 7000){
+function gelAlPop(after = 4000){
   if(isApp()) return;
   const KEY = "zld_gelal_pop";
   let seen = ""; try{ seen = sessionStorage.getItem(KEY) || ""; }catch(e){}
   const el = document.createElement("aside");
   el.className = "gpop"; el.setAttribute("aria-label", "Gel Al");
   el.innerHTML = `<div class="gpop-card" role="status">
+      <div class="gpop-ph"><img src="foto/o-icli-kofte.webp" alt="" loading="lazy"><span class="gpop-ic">${BAG_SVG}</span><em>Gel Al</em></div>
       <button class="gpop-x" type="button" aria-label="Küçült">×</button>
-      <span class="gpop-ic">${BAG_SVG}</span>
-      <b>Sırada beklemeden<br>Gel&nbsp;Al</b>
-      <p>Uygulamayı telefonunuza ekleyin. Dilediğiniz yerden, dilediğiniz saate sipariş verin; gelince paketiniz hazır olsun.</p>
-      <div class="gpop-btns">
-        <a class="btn gold" href="siparis.html?yukle=1" data-install>Uygulamayı ekle</a>
-        <a class="gpop-l" href="siparis.html">Şimdi sipariş ver</a>
+      <div class="gpop-in">
+        <b>Sırada beklemeden<br>Gel&nbsp;Al</b>
+        <p>Uygulamayı telefonunuza ekleyin. Dilediğiniz yerden, dilediğiniz saate sipariş verin; gelince paketiniz hazır olsun.</p>
+        <div class="gpop-btns">
+          <a class="btn gold" href="siparis.html?yukle=1" data-install>Uygulamayı ekle</a>
+          <a class="btn ghost-d" href="siparis.html">Şimdi sipariş ver</a>
+        </div>
+        <small>Mağazadan indirmeniz gerekmez, ana ekranınıza eklenir.</small>
       </div>
-      <small>Mağazadan indirmeniz gerekmez.</small>
       <i class="gpop-t" aria-hidden="true"></i>
     </div>
     <button class="gpop-tab" type="button" aria-label="Gel Al bilgisini aç">${BAG_SVG}<span>Gel Al</span></button>`;
   const cb = $("cartbar"); cb ? cb.after(el) : document.body.appendChild(el);
   let timer;
   const set = s => { el.dataset.s = s; clearTimeout(timer);
-    if(s === "open") timer = setTimeout(() => set("tab"), 16000);
+    if(s === "open") timer = setTimeout(() => set("tab"), 20000);
     try{ sessionStorage.setItem(KEY, "1"); }catch(e){} };
   el.querySelector(".gpop-x").onclick = () => set("tab");
   el.querySelector(".gpop-tab").onclick = () => set("open");

@@ -274,3 +274,39 @@ html:has(body.staff){scroll-padding-top:190px}
 .mycode:empty{display:none}
 .mycode b{font:800 30px/1 var(--serif);color:var(--gold)}
 .mycode span{font-size:14px;color:#d6e3df}
+
+/* ===== Mutfak: tek dokunuşla Hazır ===== */
+.mode{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px}
+.mode button{border:0;background:transparent;border-radius:999px;padding:8px 18px;font-weight:700;color:var(--muted);min-height:40px}
+.mode button[aria-selected="true"]{background:var(--green);color:#fff}
+.kcard{background:var(--card);border:2px solid var(--line);border-radius:var(--r-m);overflow:hidden;display:flex;flex-direction:column}
+.kcard.flash{animation:flash 1.6s ease-out}
+.kcard header{display:flex;align-items:center;gap:8px;padding:12px 14px;background:var(--green);color:#fff}
+.kcard header b{font:800 24px var(--serif);flex:1}
+.kcard .age{font-weight:700;font-variant-numeric:tabular-nums;background:rgba(255,255,255,.15);border-radius:999px;padding:3px 10px}
+.kcard .age.warn{background:var(--gold);color:var(--green)}
+.kcard .age.late{background:var(--pepper);color:#fff}
+.kcard ul{list-style:none;margin:0;padding:6px 14px;flex:1}
+.kcard li{display:flex;align-items:baseline;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:18px}
+.kcard li:last-child{border-bottom:0}
+.kcard li .q{font:800 22px var(--serif);color:var(--green);min-width:34px}
+.kcard li .t{flex:1;font-weight:600;line-height:1.3}
+.kcard li .t em{display:block;font-style:normal;font-size:15px;color:var(--pepper);font-weight:700}
+.kcard li small{font-size:13px;color:var(--muted);font-weight:700}
+.knote{margin:0;padding:8px 14px;background:#fbf3e6;color:#6b4a1c;font-weight:600}
+.kdone{margin:0;padding:0 14px 8px;font-size:13.5px;color:var(--muted)}
+.kready{margin:4px 12px 12px;height:64px;border:0;border-radius:var(--r-m);background:var(--gold);color:var(--green);font:800 24px var(--serif);letter-spacing:.01em}
+.kready:active{transform:scale(.98)}
+.kready:disabled{opacity:.7}
+.ticket li .lp{font-variant-numeric:tabular-nums;font-weight:600;color:var(--muted);font-size:14px}
+/* Garson: hazır uyarısı */
+.alert.ready{background:var(--green-2);animation:none}
+.masalar button.hazir{border-color:var(--green-2);background:#e3eeea}
+.masalar button .rdy{position:absolute;bottom:-7px;right:-7px;min-width:22px;height:22px;border-radius:999px;background:var(--green-2);color:#fff;font:700 12px/22px var(--sans);padding:0 6px}
+.ready-box{background:#e3eeea;border:1px solid #b9d3cb;border-radius:var(--r-m);padding:4px 12px 12px;margin-bottom:8px}
+.ready-box h3{color:var(--green)}
+.ready-box .line{border-color:#b9d3cb}
+.knext{grid-column:1/-1;background:var(--card);border:1px dashed var(--line);border-radius:var(--r-m);padding:10px 14px;color:var(--muted)}
+.knext h4{margin:0 0 6px;font-size:14px;color:var(--ink)}
+.knext p{margin:4px 0;font-size:14.5px}
+.knext b{color:var(--ink)}

@@ -69,7 +69,7 @@ const STATUS_TR = {onay:"Onay bekliyor", yeni:"Yeni", hazirlaniyor:"Hazırlanıy
 let masa = store.get("zld_garson_masa", 0);
 let drafts = store.get("zld_garson_drafts", {});     // {masa: {"key:j": qty}}
 let openOrders = [];                                  // [{id, masa, items:[...]}]
-let knownPending = null;
+let knownPending = null, knownReady = null;
 let cart = {};
 
 const view = MenuView({root:$("cats"), chips:$("chips"), search:$("q"), empty:$("empty"), mode:"order", cart,
@@ -81,19 +81,21 @@ const orderTotal = o => o ? o.items.reduce((a, i) => a + i.price * i.qty, 0) : 0
 const pendingOf = o => o ? o.items.filter(i => i.status === "onay") : [];
 const whoIn = o => { const f = makeLabeler(o.masa, o.items); return i => f(i); };
 const sentOf = o => o ? o.items.filter(i => i.status !== "onay") : [];
+const readyOf = o => o ? o.items.filter(i => i.status === "hazir") : [];
 let who = i => "Masa geneli";   // refresh'te masa masa yeniden kurulur
 
 function renderMasalar(){
   let h = "";
   for(let i = 1; i <= ZLD.MASA_SAYISI; i++){
-    const o = orderOf(i), pend = pendingOf(o).length;
+    const o = orderOf(i), pend = pendingOf(o).length, rdy = readyOf(o).length;
     const dolu = !!o || Object.keys(drafts[i] || {}).length > 0;
-    h += `<button type="button" data-m="${i}" class="${dolu ? "dolu" : ""} ${pend ? "bekliyor" : ""}" aria-pressed="${i === masa}" aria-label="Masa ${i}${pend ? `, ${pend} ürün onay bekliyor` : dolu ? ", açık adisyon var" : ""}">${i}${pend ? `<span class="pend">${pend}</span>` : ""}</button>`;
+    h += `<button type="button" data-m="${i}" class="${dolu ? "dolu" : ""} ${pend ? "bekliyor" : ""} ${rdy ? "hazir" : ""}" aria-pressed="${i === masa}" aria-label="Masa ${i}${pend ? `, ${pend} ürün onay bekliyor` : ""}${rdy ? `, ${rdy} ürün hazır` : ""}${!pend && !rdy && dolu ? ", açık adisyon var" : ""}">${i}${pend ? `<span class="pend">${pend}</span>` : ""}${rdy ? `<span class="rdy">${rdy}</span>` : ""}</button>`;
   }
   $("masalar").innerHTML = h;
   // üstte bekleyen masalar uyarısı
+  const ready = openOrders.filter(o => readyOf(o).length).sort((a, b) => a.masa - b.masa);
   const waiting = openOrders.filter(o => pendingOf(o).length).sort((a, b) => a.masa - b.masa);
-  $("alerts").innerHTML = waiting.map(o => {
+  $("alerts").innerHTML = ready.map(o => `<button type="button" class="alert ready" data-open="${o.masa}"><b>Masa ${o.masa}: sipariş hazır</b><span>${readyOf(o).reduce((a, i) => a + i.qty, 0)} ürün mutfakta bekliyor. Servis edince dokunun.</span></button>`).join("") + waiting.map(o => {
     const P = pendingOf(o), w = whoIn(o), people = new Set(P.map(w)).size;  // kaç farklı telefon
     return `<button type="button" class="alert" data-open="${o.masa}"><b>Masa ${o.masa}: yeni sipariş</b><span>${people} kişi (${[...new Set(P.map(w))].sort((x, y) => x.localeCompare(y, "tr", {numeric:true})).join(", ")}), ${P.reduce((a, i) => a + i.qty, 0)} ürün onay bekliyor. Görmek için dokunun.</span></button>`;
   }).join("");
@@ -141,8 +143,11 @@ function renderSheet(){
     P.map(i => lineHTML(i, `<span class="p">${tl(i.price * i.qty)}</span><button class="x" data-del="${i.id}" aria-label="${esc(i.name)} siparişini sil">×</button>`)).join("") +
     `<button class="btn-wa" type="button" id="approve">Hepsini mutfağa gönder (${P.reduce((a, i) => a + i.qty, 0)} ürün)</button></div>` : "";
   const S = sentOf(o);
-  $("sentBox").innerHTML = S.length ? `<h3>Mutfakta</h3>` + S.map(i => lineHTML(i,
-      `<span class="st ${i.status}">${STATUS_TR[i.status]}</span>${i.status === "hazir" ? `<button class="btn ghost" style="min-height:36px;padding:6px 10px" data-serve="${i.id}">Servis et</button>` : ""}`)).join("") : "";
+  const R = readyOf(o);
+  $("sentBox").innerHTML = (R.length ? `<div class="ready-box"><h3>Hazır, servis bekliyor</h3>` + R.map(i => lineHTML(i, "")).join("") +
+      `<button class="btn-wa" type="button" id="serveAll">Servis ettim (${R.reduce((a, i) => a + i.qty, 0)} ürün)</button></div>` : "") +
+    (S.filter(i => i.status !== "hazir").length ? `<h3>Mutfakta ve servis edilenler</h3>` + S.filter(i => i.status !== "hazir").map(i => lineHTML(i,
+      `<span class="st ${i.status}">${STATUS_TR[i.status]}</span>`)).join("") : "");
   $("draftBox").innerHTML = L.length ? `<h3>Masa geneline eklenecek</h3>` + L.map(l => `<div class="line">
       <div class="n"><b>${esc(l.p.ad)}</b><span>${l.o.l ? esc(l.o.l) + ", " : ""}${tl(l.o.p)}</span></div>
       <div class="qty light"><button data-l="${l.k}" data-d="-1" aria-label="Bir azalt">−</button><span>${l.q}</span><button data-l="${l.k}" data-d="1" aria-label="Bir artır">+</button></div>
@@ -161,11 +166,13 @@ $("draftBox").addEventListener("click", e => {
   drafts[masa] = {...cart}; store.set("zld_garson_drafts", drafts); renderSheet();
 });
 $("sentBox").addEventListener("click", async e => {
-  const b = e.target.closest("[data-serve]"); if(!b) return;
-  b.disabled = true;
-  const {error} = await db.from("order_items").update({status:"servis"}).eq("id", b.dataset.serve);
+  const b = e.target.closest("#serveAll"); if(!b) return;
+  b.disabled = true; b.textContent = "Kaydediliyor…";
+  const o = orderOf(masa);
+  const {error} = await db.from("order_items").update({status:"servis"}).eq("order_id", o.id).eq("status", "hazir");
   if(error){ toast("Kaydedilemedi, tekrar deneyin"); b.disabled = false; return; }
-  await refresh(); renderSheet();
+  toast(`Masa ${masa} servis edildi`);
+  await refresh();
 });
 $("pendBox").addEventListener("click", async e => {
   const del = e.target.closest("[data-del]");
@@ -228,6 +235,12 @@ async function refresh(){
     if(fresh.length){ ding(); toast(fresh.map(o => `Masa ${o.masa}`).join(", ") + ": yeni sipariş onay bekliyor"); }
   }
   knownPending = pend;
+  const rdy = new Set(openOrders.flatMap(o => readyOf(o).map(i => i.id)));
+  if(knownReady){
+    const fresh = openOrders.filter(o => readyOf(o).some(i => !knownReady.has(i.id)));
+    if(fresh.length){ ding(); toast(fresh.map(o => `Masa ${o.masa}`).join(", ") + ": sipariş hazır"); }
+  }
+  knownReady = rdy;
   renderMasalar(); updateHint(); updateBar();
   if(wrap.classList.contains("open")) renderSheet();
 }

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#12443f">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ortak/app.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="ortak/menu.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<title>ZLD | Yönetim</title>
+<meta name="robots" content="noindex">
+</head>
+<body>
+<div class="staff-top">
+  <img src="logo.png" alt="" width="38" height="38">
+  <h1>Yönetim</h1>
+  <a href="mutfak.html">Mutfak</a>
+</div>
+
+<form class="pinbox adm" id="pinForm">
+  <h2>Personel girişi</h2>
+  <p class="note">Yönetim ekranı için 4 haneli PIN'i girin.</p>
+  <input class="field" id="pin" type="password" inputmode="numeric" autocomplete="off" maxlength="8" aria-label="PIN">
+  <p class="err" id="pinErr" role="alert" style="color:var(--pepper)"></p>
+  <button class="btn" type="submit" style="width:100%">Giriş yap</button>
+</form>
+
+<div class="adm" id="adm" hidden>
+  <div class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-tab="musteri">Müşteriler</button>
+    <button role="tab" aria-selected="false" data-tab="kampanya">Kampanya gönder</button>
+    <button role="tab" aria-selected="false" data-tab="fiyat">Fiyatlar</button>
+    <button role="tab" aria-selected="false" data-tab="qr">Masa QR kodları</button>
+    <button role="tab" aria-selected="false" data-tab="pin">PIN değiştir</button>
+  </div>
+  <div class="panel" id="tab-musteri"></div>
+  <div class="panel" id="tab-kampanya" hidden>
+    <label for="cmsg" style="font-weight:600;display:block;margin-bottom:8px">Mesaj</label>
+    <textarea id="cmsg">Merhaba {ad}, Zeynep Lezzet Durağı'ndan selamlar! Bu hafta sonu tepsi böreklerde %10 indirim var. Siparişiniz için bu mesaja yanıt verebilirsiniz.</textarea>
+    <p class="note">{ad} yazan yere müşterinin adı gelir. Bir isme dokunduğunuzda WhatsApp'ta mesaj hazır açılır, gönder tuşuna siz basarsınız.</p>
+    <div class="sendlist" id="sendlist"></div>
+  </div>
+  <div class="panel" id="tab-fiyat" hidden>
+    <input class="field" id="pq" type="search" placeholder="Ürün ara" style="margin-bottom:10px">
+    <div style="max-height:60vh;overflow:auto"><table><thead><tr><th>Ürün</th><th>Seçenek</th><th style="text-align:right">TL</th></tr></thead><tbody id="ptable"></tbody></table></div>
+    <p style="display:flex;gap:8px;margin:14px 0 0;flex-wrap:wrap"><button class="btn" id="psave">Fiyatları kaydet</button></p>
+    <p class="note">Kaydettiğiniz fiyat masa menüsüne, garson ekranına ve paket siparişe hemen yansır. Değiştirilen fiyatlar sarı görünür.</p>
+  </div>
+  <div class="panel" id="tab-qr" hidden>
+    <p class="no-print" style="margin:0 0 12px">Her masaya kendi QR'ını yapıştırın. Müşteri okuttuğunda menünün üstünde masa numarası görünür.</p>
+    <p class="no-print" style="margin:0 0 14px"><button class="btn" onclick="print()">QR kodlarını yazdır</button></p>
+    <div class="qrs" id="qrs"></div>
+  </div>
+  <form class="panel" id="tab-pin" hidden>
+    <label for="p1" style="font-weight:600">Mevcut PIN</label>
+    <input class="field" id="p1" type="password" inputmode="numeric" style="margin:6px 0 12px">
+    <label for="p2" style="font-weight:600">Yeni PIN (en az 4 hane)</label>
+    <input class="field" id="p2" type="password" inputmode="numeric" style="margin:6px 0 12px">
+    <button class="btn" type="submit">PIN'i değiştir</button>
+    <p class="note" id="pinMsg" role="status"></p>
+  </form>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+let PIN = "", members = [], priceMap = {};
+const fmtTel = t => "0" + t.slice(2, 5) + " " + t.slice(5, 8) + " " + t.slice(8, 10) + " " + t.slice(10);
+
+$("pinForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  if(!db){ $("pinErr").textContent = "Sunucuya bağlanılamadı."; return; }
+  const pin = $("pin").value.trim();
+  const {data, error} = await db.rpc("staff_members", {pin});
+  if(error){ $("pinErr").textContent = /PIN/.test(error.message) ? "PIN hatalı. Tekrar deneyin." : "Sunucuya bağlanılamadı: " + error.message; return; }
+  PIN = pin; members = data;
+  $("pinForm").hidden = true; $("adm").hidden = false;
+  await loadPrices(); renderAll();
+});
+document.querySelector(".tabs").addEventListener("click", e => {
+  const b = e.target.closest("[data-tab]"); if(!b) return;
+  document.querySelectorAll(".tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
+  ["musteri","kampanya","fiyat","qr","pin"].forEach(t => $("tab-" + t).hidden = t !== b.dataset.tab);
+});
+function renderAll(){ renderMembers(); renderSend(); renderPrices(); renderQR(); }
+function renderMembers(){
+  $("tab-musteri").innerHTML = members.length
+    ? `<p style="margin:0 0 10px;font-weight:600">${members.length} kişi kampanyalara katıldı</p><table><thead><tr><th>Ad</th><th>Telefon</th><th>Katılım</th></tr></thead><tbody>${
+      members.map(m => `<tr><td>${esc(m.name)}</td><td>${fmtTel(m.phone)}</td><td>${new Date(m.consent_at).toLocaleDateString("tr-TR")}</td></tr>`).join("")}</tbody></table>`
+    : `<p style="margin:0">Henüz kayıt yok. Menünün altındaki "Kampanyalara katıl" formu doldurulunca burada görünür.</p>`;
+}
+function renderSend(){
+  const t = $("cmsg").value;
+  $("sendlist").innerHTML = members.length
+    ? members.map(m => `<a target="_blank" rel="noopener" href="https://wa.me/${m.phone}?text=${encodeURIComponent(t.replace(/\{ad\}/g, m.name.split(" ")[0]))}">${esc(m.name)}</a>`).join("")
+    : `<p class="note">Mesaj gönderilecek kayıtlı müşteri yok.</p>`;
+}
+$("cmsg").addEventListener("input", renderSend);
+function renderPrices(){
+  const q = norm($("pq").value.trim());
+  $("ptable").innerHTML = Object.values(PRODUCTS).filter(p => !q || norm(p.ad).includes(q)).map(p => p.opts.map((o, j) =>
+    `<tr><td>${j === 0 ? esc(p.ad) : ""}</td><td>${esc(o.l || "Tek fiyat")}</td><td style="text-align:right"><input class="pr${o.p !== o.base ? " changed" : ""}" inputmode="decimal" data-k="${p.key}:${j}" value="${o.p}" aria-label="${esc(itemLabel(p.ad, o.l))} fiyatı"></td></tr>`).join("")).join("");
+}
+$("pq").addEventListener("input", renderPrices);
+$("psave").onclick = async () => {
+  const jobs = [];
+  document.querySelectorAll("#ptable input").forEach(i => {
+    const [key, j] = i.dataset.k.split(":"), o = PRODUCTS[key].opts[j], v = parseFloat(i.value.replace(",", "."));
+    if(isNaN(v) || v < 0 || v === o.p) return;
+    jobs.push(db.rpc("staff_set_price", {pin:PIN, k:i.dataset.k, p: v === o.base ? null : v}));
+  });
+  if(!jobs.length){ toast("Değişen fiyat yok"); return; }
+  const res = await Promise.all(jobs);
+  const bad = res.filter(r => r.error).length;
+  await loadPrices(); renderPrices();
+  toast(bad ? `${bad} fiyat kaydedilemedi, tekrar deneyin` : `${jobs.length} fiyat kaydedildi`);
+};
+function renderQR(){
+  const base = location.href.replace(/[^/]*$/, "");
+  const el = $("qrs"); el.innerHTML = "";
+  const add = (title, url) => {
+    const c = document.createElement("div"); c.className = "qrcard"; c.innerHTML = `<b>${title}</b>`;
+    const q = document.createElement("div"); c.appendChild(q); el.appendChild(c);
+    if(window.QRCode) new QRCode(q, {text:url, width:256, height:256, colorDark:"#12443f", colorLight:"#ffffff", correctLevel:QRCode.CorrectLevel.M});
+    else q.textContent = url;
+  };
+  for(let i = 1; i <= ZLD.MASA_SAYISI; i++) add("Masa " + i, base + "index.html?masa=" + i);
+  add("Paket sipariş", base + "siparis.html");
+}
+$("tab-pin").addEventListener("submit", async e => {
+  e.preventDefault();
+  const a = $("p1").value.trim(), b = $("p2").value.trim();
+  if(!/^\d{4,8}$/.test(b)){ $("pinMsg").textContent = "Yeni PIN 4 ile 8 rakam arasında olmalı."; return; }
+  const {error} = await db.rpc("staff_change_pin", {old_pin:a, new_pin:b});
+  if(error){ $("pinMsg").textContent = /PIN/.test(error.message) ? "Mevcut PIN hatalı." : error.message; return; }
+  PIN = b; $("p1").value = $("p2").value = ""; $("pinMsg").textContent = "PIN değiştirildi. Bir sonraki girişte yeni PIN'i kullanın.";
+});
+</script>
+</body>
+</html>

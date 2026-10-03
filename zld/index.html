@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#12443f">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ortak/app.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="ortak/menu.js"></script>
+<title>Zeynep Lezzet Durağı | Menü</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Zeynep Lezzet Durağı menüsü ve güncel fiyatlar.">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <img src="logo.png" alt="Zeynep Lezzet Durağı logosu" width="68" height="68">
+      <div>
+        <h1>Zeynep Lezzet Durağı</h1>
+        <p>Sakarya ev yemekleri, 2019'dan beri</p>
+        <span class="masa-badge" id="masaBadge" hidden></span>
+      </div>
+    </div>
+    <p class="pickup" id="pickup">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11h18M5 11V7a7 7 0 0 1 14 0v4M4 11l1.5 9h13L20 11"/></svg>
+      <span>Ne istediğinizi garsonumuza söyleyin. Porsiyonu az ya da yarım kilo da isteyebilirsiniz.</span>
+    </p>
+  </header>
+    <div class="bar" id="bar">
+      <label class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5d6d68" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Ürün ara: sarma, börek, trileçe…" aria-label="Ürün ara" autocomplete="off">
+      </label>
+      <nav class="chips" id="chips" aria-label="Kategoriler"></nav>
+    </div>
+  <main>
+    <div id="cats"></div>
+    <p class="empty" id="empty" hidden>Bu aramayla eşleşen ürün yok. Başka bir kelime deneyin, örneğin "börek".</p>
+    <p class="foot" style="margin-top:24px">Eve de götürmek ister misiniz? <a href="siparis.html">Paket sipariş verin</a>, işyerinden teslim alın.</p>
+      <section class="join" id="kampanya" aria-labelledby="join-h">
+        <h2 id="join-h">Kampanyaları ilk siz duyun</h2>
+        <p>Bayram tepsileri, yeni tatlılar ve günün indirimleri WhatsApp'ınıza gelsin. Ayda birkaç mesaj, istediğiniz an çıkabilirsiniz.</p>
+        <form id="joinForm" novalidate>
+          <label for="jn">Adınız</label>
+          <input id="jn" type="text" autocomplete="name" placeholder="Ayşe Yılmaz">
+          <label for="jp">Telefon</label>
+          <input id="jp" type="tel" inputmode="tel" autocomplete="tel" placeholder="05xx xxx xx xx">
+          <label class="consent"><input id="jc" type="checkbox"> <span>Kampanya mesajları almak için adımın ve telefonumun Zeynep Lezzet Durağı tarafından KVKK kapsamında saklanmasına izin veriyorum.</span></label>
+          <p class="err" id="jerr" role="alert"></p>
+          <button class="btn-gold" type="submit">Kampanyalara katıl</button>
+        </form>
+        <p class="done" id="jdone" role="status"></p>
+      </section>
+
+      <footer class="foot">
+        <p>Borcam kapları için 500 TL, baklava tepsileri için 200 TL depozito alınır. Kabı geri getirdiğinizde depozito iade edilir.</p>
+        <p><a href="https://wa.me/905444628015">WhatsApp: 0544 462 80 15</a> &nbsp; <a href="https://instagram.com/zeyneplezzetduragi">Instagram</a></p>
+      </footer>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const masa = parseInt(new URLSearchParams(location.search).get("masa"), 10);
+if(masa > 0){ const b = $("masaBadge"); b.hidden = false; b.textContent = "Masa " + masa; }
+const view = MenuView({root:$("cats"), chips:$("chips"), search:$("q"), empty:$("empty"), mode:"view", cart:{}});
+view.render();
+loadPrices().then(view.render);
+watchPrices(view.render);
+bindJoinForm();
+</script>
+</body>
+</html>

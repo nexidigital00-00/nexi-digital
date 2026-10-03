@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#12443f">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ortak/app.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="ortak/menu.js"></script>
+<title>Zeynep Lezzet Durağı | Paket Sipariş</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Zeynep Lezzet Durağı'ndan paket sipariş verin, işyerinden teslim alın.">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <img src="logo.png" alt="Zeynep Lezzet Durağı logosu" width="68" height="68">
+      <div>
+        <h1>Zeynep Lezzet Durağı</h1>
+        <p>Paket sipariş</p>
+      </div>
+    </div>
+    <p class="pickup">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span>Ürünleri sepete ekleyin, siparişi gönderin. Şu anda servis yapmıyoruz, işyerinden teslim alırsınız.</span>
+    </p>
+  </header>
+    <div class="bar" id="bar">
+      <label class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5d6d68" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Ürün ara: sarma, börek, trileçe…" aria-label="Ürün ara" autocomplete="off">
+      </label>
+      <nav class="chips" id="chips" aria-label="Kategoriler"></nav>
+    </div>
+  <main>
+    <div id="cats"></div>
+    <p class="empty" id="empty" hidden>Bu aramayla eşleşen ürün yok. Başka bir kelime deneyin, örneğin "börek".</p>
+      <section class="join" id="kampanya" aria-labelledby="join-h">
+        <h2 id="join-h">Kampanyaları ilk siz duyun</h2>
+        <p>Bayram tepsileri, yeni tatlılar ve günün indirimleri WhatsApp'ınıza gelsin. Ayda birkaç mesaj, istediğiniz an çıkabilirsiniz.</p>
+        <form id="joinForm" novalidate>
+          <label for="jn">Adınız</label>
+          <input id="jn" type="text" autocomplete="name" placeholder="Ayşe Yılmaz">
+          <label for="jp">Telefon</label>
+          <input id="jp" type="tel" inputmode="tel" autocomplete="tel" placeholder="05xx xxx xx xx">
+          <label class="consent"><input id="jc" type="checkbox"> <span>Kampanya mesajları almak için adımın ve telefonumun Zeynep Lezzet Durağı tarafından KVKK kapsamında saklanmasına izin veriyorum.</span></label>
+          <p class="err" id="jerr" role="alert"></p>
+          <button class="btn-gold" type="submit">Kampanyalara katıl</button>
+        </form>
+        <p class="done" id="jdone" role="status"></p>
+      </section>
+
+      <footer class="foot">
+        <p>Borcam kapları için 500 TL, baklava tepsileri için 200 TL depozito alınır. Kabı geri getirdiğinizde depozito iade edilir.</p>
+        <p><a href="https://wa.me/905444628015">WhatsApp: 0544 462 80 15</a> &nbsp; <a href="https://instagram.com/zeyneplezzetduragi">Instagram</a></p>
+      </footer>
+  </main>
+</div>
+
+<div class="cartbar" id="cartbar">
+  <button type="button" id="openCart" aria-haspopup="dialog">
+    <span class="count" id="cCount">0</span><span class="lbl">Siparişi gör</span><span class="tot" id="cTot">0 TL</span>
+  </button>
+</div>
+<div id="sheetWrap">
+  <div class="sheet-bg" id="sheetBg"></div>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-h">
+    <div class="grip"></div>
+    <button class="close" id="closeCart" aria-label="Kapat">×</button>
+    <div id="okBox" hidden>
+      <h2>Siparişiniz alındı</h2>
+      <p id="okText"></p>
+      <p class="dep">İsterseniz siparişin bir kopyasını WhatsApp'tan da gönderebilirsiniz.</p>
+      <a class="btn-wa" id="okWa" target="_blank" rel="noopener" style="text-decoration:none">WhatsApp'tan kopya gönder</a>
+      <button class="btn ghost" type="button" style="width:100%;margin-top:10px" onclick="location.reload()">Menüye dön</button>
+    </div>
+    <div id="orderForm">
+    <h2 id="sheet-h">Siparişiniz</h2>
+    <div id="lines"></div>
+    <div class="sum"><span>Toplam</span><strong id="sTot">0 TL</strong></div>
+    <p class="dep" id="dep"></p>
+    <label for="on">Adınız</label>
+    <input id="on" type="text" autocomplete="name">
+    <label for="op">Telefonunuz</label>
+    <input id="op" type="tel" inputmode="tel" autocomplete="tel" placeholder="05xx xxx xx xx">
+    <label for="ot">Ne zaman alacaksınız?</label>
+    <input id="ot" type="text" placeholder="Bugün 17:30">
+    <label for="onote">Not (isteğe bağlı)</label>
+    <textarea id="onote" placeholder="Böreği dilimlenmiş istiyorum"></textarea>
+    <p class="err" id="oerr" role="alert" style="color:var(--pepper);margin:10px 0 0"></p>
+    <button class="btn-wa" id="send" type="button">Siparişi gönder</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+let cart = store.get("zld_cart", {});
+const view = MenuView({root:$("cats"), chips:$("chips"), search:$("q"), empty:$("empty"), mode:"order", cart,
+  onChange(){ store.set("zld_cart", cart); updateBar(); },
+  onAdd(p, o){ toast(itemLabel(p.ad, o.l) + " sepete eklendi"); }});
+
+function updateBar(){
+  const L = cartLines(cart), n = L.reduce((a, l) => a + l.q, 0), t = L.reduce((a, l) => a + l.sum, 0);
+  $("cCount").textContent = n; $("cTot").textContent = tl(t);
+  $("cartbar").classList.toggle("show", n > 0);
+  return {L, n, t};
+}
+function depositText(L){
+  const bor = L.filter(l => l.o.l === "Borcam").reduce((a, l) => a + l.q, 0);
+  const tep = L.filter(l => l.p.ad.includes("Baklava") && l.o.l === "Tepsi").reduce((a, l) => a + l.q, 0);
+  const parts = [];
+  if(bor) parts.push(`${bor} borcam için ${tl(bor * 500)}`);
+  if(tep) parts.push(`${tep} baklava tepsisi için ${tl(tep * 200)}`);
+  return parts.length ? `Depozito: ${parts.join(", ")}. Kabı geri getirince iade edilir.` : "";
+}
+const wrap = $("sheetWrap"); let lastFocus = null;
+function renderSheet(){
+  const {L, t} = updateBar();
+  if(!L.length && $("okBox").hidden){ closeSheet(); return; }
+  $("lines").innerHTML = L.map(l => `<div class="line">
+    <div class="n"><b>${esc(l.p.ad)}</b><span>${l.o.l ? esc(l.o.l) + ", " : ""}${tl(l.o.p)}</span></div>
+    <div class="qty light"><button data-l="${l.k}" data-d="-1" aria-label="Bir azalt">−</button><span>${l.q}</span><button data-l="${l.k}" data-d="1" aria-label="Bir artır">+</button></div>
+    <div class="p">${tl(l.sum)}</div></div>`).join("");
+  $("sTot").textContent = tl(t); $("dep").textContent = depositText(L);
+}
+function openSheet(){ lastFocus = document.activeElement; renderSheet(); wrap.classList.add("open"); $("closeCart").focus(); }
+function closeSheet(){ wrap.classList.remove("open"); view.render(); updateBar(); if(lastFocus && document.contains(lastFocus)) lastFocus.focus(); }
+$("openCart").onclick = openSheet; $("closeCart").onclick = closeSheet; $("sheetBg").onclick = closeSheet;
+addEventListener("keydown", e => { if(e.key === "Escape" && wrap.classList.contains("open")) closeSheet(); });
+$("lines").addEventListener("click", e => {
+  const b = e.target.closest("[data-l]"); if(!b) return;
+  cart[b.dataset.l] = (cart[b.dataset.l] || 0) + (+b.dataset.d);
+  if(cart[b.dataset.l] <= 0) delete cart[b.dataset.l];
+  store.set("zld_cart", cart); renderSheet();
+});
+
+$("send").onclick = async () => {
+  const {L, t} = updateBar();
+  const ad = $("on").value.trim(), tel = $("op").value.replace(/\D/g, ""), zaman = $("ot").value.trim(), not = $("onote").value.trim();
+  const err = $("oerr");
+  if(!ad){ err.textContent = "Siparişi kimin adına hazırlayalım? Adınızı yazın."; $("on").focus(); return; }
+  if(!/^(0?5\d{9}|905\d{9})$/.test(tel)){ err.textContent = "Size ulaşabilmemiz için telefonu 05xx xxx xx xx biçiminde yazın."; $("op").focus(); return; }
+  err.textContent = "";
+  const btn = $("send"); btn.disabled = true; btn.textContent = "Gönderiliyor…";
+  let saved = false;
+  if(db){
+    const {data, error} = await db.from("orders").insert({kind:"online", customer_name:ad, customer_phone:tel, pickup_time:zaman || null, note:not || null}).select("id").single();
+    if(!error){
+      const r = await db.from("order_items").insert(L.map(l => ({order_id:data.id, product_key:l.key + ":" + l.j, name:l.p.ad, option:l.o.l, price:l.o.p, qty:l.q})));
+      saved = !r.error;
+    }
+  }
+  let m = "Merhaba, sipariş vermek istiyorum:\n\n" + L.map(l => `• ${l.q} × ${itemLabel(l.p.ad, l.o.l)}: ${tl(l.sum)}`).join("\n");
+  m += `\n\nToplam: ${tl(t)}`;
+  const d = depositText(L); if(d) m += `\n${d}`;
+  m += `\nİsim: ${ad}\nTelefon: ${tel}`;
+  if(zaman) m += `\nTeslim alma: ${zaman}`;
+  if(not) m += `\nNot: ${not}`;
+  if(saved){
+    for(const k in cart) delete cart[k];
+    store.set("zld_cart", {});
+    $("orderForm").hidden = true;
+    $("okBox").hidden = false;
+    $("okText").textContent = `Teşekkürler ${ad}. Siparişiniz mutfağa ulaştı${zaman ? ", " + zaman + " için hazırlanacak" : ""}. Toplam ${tl(t)}.`;
+    $("okWa").href = `https://wa.me/${ZLD.WA}?text=${encodeURIComponent(m)}`;
+    updateBar();
+  } else {
+    window.open(`https://wa.me/${ZLD.WA}?text=${encodeURIComponent(m)}`, "_blank", "noopener");
+  }
+  btn.disabled = false; btn.textContent = "Siparişi gönder";
+};
+
+view.render(); updateBar();
+loadPrices().then(() => { view.render(); updateBar(); });
+watchPrices(() => { view.render(); updateBar(); });
+bindJoinForm();
+</script>
+</body>
+</html>

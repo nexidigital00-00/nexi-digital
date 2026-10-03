@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#12443f">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ortak/app.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="ortak/menu.js"></script>
+<title>ZLD | Garson</title>
+<meta name="robots" content="noindex">
+</head>
+<body class="staff">
+<div class="staff-top">
+  <img src="logo.png" alt="" width="38" height="38">
+  <h1>Garson</h1>
+  <span class="live" id="live">Bağlanıyor</span>
+  <a href="mutfak.html">Mutfak</a>
+</div>
+<p class="offline" id="offline">Sunucuya bağlanılamadı. İnternet bağlantısını kontrol edin. Siparişler gönderilene kadar bu telefonda bekler.</p>
+<div class="wrap">
+  <nav class="masalar" id="masalar" aria-label="Masa seçimi"></nav>
+  <p class="garson-hint" id="hint">Sipariş almak için masayı seçin.</p>
+  <div id="menuArea" hidden>
+    <div class="bar" id="bar">
+      <label class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5d6d68" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Ürün ara: sarma, börek, trileçe…" aria-label="Ürün ara" autocomplete="off">
+      </label>
+      <nav class="chips" id="chips" aria-label="Kategoriler"></nav>
+    </div>
+    <main>
+      <div id="cats"></div>
+      <p class="empty" id="empty" hidden>Bu aramayla eşleşen ürün yok.</p>
+    </main>
+  </div>
+</div>
+
+<div class="cartbar" id="cartbar">
+  <button type="button" id="openCart" aria-haspopup="dialog">
+    <span class="count" id="cCount">0</span><span class="lbl" id="cLbl">Adisyon</span><span class="tot" id="cTot">0 TL</span>
+  </button>
+</div>
+<div id="sheetWrap">
+  <div class="sheet-bg" id="sheetBg"></div>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-h">
+    <div class="grip"></div>
+    <button class="close" id="closeCart" aria-label="Kapat">×</button>
+    <h2 id="sheet-h">Masa</h2>
+    <div id="sentBox"></div>
+    <div id="draftBox"></div>
+    <div class="sum"><span>Masa toplamı</span><strong id="sTot">0 TL</strong></div>
+    <div id="draftForm">
+      <label for="inote">Mutfağa not (isteğe bağlı)</label>
+      <input id="inote" type="text" placeholder="Acısız, yanına ekstra yoğurt">
+      <button class="btn-wa" id="send" type="button">Mutfağa gönder</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const STATUS_TR = {yeni:"Yeni", hazirlaniyor:"Hazırlanıyor", hazir:"Hazır", servis:"Servis edildi"};
+let masa = store.get("zld_garson_masa", 0);
+let drafts = store.get("zld_garson_drafts", {});     // {masa: {"key:j": qty}}
+let openOrders = [];                                  // [{id, masa, items:[...]}]
+let cart = {};
+
+const view = MenuView({root:$("cats"), chips:$("chips"), search:$("q"), empty:$("empty"), mode:"order", cart,
+  onChange(){ drafts[masa] = {...cart}; store.set("zld_garson_drafts", drafts); updateBar(); },
+  onAdd(p, o){ toast(itemLabel(p.ad, o.l) + " eklendi"); }});
+
+const orderOf = m => openOrders.find(o => o.masa === m);
+const orderTotal = o => o ? o.items.reduce((a, i) => a + i.price * i.qty, 0) : 0;
+
+function renderMasalar(){
+  let h = "";
+  for(let i = 1; i <= ZLD.MASA_SAYISI; i++){
+    const dolu = !!orderOf(i) || Object.keys(drafts[i] || {}).length > 0;
+    h += `<button type="button" data-m="${i}" class="${dolu ? "dolu" : ""}" aria-pressed="${i === masa}" aria-label="Masa ${i}${dolu ? ", açık adisyon var" : ""}">${i}</button>`;
+  }
+  $("masalar").innerHTML = h;
+}
+function selectMasa(m){
+  masa = m; store.set("zld_garson_masa", m);
+  for(const k in cart) delete cart[k];
+  Object.assign(cart, drafts[m] || {});
+  $("menuArea").hidden = !m;
+  renderMasalar(); view.render(); updateBar(); updateHint();
+}
+function updateHint(){
+  if(!masa){ $("hint").textContent = "Sipariş almak için masayı seçin."; return; }
+  const o = orderOf(masa);
+  $("hint").textContent = o
+    ? `Masa ${masa}: mutfakta ${o.items.reduce((a, i) => a + i.qty, 0)} kalem, ${tl(orderTotal(o))}. Yeni ürün ekleyebilirsiniz.`
+    : `Masa ${masa} boş. Müşterinin söylediklerini ekleyin.`;
+}
+$("masalar").addEventListener("click", e => { const b = e.target.closest("[data-m]"); if(b) selectMasa(+b.dataset.m); });
+
+function updateBar(){
+  const L = cartLines(cart), n = L.reduce((a, l) => a + l.q, 0), t = L.reduce((a, l) => a + l.sum, 0);
+  const o = orderOf(masa);
+  $("cCount").textContent = n;
+  $("cLbl").textContent = n ? `Masa ${masa}: mutfağa gönder` : `Masa ${masa} adisyonu`;
+  $("cTot").textContent = tl(t + orderTotal(o));
+  $("cartbar").classList.toggle("show", !!masa && (n > 0 || !!o));
+  return {L, n, t, o};
+}
+
+const wrap = $("sheetWrap"); let lastFocus = null;
+function renderSheet(){
+  const {L, t, o} = updateBar();
+  if(!L.length && !o){ closeSheet(); return; }
+  $("sheet-h").textContent = "Masa " + masa;
+  $("sentBox").innerHTML = o ? `<h3>Mutfakta</h3>` + o.items.map(i => `<div class="line">
+      <div class="n"><b>${i.qty} × ${esc(itemLabel(i.name, i.option))}</b><span>${i.note ? esc(i.note) : ""}</span></div>
+      <span class="st ${i.status}">${STATUS_TR[i.status]}</span>
+      ${i.status === "hazir" ? `<button class="btn ghost" style="min-height:36px;padding:6px 10px" data-serve="${i.id}">Servis et</button>` : ""}
+    </div>`).join("") : "";
+  $("draftBox").innerHTML = L.length ? `<h3>Yeni eklenenler</h3>` + L.map(l => `<div class="line">
+      <div class="n"><b>${esc(l.p.ad)}</b><span>${l.o.l ? esc(l.o.l) + ", " : ""}${tl(l.o.p)}</span></div>
+      <div class="qty light"><button data-l="${l.k}" data-d="-1" aria-label="Bir azalt">−</button><span>${l.q}</span><button data-l="${l.k}" data-d="1" aria-label="Bir artır">+</button></div>
+      <div class="p">${tl(l.sum)}</div></div>`).join("") : "";
+  $("draftForm").hidden = !L.length;
+  $("sTot").textContent = tl(t + orderTotal(o));
+}
+function openSheet(){ lastFocus = document.activeElement; renderSheet(); wrap.classList.add("open"); $("closeCart").focus(); }
+function closeSheet(){ wrap.classList.remove("open"); view.render(); updateBar(); if(lastFocus && document.contains(lastFocus)) lastFocus.focus(); }
+$("openCart").onclick = openSheet; $("closeCart").onclick = closeSheet; $("sheetBg").onclick = closeSheet;
+addEventListener("keydown", e => { if(e.key === "Escape" && wrap.classList.contains("open")) closeSheet(); });
+$("draftBox").addEventListener("click", e => {
+  const b = e.target.closest("[data-l]"); if(!b) return;
+  cart[b.dataset.l] = (cart[b.dataset.l] || 0) + (+b.dataset.d);
+  if(cart[b.dataset.l] <= 0) delete cart[b.dataset.l];
+  drafts[masa] = {...cart}; store.set("zld_garson_drafts", drafts); renderSheet();
+});
+$("sentBox").addEventListener("click", async e => {
+  const b = e.target.closest("[data-serve]"); if(!b) return;
+  b.disabled = true;
+  const {error} = await db.from("order_items").update({status:"servis"}).eq("id", b.dataset.serve);
+  if(error){ toast("Kaydedilemedi, tekrar deneyin"); b.disabled = false; return; }
+  await refresh(); renderSheet();
+});
+
+$("send").onclick = async () => {
+  const L = cartLines(cart); if(!L.length) return;
+  if(!db){ toast("Sunucu bağlantısı yok"); return; }
+  const btn = $("send"); btn.disabled = true; btn.textContent = "Gönderiliyor…";
+  try{
+    let o = orderOf(masa);
+    let orderId = o && o.id;
+    if(!orderId){
+      const {data, error} = await db.from("orders").insert({kind:"masa", masa}).select("id").single();
+      if(error) throw error; orderId = data.id;
+    }
+    const note = $("inote").value.trim() || null;
+    const {error} = await db.from("order_items").insert(L.map(l => ({order_id:orderId, product_key:l.key + ":" + l.j, name:l.p.ad, option:l.o.l, price:l.o.p, qty:l.q, note})));
+    if(error) throw error;
+    for(const k in cart) delete cart[k];
+    delete drafts[masa]; store.set("zld_garson_drafts", drafts);
+    $("inote").value = "";
+    await refresh();
+    toast(`Masa ${masa} siparişi mutfağa gitti`);
+    closeSheet();
+  }catch(ex){
+    console.error(ex);
+    toast("Gönderilemedi. İnterneti kontrol edip tekrar basın.");
+  }finally{ btn.disabled = false; btn.textContent = "Mutfağa gönder"; }
+};
+
+async function refresh(){
+  if(!db) return;
+  const {data, error} = await db.from("orders").select("id,masa,kind,created_at,order_items(id,name,option,price,qty,status,note,created_at)").eq("status", "acik").eq("kind", "masa");
+  $("offline").classList.toggle("on", !!error);
+  if(error) return;
+  openOrders = data.map(o => ({...o, items:(o.order_items || []).sort((a, b) => a.created_at.localeCompare(b.created_at))}));
+  renderMasalar(); updateHint(); updateBar();
+  if(wrap.classList.contains("open")) renderSheet();
+}
+function live(){
+  if(!db){ $("offline").classList.add("on"); return; }
+  db.channel("garson")
+    .on("postgres_changes", {event:"*", schema:"public", table:"orders"}, refresh)
+    .on("postgres_changes", {event:"*", schema:"public", table:"order_items"}, refresh)
+    .subscribe(s => { const ok = s === "SUBSCRIBED"; $("live").classList.toggle("ok", ok); $("live").textContent = ok ? "Canlı" : "Bağlanıyor"; });
+}
+
+selectMasa(masa);
+loadPrices().then(() => { view.render(); updateBar(); });
+watchPrices(() => { view.render(); updateBar(); });
+refresh(); live();
+setInterval(refresh, 20000);   // canlı bağlantı koparsa yedek yenileme
+</script>
+</body>
+</html>

@@ -245,3 +245,32 @@ html:has(body.staff){scroll-padding-top:190px}
 .pickup-tag.later{background:#eceeed;color:var(--muted);border-color:var(--line)}
 .track[hidden]{display:none}
 .chips{touch-action:pan-x;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+
+/* ===== Masadan QR sipariş ===== */
+.alerts{display:grid;gap:8px;padding:12px 16px 0}
+.alerts:empty{display:none}
+.alert{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;border:0;border-radius:var(--r-m);background:var(--pepper);color:#fff;padding:12px 14px;animation:pulse 1.6s ease-in-out infinite}
+.alert b{font-size:16px}
+.alert span{font-size:14px;opacity:.92}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(180,68,44,.45)}50%{box-shadow:0 0 0 8px rgba(180,68,44,0)}}
+.masalar button.bekliyor{border-color:var(--pepper);background:#fbe9e4}
+.masalar button .pend{position:absolute;top:-7px;right:-7px;min-width:22px;height:22px;border-radius:999px;background:var(--pepper);color:#fff;font:700 12px/22px var(--sans);padding:0 6px}
+.masalar button.dolu.bekliyor::after{display:none}
+.pend-box{background:#fbe9e4;border:1px solid #efc3b6;border-radius:var(--r-m);padding:4px 12px 12px;margin-bottom:8px}
+.pend-box h3{color:#7a2a17}
+.pend-box .line{border-color:#efc3b6}
+.pend-box .p{font:700 16px var(--serif);color:var(--green);min-width:64px;text-align:right}
+.x{width:36px;height:36px;border-radius:50%;border:1px solid #efc3b6;background:#fff;color:#7a2a17;font-size:20px;line-height:1}
+.split{padding:8px 14px 4px;border-top:1px solid var(--line)}
+.split h4{margin:0 0 4px;font-size:13px;color:var(--muted);font-weight:700}
+.srow{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:14.5px}
+.srow span{flex:1}
+.srow b{font-variant-numeric:tabular-nums}
+.srow button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 10px;font-size:13px;font-weight:700;min-height:34px}
+.srow em{font-style:normal;font-size:13px;color:var(--green-2);font-weight:700;min-width:58px;text-align:center}
+.srow.paid span,.srow.paid b{color:var(--muted);text-decoration:line-through}
+@media (prefers-reduced-motion:reduce){.alert{animation:none}}
+.mycode{display:flex;flex-direction:column;gap:2px;background:var(--green);color:#fff;border-radius:var(--r-m);padding:12px 14px;margin:8px 0 4px}
+.mycode:empty{display:none}
+.mycode b{font:800 30px/1 var(--serif);color:var(--gold)}
+.mycode span{font-size:14px;color:#d6e3df}

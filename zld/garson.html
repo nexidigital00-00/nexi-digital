@@ -23,6 +23,7 @@
 </div>
 <p class="offline" id="offline">Sunucuya bağlanılamadı. İnternet bağlantısını kontrol edin. Siparişler gönderilene kadar bu telefonda bekler.</p>
 <div class="wrap">
+  <div class="alerts" id="alerts" aria-live="assertive"></div>
   <nav class="masalar" id="masalar" aria-label="Masa seçimi"></nav>
   <p class="garson-hint" id="hint">Sipariş almak için masayı seçin.</p>
   <div id="menuArea" hidden>
@@ -51,6 +52,7 @@
     <div class="grip"></div>
     <button class="close" id="closeCart" aria-label="Kapat">×</button>
     <h2 id="sheet-h">Masa</h2>
+    <div id="pendBox"></div>
     <div id="sentBox"></div>
     <div id="draftBox"></div>
     <div class="sum"><span>Masa toplamı</span><strong id="sTot">0 TL</strong></div>
@@ -63,10 +65,11 @@
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
-const STATUS_TR = {yeni:"Yeni", hazirlaniyor:"Hazırlanıyor", hazir:"Hazır", servis:"Servis edildi"};
+const STATUS_TR = {onay:"Onay bekliyor", yeni:"Yeni", hazirlaniyor:"Hazırlanıyor", hazir:"Hazır", servis:"Servis edildi"};
 let masa = store.get("zld_garson_masa", 0);
 let drafts = store.get("zld_garson_drafts", {});     // {masa: {"key:j": qty}}
 let openOrders = [];                                  // [{id, masa, items:[...]}]
+let knownPending = null;
 let cart = {};
 
 const view = MenuView({root:$("cats"), chips:$("chips"), search:$("q"), empty:$("empty"), mode:"order", cart,
@@ -75,15 +78,27 @@ const view = MenuView({root:$("cats"), chips:$("chips"), search:$("q"), empty:$(
 
 const orderOf = m => openOrders.find(o => o.masa === m);
 const orderTotal = o => o ? o.items.reduce((a, i) => a + i.price * i.qty, 0) : 0;
+const pendingOf = o => o ? o.items.filter(i => i.status === "onay") : [];
+const whoIn = o => { const f = makeLabeler(o.masa, o.items); return i => f(i); };
+const sentOf = o => o ? o.items.filter(i => i.status !== "onay") : [];
+let who = i => "Masa geneli";   // refresh'te masa masa yeniden kurulur
 
 function renderMasalar(){
   let h = "";
   for(let i = 1; i <= ZLD.MASA_SAYISI; i++){
-    const dolu = !!orderOf(i) || Object.keys(drafts[i] || {}).length > 0;
-    h += `<button type="button" data-m="${i}" class="${dolu ? "dolu" : ""}" aria-pressed="${i === masa}" aria-label="Masa ${i}${dolu ? ", açık adisyon var" : ""}">${i}</button>`;
+    const o = orderOf(i), pend = pendingOf(o).length;
+    const dolu = !!o || Object.keys(drafts[i] || {}).length > 0;
+    h += `<button type="button" data-m="${i}" class="${dolu ? "dolu" : ""} ${pend ? "bekliyor" : ""}" aria-pressed="${i === masa}" aria-label="Masa ${i}${pend ? `, ${pend} ürün onay bekliyor` : dolu ? ", açık adisyon var" : ""}">${i}${pend ? `<span class="pend">${pend}</span>` : ""}</button>`;
   }
   $("masalar").innerHTML = h;
+  // üstte bekleyen masalar uyarısı
+  const waiting = openOrders.filter(o => pendingOf(o).length).sort((a, b) => a.masa - b.masa);
+  $("alerts").innerHTML = waiting.map(o => {
+    const P = pendingOf(o), w = whoIn(o), people = new Set(P.map(w)).size;  // kaç farklı telefon
+    return `<button type="button" class="alert" data-open="${o.masa}"><b>Masa ${o.masa}: yeni sipariş</b><span>${people} kişi (${[...new Set(P.map(w))].sort((x, y) => x.localeCompare(y, "tr", {numeric:true})).join(", ")}), ${P.reduce((a, i) => a + i.qty, 0)} ürün onay bekliyor. Görmek için dokunun.</span></button>`;
+  }).join("");
 }
+$("alerts").addEventListener("click", e => { const b = e.target.closest("[data-open]"); if(!b) return; selectMasa(+b.dataset.open); openSheet(); });
 function selectMasa(m){
   masa = m; store.set("zld_garson_masa", m);
   for(const k in cart) delete cart[k];
@@ -93,34 +108,42 @@ function selectMasa(m){
 }
 function updateHint(){
   if(!masa){ $("hint").textContent = "Sipariş almak için masayı seçin."; return; }
-  const o = orderOf(masa);
+  const o = orderOf(masa), S = sentOf(o);
   $("hint").textContent = o
-    ? `Masa ${masa}: mutfakta ${o.items.reduce((a, i) => a + i.qty, 0)} kalem, ${tl(orderTotal(o))}. Yeni ürün ekleyebilirsiniz.`
+    ? `Masa ${masa}: mutfakta ${S.reduce((a, i) => a + i.qty, 0)} ürün, toplam ${tl(orderTotal(o))}. Yeni ürün ekleyebilirsiniz.`
     : `Masa ${masa} boş. Müşterinin söylediklerini ekleyin.`;
 }
 $("masalar").addEventListener("click", e => { const b = e.target.closest("[data-m]"); if(b) selectMasa(+b.dataset.m); });
 
 function updateBar(){
   const L = cartLines(cart), n = L.reduce((a, l) => a + l.q, 0), t = L.reduce((a, l) => a + l.sum, 0);
-  const o = orderOf(masa);
-  $("cCount").textContent = n;
-  $("cLbl").textContent = n ? `Masa ${masa}: mutfağa gönder` : `Masa ${masa} adisyonu`;
+  const o = orderOf(masa), pend = pendingOf(o).length;
+  $("cCount").textContent = n || pend || 0;
+  $("cLbl").textContent = n ? `Masa ${masa}: mutfağa gönder` : pend ? `Masa ${masa}: onay bekleyenler` : `Masa ${masa} adisyonu`;
   $("cTot").textContent = tl(t + orderTotal(o));
   $("cartbar").classList.toggle("show", !!masa && (n > 0 || !!o));
   return {L, n, t, o};
 }
 
 const wrap = $("sheetWrap"); let lastFocus = null;
+function lineHTML(i, actions){
+  return `<div class="line">
+      <div class="n"><b>${i.qty} × ${esc(itemLabel(i.name, i.option))}</b><span>${esc(who(i))}${i.note ? ", " + esc(i.note) : ""}</span></div>
+      ${actions}</div>`;
+}
 function renderSheet(){
   const {L, t, o} = updateBar();
   if(!L.length && !o){ closeSheet(); return; }
   $("sheet-h").textContent = "Masa " + masa;
-  $("sentBox").innerHTML = o ? `<h3>Mutfakta</h3>` + o.items.map(i => `<div class="line">
-      <div class="n"><b>${i.qty} × ${esc(itemLabel(i.name, i.option))}</b><span>${i.note ? esc(i.note) : ""}</span></div>
-      <span class="st ${i.status}">${STATUS_TR[i.status]}</span>
-      ${i.status === "hazir" ? `<button class="btn ghost" style="min-height:36px;padding:6px 10px" data-serve="${i.id}">Servis et</button>` : ""}
-    </div>`).join("") : "";
-  $("draftBox").innerHTML = L.length ? `<h3>Yeni eklenenler</h3>` + L.map(l => `<div class="line">
+  who = o ? whoIn(o) : (i => "Masa geneli");
+  const P = pendingOf(o);
+  $("pendBox").innerHTML = P.length ? `<div class="pend-box"><h3>Müşteriler QR'dan gönderdi</h3>` +
+    P.map(i => lineHTML(i, `<span class="p">${tl(i.price * i.qty)}</span><button class="x" data-del="${i.id}" aria-label="${esc(i.name)} siparişini sil">×</button>`)).join("") +
+    `<button class="btn-wa" type="button" id="approve">Hepsini mutfağa gönder (${P.reduce((a, i) => a + i.qty, 0)} ürün)</button></div>` : "";
+  const S = sentOf(o);
+  $("sentBox").innerHTML = S.length ? `<h3>Mutfakta</h3>` + S.map(i => lineHTML(i,
+      `<span class="st ${i.status}">${STATUS_TR[i.status]}</span>${i.status === "hazir" ? `<button class="btn ghost" style="min-height:36px;padding:6px 10px" data-serve="${i.id}">Servis et</button>` : ""}`)).join("") : "";
+  $("draftBox").innerHTML = L.length ? `<h3>Masa geneline eklenecek</h3>` + L.map(l => `<div class="line">
       <div class="n"><b>${esc(l.p.ad)}</b><span>${l.o.l ? esc(l.o.l) + ", " : ""}${tl(l.o.p)}</span></div>
       <div class="qty light"><button data-l="${l.k}" data-d="-1" aria-label="Bir azalt">−</button><span>${l.q}</span><button data-l="${l.k}" data-d="1" aria-label="Bir artır">+</button></div>
       <div class="p">${tl(l.sum)}</div></div>`).join("") : "";
@@ -144,21 +167,31 @@ $("sentBox").addEventListener("click", async e => {
   if(error){ toast("Kaydedilemedi, tekrar deneyin"); b.disabled = false; return; }
   await refresh(); renderSheet();
 });
+$("pendBox").addEventListener("click", async e => {
+  const del = e.target.closest("[data-del]");
+  if(del){
+    if(!confirm("Bu ürün siparişten silinsin mi?")) return;
+    del.disabled = true;
+    const {error} = await db.from("order_items").delete().eq("id", del.dataset.del).eq("status", "onay");
+    if(error){ toast("Silinemedi, tekrar deneyin"); del.disabled = false; return; }
+    await refresh(); return;
+  }
+  if(e.target.closest("#approve")){
+    const b = $("approve"); b.disabled = true; b.textContent = "Gönderiliyor…";
+    const o = orderOf(masa);
+    const {error} = await db.from("order_items").update({status:"yeni"}).eq("order_id", o.id).eq("status", "onay");
+    if(error){ toast("Gönderilemedi, tekrar deneyin"); b.disabled = false; return; }
+    toast(`Masa ${masa} siparişleri mutfağa gitti`);
+    await refresh();
+  }
+});
 
 $("send").onclick = async () => {
   const L = cartLines(cart); if(!L.length) return;
   if(!db){ toast("Sunucu bağlantısı yok"); return; }
   const btn = $("send"); btn.disabled = true; btn.textContent = "Gönderiliyor…";
   try{
-    let o = orderOf(masa);
-    let orderId = o && o.id;
-    if(!orderId){
-      const {data, error} = await db.from("orders").insert({kind:"masa", masa}).select("id").single();
-      if(error) throw error; orderId = data.id;
-    }
-    const note = $("inote").value.trim() || null;
-    const {error} = await db.from("order_items").insert(L.map(l => ({order_id:orderId, product_key:l.key + ":" + l.j, name:l.p.ad, option:l.o.l, price:l.o.p, qty:l.q, note})));
-    if(error) throw error;
+    await addTableItems(masa, L, {note: $("inote").value.trim() || null});
     for(const k in cart) delete cart[k];
     delete drafts[masa]; store.set("zld_garson_drafts", drafts);
     $("inote").value = "";
@@ -171,20 +204,40 @@ $("send").onclick = async () => {
   }finally{ btn.disabled = false; btn.textContent = "Mutfağa gönder"; }
 };
 
+/* yeni QR siparişi gelince ses + titreşim */
+let audioOk = false;
+addEventListener("pointerdown", () => { audioOk = true; }, {once:true});
+function ding(){
+  if(navigator.vibrate) navigator.vibrate([200, 100, 200]);
+  if(!audioOk) return;
+  try{ const c = new (window.AudioContext || window.webkitAudioContext)();
+    [0, .22].forEach(d => { const o = c.createOscillator(), g = c.createGain(); o.frequency.value = 988; o.connect(g); g.connect(c.destination);
+      g.gain.setValueAtTime(.25, c.currentTime + d); g.gain.exponentialRampToValueAtTime(.001, c.currentTime + d + .18); o.start(c.currentTime + d); o.stop(c.currentTime + d + .2); });
+  }catch(e){}
+}
+
 async function refresh(){
   if(!db) return;
-  const {data, error} = await db.from("orders").select("id,masa,kind,created_at,order_items(id,name,option,price,qty,status,note,created_at)").eq("status", "acik").eq("kind", "masa");
+  const {data, error} = await db.from("orders").select("id,masa,kind,created_at,order_items(id,name,option,price,qty,status,note,guest_id,created_at)").eq("status", "acik").eq("kind", "masa");
   $("offline").classList.toggle("on", !!error);
   if(error) return;
   openOrders = data.map(o => ({...o, items:(o.order_items || []).sort((a, b) => a.created_at.localeCompare(b.created_at))}));
+  const pend = new Set(openOrders.flatMap(o => pendingOf(o).map(i => i.id)));
+  if(knownPending){
+    const fresh = openOrders.filter(o => pendingOf(o).some(i => !knownPending.has(i.id)));
+    if(fresh.length){ ding(); toast(fresh.map(o => `Masa ${o.masa}`).join(", ") + ": yeni sipariş onay bekliyor"); }
+  }
+  knownPending = pend;
   renderMasalar(); updateHint(); updateBar();
   if(wrap.classList.contains("open")) renderSheet();
 }
+let rt;
+const soon = () => { clearTimeout(rt); rt = setTimeout(refresh, 200); };
 function live(){
   if(!db){ $("offline").classList.add("on"); return; }
   db.channel("garson")
-    .on("postgres_changes", {event:"*", schema:"public", table:"orders"}, refresh)
-    .on("postgres_changes", {event:"*", schema:"public", table:"order_items"}, refresh)
+    .on("postgres_changes", {event:"*", schema:"public", table:"orders"}, soon)
+    .on("postgres_changes", {event:"*", schema:"public", table:"order_items"}, soon)
     .subscribe(s => { const ok = s === "SUBSCRIBED"; $("live").classList.toggle("ok", ok); $("live").textContent = ok ? "Canlı" : "Bağlanıyor"; });
 }
 

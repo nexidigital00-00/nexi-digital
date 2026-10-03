@@ -335,3 +335,45 @@ function bindJoinForm(){
     }
   });
 }
+
+/* ===== Masadan sipariş (misafir) ===== */
+function getGuest(){
+  let g = store.get("zld_guest", null);
+  if(!g || !g.id){
+    const id = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2));
+    g = {id, name:""}; store.set("zld_guest", g);
+  }
+  return g;
+}
+const ITEM_STATUS_TR = {onay:"Garson onayı bekleniyor", yeni:"Mutfağa iletildi", hazirlaniyor:"Hazırlanıyor", hazir:"Hazır", servis:"Servis edildi"};
+
+// Masanın açık adisyonu; yoksa açar. Aynı anda iki kişi açmaya çalışırsa ikincisi mevcut olanı alır.
+async function openTableOrder(masa){
+  const find = () => db.from("orders").select("id").eq("kind", "masa").eq("masa", masa).eq("status", "acik").maybeSingle();
+  let {data, error} = await find();
+  if(error) throw error;
+  if(data) return data.id;
+  const ins = await db.from("orders").insert({kind:"masa", masa}).select("id").single();
+  if(!ins.error) return ins.data.id;
+  if(ins.error.code !== "23505") throw ins.error;
+  ({data, error} = await find());
+  if(error || !data) throw (error || new Error("adisyon bulunamadı"));
+  return data.id;
+}
+// Misafir kodu: masa no + harf (1A, 1B…). Kaydedilmez; her ekranda aynı veriden hesaplanır:
+// masada ilk siparişini en erken gönderen telefon A, sonraki B… (aynı anda gönderilse bile çakışmaz).
+// Garsonun eklediği ürünlerde telefon yok: "Masa geneli".
+const LETTERS = "ABCDEFGHIJKLMNOPRSTUVYZ";
+function makeLabeler(masa, items){
+  const first = {};
+  items.forEach(i => { if(i.guest_id && (!first[i.guest_id] || i.created_at < first[i.guest_id])) first[i.guest_id] = i.created_at; });
+  const order = Object.keys(first).sort((x, y) => first[x] < first[y] ? -1 : first[x] > first[y] ? 1 : x < y ? -1 : 1);
+  const map = {}; order.forEach((g, n) => map[g] = masa + (LETTERS[n] || "-" + (n + 1)));
+  return i => i.guest_id ? map[i.guest_id] : "Masa geneli";
+}
+async function addTableItems(masa, lines, extra){
+  const orderId = await openTableOrder(masa);
+  const {error} = await db.from("order_items").insert(lines.map(l => ({order_id:orderId, product_key:l.key + ":" + l.j, name:l.p.ad, option:l.o.l, price:l.o.p, qty:l.q, ...extra})));
+  if(error) throw error;
+  return orderId;
+}

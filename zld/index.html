@@ -28,9 +28,11 @@
     </div>
     <p class="pickup" id="pickup">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11h18M5 11V7a7 7 0 0 1 14 0v4M4 11l1.5 9h13L20 11"/></svg>
-      <span>Ne istediğinizi garsonumuza söyleyin. Porsiyonu az ya da yarım kilo da isteyebilirsiniz.</span>
+      <span id="pickupText">Ne istediğinizi garsonumuza söyleyin. Porsiyonu az ya da yarım kilo da isteyebilirsiniz.</span>
     </p>
   </header>
+
+  <a class="track" id="track" href="#" hidden></a>
     <div class="bar" id="bar">
       <label class="search">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5d6d68" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -63,15 +65,152 @@
       </footer>
   </main>
 </div>
+
+<div class="cartbar" id="cartbar">
+  <button type="button" id="openCart" aria-haspopup="dialog">
+    <span class="count" id="cCount">0</span><span class="lbl" id="cLbl">Siparişimi gönder</span><span class="tot" id="cTot">0 TL</span>
+  </button>
+</div>
+<div id="sheetWrap">
+  <div class="sheet-bg" id="sheetBg"></div>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-h">
+    <div class="grip"></div>
+    <button class="close" id="closeCart" aria-label="Kapat">×</button>
+    <h2 id="sheet-h">Masa</h2>
+
+    <div id="newBox">
+      <h3>Yeni siparişiniz</h3>
+      <div id="lines"></div>
+      <p class="err" id="oerr" role="alert" style="color:var(--pepper);margin:10px 0 0"></p>
+      <button class="btn-wa" id="send" type="button">Siparişi garsona gönder</button>
+      <p class="dep" style="margin-top:8px">Garsonumuz onaylayınca siparişiniz mutfağa gider.</p>
+    </div>
+
+    <div id="billBox">
+      <p class="mycode" id="myCode"></p>
+      <h3>Hesabım</h3>
+      <div id="billLines"></div>
+      <div class="sum"><span id="billLbl">Kasada ödeyeceğiniz</span><strong id="billTot">0 TL</strong></div>
+      <p class="dep" id="tableTot"></p>
+    </div>
+  </div>
+</div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
-const masa = parseInt(new URLSearchParams(location.search).get("masa"), 10);
-if(masa > 0){ const b = $("masaBadge"); b.hidden = false; b.textContent = "Masa " + masa; }
-const view = MenuView({root:$("cats"), chips:$("chips"), search:$("q"), empty:$("empty"), mode:"view", cart:{}});
-view.render();
-loadPrices().then(view.render);
-watchPrices(view.render);
+const masa = parseInt(new URLSearchParams(location.search).get("masa"), 10) || 0;
+const atTable = masa > 0 && masa <= 99;
+const guest = getGuest();
+const cartKey = "zld_masa_cart_" + masa;
+let cart = atTable ? store.get(cartKey, {}) : {};
+let mine = [], tableItems = [], tableTotal = 0, orderId = null, myCode = () => "";
+
+if(atTable){
+  const b = $("masaBadge"); b.hidden = false; b.textContent = "Masa " + masa;
+  $("pickupText").textContent = "Siparişinizi buradan kendiniz verebilir ya da garsonumuza söyleyebilirsiniz. Hesabınızı bu ekrandan takip edin.";
+}
+const view = MenuView({root:$("cats"), chips:$("chips"), search:$("q"), empty:$("empty"), mode: atTable ? "order" : "view", cart,
+  onChange(){ store.set(cartKey, cart); updateBar(); },
+  onAdd(p, o){ toast(itemLabel(p.ad, o.l) + " sepete eklendi"); }});
+
+function updateBar(){
+  if(!atTable) return {L:[], n:0, t:0};
+  const L = cartLines(cart), n = L.reduce((a, l) => a + l.q, 0), t = L.reduce((a, l) => a + l.sum, 0);
+  const due = mine.filter(i => !i.paid).reduce((a, i) => a + i.price * i.qty, 0);
+  $("cCount").textContent = n || mine.reduce((a, i) => a + i.qty, 0);
+  $("cLbl").textContent = n ? "Siparişimi gönder" : "Hesabım";
+  $("cTot").textContent = tl(n ? t : due);
+  $("cartbar").classList.toggle("show", n > 0 || mine.length > 0);
+  return {L, n, t};
+}
+
+/* ---------- panel ---------- */
+const wrap = $("sheetWrap"); let lastFocus = null;
+function renderSheet(){
+  const {L} = updateBar();
+  $("sheet-h").textContent = "Masa " + masa;
+  $("newBox").hidden = !L.length;
+  $("lines").innerHTML = L.map(l => `<div class="line">
+    <div class="n"><b>${esc(l.p.ad)}</b><span>${l.o.l ? esc(l.o.l) + ", " : ""}${tl(l.o.p)}</span></div>
+    <div class="qty light"><button data-l="${l.k}" data-d="-1" aria-label="Bir azalt">−</button><span>${l.q}</span><button data-l="${l.k}" data-d="1" aria-label="Bir artır">+</button></div>
+    <div class="p">${tl(l.sum)}</div></div>`).join("");
+  const code = mine.length && myCode();
+  $("myCode").innerHTML = code ? `Kodunuz <b>${esc(code)}</b><span>Kasada bu kodu söyleyin, sadece kendi hesabınızı ödeyin.</span>` : "";
+  $("billBox").hidden = !mine.length;
+  $("billLines").innerHTML = mine.map(i => `<div class="line">
+    <div class="n"><b>${i.qty} × ${esc(itemLabel(i.name, i.option))}</b><span>${i.paid ? "Ödendi" : ITEM_STATUS_TR[i.status]}</span></div>
+    <div class="p">${tl(i.price * i.qty)}</div></div>`).join("");
+  const due = mine.filter(i => !i.paid).reduce((a, i) => a + i.price * i.qty, 0);
+  $("billLbl").textContent = due ? "Kasada ödeyeceğiniz" : "Hesabınız ödendi";
+  $("billTot").textContent = tl(due);
+  $("tableTot").textContent = tableTotal ? `Masanın toplam hesabı: ${tl(tableTotal)}. Her kişi kendi hesabını ayrı ödeyebilir.` : "";
+  if(!L.length && !mine.length) closeSheet();
+}
+function openSheet(){ lastFocus = document.activeElement; renderSheet(); wrap.classList.add("open"); $("closeCart").focus(); }
+function closeSheet(){ wrap.classList.remove("open"); view.render(); updateBar(); if(lastFocus && document.contains(lastFocus)) lastFocus.focus(); }
+$("openCart").onclick = openSheet; $("closeCart").onclick = closeSheet; $("sheetBg").onclick = closeSheet;
+addEventListener("keydown", e => { if(e.key === "Escape" && wrap.classList.contains("open")) closeSheet(); });
+$("lines").addEventListener("click", e => {
+  const b = e.target.closest("[data-l]"); if(!b) return;
+  cart[b.dataset.l] = (cart[b.dataset.l] || 0) + (+b.dataset.d);
+  if(cart[b.dataset.l] <= 0) delete cart[b.dataset.l];
+  store.set(cartKey, cart); renderSheet();
+});
+$("track").onclick = e => { e.preventDefault(); openSheet(); };
+
+$("send").onclick = async () => {
+  const L = cartLines(cart); if(!L.length) return;
+  const err = $("oerr");
+  if(!db){ err.textContent = "Sunucuya bağlanılamadı. Siparişinizi garsonumuza söyleyin."; return; }
+  err.textContent = "";
+  const btn = $("send"); btn.disabled = true; btn.textContent = "Gönderiliyor…";
+  try{
+    orderId = await addTableItems(masa, L, {status:"onay", guest_id:guest.id});
+    for(const k in cart) delete cart[k];
+    store.set(cartKey, {});
+    await loadMine();
+    view.render(); renderSheet();
+    toast("Siparişiniz garsona iletildi");
+  }catch(ex){
+    console.error(ex);
+    err.textContent = "Sipariş gönderilemedi. İnternetinizi kontrol edip tekrar deneyin ya da garsonumuza söyleyin.";
+  }finally{ btn.disabled = false; btn.textContent = "Siparişi garsona gönder"; }
+};
+
+/* ---------- hesabım ---------- */
+async function loadMine(){
+  if(!db || !atTable) return;
+  const {data, error} = await db.from("orders").select("id,order_items(id,name,option,price,qty,status,paid,guest_id,guest_name,created_at)").eq("kind", "masa").eq("masa", masa).eq("status", "acik").maybeSingle();
+  if(error) return;
+  orderId = data ? data.id : null;
+  const items = data ? data.order_items : [];
+  tableItems = items;
+  myCode = mine0 => makeLabeler(masa, items)({guest_id: guest.id});
+  mine = items.filter(i => i.guest_id === guest.id).sort((a, b) => a.created_at.localeCompare(b.created_at));
+  tableTotal = items.reduce((a, i) => a + i.price * i.qty, 0);
+  const due = mine.filter(i => !i.paid).reduce((a, i) => a + i.price * i.qty, 0);
+  const tr = $("track");
+  if(mine.length){
+    const waiting = mine.some(i => i.status === "onay"), ready = mine.some(i => i.status === "hazir");
+    tr.hidden = false; tr.dataset.stage = ready ? "hazir" : "";
+    tr.innerHTML = `<b>${esc(myCode())} hesabım: ${tl(due)}</b><span>${waiting ? "Siparişiniz garson onayı bekliyor" : ready ? "Siparişiniz hazır, geliyor" : due ? "Ödemeyi kasada yapabilirsiniz" : "Hesabınız ödendi, afiyet olsun"}</span>`;
+  } else tr.hidden = true;
+  updateBar();
+  if(wrap.classList.contains("open")) renderSheet();
+}
+if(atTable && db){
+  let t; const soon = () => { clearTimeout(t); t = setTimeout(loadMine, 200); };
+  db.channel("masa-" + masa)
+    .on("postgres_changes", {event:"*", schema:"public", table:"order_items"}, soon)
+    .on("postgres_changes", {event:"*", schema:"public", table:"orders"}, soon)
+    .subscribe();
+  setInterval(loadMine, 20000);
+}
+
+view.render(); updateBar();
+loadPrices().then(() => { view.render(); updateBar(); });
+watchPrices(() => { view.render(); updateBar(); });
 bindJoinForm();
+loadMine();
 </script>
 </body>
 </html>

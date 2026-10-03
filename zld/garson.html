@@ -25,6 +25,7 @@
 <div class="wrap">
   <div class="alerts" id="alerts" aria-live="assertive"></div>
   <nav class="masalar" id="masalar" aria-label="Masa seçimi"></nav>
+  <p class="legend" aria-label="Renklerin anlamı"><span class="stg-onay">Onay bekliyor</span><span class="stg-mutfak">Mutfakta</span><span class="stg-hazir">Hazır</span><span class="stg-servis">Servis edildi</span><span class="stg-odendi">Ödendi</span></p>
   <p class="garson-hint" id="hint">Sipariş almak için masayı seçin.</p>
   <div id="menuArea" hidden>
     <div class="bar" id="bar">
@@ -65,7 +66,12 @@
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
-const STATUS_TR = {onay:"Onay bekliyor", yeni:"Yeni", hazirlaniyor:"Hazırlanıyor", hazir:"Hazır", servis:"Servis edildi"};
+const STATUS_TR = {onay:"Onay bekliyor", yeni:"Mutfakta", hazirlaniyor:"Mutfakta", hazir:"Hazır", servis:"Servis edildi"};
+// 5 renkli aşama: onay → mutfak → hazır → servis (ödeme bekliyor) → ödendi
+const STAGE = i => i.paid ? "odendi" : i.status === "onay" ? "onay" : (i.status === "yeni" || i.status === "hazirlaniyor") ? "mutfak" : i.status;
+const STAGE_TR = {onay:"Onay bekliyor", mutfak:"Mutfakta", hazir:"Hazır", servis:"Servis edildi", odendi:"Ödendi"};
+const STAGE_ORDER = ["onay", "hazir", "mutfak", "servis", "odendi"];   // masa rengi: en çok ilgi isteyen aşama
+const tableStage = o => { if(!o || !o.items.length) return ""; const set = new Set(o.items.map(STAGE)); return STAGE_ORDER.find(x => set.has(x)); };
 let masa = store.get("zld_garson_masa", 0);
 let drafts = store.get("zld_garson_drafts", {});     // {masa: {"key:j": qty}}
 let openOrders = [];                                  // [{id, masa, items:[...]}]
@@ -89,7 +95,8 @@ function renderMasalar(){
   for(let i = 1; i <= ZLD.MASA_SAYISI; i++){
     const o = orderOf(i), pend = pendingOf(o).length, rdy = readyOf(o).length;
     const dolu = !!o || Object.keys(drafts[i] || {}).length > 0;
-    h += `<button type="button" data-m="${i}" class="${dolu ? "dolu" : ""} ${pend ? "bekliyor" : ""} ${rdy ? "hazir" : ""}" aria-pressed="${i === masa}" aria-label="Masa ${i}${pend ? `, ${pend} ürün onay bekliyor` : ""}${rdy ? `, ${rdy} ürün hazır` : ""}${!pend && !rdy && dolu ? ", açık adisyon var" : ""}">${i}${pend ? `<span class="pend">${pend}</span>` : ""}${rdy ? `<span class="rdy">${rdy}</span>` : ""}</button>`;
+    const stg = tableStage(o);
+    h += `<button type="button" data-m="${i}" class="${stg ? "stg-" + stg : dolu ? "dolu" : ""}" title="${stg ? STAGE_TR[stg] : ""}" aria-pressed="${i === masa}" aria-label="Masa ${i}${pend ? `, ${pend} ürün onay bekliyor` : ""}${rdy ? `, ${rdy} ürün hazır` : ""}${!pend && !rdy && dolu ? ", açık adisyon var" : ""}">${i}${pend ? `<span class="pend">${pend}</span>` : ""}${rdy ? `<span class="rdy">${rdy}</span>` : ""}</button>`;
   }
   $("masalar").innerHTML = h;
   // üstte bekleyen masalar uyarısı
@@ -147,7 +154,7 @@ function renderSheet(){
   $("sentBox").innerHTML = (R.length ? `<div class="ready-box"><h3>Hazır, servis bekliyor</h3>` + R.map(i => lineHTML(i, "")).join("") +
       `<button class="btn-wa" type="button" id="serveAll">Servis ettim (${R.reduce((a, i) => a + i.qty, 0)} ürün)</button></div>` : "") +
     (S.filter(i => i.status !== "hazir").length ? `<h3>Mutfakta ve servis edilenler</h3>` + S.filter(i => i.status !== "hazir").map(i => lineHTML(i,
-      `<span class="st ${i.status}">${STATUS_TR[i.status]}</span>`)).join("") : "");
+      `<span class="st stg-${STAGE(i)}">${STAGE_TR[STAGE(i)]}</span>`)).join("") : "");
   $("draftBox").innerHTML = L.length ? `<h3>Masa geneline eklenecek</h3>` + L.map(l => `<div class="line">
       <div class="n"><b>${esc(l.p.ad)}</b><span>${l.o.l ? esc(l.o.l) + ", " : ""}${tl(l.o.p)}</span></div>
       <div class="qty light"><button data-l="${l.k}" data-d="-1" aria-label="Bir azalt">−</button><span>${l.q}</span><button data-l="${l.k}" data-d="1" aria-label="Bir artır">+</button></div>
@@ -225,7 +232,7 @@ function ding(){
 
 async function refresh(){
   if(!db) return;
-  const {data, error} = await db.from("orders").select("id,masa,kind,created_at,order_items(id,name,option,price,qty,status,note,guest_id,created_at)").eq("status", "acik").eq("kind", "masa");
+  const {data, error} = await db.from("orders").select("id,masa,kind,created_at,order_items(id,name,option,price,qty,status,note,guest_id,paid,created_at)").eq("status", "acik").eq("kind", "masa");
   $("offline").classList.toggle("on", !!error);
   if(error) return;
   openOrders = data.map(o => ({...o, items:(o.order_items || []).sort((a, b) => a.created_at.localeCompare(b.created_at))}));

@@ -36,6 +36,7 @@
 const STATUS_TR = {yeni:"Yeni", hazirlaniyor:"Hazırlanıyor", hazir:"Hazır", servis:"Servis edildi"};
 const ACTIVE = new Set(["yeni", "hazirlaniyor"]);
 let orders = [], mode = store.get("zld_mutfak_mode", "mutfak"), soundOn = false, known = null;
+const picked = new Set();   // mutfakta seçilen (önden gidecek) ürünler; yenilemede korunur
 const mins = iso => Math.max(0, Math.floor((Date.now() - new Date(iso)) / 60000));
 const ago = iso => { const m = mins(iso); return m < 1 ? "şimdi" : m < 60 ? m + " dk" : Math.floor(m / 60) + " sa " + (m % 60) + " dk"; };
 const clock = iso => new Date(iso).toLocaleTimeString("tr-TR", {hour:"2-digit", minute:"2-digit"});
@@ -76,9 +77,13 @@ function kitchenHTML(fresh){
     return `<article class="kcard ${fresh.has(o.id) ? "flash" : ""}" data-o="${o.id}">
       <header><b>${titleOf(o)}</b><span class="age ${late}">${ago(act[0].created_at)}</span></header>${pickupTag(o)}
       ${o.kind === "online" && o.note ? `<p class="knote">Not: ${esc(o.note)}</p>` : ""}
-      <ul>${act.map(i => `<li><span class="q">${i.qty}×</span><span class="t">${esc(itemLabel(i.name, i.option))}${i.note ? `<em>${esc(i.note)}</em>` : ""}</span>${lab && i.guest_id ? `<small>${esc(lab(i))}</small>` : ""}</li>`).join("")}</ul>
+      <ul class="pick">${act.map(i => `<li role="checkbox" tabindex="0" aria-checked="${picked.has(i.id)}" data-pick="${i.id}"><span class="box" aria-hidden="true"></span><span class="q">${i.qty}×</span><span class="t">${esc(itemLabel(i.name, i.option))}${i.note ? `<em>${esc(i.note)}</em>` : ""}</span>${lab && i.guest_id ? `<small>${esc(lab(i))}</small>` : ""}</li>`).join("")}</ul>
       ${done ? `<p class="kdone">Bu ${o.kind === "masa" ? "masada" : "siparişte"} önceden hazırlanan: ${done} ürün</p>` : ""}
-      <button class="kready" type="button" data-ready="${o.id}" data-title="${o.kind === "masa" ? "Masa " + o.masa : "Gel Al"}">Hazır</button>
+      ${(() => { const sel = act.filter(i => picked.has(i.id)); const n = sel.reduce((a, i) => a + i.qty, 0), all = act.reduce((a, i) => a + i.qty, 0);
+        return sel.length
+          ? `<button class="kready part" type="button" data-ready="${o.id}" data-ids="${sel.map(i => i.id).join(",")}" data-title="${o.kind === "masa" ? "Masa " + o.masa : "Gel Al"}">Seçilenler hazır (${n} / ${all})</button>`
+          : `<button class="kready" type="button" data-ready="${o.id}" data-title="${o.kind === "masa" ? "Masa " + o.masa : "Gel Al"}">Hepsi hazır${all > 1 ? ` (${all})` : ""}</button>`; })()}
+      ${act.length > 1 ? `<p class="khint">Önden çıkacakları seçmek için ürünlere dokunun.</p>` : ""}
     </article>`;
   }).join("") + nextHTML;
 }
@@ -124,13 +129,25 @@ function render(fresh = new Set()){
   document.querySelector('[data-mode="kasa"]').textContent = orders.length ? `Kasa (${orders.length})` : "Kasa";
 }
 
+function togglePick(li){
+  const id = li.dataset.pick;
+  picked.has(id) ? picked.delete(id) : picked.add(id);
+  render();
+  const again = $("board").querySelector(`[data-pick="${id}"]`); again && again.focus();
+}
+$("board").addEventListener("keydown", e => { const li = e.target.closest("[data-pick]"); if(li && (e.key === " " || e.key === "Enter")){ e.preventDefault(); togglePick(li); } });
 $("board").addEventListener("click", async e => {
+  const li = e.target.closest("[data-pick]"); if(li){ togglePick(li); return; }
   const b = e.target.closest("button"); if(!b) return;
   if(b.dataset.ready){
+    const label = b.textContent;
     b.disabled = true; b.textContent = "Garsona bildiriliyor…";
-    const {error} = await db.from("order_items").update({status:"hazir"}).eq("order_id", b.dataset.ready).in("status", ["yeni", "hazirlaniyor"]);
-    if(error){ toast("Kaydedilemedi, tekrar basın"); b.disabled = false; b.textContent = "Hazır"; return; }
-    toast(`${b.dataset.title} hazır, garsona bildirildi`);
+    let q = db.from("order_items").update({status:"hazir"}).eq("order_id", b.dataset.ready).in("status", ["yeni", "hazirlaniyor"]);
+    if(b.dataset.ids) q = q.in("id", b.dataset.ids.split(","));
+    const {error} = await q;
+    if(error){ toast("Kaydedilemedi, tekrar basın"); b.disabled = false; b.textContent = label; return; }
+    if(b.dataset.ids) b.dataset.ids.split(",").forEach(id => picked.delete(id));
+    toast(b.dataset.ids ? `${b.dataset.title}: seçilenler garsona bildirildi` : `${b.dataset.title} hazır, garsona bildirildi`);
     refresh();
   }
   if(b.dataset.pay){
@@ -171,6 +188,7 @@ async function refresh(){
   orders = data.map(o => ({...o, allItems:o.order_items || [], items:(o.order_items || []).filter(i => i.status !== "onay").sort((a, b) => a.created_at.localeCompare(b.created_at))}))
     .filter(o => o.items.length || !(o.order_items || []).length);
   const ids = new Set(orders.flatMap(o => o.items.filter(i => ACTIVE.has(i.status)).map(i => i.id)));
+  [...picked].forEach(id => { if(!ids.has(id)) picked.delete(id); });
   const fresh = new Set();
   if(known){ orders.forEach(o => { if(o.items.some(i => ACTIVE.has(i.status) && !known.has(i.id))) fresh.add(o.id); }); if(fresh.size) beep(); }
   known = new Set([...(known || []), ...ids]);

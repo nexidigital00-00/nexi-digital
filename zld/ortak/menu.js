@@ -130,6 +130,12 @@ const MENU = [
 /* ===== Ayarlar ===== */
 const ZLD = {
   WA: "905444628015",
+  // Eve teslimat isteyenler için platform sayfaları; url boşsa platformun ana sayfası açılır
+  PLATFORMLAR: [
+    {ad:"Yemeksepeti", renk:"#ea004b", url:"", ana:"https://www.yemeksepeti.com"},
+    {ad:"Trendyol Go", renk:"#f27a1a", url:"", ana:"https://www.trendyol.com/yemek"},
+    {ad:"Uber Eats", renk:"#06c167", url:"", ana:"https://www.ubereats.com/tr"}
+  ],
   HARITA: "https://www.google.com/maps/search/?api=1&query=Zeynep+Lezzet+Dura%C4%9F%C4%B1+Sakarya",
   MASA_SAYISI: 12,
   SB_URL: "https://utniaprnvwakwfsumner.supabase.co",
@@ -522,6 +528,16 @@ const GELAL_ADIM = `<ol class="gsteps">
     <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11h16v2a7 7 0 0 1-7 7h-2a7 7 0 0 1-7-7v-2z"/><path d="M2 11h20M9 7c0-1.5 1-1.5 1-3M14 7c0-1.5 1-1.5 1-3"/></svg><span>Biz hazırlayalım</span></li>
     <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="13" cy="4" r="2"/><path d="M11 21l2-6 3 3v3M8 12l3-4 3 2 3 1M11 8l-1 6-3 7"/></svg><span>Siz gelip alın</span></li>
   </ol>`;
+const platformLink = p => `<a href="${p.url || p.ana}" target="_blank" rel="noopener"><i style="background:${p.renk}"></i>${p.ad}</a>`;
+// Gel Al sayfasında: eve teslimat isteyenleri platformlara yönlendirir
+addEventListener("DOMContentLoaded", () => { const f = document.getElementById("footEve"); if(f) f.innerHTML = ZLD.PLATFORMLAR.map(platformLink).join(""); });
+function teslimatHTML(){
+  return `<div class="eve">
+    <b>Eve gelsin mi istiyorsunuz?</b>
+    <p>Bizi kuryeli uygulamalarda da bulabilirsiniz. Teslimat ücretini ve fiyatları uygulama belirler.</p>
+    <div class="eve-l">${ZLD.PLATFORMLAR.map(platformLink).join("")}</div>
+  </div>`;
+}
 function gelAlHTML(mini){
   if(isApp()) return "";
   return `<div class="gelal${mini ? " mini" : ""}">

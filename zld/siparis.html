@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="tr">
 <head>
-<meta name="zld-surum" content="202610032148">
+<meta name="zld-surum" content="202610032203">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#12443f">
@@ -9,9 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="ortak/app.css?v=202610032148">
+<link rel="stylesheet" href="ortak/app.css?v=202610032203">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="ortak/menu.js?v=202610032148"></script>
+<script src="ortak/menu.js?v=202610032203"></script>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>Zeynep Lezzet Durağı | Gel Al</title>
@@ -31,7 +31,8 @@
     <div class="ghero">
       <h2>Siz sipariş verin,<br>biz hazırlayalım,<br><u>siz gelip alın.</u></h2>
       <div id="gheroSteps"></div>
-      <p class="ghero-no"><b>Paket servisimiz yok.</b> Siparişiniz adrese getirilmez. Seçtiğiniz saatte dükkâna gelip kendiniz alırsınız, ödemeyi de teslimde yaparsınız.</p>
+      <p class="ghero-no"><b>Gel Al'da paket servisi yok.</b> Siparişiniz adrese getirilmez. Seçtiğiniz saatte dükkâna gelip kendiniz alırsınız, ödemeyi de teslimde yaparsınız.</p>
+      <div id="eve"></div>
       <a class="ghero-map" id="gheroMap" target="_blank" rel="noopener">Dükkânın yol tarifi</a>
     </div>
   </header>
@@ -73,6 +74,7 @@
       <footer class="foot">
         <p>Borcam kapları için 500 TL, baklava tepsileri için 200 TL depozito alınır. Kabı geri getirdiğinizde depozito iade edilir.</p>
         <p><a href="https://wa.me/905444628015">WhatsApp: 0544 462 80 15</a> &nbsp; <a href="https://instagram.com/zeyneplezzetduragi">Instagram</a></p>
+        <p class="foot-eve">Eve teslimat: <span id="footEve"></span></p>
       </footer>
   </main>
 </div>
@@ -311,6 +313,7 @@ $("track").onclick = e => { e.preventDefault(); const last = store.get("zld_last
 $("okBack").onclick = () => { closeSheet(); $("okBox").hidden = true; $("orderForm").hidden = false; watchLast(); scrollTo(0, 0); };
 
 $("gheroSteps").innerHTML = GELAL_ADIM;
+$("eve").innerHTML = teslimatHTML();
 $("gheroMap").href = $("okMap").href = ZLD.HARITA;
 view.render(); updateBar();
 loadPrices().then(() => { view.render(); updateBar(); });

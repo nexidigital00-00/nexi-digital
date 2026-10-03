@@ -567,3 +567,14 @@ html:has(body.staff){scroll-padding-top:190px}
 .pickup-warn{margin:14px 0 6px}
 .gpop-no{margin:-6px 0 14px;padding:8px 12px;border-radius:10px;background:var(--pepper);color:#fff;font-weight:700;font-size:14.5px;line-height:1.35}
 .gpop-ph em{font-size:14px}
+
+/* Eve teslimat: kuryeli platformlara yönlendirme (Gel Al'dan sonra, ikincil) */
+.eve{margin:10px 0 0;padding:12px 14px;border-radius:var(--r-s);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#eaf1ef}
+.eve b{display:block;font-size:16px;color:#fff}
+.eve p{margin:2px 0 10px;font-size:14px;line-height:1.4;color:#c9d9d3}
+.eve-l{display:flex;gap:6px}
+.eve-l a,.foot-eve a{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-weight:700;font-size:14px}
+.eve-l a{flex:1 1 0;min-width:0;white-space:nowrap;gap:5px;font-size:13px;justify-content:center;height:40px;padding:0 6px;border-radius:999px;background:#fff;color:var(--ink)}
+.eve-l i,.foot-eve i{width:10px;height:10px;border-radius:50%;flex:none}
+.foot-eve{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px}
+.foot-eve span{display:contents}

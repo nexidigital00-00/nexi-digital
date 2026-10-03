@@ -38,7 +38,7 @@ const MENU = [
   ["Peynirli El Açma Börek","",[["Az",90],["Porsiyon",150],["Bir kol",300],["Kg",800],["Tepsi (1,8 kg)",1450]]],
   ["Ispanaklı El Açma Börek","",[["Az",90],["Porsiyon",150],["Bir kol",310],["Kg",900],["Tepsi (1,6 kg)",1500]]],
   ["Kıymalı El Açma Börek","",[["Az",90],["Porsiyon",150],["Bir kol",350],["Kg",1050],["Tepsi (1,6 kg)",1650]]],
-  ["Su Böreği","",[["Kg",1050]]],
+  ["Su Böreği","",[["Az",90],["Porsiyon",150],["Kg",1050]]],
   ["Boşnak Mantı","",[["Porsiyon",230],["Kg",1250]]],
   ["Patatesli Gül Böreği","Pişmiş",[["Adet",70]]],
   ["Patatesli Kıymalı Gül Böreği","Pişmiş",[["Adet",85]]],

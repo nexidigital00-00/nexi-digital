@@ -244,7 +244,7 @@ function MenuView({root, chips, search, empty, mode, cart, onChange, onAdd}){
         <div class="list">${items.map(item).join("")}</div></section>`;
     }).join("");
     if(empty) empty.hidden = any;
-    if(chips) chips.innerHTML = MENU.map(c => `<button class="chip" data-go="${c.id}">${c.ad}</button>`).join("");
+    if(chips && !chips.children.length) chips.innerHTML = MENU.map(c => `<button type="button" class="chip" data-go="${c.id}">${c.ad}</button>`).join("");
     spy();
   }
   function rerender(key){ const el = root.querySelector(`[data-key="${key}"]`); if(el) el.outerHTML = item(PRODUCTS[key]); }
@@ -261,22 +261,46 @@ function MenuView({root, chips, search, empty, mode, cart, onChange, onAdd}){
     const f = root.querySelector(`[data-key="${key}"] ${b.dataset.inc ? "[data-inc]" : "[data-dec]"}`) || root.querySelector(`[data-key="${key}"] [data-inc]`);
     f && f.focus();
   });
-  if(chips) chips.addEventListener("click", e => {
-    const b = e.target.closest("[data-go]"); if(!b) return;
-    const s = $("c-" + b.dataset.go);
-    if(s) s.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
-  });
+  // Kategoriye git: sayfayı hesaplanan konuma kaydır. Kayma sürerken çubuğu
+  // yeniden ortalama (ortalama, telefonda sayfa kaymasını yarıda keser).
+  let jumping = 0, touching = 0;
+  // yapışkan arama çubuğunun alt kenarı (sayfa en üstteyken de yapıştığı konuma göre)
+  const stickyBottom = () => { const bar = $("bar"); return bar ? (parseFloat(getComputedStyle(bar).top) || 0) + bar.offsetHeight : 0; };
+  if(chips){
+    chips.addEventListener("click", e => {
+      const b = e.target.closest("[data-go]"); if(!b) return;
+      const s = $("c-" + b.dataset.go); if(!s) return;
+      const smooth = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const y = s.getBoundingClientRect().top + window.scrollY - stickyBottom() - 8;
+      chips.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-current", c === b));
+      centerChip(b, smooth);
+      jumping = Date.now() + 1200;
+      window.scrollTo({top: Math.max(0, y), behavior: smooth ? "smooth" : "auto"});
+    });
+    const hold = () => { touching = Date.now() + 1500; };
+    chips.addEventListener("touchstart", hold, {passive:true});
+    chips.addEventListener("touchmove", hold, {passive:true});
+    chips.addEventListener("wheel", hold, {passive:true});
+    addEventListener("scrollend", () => { jumping = 0; spy(); });
+  }
+  function centerChip(c, smooth){
+    // sadece yatay çubuğu kaydır; sayfaya dokunma
+    const left = c.offsetLeft - (chips.clientWidth - c.offsetWidth) / 2;
+    chips.scrollTo({left: Math.max(0, left), behavior: smooth ? "smooth" : "auto"});
+  }
   function spy(){
     if(!chips) return;
+    const bar = $("bar"); if(bar) bar.classList.toggle("stuck", window.scrollY > 120);
+    if(Date.now() < jumping) return;
+    const line = stickyBottom() + 24;
     const secs = [...root.querySelectorAll(".cat")];
     let cur = secs[0] && secs[0].id;
-    secs.forEach(s => { if(s.getBoundingClientRect().top < 150) cur = s.id; });
+    secs.forEach(s => { if(s.getBoundingClientRect().top < line) cur = s.id; });
     chips.querySelectorAll(".chip").forEach(c => {
       const on = "c-" + c.dataset.go === cur;
-      if(on && c.getAttribute("aria-current") !== "true") c.scrollIntoView({block:"nearest", inline:"center"});
+      if(on && c.getAttribute("aria-current") !== "true" && Date.now() > touching) centerChip(c, false);
       c.setAttribute("aria-current", on);
     });
-    const bar = $("bar"); if(bar) bar.classList.toggle("stuck", window.scrollY > 120);
   }
   let tick = false;
   addEventListener("scroll", () => { if(!tick){ requestAnimationFrame(() => { spy(); tick = false; }); tick = true; } }, {passive:true});

@@ -186,6 +186,13 @@ MENU.forEach(c => c.items.forEach((it, i) => {
 function applyPrices(map){
   Object.values(PRODUCTS).forEach(p => p.opts.forEach((o, j) => { const v = map[p.key + ":" + j]; o.p = (v !== undefined && v !== null) ? +v : o.base; }));
 }
+/* ===== Vitrin: kategori fotoğrafları ve öneriler (fotoğraflar cafenin Instagram'ından) ===== */
+const KAT_FOTO = {kahvalti:"k-kahvalti", gun:"k-gun", borek:"k-borek", zeytinyagli:"k-zeytinyagli", salata:"k-salata", tatli:"k-tatli", icecek:"k-icecek"};
+const ONERILER = [
+  {key:"gun-2", foto:"o-zeytinyagli-tabagi", not:"Sarma, dolma ve günün zeytinyağlıları bir tabakta"},
+  {key:"gun-4", foto:"o-icli-kofte", not:"Çıtır dış, bol cevizli iç"},
+  {key:"tatli-4", foto:"o-baklava", not:"Cevizli, ev usulü, dilimle ya da tepsiyle"},
+];
 function defaultOpt(p){ const i = p.opts.findIndex(o => o.l === "Porsiyon"); return i >= 0 ? i : 0; }
 
 /* ===== Veritabanı ===== */
@@ -209,7 +216,7 @@ async function joinCampaign(name, phone){
 /* ===== Menü çizici =====
    mode: "view" (sadece bakılır) | "order" (sepete eklenir)
    cart: {"key:j": qty} nesnesi, onChange: sepet değişince çağrılır */
-function MenuView({root, chips, search, empty, mode, cart, onChange, onAdd}){
+function MenuView({root, chips, search, empty, mode, cart, onChange, onAdd, strip, picks}){
   const sel = {};
   function item(p){
     if(sel[p.key] === undefined) sel[p.key] = defaultOpt(p);
@@ -245,8 +252,36 @@ function MenuView({root, chips, search, empty, mode, cart, onChange, onAdd}){
     }).join("");
     if(empty) empty.hidden = any;
     if(chips && !chips.children.length) chips.innerHTML = MENU.map(c => `<button type="button" class="chip" data-go="${c.id}">${c.ad}</button>`).join("");
+    if(strip){
+      strip.hidden = !!q;
+      if(!strip.children.length) strip.innerHTML = MENU.map((c, n) => `<button type="button" class="kat${KAT_FOTO[c.id] ? "" : " nofoto"}" data-go="${c.id}">
+        ${KAT_FOTO[c.id] ? `<img src="foto/${KAT_FOTO[c.id]}.webp" alt="" width="360" height="300"${n > 3 ? ' loading="lazy"' : ""}>` : `<span class="kat-ph" aria-hidden="true">${esc(c.ad[0])}</span>`}
+        <span class="kat-ad">${esc(c.ad)}</span></button>`).join("");
+    }
+    if(picks){
+      picks.hidden = !!q;
+      picks.innerHTML = `<h2>Önerilerimiz</h2><div class="picks-row">${ONERILER.filter(o => PRODUCTS[o.key]).map(o => {
+        const p = PRODUCTS[o.key], d = p.opts[defaultOpt(p)];
+        return `<button type="button" class="pick-card" data-item="${o.key}">
+          <img src="foto/${o.foto}.webp" alt="${esc(p.ad)}" width="540" height="360" loading="lazy">
+          <span class="pick-t"><b>${esc(p.ad)}</b><span>${esc(o.not)}</span></span>
+          <span class="pick-p">${tl(d.p)}${p.opts.length > 1 ? "’den" : ""}</span></button>`; }).join("")}</div>`;
+    }
     spy();
   }
+  // Kategori kartı ya da öneriye dokunulunca listede ilgili yere kay
+  function goTo(el, flash){
+    if(!el) return;
+    const smooth = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+    jumping = Date.now() + 1200;
+    window.scrollTo({top: Math.max(0, el.getBoundingClientRect().top + window.scrollY - stickyBottom() - 12), behavior: smooth ? "smooth" : "auto"});
+    if(flash){ el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); }
+  }
+  [strip, picks].forEach(box => box && box.addEventListener("click", e => {
+    const b = e.target.closest("[data-go],[data-item]"); if(!b) return;
+    if(b.dataset.go){ const c = chips && chips.querySelector(`[data-go="${b.dataset.go}"]`); c ? c.click() : goTo($("c-" + b.dataset.go)); }
+    else goTo(root.querySelector(`[data-key="${b.dataset.item}"]`), true);
+  }));
   function rerender(key){ const el = root.querySelector(`[data-key="${key}"]`); if(el) el.outerHTML = item(PRODUCTS[key]); }
   root.addEventListener("click", e => {
     const b = e.target.closest("button"); if(!b) return;

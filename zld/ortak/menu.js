@@ -130,6 +130,7 @@ const MENU = [
 /* ===== Ayarlar ===== */
 const ZLD = {
   WA: "905444628015",
+  HARITA: "https://www.google.com/maps/search/?api=1&query=Zeynep+Lezzet+Dura%C4%9F%C4%B1+Sakarya",
   MASA_SAYISI: 12,
   SB_URL: "https://utniaprnvwakwfsumner.supabase.co",
   SB_KEY: "sb_publishable_LnGWWoHPM5692YmL1o-IzA_vuhx1BKV",
@@ -516,11 +517,17 @@ async function promptInstall(){
   return r.outcome === "accepted";
 }
 // Masadaki menüde ve hesap panelinde gösterilen Gel Al kartı
+const GELAL_ADIM = `<ol class="gsteps">
+    <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg><span>Telefondan sipariş verin, saati seçin</span></li>
+    <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11h16v2a7 7 0 0 1-7 7h-2a7 7 0 0 1-7-7v-2z"/><path d="M2 11h20M9 7c0-1.5 1-1.5 1-3M14 7c0-1.5 1-1.5 1-3"/></svg><span>Biz hazırlayalım</span></li>
+    <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="13" cy="4" r="2"/><path d="M11 21l2-6 3 3v3M8 12l3-4 3 2 3 1M11 8l-1 6-3 7"/></svg><span>Siz gelip alın</span></li>
+  </ol>`;
 function gelAlHTML(mini){
   if(isApp()) return "";
   return `<div class="gelal${mini ? " mini" : ""}">
-    <h2>Eve de götürün</h2>
-    <p>Beğendiklerinizi evde de yiyin. Gel Al ile önceden sipariş verin, geleceğiniz saati seçin, gelince hazır olsun.</p>
+    <h2>Siz sipariş verin, gelip alın</h2>
+    ${GELAL_ADIM}
+    <p class="gelal-no">Paket servisimiz yok. Siparişinizi adrese getirmiyoruz, seçtiğiniz saatte dükkândan kendiniz alırsınız.</p>
     <div class="gelal-btns">
       <a class="btn gold" href="siparis.html">Gel Al siparişi ver</a>
       <a class="btn ghost-l" href="siparis.html?yukle=1" data-install>Uygulamayı telefona ekle</a>
@@ -542,11 +549,12 @@ function gelAlPop(after = 4000){
   const el = document.createElement("aside");
   el.className = "gpop"; el.setAttribute("aria-label", "Gel Al");
   el.innerHTML = `<div class="gpop-card" role="status">
-      <div class="gpop-ph"><img src="foto/o-icli-kofte.webp" alt="" loading="lazy"><span class="gpop-ic">${BAG_SVG}</span><em>Gel Al</em></div>
+      <div class="gpop-ph"><img src="foto/o-icli-kofte.webp" alt="" loading="lazy"><span class="gpop-ic">${BAG_SVG}</span><em>Gel Al: siz gelip alırsınız</em></div>
       <button class="gpop-x" type="button" aria-label="Küçült">×</button>
       <div class="gpop-in">
-        <b>Sırada beklemeden<br>Gel&nbsp;Al</b>
-        <p>Uygulamayı telefonunuza ekleyin. Dilediğiniz yerden, dilediğiniz saate sipariş verin; gelince paketiniz hazır olsun.</p>
+        <b>Sipariş verin,<br>gelip&nbsp;alın</b>
+        <p>Uygulamayı telefonunuza ekleyin. Nerede olursanız olun sipariş verin, geleceğiniz saati seçin. Biz hazırlayalım, siz dükkâna uğrayıp hazır paketinizi alın.</p>
+        <p class="gpop-no">Paket servisi yok, siparişi siz gelip alırsınız</p>
         <div class="gpop-btns">
           <a class="btn gold" href="siparis.html?yukle=1" data-install>Uygulamayı ekle</a>
           <a class="btn ghost-d" href="siparis.html">Şimdi sipariş ver</a>

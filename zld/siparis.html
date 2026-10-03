@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="tr">
 <head>
-<meta name="zld-surum" content="202610032134">
+<meta name="zld-surum" content="202610032148">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#12443f">
@@ -9,9 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="ortak/app.css?v=202610032134">
+<link rel="stylesheet" href="ortak/app.css?v=202610032148">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="ortak/menu.js?v=202610032134"></script>
+<script src="ortak/menu.js?v=202610032148"></script>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>Zeynep Lezzet Durağı | Gel Al</title>
@@ -25,14 +25,15 @@
       <img src="logo.png" alt="Zeynep Lezzet Durağı logosu" width="68" height="68">
       <div>
         <h1>Zeynep Lezzet Durağı</h1>
-        <p>Gel Al</p>
+        <p>Gel Al siparişi</p>
       </div>
     </div>
-    <ol class="howto">
-      <li>Ürünleri sepete ekleyin.</li>
-      <li>Geleceğiniz saat aralığını seçin.</li>
-      <li>Siparişiniz hazır beklesin, ödemeyi teslimde yapın.</li>
-    </ol>
+    <div class="ghero">
+      <h2>Siz sipariş verin,<br>biz hazırlayalım,<br><u>siz gelip alın.</u></h2>
+      <div id="gheroSteps"></div>
+      <p class="ghero-no"><b>Paket servisimiz yok.</b> Siparişiniz adrese getirilmez. Seçtiğiniz saatte dükkâna gelip kendiniz alırsınız, ödemeyi de teslimde yaparsınız.</p>
+      <a class="ghero-map" id="gheroMap" target="_blank" rel="noopener">Dükkânın yol tarifi</a>
+    </div>
   </header>
 
   <div class="kamp" id="kamp" role="note" hidden></div>
@@ -78,7 +79,7 @@
 
 <div class="cartbar" id="cartbar">
   <button type="button" id="openCart" aria-haspopup="dialog">
-    <span class="count" id="cCount">0</span><span class="lbl">Saat seç ve sipariş ver</span><span class="tot" id="cTot">0 TL</span>
+    <span class="count" id="cCount">0</span><span class="lbl">Saat seç, gelip al</span><span class="tot" id="cTot">0 TL</span>
   </button>
 </div>
 <div id="sheetWrap">
@@ -93,8 +94,10 @@
       <ol class="steps" id="steps">
         <li data-s="alindi">Alındı</li>
         <li data-s="hazirlaniyor">Hazırlanıyor</li>
-        <li data-s="hazir">Hazır, gelebilirsiniz</li>
+        <li data-s="hazir">Hazır, gelip alın</li>
       </ol>
+      <p class="pickup-warn">Siparişiniz size getirilmez. Hazır olunca dükkânda sizi bekler, seçtiğiniz saatte gelip alın.</p>
+      <a class="btn ghost" id="okMap" target="_blank" rel="noopener" style="width:100%;text-decoration:none;display:flex;align-items:center;justify-content:center;margin-bottom:14px">Dükkânın yol tarifi</a>
       <p id="okText"></p>
       <p class="dep">Bu sayfayı kapatsanız da durumu menünün üstünden görebilirsiniz. Gecikirseniz ya da değişiklik isterseniz WhatsApp'tan yazın.</p>
       <a class="btn-wa" id="okWa" target="_blank" rel="noopener" style="text-decoration:none">WhatsApp'tan yaz</a>
@@ -108,12 +111,13 @@
       <p class="dep" id="dep"></p>
 
       <fieldset class="when">
-        <legend>Ne zaman geleceksiniz?</legend>
+        <legend>Ne zaman gelip alacaksınız?</legend>
         <div class="days" id="days" role="group" aria-label="Gün"></div>
         <div class="slots" id="slots" role="group" aria-label="Saat aralığı"></div>
         <p class="dep" id="leadNote"></p>
       </fieldset>
 
+      <p class="pickup-warn">Bu sipariş adrese getirilmez. Seçtiğiniz saatte <b>Zeynep Lezzet Durağı'na gelip kendiniz alırsınız.</b></p>
       <label for="on">Adınız</label>
       <input id="on" type="text" autocomplete="name">
       <label for="op">Telefonunuz</label>
@@ -122,7 +126,7 @@
       <textarea id="onote" placeholder="Böreği dilimlenmiş istiyorum"></textarea>
       <label class="consent light"><input id="oc" type="checkbox"> <span>Kampanya ve indirimlerden WhatsApp/SMS ile haberdar olmak istiyorum. Bunun için adımın ve telefonumun saklanmasına <a href="kvkk.html#riza" target="_blank">açık rıza</a> veriyorum. (İsteğe bağlı, istediğiniz an çıkabilirsiniz.)</span></label>
       <p class="err" id="oerr" role="alert" style="color:var(--pepper);margin:10px 0 0"></p>
-      <button class="btn-wa" id="send" type="button">Siparişi onayla</button>
+      <button class="btn-wa" id="send" type="button">Sipariş ver, gelip alacağım</button>
       <p class="dep" style="margin-top:10px;text-align:center">Ödemeyi teslim alırken yaparsınız.</p>
       <p class="dep kvkk-n">Adınız ve telefonunuz bu siparişi hazırlamak ve gerektiğinde size ulaşmak için kullanılır. <a href="kvkk.html" target="_blank">Aydınlatma metni</a></p>
     </div>
@@ -247,7 +251,7 @@ $("send").onclick = async () => {
     err.textContent = ex.message === "dolu"
       ? "Seçtiğiniz saat aralığı az önce doldu. Başka bir saat seçin."
       : "Sipariş gönderilemedi. İnternetinizi kontrol edip tekrar deneyin.";
-  }finally{ btn.disabled = false; btn.textContent = "Siparişi onayla"; }
+  }finally{ btn.disabled = false; btn.textContent = "Sipariş ver, gelip alacağım"; }
 };
 
 /* ---------- sipariş takibi ---------- */
@@ -261,7 +265,7 @@ function stageOf(order){
   if(st.some(s => s !== "yeni")) return "hazirlaniyor";
   return "alindi";
 }
-const STAGE_TR = {alindi:"Siparişiniz alındı", hazirlaniyor:"Siparişiniz hazırlanıyor", hazir:"Siparişiniz hazır, gelebilirsiniz", teslim:"Teslim edildi, afiyet olsun", iptal:"Siparişiniz iptal edildi"};
+const STAGE_TR = {alindi:"Siparişiniz alındı", hazirlaniyor:"Siparişiniz hazırlanıyor", hazir:"Siparişiniz hazır, gelip alabilirsiniz", teslim:"Teslim edildi, afiyet olsun", iptal:"Siparişiniz iptal edildi"};
 async function fetchOrder(id){
   const {data} = await db.from("orders").select("id,status,pickup_time,customer_name,order_items(name,option,qty,price,status)").eq("id", id).maybeSingle();
   return data;
@@ -273,11 +277,11 @@ function paintStatus(o){
   const tr = $("track");
   if(o && last && stage !== "teslim" && stage !== "iptal"){
     tr.hidden = false; tr.dataset.stage = stage;
-    tr.innerHTML = `<b>${STAGE_TR[stage]}</b><span>${slotLabel(o.pickup_time)} arası</span>`;
+    tr.innerHTML = `<b>${STAGE_TR[stage]}</b><span>${slotLabel(o.pickup_time)} arası dükkândan alın</span>`;
   } else tr.hidden = true;
   if(!o || $("okBox").hidden) return;
   $("okTitle").textContent = STAGE_TR[stage];
-  $("okSlot").textContent = `${slotLabel(o.pickup_time)} arası gelin`;
+  $("okSlot").textContent = `${slotLabel(o.pickup_time)} arası gelip alın`;
   const order = ["alindi", "hazirlaniyor", "hazir"], idx = order.indexOf(stage === "teslim" ? "hazir" : stage);
   $("steps").querySelectorAll("li").forEach((li, i) => { li.className = i < idx ? "done" : i === idx ? "now" : ""; });
   const total = o.order_items.reduce((a, i) => a + i.price * i.qty, 0);
@@ -306,6 +310,8 @@ async function watchLast(){
 $("track").onclick = e => { e.preventDefault(); const last = store.get("zld_last_order", null); if(last) showStatus(last.id); };
 $("okBack").onclick = () => { closeSheet(); $("okBox").hidden = true; $("orderForm").hidden = false; watchLast(); scrollTo(0, 0); };
 
+$("gheroSteps").innerHTML = GELAL_ADIM;
+$("gheroMap").href = $("okMap").href = ZLD.HARITA;
 view.render(); updateBar();
 loadPrices().then(() => { view.render(); updateBar(); });
 watchPrices(() => { view.render(); updateBar(); });

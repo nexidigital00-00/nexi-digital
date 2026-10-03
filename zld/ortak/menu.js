@@ -216,6 +216,30 @@ async function joinCampaign(name, phone){
 /* ===== Menü çizici =====
    mode: "view" (sadece bakılır) | "order" (sepete eklenir)
    cart: {"key:j": qty} nesnesi, onChange: sepet değişince çağrılır */
+/* Yatay kaydırılan şeritler: fareyle sürükleme ve masaüstünde ok düğmeleri
+   (parmakla kaydırma tarayıcının kendisinde zaten çalışır) */
+function hscroll(el){
+  if(!el || el.dataset.hs) return; el.dataset.hs = "1";
+  const box = document.createElement("div"); box.className = "hs";
+  el.parentNode.insertBefore(box, el); box.appendChild(el);
+  const mk = (dir, label) => { const b = document.createElement("button"); b.type = "button"; b.className = "hs-btn hs-" + dir; b.setAttribute("aria-label", label); b.tabIndex = -1;
+    b.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${dir === "l" ? "m15 18-6-6 6-6" : "m9 18 6-6-6-6"}"/></svg>`;
+    b.onclick = () => el.scrollBy({left: (dir === "l" ? -1 : 1) * el.clientWidth * .8, behavior: "smooth"}); box.appendChild(b); return b; };
+  const L = mk("l", "Sola kaydır"), R = mk("r", "Sağa kaydır");
+  const edges = () => { L.hidden = el.scrollLeft < 4; R.hidden = el.scrollLeft + el.clientWidth > el.scrollWidth - 4; };
+  el.addEventListener("scroll", edges, {passive:true}); addEventListener("resize", edges); setTimeout(edges, 0); new MutationObserver(edges).observe(el, {childList:true});
+  // fareyle tut-sürükle
+  let down = null, moved = false;
+  el.addEventListener("pointerdown", e => { if(e.pointerType !== "mouse" || e.button) return; down = {x:e.clientX, left:el.scrollLeft}; moved = false; });
+  addEventListener("pointermove", e => { if(!down) return; const dx = e.clientX - down.x;
+    if(Math.abs(dx) > 5 && !moved){ moved = true; el.classList.add("dragging"); }
+    if(moved){ el.scrollLeft = down.left - dx; e.preventDefault(); } });
+  addEventListener("pointerup", () => { if(!down) return; down = null; el.classList.remove("dragging"); });
+  // sürükleme bitince altta kalan karta tıklanmış sayılmasın
+  el.addEventListener("click", e => { if(moved){ e.stopPropagation(); e.preventDefault(); moved = false; } }, true);
+  el.addEventListener("dragstart", e => e.preventDefault());
+}
+
 function MenuView({root, chips, search, empty, mode, cart, onChange, onAdd, strip, picks}){
   const sel = {};
   function item(p){
@@ -260,12 +284,13 @@ function MenuView({root, chips, search, empty, mode, cart, onChange, onAdd, stri
     }
     if(picks){
       picks.hidden = !!q;
-      picks.innerHTML = `<h2>Önerilerimiz</h2><div class="picks-row">${ONERILER.filter(o => PRODUCTS[o.key]).map(o => {
+      if(!picks.querySelector(".picks-row")){ picks.innerHTML = `<h2>Önerilerimiz</h2><div class="picks-row"></div>`; hscroll(picks.querySelector(".picks-row")); }
+      picks.querySelector(".picks-row").innerHTML = `${ONERILER.filter(o => PRODUCTS[o.key]).map(o => {
         const p = PRODUCTS[o.key], d = p.opts[defaultOpt(p)];
         return `<button type="button" class="pick-card" data-item="${o.key}">
           <img src="foto/${o.foto}.webp" alt="${esc(p.ad)}" width="540" height="360" loading="lazy">
           <span class="pick-t"><b>${esc(p.ad)}</b><span>${esc(o.not)}</span></span>
-          <span class="pick-p">${tl(d.p)}${p.opts.length > 1 ? "’den" : ""}</span></button>`; }).join("")}</div>`;
+          <span class="pick-p">${tl(d.p)}${p.opts.length > 1 ? "’den" : ""}</span></button>`; }).join("")}`;
     }
     spy();
   }
@@ -277,6 +302,7 @@ function MenuView({root, chips, search, empty, mode, cart, onChange, onAdd, stri
     window.scrollTo({top: Math.max(0, el.getBoundingClientRect().top + window.scrollY - stickyBottom() - 12), behavior: smooth ? "smooth" : "auto"});
     if(flash){ el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); }
   }
+  [strip, chips].forEach(el => el && hscroll(el));
   [strip, picks].forEach(box => box && box.addEventListener("click", e => {
     const b = e.target.closest("[data-go],[data-item]"); if(!b) return;
     if(b.dataset.go){ const c = chips && chips.querySelector(`[data-go="${b.dataset.go}"]`); c ? c.click() : goTo($("c-" + b.dataset.go)); }
@@ -320,7 +346,7 @@ function MenuView({root, chips, search, empty, mode, cart, onChange, onAdd, stri
   }
   function centerChip(c, smooth){
     // sadece yatay çubuğu kaydır; sayfaya dokunma
-    const left = c.offsetLeft - (chips.clientWidth - c.offsetWidth) / 2;
+    const left = chips.scrollLeft + c.getBoundingClientRect().left - chips.getBoundingClientRect().left - (chips.clientWidth - c.offsetWidth) / 2;
     chips.scrollTo({left: Math.max(0, left), behavior: smooth ? "smooth" : "auto"});
   }
   function spy(){

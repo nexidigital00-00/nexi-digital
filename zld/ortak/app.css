@@ -439,3 +439,18 @@ html:has(body.staff){scroll-padding-top:190px}
 .strip,.picks-row{scroll-padding-inline:16px}
 @media (min-width:700px){.strip,.picks-row{scroll-padding-inline:24px}}
 .kat{display:flex;flex-direction:column;justify-content:flex-start;align-self:flex-start}
+
+/* Yatay şeritler: masaüstünde ok düğmeleri, fareyle sürükleme */
+.hs{position:relative}
+.hs-btn{display:none;position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--green);place-items:center;box-shadow:0 4px 14px rgba(18,68,63,.18)}
+.hs-btn[hidden]{display:none!important}
+.hs-l{left:6px}.hs-r{right:6px}
+@media (hover:hover) and (pointer:fine){
+  .hs-btn{display:grid}
+  .hs > .strip,.hs > .picks-row,.hs > .chips{cursor:grab}
+}
+.dragging{cursor:grabbing!important;scroll-snap-type:none!important;scroll-behavior:auto}
+.dragging *{pointer-events:none;user-select:none}
+.strip + .hs-btn,.hs:has(> .strip) .hs-btn{top:calc(50% - 8px)}
+.hs:has(> .chips) .hs-btn{width:32px;height:32px;top:calc(50% + 3px)}
+.hs:has(> .chips) .hs-l{left:-8px}.hs:has(> .chips) .hs-r{right:-8px}

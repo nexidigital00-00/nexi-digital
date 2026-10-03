@@ -467,3 +467,65 @@ async function addTableItems(masa, lines, extra){
   setInterval(check, 120000);
   document.addEventListener("visibilitychange", () => { if(!document.hidden) check(); });
 })();
+
+/* ===== Kampanya şeridi (Yönetim > Kampanya'dan yazılır, site_texts tablosunda "kampanya") ===== */
+async function loadKampanya(){
+  if(!db) return null;
+  const {data, error} = await db.from("site_texts").select("value").eq("key", "kampanya").maybeSingle();
+  if(error || !data) return null;   // tablo henüz kurulmadıysa sessizce yok say
+  let k; try{ k = JSON.parse(data.value); }catch(e){ return null; }
+  if(!k || !(k.baslik || k.metin)) return null;
+  if(k.bitis && new Date(k.bitis + "T23:59:59") < new Date()) return null;   // süresi dolmuş
+  return k;
+}
+function kampanyaHTML(k){
+  const gun = k.bitis ? new Date(k.bitis + "T12:00:00").toLocaleDateString("tr-TR", {day:"numeric", month:"long"}) : "";
+  return `<div class="kamp-in"><b>${esc(k.baslik || "Kampanya")}</b>${k.metin ? `<p>${esc(k.metin)}</p>` : ""}${gun ? `<small>Son gün: ${gun}</small>` : ""}</div>
+    <button type="button" class="kamp-x" aria-label="Kampanyayı kapat">×</button>`;
+}
+// Menünün üstünde gösterir; müşteri kapatırsa aynı kampanya bu oturumda tekrar çıkmaz
+function bindKampanya(el){
+  if(!el) return;
+  const paint = async () => {
+    const k = await loadKampanya(), id = k ? JSON.stringify(k) : "";
+    let closed = ""; try{ closed = sessionStorage.getItem("zld_kamp_kapali") || ""; }catch(e){}
+    el.hidden = !k || closed === id;
+    if(k) el.innerHTML = kampanyaHTML(k);
+    el.dataset.id = id;
+  };
+  el.addEventListener("click", e => { if(!e.target.closest(".kamp-x")) return;
+    el.hidden = true; try{ sessionStorage.setItem("zld_kamp_kapali", el.dataset.id); }catch(e){} });
+  paint();
+  if(db) db.channel("kampanya").on("postgres_changes", {event:"*", schema:"public", table:"site_texts"}, paint).subscribe();
+}
+
+/* ===== Gel Al uygulaması: ana ekrana ekleme ===== */
+let installEvt = null;
+addEventListener("beforeinstallprompt", e => { e.preventDefault(); installEvt = e; document.dispatchEvent(new Event("zld-install")); });
+const isApp = () => matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+if("serviceWorker" in navigator && location.protocol === "https:" && document.querySelector('link[rel="manifest"]'))
+  addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+// Tarayıcı izin veriyorsa doğrudan yükleme penceresini açar; vermiyorsa false döner
+async function promptInstall(){
+  if(!installEvt) return false;
+  installEvt.prompt(); const r = await installEvt.userChoice; installEvt = null;
+  return r.outcome === "accepted";
+}
+// Masadaki menüde ve hesap panelinde gösterilen Gel Al kartı
+function gelAlHTML(mini){
+  if(isApp()) return "";
+  return `<div class="gelal${mini ? " mini" : ""}">
+    <h2>Eve de götürün</h2>
+    <p>Beğendiklerinizi evde de yiyin. Gel Al ile önceden sipariş verin, geleceğiniz saati seçin, gelince hazır olsun.</p>
+    <div class="gelal-btns">
+      <a class="btn gold" href="siparis.html">Gel Al siparişi ver</a>
+      <a class="btn ghost-l" href="siparis.html?yukle=1" data-install>Uygulamayı telefona ekle</a>
+    </div>
+    <small>Mağazadan indirmek gerekmez, ana ekranınıza bir dokunuşla eklenir.</small>
+  </div>`;
+}
+document.addEventListener("click", async e => {
+  const a = e.target.closest("[data-install]"); if(!a) return;
+  if(installEvt){ e.preventDefault(); if(await promptInstall()) toast("Uygulama ana ekranınıza eklendi"); }
+});

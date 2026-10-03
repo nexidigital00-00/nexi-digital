@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="tr">
 <head>
-<meta name="zld-surum" content="202610032050">
+<meta name="zld-surum" content="202610032100">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#12443f">
@@ -9,9 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="ortak/app.css?v=202610032050">
+<link rel="stylesheet" href="ortak/app.css?v=202610032100">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="ortak/menu.js?v=202610032050"></script>
+<script src="ortak/menu.js?v=202610032100"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <title>ZLD | Yönetim</title>
 <meta name="robots" content="noindex">
@@ -40,6 +40,19 @@
   </div>
   <div class="panel" id="tab-musteri"></div>
   <div class="panel" id="tab-kampanya" hidden>
+    <form id="kampForm" class="kamp-form">
+      <h3>Menüde görünen kampanya</h3>
+      <p class="note" style="margin:0 0 12px">Masadaki QR menünün ve Gel Al sayfasının en üstünde gösterilir. Boş bırakıp kaydederseniz kaldırılır.</p>
+      <label for="kb">Başlık</label>
+      <input class="field" id="kb" maxlength="60" placeholder="Hafta sonu börek günleri">
+      <label for="km">Açıklama</label>
+      <textarea id="km" maxlength="240" style="min-height:80px" placeholder="Tepsi böreklerde %10 indirim. Gel Al siparişlerinde de geçerli."></textarea>
+      <label for="kt">Son gün (isteğe bağlı)</label>
+      <input class="field" id="kt" type="date" style="max-width:220px">
+      <p style="display:flex;gap:8px;margin:14px 0 0;flex-wrap:wrap"><button class="btn" type="submit">Kampanyayı yayınla</button><button class="btn ghost" type="button" id="kampSil">Kaldır</button></p>
+      <p class="note" id="kampMsg" role="status"></p>
+    </form>
+    <h3 style="margin-top:24px">WhatsApp ile gönder</h3>
     <label for="cmsg" style="font-weight:600;display:block;margin-bottom:8px">Mesaj</label>
     <textarea id="cmsg">Merhaba {ad}, Zeynep Lezzet Durağı'ndan selamlar! Bu hafta sonu tepsi böreklerde %10 indirim var. Siparişiniz için bu mesaja yanıt verebilirsiniz.</textarea>
     <p class="note">{ad} yazan yere müşterinin adı gelir. Bir isme dokunduğunuzda WhatsApp'ta mesaj hazır açılır, gönder tuşuna siz basarsınız.</p>
@@ -78,7 +91,7 @@ $("pinForm").addEventListener("submit", async e => {
   if(error){ $("pinErr").textContent = /PIN/.test(error.message) ? "PIN hatalı. Tekrar deneyin." : "Sunucuya bağlanılamadı: " + error.message; return; }
   PIN = pin; members = data;
   $("pinForm").hidden = true; $("adm").hidden = false;
-  await loadPrices(); renderAll();
+  await loadPrices(); renderAll(); loadKampForm();
 });
 document.querySelector(".tabs").addEventListener("click", e => {
   const b = e.target.closest("[data-tab]"); if(!b) return;
@@ -130,6 +143,26 @@ function renderQR(){
   for(let i = 1; i <= ZLD.MASA_SAYISI; i++) add("Masa " + i, base + "index.html?masa=" + i);
   add("Gel Al sipariş", base + "siparis.html");
 }
+async function loadKampForm(){
+  const {data} = await db.from("site_texts").select("value").eq("key", "kampanya").maybeSingle();
+  let k = {}; try{ k = data ? JSON.parse(data.value) : {}; }catch(e){}
+  $("kb").value = k.baslik || ""; $("km").value = k.metin || ""; $("kt").value = k.bitis || "";
+}
+async function saveKamp(v){
+  const {error} = await db.rpc("staff_set_text", {pin:PIN, k:"kampanya", v});
+  if(error){ $("kampMsg").textContent = /staff_set_text|function/.test(error.message)
+      ? "Kampanya için Supabase'e supabase_guncelleme_3_kampanya.sql eklenmeli." : "Kaydedilemedi: " + error.message; return false; }
+  return true;
+}
+$("kampForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const k = {baslik:$("kb").value.trim(), metin:$("km").value.trim(), bitis:$("kt").value || ""};
+  if(!k.baslik && !k.metin){ $("kampMsg").textContent = "Başlık ya da açıklama yazın."; return; }
+  if(await saveKamp(JSON.stringify(k))){ $("kampMsg").textContent = "Kampanya menüde yayında."; toast("Kampanya yayınlandı"); }
+});
+$("kampSil").onclick = async () => {
+  if(await saveKamp("")){ $("kb").value = $("km").value = $("kt").value = ""; $("kampMsg").textContent = "Kampanya menüden kaldırıldı."; toast("Kampanya kaldırıldı"); }
+};
 $("tab-pin").addEventListener("submit", async e => {
   e.preventDefault();
   const a = $("p1").value.trim(), b = $("p2").value.trim();

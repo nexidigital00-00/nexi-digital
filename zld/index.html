@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="tr">
 <head>
-<meta name="zld-surum" content="202610032050">
+<meta name="zld-surum" content="202610032100">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#12443f">
@@ -9,12 +9,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="ortak/app.css?v=202610032050">
+<link rel="stylesheet" href="ortak/app.css?v=202610032100">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="ortak/menu.js?v=202610032050"></script>
+<script src="ortak/menu.js?v=202610032100"></script>
 <title>Zeynep Lezzet Durağı | Menü</title>
 <meta name="robots" content="noindex">
 <meta name="description" content="Zeynep Lezzet Durağı menüsü ve güncel fiyatlar.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 </head>
 <body>
 <div class="wrap">
@@ -33,6 +35,7 @@
     </p>
   </header>
 
+  <div class="kamp" id="kamp" role="note" hidden></div>
   <a class="track" id="track" href="#" hidden></a>
   <nav class="strip" id="strip" aria-label="Kategoriler"></nav>
     <div class="bar" id="bar">
@@ -46,7 +49,7 @@
     <section class="picks" id="picks" aria-label="Önerilerimiz"></section>
     <div id="cats"></div>
     <p class="empty" id="empty" hidden>Bu aramayla eşleşen ürün yok. Başka bir kelime deneyin, örneğin "börek".</p>
-    <p class="foot" style="margin-top:24px">Eve de götürmek ister misiniz? <a href="siparis.html">Gel Al siparişi verin</a>, saatinizi seçin, hazır teslim alın.</p>
+    <div id="gelal"></div>
       <section class="join" id="kampanya" aria-labelledby="join-h">
         <h2 id="join-h">Kampanyaları ilk siz duyun</h2>
         <p>Bayram tepsileri, yeni tatlılar ve günün indirimleri WhatsApp'ınıza gelsin. Ayda birkaç mesaj, istediğiniz an çıkabilirsiniz.</p>
@@ -97,6 +100,7 @@
       <div class="sum"><span id="billLbl">Kasada ödeyeceğiniz</span><strong id="billTot">0 TL</strong></div>
       <p class="dep" id="tableTot"></p>
     </div>
+    <div id="gelalMini"></div>
   </div>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -157,6 +161,8 @@ function renderSheet(){
   $("tableTot").textContent = !solo && unpaid(general)
     ? `Masa geneli ${tl(unpaid(general))} ayrıca, kasada masadakilerle paylaşılır. Masanın toplam hesabı: ${tl(tableTotal)}.`
     : !solo && tableTotal ? `Masanın toplam hesabı: ${tl(tableTotal)}. Her kişi kendi hesabını ayrı ödeyebilir.` : "";
+  // sipariş verdikten sonra Gel Al'ı hatırlat
+  $("gelalMini").innerHTML = mine.length && !L.length ? gelAlHTML(true) : "";
   if(!L.length && $("billBox").hidden) closeSheet();
 }
 function openSheet(){ lastFocus = document.activeElement; renderSheet(); wrap.classList.add("open"); $("closeCart").focus(); }
@@ -235,6 +241,8 @@ view.render(); updateBar();
 loadPrices().then(() => { view.render(); updateBar(); });
 watchPrices(() => { view.render(); updateBar(); });
 bindJoinForm();
+bindKampanya($("kamp"));
+$("gelal").innerHTML = gelAlHTML(false);
 loadMine();
 </script>
 </body>

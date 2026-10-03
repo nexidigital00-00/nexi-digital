@@ -455,3 +455,36 @@ html:has(body.staff){scroll-padding-top:190px}
 .hs:has(> .chips) .hs-btn{width:32px;height:32px;top:calc(50% + 3px)}
 .hs:has(> .chips) .hs-l{left:-8px}.hs:has(> .chips) .hs-r{right:-8px}
 #billLines .gen-h{margin:14px 0 0;font:700 14px var(--sans);color:var(--muted)}
+
+/* ===== Kampanya şeridi ===== */
+.kamp{position:relative;margin:14px 16px 0;padding:14px 44px 14px 16px;border-radius:var(--r-m);background:var(--gold);color:var(--green);
+  background-image:radial-gradient(circle,rgba(18,68,63,.12) 1.2px,transparent 1.7px);background-size:10px 10px}
+.kamp[hidden]{display:none}
+.kamp b{display:block;font:800 21px/1.15 var(--serif)}
+.kamp p{margin:4px 0 0;font-size:15px;line-height:1.4;font-weight:500}
+.kamp small{display:inline-block;margin-top:8px;font-size:12.5px;font-weight:700;background:var(--green);color:var(--gold);border-radius:999px;padding:3px 10px}
+.kamp-x,.install-x{position:absolute;top:6px;right:6px;width:36px;height:36px;border:0;background:transparent;font-size:24px;line-height:1;color:inherit;opacity:.7}
+
+/* ===== Gel Al kartı (masa menüsü) ===== */
+.gelal{margin-top:30px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-m);padding:18px 16px 16px;position:relative;overflow:hidden}
+.gelal::before{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:radial-gradient(circle at 9px 0,var(--gold) 5px,transparent 5.5px) 0 0/18px 6px repeat-x}
+.gelal h2{font:800 26px/1.1 var(--serif);color:var(--green);margin:4px 0 6px}
+.gelal p{margin:0 0 14px;color:var(--ink);line-height:1.45}
+.gelal-btns{display:flex;gap:8px;flex-wrap:wrap}
+.gelal-btns .btn{flex:1 1 180px;text-align:center;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.btn.ghost-l{background:transparent;color:var(--green);border:1.5px solid var(--green)}
+.gelal small{display:block;margin-top:10px;color:var(--muted);font-size:13px}
+.gelal.mini{margin:12px 0 0;padding:14px}
+.gelal.mini h2{font-size:21px}
+.gelal.mini p{font-size:14.5px;margin-bottom:12px}
+
+/* ===== Uygulamayı ekle paneli (Gel Al) ===== */
+.install{position:relative;margin:14px 16px 0;padding:16px 44px 16px 16px;border-radius:var(--r-m);background:var(--card);border:2px solid var(--green)}
+.install[hidden]{display:none}
+.install h2{font:800 22px/1.15 var(--serif);color:var(--green);margin:0 0 8px}
+.install p{margin:0 0 10px}
+.install ol{margin:0 0 8px;padding-left:20px;line-height:1.6}
+.install ol svg{vertical-align:-3px;color:#2f639c}
+.install .btn{width:100%}
+.kamp-form h3,#tab-kampanya > h3{font:700 16px var(--sans);color:var(--green);margin:0 0 6px}
+.kamp-form label{display:block;font-weight:600;margin:10px 0 6px}

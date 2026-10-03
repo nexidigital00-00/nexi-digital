@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="tr">
 <head>
-<meta name="zld-surum" content="202610032050">
+<meta name="zld-surum" content="202610032100">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#12443f">
@@ -9,9 +9,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="ortak/app.css?v=202610032050">
+<link rel="stylesheet" href="ortak/app.css?v=202610032100">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="ortak/menu.js?v=202610032050"></script>
+<script src="ortak/menu.js?v=202610032100"></script>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>Zeynep Lezzet Durağı | Gel Al</title>
 <meta name="robots" content="noindex">
 <meta name="description" content="Siparişinizi önceden verin, saatinizi seçin, Zeynep Lezzet Durağı'ndan hazır teslim alın.">
@@ -33,6 +35,12 @@
     </ol>
   </header>
 
+  <div class="kamp" id="kamp" role="note" hidden></div>
+  <section class="install" id="install" hidden aria-labelledby="ins-h">
+    <h2 id="ins-h">Uygulamayı telefonunuza ekleyin</h2>
+    <div id="insBody"></div>
+    <button type="button" class="install-x" id="insClose" aria-label="Kapat">×</button>
+  </section>
   <a class="track" id="track" href="#" hidden></a>
   <nav class="strip" id="strip" aria-label="Kategoriler"></nav>
     <div class="bar" id="bar">
@@ -298,6 +306,26 @@ view.render(); updateBar();
 loadPrices().then(() => { view.render(); updateBar(); });
 watchPrices(() => { view.render(); updateBar(); });
 bindJoinForm();
+bindKampanya($("kamp"));
+
+/* ---------- uygulamayı ana ekrana ekleme (masadaki menüden ?yukle=1 ile gelinir) ---------- */
+function paintInstall(){
+  const box = $("install");
+  if(isApp() || !new URLSearchParams(location.search).has("yukle")){ box.hidden = true; return; }
+  box.hidden = false;
+  const share = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Paylaş simgesi"><path d="M12 3v12M7 8l5-5 5 5M5 12v8h14v-8"/></svg>`;
+  $("insBody").innerHTML = installEvt
+    ? `<p>Gel Al siparişlerinizi tek dokunuşla verin. Mağazadan indirmek gerekmez.</p><button type="button" class="btn gold" id="insGo">Ana ekrana ekle</button>`
+    : isIOS()
+    ? `<ol><li>Ekranın altındaki ${share} <b>Paylaş</b> simgesine dokunun.</li><li>Listeden <b>Ana Ekrana Ekle</b>'yi seçin.</li><li>Sağ üstte <b>Ekle</b>'ye dokunun.</li></ol><p class="dep">Zeynep Lezzet simgesi ana ekranınıza gelir, uygulama gibi açılır.</p>`
+    : `<p>Tarayıcınızın menüsünü (sağ üstteki ⋮) açın ve <b>Ana ekrana ekle</b> ya da <b>Uygulamayı yükle</b>'yi seçin.</p>`;
+}
+$("install").addEventListener("click", async e => {
+  if(e.target.closest("#insClose")){ $("install").hidden = true; return; }
+  if(e.target.closest("#insGo") && await promptInstall()){ $("install").hidden = true; toast("Uygulama ana ekranınıza eklendi"); }
+});
+document.addEventListener("zld-install", paintInstall);
+paintInstall();
 watchLast();
 </script>
 </body>

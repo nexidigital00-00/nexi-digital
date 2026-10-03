@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta name="zld-surum" content="202610032227">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#12443f">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ortak/app.css?v=202610032227">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="ortak/menu.js?v=202610032227"></script>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>ZLD Gel Al | Uygulamayı ekleyin</title>
+<meta name="robots" content="noindex">
+<script>
+  // uygulama içinden açıldıysa anlatıma gerek yok
+  if(matchMedia("(display-mode: standalone)").matches || navigator.standalone === true) location.replace("siparis.html");
+</script>
+</head>
+<body class="yk">
+<header class="yk-top">
+  <img src="ikon-192.png" alt="" width="72" height="72">
+  <div>
+    <h1>ZLD Gel Al</h1>
+    <p>Zeynep Lezzet Durağı'nın sipariş uygulaması</p>
+  </div>
+</header>
+
+<main class="yk-main">
+  <section class="yk-what">
+    <h2>Siz sipariş verin, biz hazırlayalım, siz gelip alın.</h2>
+    <p>Telefonunuza bir kez ekleyin, sonra ana ekranınızdaki simgeye dokunarak istediğiniz yerden, istediğiniz saate sipariş verin. Paket servisimiz yok; siparişinizi dükkândan kendiniz alırsınız.</p>
+    <p class="yk-free">Ücretsiz. App Store ya da Play Store gerekmez, telefonunuzda yer kaplamaz.</p>
+  </section>
+
+  <section class="yk-how" aria-labelledby="yk-h">
+    <h2 id="yk-h">Telefonunuza nasıl eklenir?</h2>
+    <div class="yk-tabs" role="tablist">
+      <button role="tab" type="button" data-os="ios" aria-selected="false">iPhone</button>
+      <button role="tab" type="button" data-os="android" aria-selected="false">Android</button>
+    </div>
+
+    <div class="yk-quick" id="ykQuick" hidden>
+      <p>Telefonunuz tek dokunuşla eklemeye izin veriyor.</p>
+      <button type="button" class="btn gold" id="ykGo">Uygulamayı yükle</button>
+      <p class="dep">Açılan pencerede <b>Yükle</b>'ye dokunun. Ya da aşağıdaki adımları izleyin.</p>
+    </div>
+
+    <ol class="yk-steps" id="ios" hidden>
+      <li><span class="yk-ill"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 12v8h14v-8"/></svg></span>
+        <div><b>Paylaş simgesine dokunun</b><span>Safari'de ekranın altında, ortadaki kare ve yukarı ok simgesi. Chrome'da adres çubuğunun sağında.</span></div></li>
+      <li><span class="yk-ill"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/></svg></span>
+        <div><b>"Ana Ekrana Ekle"yi seçin</b><span>Açılan listeyi biraz aşağı kaydırın, bu seçeneği orada bulursunuz.</span></div></li>
+      <li><span class="yk-ill yk-txt">Ekle</span>
+        <div><b>Sağ üstte "Ekle"ye dokunun</b><span>Adı "ZLD Gel Al" olarak gelir, değiştirmenize gerek yok.</span></div></li>
+      <li><span class="yk-ill yk-icon"><img src="ikon-192.png" alt=""></span>
+        <div><b>Ana ekranınızdaki simgeden açın</b><span>Artık uygulama gibi tam ekran açılır, doğrudan sipariş sayfasına gider.</span></div></li>
+    </ol>
+
+    <ol class="yk-steps" id="android" hidden>
+      <li><span class="yk-ill yk-txt">⋮</span>
+        <div><b>Tarayıcı menüsünü açın</b><span>Chrome'da sağ üst köşedeki üç nokta.</span></div></li>
+      <li><span class="yk-ill"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 8v7M9 12l3 3 3-3"/></svg></span>
+        <div><b>"Uygulamayı yükle" ya da "Ana ekrana ekle"yi seçin</b><span>Telefonunuza göre adı biraz farklı olabilir.</span></div></li>
+      <li><span class="yk-ill yk-txt">Yükle</span>
+        <div><b>"Yükle"ye dokunun</b><span>Birkaç saniye içinde eklenir.</span></div></li>
+      <li><span class="yk-ill yk-icon"><img src="ikon-192.png" alt=""></span>
+        <div><b>Ana ekranınızdaki simgeden açın</b><span>Uygulama gibi tam ekran açılır, doğrudan sipariş sayfasına gider.</span></div></li>
+    </ol>
+
+    <div class="yk-done" id="ykDone" hidden role="status">
+      <b>Uygulama telefonunuza eklendi.</b>
+      <span>Ana ekranınızdaki "ZLD Gel Al" simgesine dokunarak açabilirsiniz.</span>
+    </div>
+  </section>
+
+  <section class="yk-next">
+    <a class="btn yk-cont" href="siparis.html">Gel Al sayfasına geç</a>
+    <p class="dep">Eklemeden de buradan sipariş verebilirsiniz. Masadaki hesabınız diğer sekmede açık kalır.</p>
+  </section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+let os = isIOS() ? "ios" : "android";
+function paint(){
+  document.querySelectorAll(".yk-tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.os === os));
+  $("ios").hidden = os !== "ios"; $("android").hidden = os !== "android";
+  $("ykQuick").hidden = !(installEvt && os === "android");
+}
+document.querySelector(".yk-tabs").addEventListener("click", e => { const b = e.target.closest("[data-os]"); if(b){ os = b.dataset.os; paint(); } });
+$("ykGo").onclick = async () => { if(await promptInstall()) installed(); paint(); };
+function installed(){ $("ykDone").hidden = false; $("ykQuick").hidden = true; $("ykDone").scrollIntoView({block:"center", behavior:"smooth"}); }
+addEventListener("appinstalled", installed);
+document.addEventListener("zld-install", paint);
+paint();
+</script>
+</body>
+</html>

@@ -541,7 +541,7 @@ function teslimatHTML(){
 function gelAlHTML(mini){
   if(isApp()) return "";
   // masadakilere kısa haber: ayrıntılar Gel Al sayfasında
-  return `<a class="gtease${mini ? " mini" : ""}" href="siparis.html">
+  return `<a class="gtease${mini ? " mini" : ""}" href="siparis-yukle.html" target="_blank" rel="noopener">
     <span class="gtease-ic">${BAG_SVG}</span>
     <span class="gtease-t"><b>Gel Al servisimizden haberiniz var mı?</b><span>Önceden sipariş verin, hazır olunca gelip alın.</span></span>
     <span class="gtease-go">Göz atın</span>
@@ -568,8 +568,8 @@ function gelAlPop(after = 4000){
         <p>Uygulamayı telefonunuza ekleyin. Nerede olursanız olun sipariş verin, geleceğiniz saati seçin. Biz hazırlayalım, siz dükkâna uğrayıp hazır paketinizi alın.</p>
         <p class="gpop-no">Paket servisi yok, siparişi siz gelip alırsınız</p>
         <div class="gpop-btns">
-          <a class="btn gold" href="siparis.html?yukle=1" data-install>Uygulamayı ekle</a>
-          <a class="btn ghost-d" href="siparis.html">Şimdi sipariş ver</a>
+          <a class="btn gold" href="siparis-yukle.html" target="_blank" rel="noopener">Uygulamayı ekle</a>
+          <a class="btn ghost-d" href="siparis.html" target="_blank" rel="noopener">Şimdi sipariş ver</a>
         </div>
         <small>Mağazadan indirmeniz gerekmez, ana ekranınıza eklenir.</small>
       </div>

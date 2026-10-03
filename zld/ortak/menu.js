@@ -133,6 +133,12 @@ const ZLD = {
   MASA_SAYISI: 12,
   SB_URL: "https://utniaprnvwakwfsumner.supabase.co",
   SB_KEY: "sb_publishable_LnGWWoHPM5692YmL1o-IzA_vuhx1BKV",
+  // Gel Al ayarları (cafeyle netleştirilecek)
+  ACILIS: 9, KAPANIS: 19,        // ilk ve son alış saati aralığı: 09:00 ile 19:00 arası
+  HAZIRLIK_DK: 60,               // normal sipariş için en az hazırlık süresi
+  BUYUK_HAZIRLIK_DK: 180,        // tepsi ve borcam siparişleri için
+  SLOT_KAPASITE: 8,              // bir saat aralığında en fazla kaç sipariş
+  GUN_SAYISI: 3,                 // bugün dahil kaç gün ilerisi seçilebilir
 };
 
 /* ===== Yardımcılar ===== */
@@ -147,6 +153,29 @@ const $ = id => document.getElementById(id);
 let _tt;
 function toast(s){ const el = $("toast"); if(!el) return; el.textContent = s; el.classList.add("on"); clearTimeout(_tt); _tt = setTimeout(() => el.classList.remove("on"), 2000); }
 const itemLabel = (ad, opt) => ad + (opt ? ", " + opt : "");
+
+/* ===== Gel Al saat aralıkları =====
+   Saklama biçimi: "2026-10-04 17:00-18:00" (alfabetik sıralama = zaman sırası) */
+const pad = n => String(n).padStart(2, "0");
+const ymd = d => d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+const slotKey = (d, h) => `${ymd(d)} ${pad(h)}:00-${pad(h + 1)}:00`;
+function parseSlot(s){
+  const m = /^(\d{4})-(\d{2})-(\d{2}) (\d{2}):00-(\d{2}):00$/.exec(s || ""); if(!m) return null;
+  const start = new Date(+m[1], +m[2] - 1, +m[3], +m[4]), end = new Date(+m[1], +m[2] - 1, +m[3], +m[5]);
+  return {start, end};
+}
+function dayName(d){
+  const t = new Date(); t.setHours(0, 0, 0, 0);
+  const x = new Date(d); x.setHours(0, 0, 0, 0);
+  const diff = Math.round((x - t) / 864e5);
+  if(diff === 0) return "Bugün";
+  if(diff === 1) return "Yarın";
+  return x.toLocaleDateString("tr-TR", {weekday:"long", day:"numeric", month:"long"});
+}
+function slotLabel(s){
+  const p = parseSlot(s); if(!p) return s || "";
+  return `${dayName(p.start)} ${pad(p.start.getHours())}:00–${pad(p.end.getHours())}:00`;
+}
 
 /* ===== Ürünler ===== */
 const PRODUCTS = {};

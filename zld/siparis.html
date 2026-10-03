@@ -11,9 +11,9 @@
 <link rel="stylesheet" href="ortak/app.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="ortak/menu.js"></script>
-<title>Zeynep Lezzet Durağı | Paket Sipariş</title>
+<title>Zeynep Lezzet Durağı | Gel Al</title>
 <meta name="robots" content="noindex">
-<meta name="description" content="Zeynep Lezzet Durağı'ndan paket sipariş verin, işyerinden teslim alın.">
+<meta name="description" content="Siparişinizi önceden verin, saatinizi seçin, Zeynep Lezzet Durağı'ndan hazır teslim alın.">
 </head>
 <body>
 <div class="wrap">
@@ -22,14 +22,17 @@
       <img src="logo.png" alt="Zeynep Lezzet Durağı logosu" width="68" height="68">
       <div>
         <h1>Zeynep Lezzet Durağı</h1>
-        <p>Paket sipariş</p>
+        <p>Gel Al</p>
       </div>
     </div>
-    <p class="pickup">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-      <span>Ürünleri sepete ekleyin, siparişi gönderin. Şu anda servis yapmıyoruz, işyerinden teslim alırsınız.</span>
-    </p>
+    <ol class="howto">
+      <li>Ürünleri sepete ekleyin.</li>
+      <li>Geleceğiniz saat aralığını seçin.</li>
+      <li>Siparişiniz hazır beklesin, ödemeyi teslimde yapın.</li>
+    </ol>
   </header>
+
+  <a class="track" id="track" href="#" hidden></a>
     <div class="bar" id="bar">
       <label class="search">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5d6d68" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -64,7 +67,7 @@
 
 <div class="cartbar" id="cartbar">
   <button type="button" id="openCart" aria-haspopup="dialog">
-    <span class="count" id="cCount">0</span><span class="lbl">Siparişi gör</span><span class="tot" id="cTot">0 TL</span>
+    <span class="count" id="cCount">0</span><span class="lbl">Saat seç ve sipariş ver</span><span class="tot" id="cTot">0 TL</span>
   </button>
 </div>
 <div id="sheetWrap">
@@ -72,34 +75,50 @@
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-h">
     <div class="grip"></div>
     <button class="close" id="closeCart" aria-label="Kapat">×</button>
+
     <div id="okBox" hidden>
-      <h2>Siparişiniz alındı</h2>
+      <h2 id="okTitle">Siparişiniz alındı</h2>
+      <p class="pick-big" id="okSlot"></p>
+      <ol class="steps" id="steps">
+        <li data-s="alindi">Alındı</li>
+        <li data-s="hazirlaniyor">Hazırlanıyor</li>
+        <li data-s="hazir">Hazır, gelebilirsiniz</li>
+      </ol>
       <p id="okText"></p>
-      <p class="dep">İsterseniz siparişin bir kopyasını WhatsApp'tan da gönderebilirsiniz.</p>
-      <a class="btn-wa" id="okWa" target="_blank" rel="noopener" style="text-decoration:none">WhatsApp'tan kopya gönder</a>
-      <button class="btn ghost" type="button" style="width:100%;margin-top:10px" onclick="location.reload()">Menüye dön</button>
+      <p class="dep">Bu sayfayı kapatsanız da durumu menünün üstünden görebilirsiniz. Gecikirseniz ya da değişiklik isterseniz WhatsApp'tan yazın.</p>
+      <a class="btn-wa" id="okWa" target="_blank" rel="noopener" style="text-decoration:none">WhatsApp'tan yaz</a>
+      <button class="btn ghost" type="button" style="width:100%;margin-top:10px" id="okBack">Menüye dön</button>
     </div>
+
     <div id="orderForm">
-    <h2 id="sheet-h">Siparişiniz</h2>
-    <div id="lines"></div>
-    <div class="sum"><span>Toplam</span><strong id="sTot">0 TL</strong></div>
-    <p class="dep" id="dep"></p>
-    <label for="on">Adınız</label>
-    <input id="on" type="text" autocomplete="name">
-    <label for="op">Telefonunuz</label>
-    <input id="op" type="tel" inputmode="tel" autocomplete="tel" placeholder="05xx xxx xx xx">
-    <label for="ot">Ne zaman alacaksınız?</label>
-    <input id="ot" type="text" placeholder="Bugün 17:30">
-    <label for="onote">Not (isteğe bağlı)</label>
-    <textarea id="onote" placeholder="Böreği dilimlenmiş istiyorum"></textarea>
-    <p class="err" id="oerr" role="alert" style="color:var(--pepper);margin:10px 0 0"></p>
-    <button class="btn-wa" id="send" type="button">Siparişi gönder</button>
+      <h2 id="sheet-h">Siparişiniz</h2>
+      <div id="lines"></div>
+      <div class="sum"><span>Toplam</span><strong id="sTot">0 TL</strong></div>
+      <p class="dep" id="dep"></p>
+
+      <fieldset class="when">
+        <legend>Ne zaman geleceksiniz?</legend>
+        <div class="days" id="days" role="group" aria-label="Gün"></div>
+        <div class="slots" id="slots" role="group" aria-label="Saat aralığı"></div>
+        <p class="dep" id="leadNote"></p>
+      </fieldset>
+
+      <label for="on">Adınız</label>
+      <input id="on" type="text" autocomplete="name">
+      <label for="op">Telefonunuz</label>
+      <input id="op" type="tel" inputmode="tel" autocomplete="tel" placeholder="05xx xxx xx xx">
+      <label for="onote">Not (isteğe bağlı)</label>
+      <textarea id="onote" placeholder="Böreği dilimlenmiş istiyorum"></textarea>
+      <p class="err" id="oerr" role="alert" style="color:var(--pepper);margin:10px 0 0"></p>
+      <button class="btn-wa" id="send" type="button">Siparişi onayla</button>
+      <p class="dep" style="margin-top:10px;text-align:center">Ödemeyi teslim alırken yaparsınız.</p>
     </div>
   </div>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
 let cart = store.get("zld_cart", {});
+let pickDay = 0, pickSlot = null, taken = {};
 const view = MenuView({root:$("cats"), chips:$("chips"), search:$("q"), empty:$("empty"), mode:"order", cart,
   onChange(){ store.set("zld_cart", cart); updateBar(); },
   onAdd(p, o){ toast(itemLabel(p.ad, o.l) + " sepete eklendi"); }});
@@ -118,6 +137,52 @@ function depositText(L){
   if(tep) parts.push(`${tep} baklava tepsisi için ${tl(tep * 200)}`);
   return parts.length ? `Depozito: ${parts.join(", ")}. Kabı geri getirince iade edilir.` : "";
 }
+const isBig = L => L.some(l => /^(Tepsi|Borcam)/.test(l.o.l));
+
+/* ---------- saat aralığı seçimi ---------- */
+function dayDate(i){ const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + i); return d; }
+function slotsFor(i, lead){
+  const d = dayDate(i), earliest = Date.now() + lead * 60000, out = [];
+  for(let h = ZLD.ACILIS; h < ZLD.KAPANIS; h++){
+    const key = slotKey(d, h), start = new Date(d); start.setHours(h);
+    let why = "";
+    if(start.getTime() + 3600000 <= Date.now()) why = "geçti";
+    else if(start.getTime() < earliest) why = "hazırlık süresi yetmez";
+    else if((taken[key] || 0) >= ZLD.SLOT_KAPASITE) why = "dolu";
+    out.push({key, h, why});
+  }
+  return out;
+}
+function renderWhen(){
+  const L = cartLines(cart), lead = isBig(L) ? ZLD.BUYUK_HAZIRLIK_DK : ZLD.HAZIRLIK_DK;
+  // seçili günde boş saat yoksa ilk uygun güne geç
+  if(!slotsFor(pickDay, lead).some(s => !s.why)){
+    const first = Array.from({length:ZLD.GUN_SAYISI}, (_, i) => i).find(i => slotsFor(i, lead).some(s => !s.why));
+    if(first !== undefined && first !== pickDay){ pickDay = first; pickSlot = null; }
+  }
+  $("days").innerHTML = Array.from({length:ZLD.GUN_SAYISI}, (_, i) => {
+    const free = slotsFor(i, lead).some(s => !s.why);
+    return `<button type="button" data-day="${i}" aria-pressed="${i === pickDay}" ${free ? "" : "disabled"}>${dayName(dayDate(i))}${free ? "" : "<small>Saat kalmadı</small>"}</button>`;
+  }).join("");
+  const S = slotsFor(pickDay, lead);
+  if(pickSlot && !S.some(s => s.key === pickSlot && !s.why)) pickSlot = null;
+  $("slots").innerHTML = S.filter(s => s.why !== "geçti").map(s =>
+    `<button type="button" data-slot="${s.key}" aria-pressed="${s.key === pickSlot}" ${s.why ? "disabled" : ""}>${pad(s.h)}:00–${pad(s.h + 1)}:00${s.why === "dolu" ? "<small>Dolu</small>" : ""}</button>`).join("")
+    || `<p class="dep">Bu gün için uygun saat kalmadı. Başka bir gün seçin.</p>`;
+  $("leadNote").textContent = isBig(L)
+    ? "Tepsi ve borcam siparişleri en az 3 saat önceden verilmelidir."
+    : "Siparişler en az 1 saat önceden verilmelidir.";
+}
+$("days").addEventListener("click", e => { const b = e.target.closest("[data-day]"); if(!b) return; pickDay = +b.dataset.day; pickSlot = null; renderWhen(); });
+$("slots").addEventListener("click", e => { const b = e.target.closest("[data-slot]"); if(!b) return; pickSlot = b.dataset.slot; renderWhen(); $("oerr").textContent = ""; });
+async function loadTaken(){
+  if(!db) return;
+  const {data, error} = await db.from("orders").select("pickup_time").eq("kind", "online").neq("status", "iptal").gte("pickup_time", ymd(new Date()));
+  if(error) return;
+  taken = {}; data.forEach(r => taken[r.pickup_time] = (taken[r.pickup_time] || 0) + 1);
+}
+
+/* ---------- sepet paneli ---------- */
 const wrap = $("sheetWrap"); let lastFocus = null;
 function renderSheet(){
   const {L, t} = updateBar();
@@ -127,8 +192,9 @@ function renderSheet(){
     <div class="qty light"><button data-l="${l.k}" data-d="-1" aria-label="Bir azalt">−</button><span>${l.q}</span><button data-l="${l.k}" data-d="1" aria-label="Bir artır">+</button></div>
     <div class="p">${tl(l.sum)}</div></div>`).join("");
   $("sTot").textContent = tl(t); $("dep").textContent = depositText(L);
+  renderWhen();
 }
-function openSheet(){ lastFocus = document.activeElement; renderSheet(); wrap.classList.add("open"); $("closeCart").focus(); }
+async function openSheet(){ lastFocus = document.activeElement; renderSheet(); wrap.classList.add("open"); $("closeCart").focus(); await loadTaken(); if(wrap.classList.contains("open") && !$("orderForm").hidden) renderWhen(); }
 function closeSheet(){ wrap.classList.remove("open"); view.render(); updateBar(); if(lastFocus && document.contains(lastFocus)) lastFocus.focus(); }
 $("openCart").onclick = openSheet; $("closeCart").onclick = closeSheet; $("sheetBg").onclick = closeSheet;
 addEventListener("keydown", e => { if(e.key === "Escape" && wrap.classList.contains("open")) closeSheet(); });
@@ -139,46 +205,97 @@ $("lines").addEventListener("click", e => {
   store.set("zld_cart", cart); renderSheet();
 });
 
+/* ---------- sipariş gönder ---------- */
 $("send").onclick = async () => {
   const {L, t} = updateBar();
-  const ad = $("on").value.trim(), tel = $("op").value.replace(/\D/g, ""), zaman = $("ot").value.trim(), not = $("onote").value.trim();
-  const err = $("oerr");
+  const ad = $("on").value.trim(), tel = $("op").value.replace(/\D/g, ""), not = $("onote").value.trim(), err = $("oerr");
+  if(!pickSlot){ err.textContent = "Geleceğiniz saat aralığını seçin."; $("days").scrollIntoView({block:"center"}); return; }
   if(!ad){ err.textContent = "Siparişi kimin adına hazırlayalım? Adınızı yazın."; $("on").focus(); return; }
   if(!/^(0?5\d{9}|905\d{9})$/.test(tel)){ err.textContent = "Size ulaşabilmemiz için telefonu 05xx xxx xx xx biçiminde yazın."; $("op").focus(); return; }
+  if(!db){ err.textContent = "Sunucuya bağlanılamadı. İnternetinizi kontrol edin ya da WhatsApp'tan sipariş verin."; return; }
   err.textContent = "";
   const btn = $("send"); btn.disabled = true; btn.textContent = "Gönderiliyor…";
-  let saved = false;
-  if(db){
-    const {data, error} = await db.from("orders").insert({kind:"online", customer_name:ad, customer_phone:tel, pickup_time:zaman || null, note:not || null}).select("id").single();
-    if(!error){
-      const r = await db.from("order_items").insert(L.map(l => ({order_id:data.id, product_key:l.key + ":" + l.j, name:l.p.ad, option:l.o.l, price:l.o.p, qty:l.q})));
-      saved = !r.error;
-    }
-  }
-  let m = "Merhaba, sipariş vermek istiyorum:\n\n" + L.map(l => `• ${l.q} × ${itemLabel(l.p.ad, l.o.l)}: ${tl(l.sum)}`).join("\n");
-  m += `\n\nToplam: ${tl(t)}`;
-  const d = depositText(L); if(d) m += `\n${d}`;
-  m += `\nİsim: ${ad}\nTelefon: ${tel}`;
-  if(zaman) m += `\nTeslim alma: ${zaman}`;
-  if(not) m += `\nNot: ${not}`;
-  if(saved){
+  try{
+    await loadTaken();
+    if((taken[pickSlot] || 0) >= ZLD.SLOT_KAPASITE){ pickSlot = null; renderWhen(); throw new Error("dolu"); }
+    const {data, error} = await db.from("orders").insert({kind:"online", customer_name:ad, customer_phone:tel, pickup_time:pickSlot, note:not || null}).select("id").single();
+    if(error) throw error;
+    const r = await db.from("order_items").insert(L.map(l => ({order_id:data.id, product_key:l.key + ":" + l.j, name:l.p.ad, option:l.o.l, price:l.o.p, qty:l.q})));
+    if(r.error){ await db.from("orders").delete().eq("id", data.id); throw r.error; }
+    store.set("zld_last_order", {id:data.id, slot:pickSlot, ad, total:t});
     for(const k in cart) delete cart[k];
     store.set("zld_cart", {});
-    $("orderForm").hidden = true;
-    $("okBox").hidden = false;
-    $("okText").textContent = `Teşekkürler ${ad}. Siparişiniz mutfağa ulaştı${zaman ? ", " + zaman + " için hazırlanacak" : ""}. Toplam ${tl(t)}.`;
-    $("okWa").href = `https://wa.me/${ZLD.WA}?text=${encodeURIComponent(m)}`;
-    updateBar();
-  } else {
-    window.open(`https://wa.me/${ZLD.WA}?text=${encodeURIComponent(m)}`, "_blank", "noopener");
-  }
-  btn.disabled = false; btn.textContent = "Siparişi gönder";
+    view.render(); updateBar();
+    showStatus(data.id);
+    watchLast();
+  }catch(ex){
+    err.textContent = ex.message === "dolu"
+      ? "Seçtiğiniz saat aralığı az önce doldu. Başka bir saat seçin."
+      : "Sipariş gönderilemedi. İnternetinizi kontrol edip tekrar deneyin.";
+  }finally{ btn.disabled = false; btn.textContent = "Siparişi onayla"; }
 };
+
+/* ---------- sipariş takibi ---------- */
+let watching = null;
+function stageOf(order){
+  if(!order) return null;
+  if(order.status === "kapandi") return "teslim";
+  if(order.status === "iptal") return "iptal";
+  const st = order.order_items.map(i => i.status);
+  if(st.length && st.every(s => s === "hazir" || s === "servis")) return "hazir";
+  if(st.some(s => s !== "yeni")) return "hazirlaniyor";
+  return "alindi";
+}
+const STAGE_TR = {alindi:"Siparişiniz alındı", hazirlaniyor:"Siparişiniz hazırlanıyor", hazir:"Siparişiniz hazır, gelebilirsiniz", teslim:"Teslim edildi, afiyet olsun", iptal:"Siparişiniz iptal edildi"};
+async function fetchOrder(id){
+  const {data} = await db.from("orders").select("id,status,pickup_time,customer_name,order_items(name,option,qty,price,status)").eq("id", id).maybeSingle();
+  return data;
+}
+function paintStatus(o){
+  const last = store.get("zld_last_order", null);
+  const stage = stageOf(o);
+  // menü üstündeki takip şeridi
+  const tr = $("track");
+  if(o && last && stage !== "teslim" && stage !== "iptal"){
+    tr.hidden = false; tr.dataset.stage = stage;
+    tr.innerHTML = `<b>${STAGE_TR[stage]}</b><span>${slotLabel(o.pickup_time)} arası</span>`;
+  } else tr.hidden = true;
+  if(!o || $("okBox").hidden) return;
+  $("okTitle").textContent = STAGE_TR[stage];
+  $("okSlot").textContent = `${slotLabel(o.pickup_time)} arası gelin`;
+  const order = ["alindi", "hazirlaniyor", "hazir"], idx = order.indexOf(stage === "teslim" ? "hazir" : stage);
+  $("steps").querySelectorAll("li").forEach((li, i) => { li.className = i < idx ? "done" : i === idx ? "now" : ""; });
+  const total = o.order_items.reduce((a, i) => a + i.price * i.qty, 0);
+  $("okText").innerHTML = o.order_items.map(i => `${i.qty} × ${esc(itemLabel(i.name, i.option))}`).join("<br>") + `<br><b>Toplam ${tl(total)}</b>, ödeme teslimde.`;
+  $("okWa").href = `https://wa.me/${ZLD.WA}?text=${encodeURIComponent(`Merhaba, ${o.customer_name} adına ${slotLabel(o.pickup_time)} arası gel al siparişim var.`)}`;
+}
+async function showStatus(id){
+  $("orderForm").hidden = true; $("okBox").hidden = false;
+  if(!wrap.classList.contains("open")){ lastFocus = document.activeElement; wrap.classList.add("open"); }
+  paintStatus(await fetchOrder(id));
+  $("okTitle").setAttribute("tabindex", "-1"); $("okTitle").focus();
+}
+async function watchLast(){
+  const last = store.get("zld_last_order", null);
+  if(!last || !db) return;
+  const o = await fetchOrder(last.id);
+  if(!o || o.status !== "acik"){ store.set("zld_last_order", null); paintStatus(null); return; }
+  paintStatus(o);
+  if(watching) return;
+  watching = db.channel("takip-" + last.id)
+    .on("postgres_changes", {event:"*", schema:"public", table:"order_items", filter:`order_id=eq.${last.id}`}, async () => paintStatus(await fetchOrder(last.id)))
+    .on("postgres_changes", {event:"UPDATE", schema:"public", table:"orders", filter:`id=eq.${last.id}`}, async () => paintStatus(await fetchOrder(last.id)))
+    .subscribe();
+  setInterval(async () => paintStatus(await fetchOrder(last.id)), 30000);
+}
+$("track").onclick = e => { e.preventDefault(); const last = store.get("zld_last_order", null); if(last) showStatus(last.id); };
+$("okBack").onclick = () => { closeSheet(); $("okBox").hidden = true; $("orderForm").hidden = false; watchLast(); scrollTo(0, 0); };
 
 view.render(); updateBar();
 loadPrices().then(() => { view.render(); updateBar(); });
 watchPrices(() => { view.render(); updateBar(); });
 bindJoinForm();
+watchLast();
 </script>
 </body>
 </html>

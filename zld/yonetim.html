@@ -128,7 +128,7 @@ function renderQR(){
     else q.textContent = url;
   };
   for(let i = 1; i <= ZLD.MASA_SAYISI; i++) add("Masa " + i, base + "index.html?masa=" + i);
-  add("Paket sipariş", base + "siparis.html");
+  add("Gel Al sipariş", base + "siparis.html");
 }
 $("tab-pin").addEventListener("submit", async e => {
   e.preventDefault();

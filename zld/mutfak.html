@@ -25,7 +25,7 @@
 <div class="filters">
   <button type="button" data-f="hepsi" aria-pressed="true">Hepsi</button>
   <button type="button" data-f="masa" aria-pressed="false">Masalar</button>
-  <button type="button" data-f="online" aria-pressed="false">Paket siparişler</button>
+  <button type="button" data-f="online" aria-pressed="false">Gel Al</button>
   <button type="button" id="sound" aria-pressed="false">Sesli uyarıyı aç</button>
   <span class="daysum" id="daysum"></span>
 </div>
@@ -45,22 +45,33 @@ function beep(){
     o.start(); o.stop(c.currentTime + .6); }catch(e){}
 }
 function render(fresh = new Set()){
-  const list = orders.filter(o => filter === "hepsi" || o.kind === filter);
+  // Masalar geliş sırasına, Gel Al siparişleri alış saatine göre
+  const list = orders.filter(o => filter === "hepsi" || o.kind === filter).sort((a, b) => {
+    const ka = a.kind === "online" ? (a.pickup_time || "") : a.created_at.slice(0, 10) + " " + a.created_at.slice(11, 16);
+    const kb = b.kind === "online" ? (b.pickup_time || "") : b.created_at.slice(0, 10) + " " + b.created_at.slice(11, 16);
+    return ka.localeCompare(kb);
+  });
   $("board").innerHTML = list.length ? list.map(o => {
     const total = o.items.reduce((a, i) => a + i.price * i.qty, 0);
-    const title = o.kind === "masa" ? `Masa ${o.masa}` : `Paket`;
+    const title = o.kind === "masa" ? `Masa ${o.masa}` : `Gel Al`;
+    let tag = "";
+    if(o.kind === "online"){
+      const p = parseSlot(o.pickup_time), now = Date.now();
+      const cls = !p ? "" : (p.start - now < 3600000 && p.end > now) ? "soon" : (p.start - now > 6 * 3600000) ? "later" : "";
+      tag = `<span class="pickup-tag ${cls}">Alış: ${esc(slotLabel(o.pickup_time))}${cls === "soon" ? ", yaklaşıyor" : ""}</span>`;
+    }
     return `<article class="ticket ${o.kind === "online" ? "online" : ""} ${fresh.has(o.id) ? "flash" : ""}" data-o="${o.id}">
-      <header><b>${title}</b><span>${clock(o.created_at)}, ${ago(o.created_at)}</span></header>
-      ${o.kind === "online" ? `<div class="who">${esc(o.customer_name || "")} ${o.customer_phone ? `<a href="tel:+90${esc(o.customer_phone.replace(/^90|^0/, ""))}">${esc(o.customer_phone)}</a>` : ""}${o.pickup_time ? `<br>Teslim: <b>${esc(o.pickup_time)}</b>` : ""}${o.note ? `<br>Not: ${esc(o.note)}` : ""}</div>` : ""}
+      <header><b>${title}</b><span>Sipariş ${clock(o.created_at)}, ${ago(o.created_at)}</span></header>${tag}
+      ${o.kind === "online" ? `<div class="who">${esc(o.customer_name || "")} ${o.customer_phone ? `<a href="tel:+90${esc(o.customer_phone.replace(/^90|^0/, ""))}">${esc(o.customer_phone)}</a>` : ""}${o.note ? `<br>Not: ${esc(o.note)}` : ""}</div>` : ""}
       <ul>${o.items.map(i => `<li class="${i.status}">
         <span class="q">${i.qty}×</span>
         <span class="t">${esc(itemLabel(i.name, i.option))}${i.note ? `<small>${esc(i.note)}</small>` : ""}<small>${STATUS_TR[i.status]}</small></span>
         ${NEXT[i.status] ? `<button type="button" data-i="${i.id}" data-s="${NEXT[i.status][0]}">${NEXT[i.status][1]}</button>` : ""}
       </li>`).join("") || `<li><span class="t">Henüz ürün yok</span></li>`}</ul>
       <footer><strong>${tl(total)}</strong>
-        <button class="btn" type="button" data-close="${o.id}" data-total="${total}" data-title="${title}">Hesabı kapat</button></footer>
+        <button class="btn" type="button" data-close="${o.id}" data-total="${total}" data-title="${title}" data-kind="${o.kind}">${o.kind === "online" ? "Teslim edildi" : "Hesabı kapat"}</button></footer>
     </article>`;
-  }).join("") : `<p class="board-empty">Açık sipariş yok. Garson sipariş gönderdiğinde ya da paket sipariş geldiğinde burada görünür.</p>`;
+  }).join("") : `<p class="board-empty">Açık sipariş yok. Garson sipariş gönderdiğinde ya da Gel Al siparişi geldiğinde burada görünür.</p>`;
 }
 $("board").addEventListener("click", async e => {
   const b = e.target.closest("button"); if(!b) return;
@@ -70,11 +81,14 @@ $("board").addEventListener("click", async e => {
     if(error){ toast("Kaydedilemedi, tekrar deneyin"); b.disabled = false; }
   }
   if(b.dataset.close){
-    if(!confirm(`${b.dataset.title} hesabı ${tl(+b.dataset.total)}. Ödeme alındı mı? Hesap kapatılsın mı?`)) return;
+    const q = b.dataset.kind === "online"
+      ? `Gel Al siparişi ${tl(+b.dataset.total)}. Müşteri teslim aldı ve ödedi mi?`
+      : `${b.dataset.title} hesabı ${tl(+b.dataset.total)}. Ödeme alındı mı? Hesap kapatılsın mı?`;
+    if(!confirm(q)) return;
     b.disabled = true;
     const {error} = await db.from("orders").update({status:"kapandi", closed_at:new Date().toISOString()}).eq("id", b.dataset.close);
     if(error){ toast("Hesap kapatılamadı, tekrar deneyin"); b.disabled = false; return; }
-    toast(`${b.dataset.title} hesabı kapatıldı`);
+    toast(b.dataset.kind === "online" ? "Gel Al siparişi teslim edildi" : `${b.dataset.title} hesabı kapatıldı`);
   }
 });
 document.querySelector(".filters").addEventListener("click", e => {

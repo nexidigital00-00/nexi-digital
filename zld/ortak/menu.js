@@ -540,16 +540,12 @@ function teslimatHTML(){
 }
 function gelAlHTML(mini){
   if(isApp()) return "";
-  return `<div class="gelal${mini ? " mini" : ""}">
-    <h2>Siz sipariş verin, gelip alın</h2>
-    ${GELAL_ADIM}
-    <p class="gelal-no">Paket servisimiz yok. Siparişinizi adrese getirmiyoruz, seçtiğiniz saatte dükkândan kendiniz alırsınız.</p>
-    <div class="gelal-btns">
-      <a class="btn gold" href="siparis.html">Gel Al siparişi ver</a>
-      <a class="btn ghost-l" href="siparis.html?yukle=1" data-install>Uygulamayı telefona ekle</a>
-    </div>
-    <small>Mağazadan indirmek gerekmez, ana ekranınıza bir dokunuşla eklenir.</small>
-  </div>`;
+  // masadakilere kısa haber: ayrıntılar Gel Al sayfasında
+  return `<a class="gtease${mini ? " mini" : ""}" href="siparis.html">
+    <span class="gtease-ic">${BAG_SVG}</span>
+    <span class="gtease-t"><b>Gel Al servisimizden haberiniz var mı?</b><span>Önceden sipariş verin, hazır olunca gelip alın.</span></span>
+    <span class="gtease-go">Göz atın</span>
+  </a>`;
 }
 document.addEventListener("click", async e => {
   const a = e.target.closest("[data-install]"); if(!a) return;

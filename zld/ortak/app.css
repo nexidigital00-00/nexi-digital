@@ -454,3 +454,4 @@ html:has(body.staff){scroll-padding-top:190px}
 .strip + .hs-btn,.hs:has(> .strip) .hs-btn{top:calc(50% - 8px)}
 .hs:has(> .chips) .hs-btn{width:32px;height:32px;top:calc(50% + 3px)}
 .hs:has(> .chips) .hs-l{left:-8px}.hs:has(> .chips) .hs-r{right:-8px}
+#billLines .gen-h{margin:14px 0 0;font:700 14px var(--sans);color:var(--muted)}

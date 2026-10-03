@@ -8,9 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="ortak/app.css?v=202610032016">
+<link rel="stylesheet" href="ortak/app.css?v=202610032036">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="ortak/menu.js?v=202610032016"></script>
+<script src="ortak/menu.js?v=202610032036"></script>
 <title>Zeynep Lezzet Durağı | Menü</title>
 <meta name="robots" content="noindex">
 <meta name="description" content="Zeynep Lezzet Durağı menüsü ve güncel fiyatlar.">
@@ -105,7 +105,11 @@ const atTable = masa > 0 && masa <= 99;
 const guest = getGuest();
 const cartKey = "zld_masa_cart_" + masa;
 let cart = atTable ? store.get(cartKey, {}) : {};
-let mine = [], tableItems = [], tableTotal = 0, orderId = null, myCode = () => "";
+let mine = [], general = [], solo = true, tableItems = [], tableTotal = 0, orderId = null, myCode = () => "";
+let seenGeneral = null;   // garsonun eklediği kalemler: yenisi gelince müşteriye haber ver
+const unpaid = list => list.filter(i => !i.paid).reduce((a, i) => a + i.price * i.qty, 0);
+// Kasada ödenecek: masada QR'dan tek kişi varsa garsonun ekledikleri de onun hesabına yazılır
+const myDue = () => unpaid(mine) + (solo ? unpaid(general) : 0);
 
 if(atTable){
   $("masaBadge").hidden = false; $("masaNo").textContent = masa;
@@ -118,11 +122,11 @@ const view = MenuView({root:$("cats"), chips:$("chips"), strip:$("strip"), picks
 function updateBar(){
   if(!atTable) return {L:[], n:0, t:0};
   const L = cartLines(cart), n = L.reduce((a, l) => a + l.q, 0), t = L.reduce((a, l) => a + l.sum, 0);
-  const due = mine.filter(i => !i.paid).reduce((a, i) => a + i.price * i.qty, 0);
-  $("cCount").textContent = n || mine.reduce((a, i) => a + i.qty, 0);
+  const due = myDue(), shown = mine.concat(solo ? general : []);
+  $("cCount").textContent = n || shown.reduce((a, i) => a + i.qty, 0);
   $("cLbl").textContent = n ? "Siparişimi gönder" : "Hesabım";
   $("cTot").textContent = tl(n ? t : due);
-  $("cartbar").classList.toggle("show", n > 0 || mine.length > 0);
+  $("cartbar").classList.toggle("show", n > 0 || shown.length > 0);
   return {L, n, t};
 }
 
@@ -139,15 +143,20 @@ function renderSheet(){
     <div class="p">${tl(l.sum)}</div></div>`).join("");
   const code = mine.length && myCode();
   $("myCode").innerHTML = code ? `Kodunuz <b>${esc(code)}</b><span>Kasada bu kodu söyleyin, sadece kendi hesabınızı ödeyin.</span>` : "";
-  $("billBox").hidden = !mine.length;
-  $("billLines").innerHTML = mine.map(i => `<div class="line">
+  const row = i => `<div class="line">
     <div class="n"><b>${i.qty} × ${esc(itemLabel(i.name, i.option))}</b><span>${i.paid ? "Ödendi" : ITEM_STATUS_TR[i.status]}</span></div>
-    <div class="p">${tl(i.price * i.qty)}</div></div>`).join("");
-  const due = mine.filter(i => !i.paid).reduce((a, i) => a + i.price * i.qty, 0);
+    <div class="p">${tl(i.price * i.qty)}</div></div>`;
+  const showGen = general.length > 0 && (solo || mine.length > 0);
+  $("billBox").hidden = !mine.length && !(solo && general.length);
+  $("billLines").innerHTML = mine.map(row).join("") +
+    (showGen ? `<h3 class="gen-h">${solo ? "Garsonun masanıza ekledikleri" : "Masa geneli (garsonun ekledikleri)"}</h3>` + general.map(row).join("") : "");
+  const due = myDue();
   $("billLbl").textContent = due ? "Kasada ödeyeceğiniz" : "Hesabınız ödendi";
   $("billTot").textContent = tl(due);
-  $("tableTot").textContent = tableTotal ? `Masanın toplam hesabı: ${tl(tableTotal)}. Her kişi kendi hesabını ayrı ödeyebilir.` : "";
-  if(!L.length && !mine.length) closeSheet();
+  $("tableTot").textContent = !solo && unpaid(general)
+    ? `Masa geneli ${tl(unpaid(general))} ayrıca, kasada masadakilerle paylaşılır. Masanın toplam hesabı: ${tl(tableTotal)}.`
+    : !solo && tableTotal ? `Masanın toplam hesabı: ${tl(tableTotal)}. Her kişi kendi hesabını ayrı ödeyebilir.` : "";
+  if(!L.length && $("billBox").hidden) closeSheet();
 }
 function openSheet(){ lastFocus = document.activeElement; renderSheet(); wrap.classList.add("open"); $("closeCart").focus(); }
 function closeSheet(){ wrap.classList.remove("open"); view.render(); updateBar(); if(lastFocus && document.contains(lastFocus)) lastFocus.focus(); }
@@ -189,14 +198,25 @@ async function loadMine(){
   const items = data ? data.order_items : [];
   tableItems = items;
   myCode = mine0 => makeLabeler(masa, items)({guest_id: guest.id});
-  mine = items.filter(i => i.guest_id === guest.id).sort((a, b) => a.created_at.localeCompare(b.created_at));
+  const byTime = (a, b) => a.created_at.localeCompare(b.created_at);
+  mine = items.filter(i => i.guest_id === guest.id).sort(byTime);
+  general = items.filter(i => !i.guest_id).sort(byTime);
+  solo = new Set(items.filter(i => i.guest_id && i.guest_id !== guest.id).map(i => i.guest_id)).size === 0;
   tableTotal = items.reduce((a, i) => a + i.price * i.qty, 0);
-  const due = mine.filter(i => !i.paid).reduce((a, i) => a + i.price * i.qty, 0);
+  // garson masaya yeni bir şey eklediyse haber ver
+  const genIds = new Set(general.map(i => i.id));
+  if(seenGeneral && (solo || mine.length)){
+    const added = general.filter(i => !seenGeneral.has(i.id));
+    if(added.length) toast(`Garson masanıza ekledi: ${added.map(i => i.qty + " " + i.name).join(", ")}`);
+  }
+  seenGeneral = genIds;
+  const due = myDue(), shown = mine.concat(solo ? general : []);
   const tr = $("track");
-  if(mine.length){
-    const waiting = mine.some(i => i.status === "onay"), ready = mine.some(i => i.status === "hazir");
+  if(shown.length){
+    const waiting = mine.some(i => i.status === "onay"), ready = shown.some(i => i.status === "hazir");
+    const extra = !solo && unpaid(general) ? `, masa geneli ${tl(unpaid(general))} ayrıca` : "";
     tr.hidden = false; tr.dataset.stage = ready ? "hazir" : "";
-    tr.innerHTML = `<b>${esc(myCode())} hesabım: ${tl(due)}</b><span>${waiting ? "Siparişiniz garson onayı bekliyor" : ready ? "Siparişiniz hazır, geliyor" : due ? "Ödemeyi kasada yapabilirsiniz" : "Hesabınız ödendi, afiyet olsun"}</span>`;
+    tr.innerHTML = `<b>${mine.length ? esc(myCode()) + " hesabım" : "Masa " + masa + " hesabı"}: ${tl(due)}</b><span>${waiting ? "Siparişiniz garson onayı bekliyor" : ready ? "Siparişiniz hazır, geliyor" : due ? "Ödemeyi kasada yapabilirsiniz" + extra : "Hesabınız ödendi, afiyet olsun"}</span>`;
   } else tr.hidden = true;
   updateBar();
   if(wrap.classList.contains("open")) renderSheet();

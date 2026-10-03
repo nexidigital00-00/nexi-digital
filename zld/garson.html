@@ -8,9 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="ortak/app.css?v=202610032016">
+<link rel="stylesheet" href="ortak/app.css?v=202610032036">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="ortak/menu.js?v=202610032016"></script>
+<script src="ortak/menu.js?v=202610032036"></script>
 <title>ZLD | Garson</title>
 <meta name="robots" content="noindex">
 </head>
@@ -58,9 +58,9 @@
     <div id="draftBox"></div>
     <div class="sum"><span>Masa toplamı</span><strong id="sTot">0 TL</strong></div>
     <div id="draftForm">
-      <label for="inote">Mutfağa not (isteğe bağlı)</label>
+      <label for="inote">Mutfak için not (isteğe bağlı, içeceklere gerekmez)</label>
       <input id="inote" type="text" placeholder="Acısız, yanına ekstra yoğurt">
-      <button class="btn-wa" id="send" type="button">Mutfağa gönder</button>
+      <button class="btn-wa" id="send" type="button">Masaya ekle</button>
     </div>
   </div>
 </div>
@@ -148,7 +148,8 @@ function renderSheet(){
   const P = pendingOf(o);
   $("pendBox").innerHTML = P.length ? `<div class="pend-box"><h3>Müşteriler QR'dan gönderdi</h3>` +
     P.map(i => lineHTML(i, `<span class="p">${tl(i.price * i.qty)}</span><button class="x" data-del="${i.id}" aria-label="${esc(i.name)} siparişini sil">×</button>`)).join("") +
-    `<button class="btn-wa" type="button" id="approve">Hepsini mutfağa gönder (${P.reduce((a, i) => a + i.qty, 0)} ürün)</button></div>` : "";
+    `<button class="btn-wa" type="button" id="approve">${P.every(i => noKitchen(i.product_key)) ? "Onayla" : "Hepsini mutfağa gönder"} (${P.reduce((a, i) => a + i.qty, 0)} ürün)</button>` +
+    (P.some(i => noKitchen(i.product_key)) ? `<p class="dep" style="margin:8px 0 0">İçecekler mutfağa gitmez, onaylayınca size "Hazır" olarak düşer.</p>` : "") + `</div>` : "";
   const S = sentOf(o);
   const R = readyOf(o);
   $("sentBox").innerHTML = (R.length ? `<div class="ready-box"><h3>Hazır, servis bekliyor</h3>` + R.map(i => lineHTML(i, "")).join("") +
@@ -193,9 +194,13 @@ $("pendBox").addEventListener("click", async e => {
   if(e.target.closest("#approve")){
     const b = $("approve"); b.disabled = true; b.textContent = "Gönderiliyor…";
     const o = orderOf(masa);
-    const {error} = await db.from("order_items").update({status:"yeni"}).eq("order_id", o.id).eq("status", "onay");
-    if(error){ toast("Gönderilemedi, tekrar deneyin"); b.disabled = false; return; }
-    toast(`Masa ${masa} siparişleri mutfağa gitti`);
+    // yemekler mutfağa, içecekler doğrudan "hazır" (garson getirir)
+    const P = pendingOf(o), drink = P.filter(i => noKitchen(i.product_key)).map(i => i.id), food = P.filter(i => !noKitchen(i.product_key)).map(i => i.id);
+    const res = await Promise.all([
+      food.length ? db.from("order_items").update({status:"yeni"}).in("id", food).eq("status", "onay") : {},
+      drink.length ? db.from("order_items").update({status:"hazir"}).in("id", drink).eq("status", "onay") : {}]);
+    if(res.some(r => r.error)){ toast("Gönderilemedi, tekrar deneyin"); b.disabled = false; return; }
+    toast(food.length ? `Masa ${masa} yemekleri mutfağa gitti` : `Masa ${masa} onaylandı`);
     await refresh();
   }
 });
@@ -210,12 +215,12 @@ $("send").onclick = async () => {
     delete drafts[masa]; store.set("zld_garson_drafts", drafts);
     $("inote").value = "";
     await refresh();
-    toast(`Masa ${masa} siparişi mutfağa gitti`);
+    toast(L.some(l => !noKitchen(l.key)) ? `Masa ${masa}: yemekler mutfağa gitti` : `Masa ${masa} hesabına eklendi`);
     closeSheet();
   }catch(ex){
     console.error(ex);
     toast("Gönderilemedi. İnterneti kontrol edip tekrar basın.");
-  }finally{ btn.disabled = false; btn.textContent = "Mutfağa gönder"; }
+  }finally{ btn.disabled = false; btn.textContent = "Masaya ekle"; }
 };
 
 /* yeni QR siparişi gelince ses + titreşim */
@@ -232,7 +237,7 @@ function ding(){
 
 async function refresh(){
   if(!db) return;
-  const {data, error} = await db.from("orders").select("id,masa,kind,created_at,order_items(id,name,option,price,qty,status,note,guest_id,paid,created_at)").eq("status", "acik").eq("kind", "masa");
+  const {data, error} = await db.from("orders").select("id,masa,kind,created_at,order_items(id,product_key,name,option,price,qty,status,note,guest_id,paid,created_at)").eq("status", "acik").eq("kind", "masa");
   $("offline").classList.toggle("on", !!error);
   if(error) return;
   openOrders = data.map(o => ({...o, items:(o.order_items || []).sort((a, b) => a.created_at.localeCompare(b.created_at))}));

@@ -139,7 +139,11 @@ const ZLD = {
   BUYUK_HAZIRLIK_DK: 180,        // tepsi ve borcam siparişleri için
   SLOT_KAPASITE: 8,              // bir saat aralığında en fazla kaç sipariş
   GUN_SAYISI: 3,                 // bugün dahil kaç gün ilerisi seçilebilir
+  // Mutfağa gitmeyen kategoriler: garson kendisi hazırlayıp servis eder
+  MUTFAKSIZ: ["icecek"],
 };
+// Ürün anahtarı "icecek-0" ya da kalemdeki product_key "icecek-0:0" olabilir
+const noKitchen = key => ZLD.MUTFAKSIZ.includes(String(key || "").split("-")[0]);
 
 /* ===== Yardımcılar ===== */
 const tl = n => (Number.isInteger(+n) ? (+n).toLocaleString("tr-TR") : (+n).toLocaleString("tr-TR",{minimumFractionDigits:1,maximumFractionDigits:2})) + " TL";
@@ -437,7 +441,9 @@ function makeLabeler(masa, items){
 }
 async function addTableItems(masa, lines, extra){
   const orderId = await openTableOrder(masa);
-  const {error} = await db.from("order_items").insert(lines.map(l => ({order_id:orderId, product_key:l.key + ":" + l.j, name:l.p.ad, option:l.o.l, price:l.o.p, qty:l.q, ...extra})));
+  // Garson eklerken (extra.status yok): yemek mutfağa gider, içecek doğrudan servis edilmiş sayılır
+  const {error} = await db.from("order_items").insert(lines.map(l => ({order_id:orderId, product_key:l.key + ":" + l.j, name:l.p.ad, option:l.o.l, price:l.o.p, qty:l.q,
+    status: noKitchen(l.key) ? "servis" : "yeni", ...extra})));
   if(error) throw error;
   return orderId;
 }

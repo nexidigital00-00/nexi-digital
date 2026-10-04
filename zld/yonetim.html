@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="tr">
 <head>
-<meta name="zld-surum" content="202610032227">
+<meta name="zld-surum" content="202610041620">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#12443f">
@@ -9,9 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="ortak/app.css?v=202610032227">
+<link rel="stylesheet" href="ortak/app.css?v=202610041620">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="ortak/menu.js?v=202610032227"></script>
+<script src="ortak/menu.js?v=202610041620"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <title>ZLD | Yönetim</title>
 <meta name="robots" content="noindex">
@@ -32,13 +32,33 @@
 
 <div class="adm" id="adm" hidden>
   <div class="tabs" role="tablist">
-    <button role="tab" aria-selected="true" data-tab="musteri">Müşteriler</button>
+    <button role="tab" aria-selected="true" data-tab="canli">Canlı durum</button>
+    <button role="tab" aria-selected="false" data-tab="musteri">Müşteriler</button>
     <button role="tab" aria-selected="false" data-tab="kampanya">Kampanya gönder</button>
     <button role="tab" aria-selected="false" data-tab="fiyat">Fiyatlar</button>
     <button role="tab" aria-selected="false" data-tab="qr">Masa QR kodları</button>
     <button role="tab" aria-selected="false" data-tab="pin">PIN değiştir</button>
   </div>
-  <div class="panel" id="tab-musteri"></div>
+  <div class="panel lv-panel" id="tab-canli">
+    <div class="lv-bar">
+      <span class="lv-dot" id="lvLive">Bağlanıyor</span>
+      <span class="lv-lock" id="lvLock"></span>
+    </div>
+    <div class="lv-sum" id="lvSum"></div>
+    <div class="lv-f" id="lvF" role="group" aria-label="Süzgeç"></div>
+    <div class="lv-board" id="lvBoard"></div>
+    <p class="note lv-links">Ekranları ayrı açmak için: <a href="garson.html" target="_blank" rel="noopener">Garson</a> <a href="mutfak.html" target="_blank" rel="noopener">Mutfak</a> <a href="kasa.html" target="_blank" rel="noopener">Kasa</a></p>
+  </div>
+  <form class="lv-pin" id="lvPin" hidden>
+    <div>
+      <h3>Değişiklik için şifre</h3>
+      <p class="note">Siparişleri değiştirmek, silmek ya da hesap kapatmak için yönetici PIN'ini tekrar girin. 10 dakika sonra kilit kendiliğinden kapanır.</p>
+      <input class="field" id="lvPinIn" type="password" inputmode="numeric" autocomplete="off" maxlength="8" aria-label="PIN">
+      <p class="err" id="lvPinErr" role="alert"></p>
+      <p style="display:flex;gap:8px;margin:12px 0 0"><button class="btn" type="submit">Kilidi aç</button><button class="btn ghost" type="button" id="lvPinX">Vazgeç</button></p>
+    </div>
+  </form>
+  <div class="panel" id="tab-musteri" hidden></div>
   <div class="panel" id="tab-kampanya" hidden>
     <form id="kampForm" class="kamp-form">
       <h3>Menüde görünen kampanya</h3>
@@ -91,12 +111,12 @@ $("pinForm").addEventListener("submit", async e => {
   if(error){ $("pinErr").textContent = /PIN/.test(error.message) ? "PIN hatalı. Tekrar deneyin." : "Sunucuya bağlanılamadı: " + error.message; return; }
   PIN = pin; members = data;
   $("pinForm").hidden = true; $("adm").hidden = false;
-  await loadPrices(); renderAll(); loadKampForm();
+  await loadPrices(); renderAll(); loadKampForm(); startLive();
 });
 document.querySelector(".tabs").addEventListener("click", e => {
   const b = e.target.closest("[data-tab]"); if(!b) return;
   document.querySelectorAll(".tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
-  ["musteri","kampanya","fiyat","qr","pin"].forEach(t => $("tab-" + t).hidden = t !== b.dataset.tab);
+  ["canli","musteri","kampanya","fiyat","qr","pin"].forEach(t => $("tab-" + t).hidden = t !== b.dataset.tab);
 });
 function renderAll(){ renderMembers(); renderSend(); renderPrices(); renderQR(); }
 function renderMembers(){
@@ -163,6 +183,122 @@ $("kampForm").addEventListener("submit", async e => {
 $("kampSil").onclick = async () => {
   if(await saveKamp("")){ $("kb").value = $("km").value = $("kt").value = ""; $("kampMsg").textContent = "Kampanya menüden kaldırıldı."; toast("Kampanya kaldırıldı"); }
 };
+/* ===== Canlı durum: tüm masalar, mutfak, garson ve Gel Al tek ekranda ===== */
+const ST_TR = {onay:"Garson onayı bekliyor", mutfak:"Mutfakta", hazir:"Hazır, servis bekliyor", servis:"Servis edildi", odendi:"Ödendi"};
+const stg = i => i.paid ? "odendi" : i.status === "onay" ? "onay" : (i.status === "yeni" || i.status === "hazirlaniyor") ? "mutfak" : i.status;
+const FILTERS = [["hepsi", "Hepsi"], ["onay", "Garson onayı"], ["mutfak", "Mutfakta"], ["hazir", "Servis bekleyen"], ["gelal", "Gel Al ve platform"], ["masa", "Masalar"]];
+let live = [], lvFilter = "hepsi", editUntil = 0, lvTimer, lockTimer;
+const editing = () => Date.now() < editUntil;
+const ageMin = iso => Math.max(0, Math.floor((Date.now() - new Date(iso)) / 60000));
+const ageTx = m => m < 1 ? "şimdi" : m < 60 ? m + " dk" : Math.floor(m / 60) + " sa " + (m % 60) + " dk";
+function dueOf(o){
+  if(o.kind === "online"){ const p = parseSlot(o.pickup_time); return p ? p.start.getTime() : null; }
+  const m = /^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})$/.exec(o.pickup_time || ""); return m ? new Date(+m[1], m[2] - 1, +m[3], +m[4], +m[5]).getTime() : null;
+}
+async function loadLive(){
+  const {data, error} = await db.from("orders").select("id,kind,masa,customer_name,customer_phone,pickup_time,note,created_at,order_items(id,product_key,name,option,price,qty,status,note,guest_id,paid,created_at)").eq("status", "acik").order("created_at");
+  $("lvLive").classList.toggle("off", !!error);
+  if(error){ $("lvBoard").innerHTML = `<p class="note">Siparişler yüklenemedi: ${esc(error.message)}</p>`; return; }
+  // platform siparişinin ödemesi platformda: durumunu "ödendi" değil mutfaktaki aşamasıyla göster
+  live = data.map(o => ({...o, items:(o.order_items || []).map(i => o.kind === "platform" ? {...i, paid:false} : i).sort((a, b) => a.created_at.localeCompare(b.created_at))}));
+  const start = new Date(); start.setHours(0, 0, 0, 0);
+  const day = await db.from("orders").select("order_items(price,qty)").eq("status", "kapandi").gte("closed_at", start.toISOString());
+  live.ciro = day.error ? null : day.data.reduce((a, o) => a + o.order_items.reduce((x, i) => x + i.price * i.qty, 0), 0);
+  live.kapanan = day.error ? 0 : day.data.length;
+  paintLive();
+}
+function paintLive(){
+  const all = live.flatMap(o => o.items.map(i => ({o, i})));
+  const n = s => all.filter(x => stg(x.i) === s).reduce((a, x) => a + x.i.qty, 0);
+  const masalar = live.filter(o => o.kind === "masa"), dis = live.filter(o => o.kind !== "masa");
+  const acik = live.reduce((a, o) => a + o.items.filter(i => !i.paid && o.kind !== "platform").reduce((x, i) => x + i.price * i.qty, 0), 0);
+  $("lvSum").innerHTML = [
+    [masalar.length, "açık masa"], [n("onay"), "ürün garson onayı bekliyor", n("onay") ? "warn" : ""],
+    [n("mutfak"), "ürün mutfakta"], [n("hazir"), "ürün servis bekliyor", n("hazir") ? "ok" : ""],
+    [dis.length, "Gel Al ve platform siparişi"], [tl(acik), "masalarda ödenmemiş"],
+    [live.ciro == null ? "?" : tl(live.ciro), `bugün kapanan ${live.kapanan} hesap`]
+  ].map(([v, l, c]) => `<div class="${c || ""}"><b>${v}</b><span>${l}</span></div>`).join("");
+  $("lvF").innerHTML = FILTERS.map(([k, l]) => `<button type="button" data-f="${k}" aria-pressed="${k === lvFilter}">${l}</button>`).join("");
+  const match = o => lvFilter === "hepsi" ? true : lvFilter === "masa" ? o.kind === "masa" : lvFilter === "gelal" ? o.kind !== "masa" : o.items.some(i => stg(i) === lvFilter);
+  const list = live.filter(match).sort((a, b) => a.kind === b.kind ? (a.kind === "masa" ? a.masa - b.masa : (dueOf(a) || 0) - (dueOf(b) || 0)) : a.kind === "masa" ? -1 : 1);
+  $("lvBoard").innerHTML = list.length ? list.map(cardHTML).join("") : `<p class="note lv-empty">${lvFilter === "hepsi" ? "Şu an açık sipariş yok. Yeni sipariş gelince burada belirir." : "Bu süzgeçte sipariş yok."}</p>`;
+  $("lvLock").innerHTML = editing()
+    ? `<span class="on">Düzenleme açık, ${Math.ceil((editUntil - Date.now()) / 60000)} dk sonra kilitlenir</span><button type="button" class="btn ghost" id="lvLockBtn">Kilitle</button>`
+    : `<button type="button" class="btn" id="lvEditBtn">Değişiklik yap</button>`;
+}
+function cardHTML(o){
+  const lab = o.kind === "masa" ? makeLabeler(o.masa, o.items) : null, ed = editing();
+  const title = o.kind === "masa" ? `Masa ${o.masa}` : o.kind === "platform" ? esc(o.customer_name || "Platform") + (o.note ? " " + esc(o.note) : "") : "Gel Al, " + esc(o.customer_name || "");
+  const due = dueOf(o), dm = due === null ? null : Math.round((due - Date.now()) / 60000);
+  const dueTx = o.kind === "masa" ? "" : o.kind === "platform" ? `Kurye ${esc((o.pickup_time || "").slice(11))}` : `Alış ${esc(slotLabel(o.pickup_time))}`;
+  const left = dm === null ? "" : dm > 0 ? `${ageTx(dm)} kaldı` : dm === 0 ? "saati geldi" : `${ageTx(-dm)} gecikti`;
+  const total = o.items.reduce((a, i) => a + i.price * i.qty, 0), unpaid = o.items.filter(i => !i.paid).reduce((a, i) => a + i.price * i.qty, 0);
+  const worst = ["onay", "hazir", "mutfak", "servis", "odendi"].find(s => o.items.some(i => stg(i) === s)) || "bos";
+  return `<article class="lv-card s-${worst}" data-o="${o.id}">
+    <header><b>${title}</b><span>${ageTx(ageMin(o.created_at))}</span></header>
+    ${dueTx ? `<p class="lv-due ${dm !== null && dm <= 15 ? "hot" : ""}">${dueTx}${left ? ", " + left : ""}</p>` : ""}
+    ${o.kind === "online" ? `<p class="lv-who">${esc(o.customer_name || "")} ${o.customer_phone ? "0" + esc(o.customer_phone.replace(/^90|^0/, "")) : ""}${o.note ? `<br>Not: ${esc(o.note)}` : ""}</p>` : ""}
+    <ul>${o.items.map(i => `<li>
+      <span class="q">${i.qty}×</span>
+      <span class="t">${esc(itemLabel(i.name, i.option))}${lab ? `<small>${esc(lab(i))}</small>` : ""}${i.note ? `<em>${esc(i.note)}</em>` : ""}</span>
+      ${ed ? `<select data-st="${i.id}" aria-label="${esc(i.name)} durumu">${[["onay","Onay bekliyor"],["yeni","Mutfakta"],["hazir","Hazır"],["servis","Servis edildi"]].map(([v, l]) => `<option value="${v}"${(i.status === v || (v === "yeni" && i.status === "hazirlaniyor")) ? " selected" : ""}>${l}</option>`).join("")}</select>
+        <button type="button" class="lv-del" data-del="${i.id}" data-name="${esc(itemLabel(i.name, i.option))}" aria-label="${esc(i.name)} sil">×</button>`
+        : `<span class="st stg-${stg(i)}">${ST_TR[stg(i)]}</span>`}
+      ${o.kind === "platform" ? "" : `<span class="lp">${tl(i.price * i.qty)}</span>`}
+    </li>`).join("") || `<li><span class="t">Henüz ürün yok</span></li>`}</ul>
+    <footer>${o.kind === "platform" ? "<span>Ödeme platformda</span>" : `<span>${unpaid !== total ? `Kalan <b>${tl(unpaid)}</b> / ${tl(total)}` : `Toplam <b>${tl(total)}</b>`}</span>`}
+      ${ed ? `${o.kind !== "platform" && unpaid ? `<button type="button" class="btn ghost" data-paid="${o.id}">Hepsi ödendi</button>` : ""}<button type="button" class="btn" data-close="${o.id}" data-t="${esc(title.replace(/<[^>]+>/g, ""))}">Kapat</button>` : ""}</footer>
+  </article>`;
+}
+function startLive(){
+  loadLive();
+  const soon = () => { clearTimeout(lvTimer); lvTimer = setTimeout(loadLive, 200); };
+  db.channel("yonetim-canli")
+    .on("postgres_changes", {event:"*", schema:"public", table:"orders"}, soon)
+    .on("postgres_changes", {event:"*", schema:"public", table:"order_items"}, soon)
+    .subscribe(st => { const ok = st === "SUBSCRIBED"; $("lvLive").classList.toggle("ok", ok); $("lvLive").textContent = ok ? "Canlı" : "Bağlanıyor"; });
+  setInterval(paintLive, 30000); setInterval(loadLive, 30000);
+}
+function lock(){ editUntil = 0; clearTimeout(lockTimer); paintLive(); }
+$("tab-canli").addEventListener("click", async e => {
+  const b = e.target.closest("button"); if(!b) return;
+  if(b.dataset.f){ lvFilter = b.dataset.f; paintLive(); return; }
+  if(b.id === "lvEditBtn"){ $("lvPin").hidden = false; $("lvPinErr").textContent = ""; $("lvPinIn").value = ""; $("lvPinIn").focus(); return; }
+  if(b.id === "lvLockBtn"){ lock(); toast("Düzenleme kilitlendi"); return; }
+  if(!editing()) return;
+  if(b.dataset.del){
+    if(!confirm(`${b.dataset.name} siparişten silinsin mi?`)) return;
+    const {error} = await db.from("order_items").delete().eq("id", b.dataset.del);
+    toast(error ? "Silinemedi, tekrar deneyin" : `${b.dataset.name} silindi`); loadLive();
+  }
+  if(b.dataset.paid){
+    if(!confirm("Bu siparişteki ödenmemiş ürünlerin hepsi ödendi olarak işaretlensin mi?")) return;
+    const {error} = await db.from("order_items").update({paid:true}).eq("order_id", b.dataset.paid).eq("paid", false);
+    toast(error ? "Kaydedilemedi, tekrar deneyin" : "Ödendi olarak işaretlendi"); loadLive();
+  }
+  if(b.dataset.close){
+    if(!confirm(`${b.dataset.t} kapatılsın mı? Kapanan sipariş garson, mutfak ve kasa ekranlarından kalkar.`)) return;
+    const {error} = await db.from("orders").update({status:"kapandi", closed_at:new Date().toISOString()}).eq("id", b.dataset.close);
+    toast(error ? "Kapatılamadı, tekrar deneyin" : `${b.dataset.t} kapatıldı`); loadLive();
+  }
+});
+$("tab-canli").addEventListener("change", async e => {
+  const sel = e.target.closest("select[data-st]"); if(!sel || !editing()) return;
+  sel.disabled = true;
+  const {error} = await db.from("order_items").update({status:sel.value}).eq("id", sel.dataset.st);
+  toast(error ? "Kaydedilemedi, tekrar deneyin" : "Durum güncellendi"); loadLive();
+});
+$("lvPinX").onclick = () => $("lvPin").hidden = true;
+$("lvPin").addEventListener("submit", async e => {
+  e.preventDefault();
+  const pin = $("lvPinIn").value.trim();
+  const {error} = await db.rpc("staff_members", {pin});
+  if(error){ $("lvPinErr").textContent = "PIN hatalı. Tekrar deneyin."; return; }
+  $("lvPin").hidden = true; editUntil = Date.now() + 600000;
+  clearTimeout(lockTimer); lockTimer = setTimeout(() => { lock(); toast("Düzenleme 10 dakika dolduğu için kilitlendi"); }, 600000);
+  paintLive(); toast("Düzenleme açık");
+});
+
 $("tab-pin").addEventListener("submit", async e => {
   e.preventDefault();
   const a = $("p1").value.trim(), b = $("p2").value.trim();

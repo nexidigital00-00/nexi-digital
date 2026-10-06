@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nexi Digital | AI consulting and training for restaurants, cafés and real estate offices</title>
-<meta name="description" content="I set up working AI systems inside restaurants, cafés and real estate offices, and teach their teams to use them. Discovery Day from 7,500 TRY. On-site in Sakarya, online across Turkey.">
+<title>Nexi Digital | AI consulting and team training for SMEs</title>
+<meta name="description" content="For mid-sized and larger SMEs: we define the problem together first, then I set up a working AI solution beside you and train your team. On-site in Sakarya, online across Turkey.">
 <meta name="theme-color" content="#F5F6FA" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1024" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nexi Digital">
-<meta property="og:title" content="Nexi Digital: AI, set up right beside your team">
-<meta property="og:description" content="I set up working AI systems inside restaurants, cafés and real estate offices, and teach their teams to use them. Discovery Day from 7,500 TRY. On-site in Sakarya, online across Turkey.">
+<meta property="og:title" content="Nexi Digital: I find your problem and solve it with AI, beside you">
+<meta property="og:description" content="For mid-sized and larger SMEs: we define the problem together first, then I set up a working AI solution beside you and train your team. On-site in Sakarya, online across Turkey.">
 <meta property="og:url" content="https://nexidigitalai.com/en.html">
 <meta property="og:image" content="https://nexidigitalai.com/img/og-en.png">
 <meta property="og:image:width" content="1200">
@@ -314,6 +314,11 @@
     transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
   }
   .svc-estate { --accent: var(--tang); }
+  .svc-any { grid-column: span 12; --accent: var(--blue); }
+  .secCols.secCols3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .anySteps ol { list-style: none; margin: 0; padding: 0; counter-reset: a; }
+  .anySteps li { counter-increment: a; position: relative; padding: 10px 0 10px 34px; border-top: 1px solid var(--line); font-size: 0.97rem; }
+  .svc .anySteps li::before { content: counter(a); border: 0; transform: none; position: absolute; left: 0; top: 9px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 0.75rem; font-weight: 700; color: #0F1633; background: var(--sun); }
   .svc::before {
     content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0; transition: opacity 0.4s var(--ease);
     background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
@@ -531,6 +536,7 @@
   @media (max-width: 1020px) {
     .heroGrid, .workHead, .what, .faqLead, .contact, .about, .edu { grid-template-columns: minmax(0, 1fr); }
     .svc { grid-column: span 12; }
+    .secCols.secCols3 { grid-template-columns: minmax(0, 1fr); }
     .packs { grid-template-columns: minmax(0, 1fr); }
     .edu { gap: 56px; }
     .shorts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -579,7 +585,7 @@
     .kHead em { font-size: 0.64rem; padding: 2px 7px; }
     .scene { padding: 16px; }
     .svc { padding: 28px 22px 24px; }
-    .secCols { grid-template-columns: minmax(0, 1fr); }
+    .secCols, .secCols.secCols3 { grid-template-columns: minmax(0, 1fr); }
     .cmpRow span { padding: 14px; font-size: 0.92rem; }
     .cmpHead span { font-size: 0.7rem; }
     .indiv { flex-wrap: wrap; padding: 18px; gap: 12px; }
@@ -619,8 +625,8 @@
   <section class="hero" aria-labelledby="heroTitle">
     <div class="wrap heroGrid">
       <div class="heroText">
-        <h1 id="heroTitle">I set up AI right beside you, for restaurants, cafés and real estate offices.</h1>
-        <p class="heroLede">Working systems, not slide decks. Consulting and team training; on-site in Sakarya, online across Turkey.</p>
+        <h1 id="heroTitle">I find your business's problem and solve it with AI, right beside you.</h1>
+        <p class="heroLede">Consulting and team training for mid-sized and larger SMEs. We define the problem together first, then build a working solution. On-site in Sakarya, online across Turkey.</p>
         <div class="ctaRow">
           <a class="btn btnPrimary" href="#iletisim">Book a free call<span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M6 4h6v6"/></svg></span></a>
           <a class="textLink" href="#paketler">See packages</a>
@@ -685,12 +691,12 @@
 
   <section class="wrap block" id="hizmetler" aria-labelledby="secTitle">
     <div class="sectionHead rv">
-      <h2 id="secTitle">Two sectors I know up close</h2>
-      <p class="lede">I don't sell every business the same tool. I know where the hours go in food service and real estate, and I start there.</p>
+      <h2 id="secTitle">The problem matters more than the sector</h2>
+      <p class="lede">I don't sell every business the same tool. So far I've worked in food service and real estate; below is what I built. If your sector is different, the method is the same: we define your problem together first.</p>
     </div>
     <div class="bento">
       <article class="svc svc-food" aria-labelledby="secFoodT">
-        <div class="svcTop"><h3 id="secFoodT">Restaurants and cafés</h3><p class="for"><span class="forTag">Food service</span></p></div>
+        <div class="svcTop"><h3 id="secFoodT">Restaurants and cafés</h3><p class="for"><span class="forTag">Where I've worked</span></p></div>
         <div class="secCols">
           <div><p class="listLabel">What I often see</p><ul class="probs"><li>Orders get lost in WhatsApp</li><li>Menu and prices updated by hand</li><li>Past customers never hear back</li></ul></div>
           <div><p class="listLabel">What I build</p><ul><li>QR menu and table ordering</li><li>Kitchen, waiter and till screens</li><li>Customer lists and offer messages</li></ul></div>
@@ -698,12 +704,22 @@
         <a class="textLink" href="#isler">See the live café system</a>
       </article>
       <article class="svc svc-estate" aria-labelledby="secEstateT">
-        <div class="svcTop"><h3 id="secEstateT">Real estate offices</h3><p class="for"><span class="forTag">Real estate</span></p></div>
+        <div class="svcTop"><h3 id="secEstateT">Real estate offices</h3><p class="for"><span class="forTag">Where I've worked</span></p></div>
         <div class="secCols">
           <div><p class="listLabel">What I often see</p><ul class="probs"><li>Copy and photos redone for every listing</li><li>Social accounts sit idle for weeks</li><li>Replies to clients run late</li></ul></div>
           <div><p class="listLabel">What I build</p><ul><li>Listing copy and vertical video from photos</li><li>A weekly posting calendar</li><li>A WhatsApp assistant for common questions</li></ul></div>
         </div>
         <a class="textLink" href="#iletisim" data-pick="kesif">Ask for a Discovery Day for your office</a>
+      </article>
+      <article class="svc svc-any" aria-labelledby="secAnyT">
+        <div class="svcTop"><h3 id="secAnyT">Your sector</h3><p class="for"><span class="forTag">Manufacturing, retail, health, education, services</span></p></div>
+        <p class="svcText">In mid-sized and larger SMEs the problems look more alike than the sectors: repeated manual work, scattered customer requests, reports that take hours. Tell me your problem and we'll assess it together.</p>
+        <div class="secCols secCols3">
+          <div><p class="listLabel">What I often see</p><ul class="probs"><li>Quotes, invoices and reports made by hand</li><li>Customer requests scattered across email and WhatsApp</li><li>The team uses AI not at all, or at random</li></ul></div>
+          <div><p class="listLabel">What I build</p><ul><li>Quote and report automation</li><li>Request intake and a reply assistant</li><li>A tailored way for the team to use AI</li></ul></div>
+          <div class="anySteps"><p class="listLabel">How we start</p><ol><li>We define the problem together on a first call</li><li>We discuss the solution that fits it</li><li>If it makes sense, I build it and train the team</li></ol></div>
+        </div>
+        <a class="textLink" href="#iletisim" data-pick="emin">Tell me your problem</a>
       </article>
     </div>
     <a class="indiv rv" href="#egitim">
@@ -719,9 +735,9 @@
       <p class="whatBig"><span class="fill">I don't present and leave. <strong>I sit down beside your business, set up a working system and teach your team.</strong></span></p>
     </div>
     <ol class="steps">
-      <li><h3>Discovery Day</h3><p>I map your week, find where time is lost and set up the first automation the same day.</p><span class="stepTag">From 7,500 TRY</span></li>
-      <li><h3>Setup</h3><p>I build a working system for the job that eats the most hours, and we test it on real orders and listings.</p></li>
-      <li><h3>Team training</h3><p>I teach the people who will use it, hands-on. Nobody ends up depending on me.</p></li>
+      <li><h3>First call</h3><p>In 20 minutes I listen to your problem and we define together what can be solved.</p><span class="stepTag">Free</span></li>
+      <li><h3>Discovery Day</h3><p>I map the problem on-site, pin down the solution and set up the first automation the same day.</p></li>
+      <li><h3>Setup and training</h3><p>I build the working system and teach the people who will use it, hands-on. Nobody ends up depending on me.</p></li>
       <li><h3>Follow-up</h3><p>We measure the hours saved together and change what doesn't work.</p></li>
     </ol>
     <div class="compare rv" role="table" aria-label="Classic consulting compared with my approach">
@@ -901,7 +917,7 @@
         <div class="fit">
           <div>
             <h3 class="fitYes">We're a good fit if</h3>
-            <ul class="fitList yes"><li>You run a restaurant, café or real estate office.</li><li>You're tired of doing the same job by hand every week.</li><li>Your team has a few hours to learn something new.</li></ul>
+            <ul class="fitList yes"><li>You run a mid-sized or larger SME.</li><li>You're tired of doing the same job by hand every week.</li><li>Your team has a few hours to learn something new.</li></ul>
           </div>
           <div>
             <h3 class="fitNo">I'm not the right person if</h3>
@@ -927,7 +943,7 @@
         <div><h3>What happens to my customer data?</h3><p>Data is used only for your business, in your own accounts, and is never shared with third parties. We prepare KVKK-compliant notices and consent steps together during setup.</p></div>
         <div><h3>Which tools do you use?</h3><p>It depends on the job: AI models like Claude and ChatGPT, WhatsApp Business, Google tools and, when needed, small web apps built for you. Licences and accounts are opened in your name.</p></div>
         <div><h3>When does the monthly fee end?</h3><p>Whenever you like. Monthly Support runs month to month, with no commitment. The systems stay with you when you leave.</p></div>
-        <div><h3>What if I don't continue after the Discovery Day?</h3><p>That's fine. The automation set up that day and the 30-day roadmap stay with you; you can carry them out with your own team.</p></div>
+        <div><h3>Have you worked in my sector before?</h3><p>So far I've worked in food service and real estate. But my method looks at the problem, not the sector: on the first call I listen and tell you plainly what can be built. If AI doesn't fit your problem, I'll tell you that too.</p></div>
       </div>
     </section>
 
@@ -935,7 +951,7 @@
       <div class="contact rv">
         <div class="contactSide">
           <h2 id="contactTitle">Let's talk for 20 minutes first</h2>
-          <p>The first call is free. I listen to how your business runs and we see together which step makes sense.</p>
+          <p>The first call is free. We define your problem together first, then talk about what kind of solution we can build.</p>
           <ul class="contactList">
             <li>A reply within one business day</li>
             <li>A clear quote at the end of the call</li>
@@ -959,13 +975,13 @@
             </fieldset>
             <div class="formRow">
               <label class="field">Full name<input type="text" name="name" required autocomplete="name" placeholder="Your full name"></label>
-              <label class="field">Business name<input type="text" name="business" required autocomplete="organization" placeholder="e.g. Lezzet Café"></label>
+              <label class="field">Business name<input type="text" name="business" required autocomplete="organization" placeholder="e.g. Yıldız Makina"></label>
             </div>
             <div class="formRow">
               <label class="field">Email<input type="email" name="email" required autocomplete="email" placeholder="you@example.com"></label>
               <label class="field"><span>Phone <small>(optional)</small></span><input type="tel" name="phone" autocomplete="tel" placeholder="+90 5xx xxx xx xx"></label>
             </div>
-            <label class="field"><span>Tell me a bit <small>(optional)</small></span><textarea name="message" rows="3" placeholder="What takes up most of your week?"></textarea></label>
+            <label class="field"><span>Tell me a bit <small>(optional)</small></span><textarea name="message" rows="3" placeholder="Which problem wears you down the most?"></textarea></label>
             <button type="submit" class="btn btnPrimary">Book a free call</button>
             <p class="formNote" id="formNote" role="status"></p>
           </form>

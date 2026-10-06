@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nexi Digital | Restoran, cafe ve emlak ofisleri için yapay zeka danışmanlığı ve eğitimi</title>
-<meta name="description" content="Restoran, cafe ve emlak ofislerinin yanında çalışan yapay zeka sistemleri kuruyor, ekiplerine kullanmayı öğretiyorum. Keşif Günü 7.500 ₺'den. Sakarya'da yerinde, Türkiye'de online.">
+<title>Nexi Digital | KOBİ'ler için yapay zeka danışmanlığı ve ekip eğitimi</title>
+<meta name="description" content="Orta ve büyük ölçekli KOBİ'lerde önce sorunu birlikte belirliyor, sonra yapay zekayla çalışan çözümü yanınızda kuruyor ve ekibinize öğretiyorum. Sakarya'da yerinde, Türkiye'de online.">
 <meta name="theme-color" content="#F5F6FA" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1024" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nexi Digital">
-<meta property="og:title" content="Nexi Digital: Yapay zekayı işletmenizin yanında kuruyorum">
-<meta property="og:description" content="Restoran, cafe ve emlak ofislerinin yanında çalışan yapay zeka sistemleri kuruyor, ekiplerine kullanmayı öğretiyorum. Keşif Günü 7.500 ₺'den. Sakarya'da yerinde, Türkiye'de online.">
+<meta property="og:title" content="Nexi Digital: Sorununuzu bulup yapay zekayla yanınızda çözüyorum">
+<meta property="og:description" content="Orta ve büyük ölçekli KOBİ'lerde önce sorunu birlikte belirliyor, sonra yapay zekayla çalışan çözümü yanınızda kuruyor ve ekibinize öğretiyorum. Sakarya'da yerinde, Türkiye'de online.">
 <meta property="og:url" content="https://nexidigitalai.com/">
 <meta property="og:image" content="https://nexidigitalai.com/img/og-tr.png">
 <meta property="og:image:width" content="1200">
@@ -314,6 +314,11 @@
     transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
   }
   .svc-estate { --accent: var(--tang); }
+  .svc-any { grid-column: span 12; --accent: var(--blue); }
+  .secCols.secCols3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .anySteps ol { list-style: none; margin: 0; padding: 0; counter-reset: a; }
+  .anySteps li { counter-increment: a; position: relative; padding: 10px 0 10px 34px; border-top: 1px solid var(--line); font-size: 0.97rem; }
+  .svc .anySteps li::before { content: counter(a); border: 0; transform: none; position: absolute; left: 0; top: 9px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 0.75rem; font-weight: 700; color: #0F1633; background: var(--sun); }
   .svc::before {
     content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0; transition: opacity 0.4s var(--ease);
     background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
@@ -531,6 +536,7 @@
   @media (max-width: 1020px) {
     .heroGrid, .workHead, .what, .faqLead, .contact, .about, .edu { grid-template-columns: minmax(0, 1fr); }
     .svc { grid-column: span 12; }
+    .secCols.secCols3 { grid-template-columns: minmax(0, 1fr); }
     .packs { grid-template-columns: minmax(0, 1fr); }
     .edu { gap: 56px; }
     .shorts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -579,7 +585,7 @@
     .kHead em { font-size: 0.64rem; padding: 2px 7px; }
     .scene { padding: 16px; }
     .svc { padding: 28px 22px 24px; }
-    .secCols { grid-template-columns: minmax(0, 1fr); }
+    .secCols, .secCols.secCols3 { grid-template-columns: minmax(0, 1fr); }
     .cmpRow span { padding: 14px; font-size: 0.92rem; }
     .cmpHead span { font-size: 0.7rem; }
     .indiv { flex-wrap: wrap; padding: 18px; gap: 12px; }
@@ -619,8 +625,8 @@
   <section class="hero" aria-labelledby="heroTitle">
     <div class="wrap heroGrid">
       <div class="heroText">
-        <h1 id="heroTitle">Restoran, cafe ve emlak ofislerine yapay zekayı yanınızda kuruyorum.</h1>
-        <p class="heroLede">Sunum değil, çalışan sistem. Danışmanlık ve ekip eğitimi; Sakarya'da yerinde, Türkiye'de online.</p>
+        <h1 id="heroTitle">İşletmenizin sorununu bulup yapay zekayla yanınızda çözüyorum.</h1>
+        <p class="heroLede">Orta ve büyük ölçekli KOBİ'lere danışmanlık ve ekip eğitimi. Önce sorunu birlikte belirliyor, sonra çalışan çözümü kuruyoruz. Sakarya'da yerinde, Türkiye'de online.</p>
         <div class="ctaRow">
           <a class="btn btnPrimary" href="#iletisim">Ön görüşme iste<span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M6 4h6v6"/></svg></span></a>
           <a class="textLink" href="#paketler">Paketleri gör</a>
@@ -685,12 +691,12 @@
 
   <section class="wrap block" id="hizmetler" aria-labelledby="secTitle">
     <div class="sectionHead rv">
-      <h2 id="secTitle">İki sektörü yakından tanıyorum</h2>
-      <p class="lede">Her işletmeye aynı aracı satmıyorum. Yeme-içme ve emlakta en çok zamanın nereye gittiğini biliyorum ve oradan başlıyorum.</p>
+      <h2 id="secTitle">Sektör değil, sorun önemli</h2>
+      <p class="lede">Her işletmeye aynı aracı satmıyorum. Şimdiye kadar yeme-içme ve emlakta çalıştım; aşağıda neler kurduğumu görebilirsiniz. Sektörünüz farklıysa yöntem aynı: önce sorununuzu birlikte belirliyoruz.</p>
     </div>
     <div class="bento">
       <article class="svc svc-food" aria-labelledby="secFoodT">
-        <div class="svcTop"><h3 id="secFoodT">Restoran ve cafeler</h3><p class="for"><span class="forTag">Yeme-içme</span></p></div>
+        <div class="svcTop"><h3 id="secFoodT">Restoran ve cafeler</h3><p class="for"><span class="forTag">Çalıştığım alan</span></p></div>
         <div class="secCols">
           <div><p class="listLabel">Sık gördüğüm</p><ul class="probs"><li>Siparişler WhatsApp'ta kayboluyor</li><li>Menü ve fiyat elle güncelleniyor</li><li>Gelen müşteri bir daha aranmıyor</li></ul></div>
           <div><p class="listLabel">Kurduğum</p><ul><li>QR menü ve masadan sipariş</li><li>Mutfak, garson ve kasa ekranları</li><li>Müşteri listesi ve kampanya mesajları</li></ul></div>
@@ -698,12 +704,22 @@
         <a class="textLink" href="#isler">Canlı cafe sistemini incele</a>
       </article>
       <article class="svc svc-estate" aria-labelledby="secEstateT">
-        <div class="svcTop"><h3 id="secEstateT">Emlak ofisleri</h3><p class="for"><span class="forTag">Emlak</span></p></div>
+        <div class="svcTop"><h3 id="secEstateT">Emlak ofisleri</h3><p class="for"><span class="forTag">Çalıştığım alan</span></p></div>
         <div class="secCols">
           <div><p class="listLabel">Sık gördüğüm</p><ul class="probs"><li>Her ilan için metin ve görsel baştan</li><li>Sosyal medya haftalarca boş kalıyor</li><li>Müşteriye geri dönüş gecikiyor</li></ul></div>
           <div><p class="listLabel">Kurduğum</p><ul><li>Fotoğraftan ilan metni ve dikey video</li><li>Haftalık paylaşım takvimi</li><li>Sık sorulara WhatsApp yanıt asistanı</li></ul></div>
         </div>
         <a class="textLink" href="#iletisim" data-pick="kesif">Ofisiniz için Keşif Günü isteyin</a>
+      </article>
+      <article class="svc svc-any" aria-labelledby="secAnyT">
+        <div class="svcTop"><h3 id="secAnyT">Sizin sektörünüz</h3><p class="for"><span class="forTag">Üretim, perakende, sağlık, eğitim, hizmet</span></p></div>
+        <p class="svcText">Orta ve büyük ölçekli KOBİ'lerde sorunlar sektörden çok birbirine benziyor: elle yapılan tekrar eden işler, dağınık müşteri talepleri, saatler alan raporlar. Sorununuzu anlatın, birlikte değerlendirelim.</p>
+        <div class="secCols secCols3">
+          <div><p class="listLabel">Sık gördüğüm</p><ul class="probs"><li>Teklif, fatura ve raporlar elle hazırlanıyor</li><li>Müşteri talepleri e-posta ve WhatsApp'ta dağılıyor</li><li>Ekip yapay zekayı ya hiç ya da rastgele kullanıyor</li></ul></div>
+          <div><p class="listLabel">Kurduğum</p><ul><li>Teklif ve rapor otomasyonu</li><li>Talep toplama ve yanıt asistanı</li><li>Ekibe özel yapay zeka kullanım düzeni</li></ul></div>
+          <div class="anySteps"><p class="listLabel">Nasıl başlıyoruz</p><ol><li>Ön görüşmede sorunu birlikte belirliyoruz</li><li>Soruna uygun çözümü konuşuyoruz</li><li>Mantıklıysa kuruyor ve ekibe öğretiyorum</li></ol></div>
+        </div>
+        <a class="textLink" href="#iletisim" data-pick="emin">Sorununuzu anlatın</a>
       </article>
     </div>
     <a class="indiv rv" href="#egitim">
@@ -719,9 +735,9 @@
       <p class="whatBig"><span class="fill">Sunum yapıp gitmiyorum. <strong>İşletmenizin yanına oturuyor, çalışan sistemi kuruyor ve ekibinize öğretiyorum.</strong></span></p>
     </div>
     <ol class="steps">
-      <li><h3>Keşif Günü</h3><p>Haftanızı çıkarıyor, zaman kaybını buluyor ve aynı gün ilk otomasyonu kuruyorum.</p><span class="stepTag">7.500 ₺'den</span></li>
-      <li><h3>Kurulum</h3><p>En çok saat yiyen iş için çalışan sistemi kuruyor, gerçek siparişler ve ilanlarla deniyoruz.</p></li>
-      <li><h3>Ekip eğitimi</h3><p>Sistemi kullanacak kişilere uygulamalı öğretiyorum. Kimse bana bağımlı kalmıyor.</p></li>
+      <li><h3>Ön görüşme</h3><p>20 dakikada sorununuzu dinliyor, neyin çözülebileceğini birlikte belirliyoruz.</p><span class="stepTag">Ücretsiz</span></li>
+      <li><h3>Keşif Günü</h3><p>Sorunun yerinde haritasını çıkarıyor, çözümü netleştiriyor ve aynı gün ilk otomasyonu kuruyorum.</p></li>
+      <li><h3>Kurulum ve eğitim</h3><p>Çalışan sistemi kuruyor, kullanacak kişilere uygulamalı öğretiyorum. Kimse bana bağımlı kalmıyor.</p></li>
       <li><h3>Takip</h3><p>Kazanılan saati birlikte ölçüyor, işe yaramayanı değiştiriyoruz.</p></li>
     </ol>
     <div class="compare rv" role="table" aria-label="Klasik danışmanlık ile benim yaklaşımımın karşılaştırması">
@@ -901,7 +917,7 @@
         <div class="fit">
           <div>
             <h3 class="fitYes">Birlikte çalışmamız mantıklı, eğer</h3>
-            <ul class="fitList yes"><li>Restoran, cafe ya da emlak ofisi işletiyorsanız.</li><li>Aynı işi her hafta elle yapmaktan yorulduysanız.</li><li>Ekibinizin yeni bir şeyi öğrenmeye birkaç saati varsa.</li></ul>
+            <ul class="fitList yes"><li>Orta ya da büyük ölçekli bir KOBİ yönetiyorsanız.</li><li>Aynı işi her hafta elle yapmaktan yorulduysanız.</li><li>Ekibinizin yeni bir şeyi öğrenmeye birkaç saati varsa.</li></ul>
           </div>
           <div>
             <h3 class="fitNo">Doğru adres değilim, eğer</h3>
@@ -927,7 +943,7 @@
         <div><h3>Müşteri verilerim ne oluyor?</h3><p>Veriler yalnızca sizin işiniz için, sizin hesaplarınızda kullanılır ve üçüncü kişiyle paylaşılmaz. KVKK'ya uygun aydınlatma metni ve onay adımlarını kurulumda birlikte hazırlıyoruz.</p></div>
         <div><h3>Hangi araçları kullanıyorsunuz?</h3><p>İşe göre seçiyorum: Claude ve ChatGPT gibi yapay zeka modelleri, WhatsApp Business, Google araçları ve gerektiğinde size özel küçük web uygulamaları. Lisans ve hesaplar sizin adınıza açılır.</p></div>
         <div><h3>Aylık ücret ne zaman biter?</h3><p>İstediğiniz zaman. Aylık Yanınızda paketi ay ay devam eder, taahhüt yok. Kurulan sistemler ayrıldığınızda da sizde kalır.</p></div>
-        <div><h3>Keşif Günü'nden sonra devam etmezsem?</h3><p>Sorun değil. O gün kurulan otomasyon ve 30 günlük yol haritası sizde kalır; isterseniz kendi ekibinizle uygularsınız.</p></div>
+        <div><h3>Benim sektörümde daha önce çalıştınız mı?</h3><p>Şimdiye kadar yeme-içme ve emlakta çalıştım. Ama yöntemim sektöre değil soruna bakıyor: ön görüşmede sorununuzu dinliyor, neyin kurulabileceğini açıkça söylüyorum. Yapay zeka sizin sorununuza uygun değilse onu da söylüyorum.</p></div>
       </div>
     </section>
 
@@ -935,7 +951,7 @@
       <div class="contact rv">
         <div class="contactSide">
           <h2 id="contactTitle">Önce 20 dakika konuşalım</h2>
-          <p>Ön görüşme ücretsiz. İşletmenizi dinliyor, hangi adımın mantıklı olduğunu birlikte görüyoruz.</p>
+          <p>Ön görüşme ücretsiz. Önce sorununuzu birlikte belirliyoruz, sonra ona nasıl bir çözüm kurabileceğimizi konuşuyoruz.</p>
           <ul class="contactList">
             <li>En geç bir iş günü içinde dönüş</li>
             <li>Görüşme sonunda net teklif</li>
@@ -959,13 +975,13 @@
             </fieldset>
             <div class="formRow">
               <label class="field">Ad soyad<input type="text" name="name" required autocomplete="name" placeholder="Adınız soyadınız"></label>
-              <label class="field">İşletme adı<input type="text" name="business" required autocomplete="organization" placeholder="Örn. Lezzet Cafe"></label>
+              <label class="field">İşletme adı<input type="text" name="business" required autocomplete="organization" placeholder="Örn. Yıldız Makina"></label>
             </div>
             <div class="formRow">
               <label class="field">E-posta<input type="email" name="email" required autocomplete="email" placeholder="siz@ornek.com"></label>
               <label class="field"><span>Telefon <small>(isteğe bağlı)</small></span><input type="tel" name="phone" autocomplete="tel" placeholder="05xx xxx xx xx"></label>
             </div>
-            <label class="field"><span>Kısaca anlatın <small>(isteğe bağlı)</small></span><textarea name="message" rows="3" placeholder="Haftanızda en çok neye zaman gidiyor?"></textarea></label>
+            <label class="field"><span>Kısaca anlatın <small>(isteğe bağlı)</small></span><textarea name="message" rows="3" placeholder="Sizi en çok hangi sorun yoruyor?"></textarea></label>
             <button type="submit" class="btn btnPrimary">Ön görüşme iste</button>
             <p class="formNote" id="formNote" role="status"></p>
           </form>

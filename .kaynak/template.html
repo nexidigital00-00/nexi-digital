@@ -314,6 +314,11 @@
     transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
   }
   .svc-estate { --accent: var(--tang); }
+  .svc-any { grid-column: span 12; --accent: var(--blue); }
+  .secCols.secCols3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .anySteps ol { list-style: none; margin: 0; padding: 0; counter-reset: a; }
+  .anySteps li { counter-increment: a; position: relative; padding: 10px 0 10px 34px; border-top: 1px solid var(--line); font-size: 0.97rem; }
+  .svc .anySteps li::before { content: counter(a); border: 0; transform: none; position: absolute; left: 0; top: 9px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 0.75rem; font-weight: 700; color: #0F1633; background: var(--sun); }
   .svc::before {
     content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0; transition: opacity 0.4s var(--ease);
     background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
@@ -531,6 +536,7 @@
   @media (max-width: 1020px) {
     .heroGrid, .workHead, .what, .faqLead, .contact, .about, .edu { grid-template-columns: minmax(0, 1fr); }
     .svc { grid-column: span 12; }
+    .secCols.secCols3 { grid-template-columns: minmax(0, 1fr); }
     .packs { grid-template-columns: minmax(0, 1fr); }
     .edu { gap: 56px; }
     .shorts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -579,7 +585,7 @@
     .kHead em { font-size: 0.64rem; padding: 2px 7px; }
     .scene { padding: 16px; }
     .svc { padding: 28px 22px 24px; }
-    .secCols { grid-template-columns: minmax(0, 1fr); }
+    .secCols, .secCols.secCols3 { grid-template-columns: minmax(0, 1fr); }
     .cmpRow span { padding: 14px; font-size: 0.92rem; }
     .cmpHead span { font-size: 0.7rem; }
     .indiv { flex-wrap: wrap; padding: 18px; gap: 12px; }
@@ -704,6 +710,16 @@
           <div><p class="listLabel">[[buildLabel]]</p><ul><li>[[estateB1]]</li><li>[[estateB2]]</li><li>[[estateB3]]</li></ul></div>
         </div>
         <a class="textLink" href="#iletisim" data-pick="kesif">[[estateLink]]</a>
+      </article>
+      <article class="svc svc-any" aria-labelledby="secAnyT">
+        <div class="svcTop"><h3 id="secAnyT">[[anyT]]</h3><p class="for"><span class="forTag">[[anyTag]]</span></p></div>
+        <p class="svcText">[[anyP]]</p>
+        <div class="secCols secCols3">
+          <div><p class="listLabel">[[probLabel]]</p><ul class="probs"><li>[[any1]]</li><li>[[any2]]</li><li>[[any3]]</li></ul></div>
+          <div><p class="listLabel">[[buildLabel]]</p><ul><li>[[anyB1]]</li><li>[[anyB2]]</li><li>[[anyB3]]</li></ul></div>
+          <div class="anySteps"><p class="listLabel">[[anyHowLabel]]</p><ol><li>[[anyH1]]</li><li>[[anyH2]]</li><li>[[anyH3]]</li></ol></div>
+        </div>
+        <a class="textLink" href="#iletisim" data-pick="emin">[[anyLink]]</a>
       </article>
     </div>
     <a class="indiv rv" href="#egitim">

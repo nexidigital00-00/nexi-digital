@@ -1,6 +1,6 @@
 {
-  "name": "Zeynep Lezzet Gel Al",
-  "short_name": "ZLD Gel Al",
+  "name": "Gel Al",
+  "short_name": "Gel Al",
   "description": "Sipariş verin, geleceğiniz saati seçin, dükkândan hazır teslim alın. Paket servisi yoktur.",
   "lang": "tr",
   "start_url": "siparis.html?kaynak=uygulama",

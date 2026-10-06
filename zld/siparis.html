@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="tr">
 <head>
-<meta name="zld-surum" content="202610041620">
+<meta name="zld-surum" content="202610062014">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#12443f">
@@ -9,22 +9,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@500;700;800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="ortak/app.css?v=202610041620">
+<link rel="stylesheet" href="ortak/app.css?v=202610062014">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="ortak/menu.js?v=202610041620"></script>
+<script src="ortak/menu.js?v=202610062014"></script>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<title>Zeynep Lezzet Durağı | Gel Al</title>
+<title>Örnek Kafe | Gel Al</title>
 <meta name="robots" content="noindex">
-<meta name="description" content="Siparişinizi önceden verin, saatinizi seçin, Zeynep Lezzet Durağı'ndan hazır teslim alın.">
+<meta name="description" content="Siparişinizi önceden verin, saatinizi seçin, dükkândan hazır teslim alın.">
 </head>
 <body>
 <div class="wrap">
   <header class="top">
     <div class="brand">
-      <img src="logo.png" alt="Zeynep Lezzet Durağı logosu" width="68" height="68">
+      <img src="logo.png" alt="" width="68" height="68">
       <div>
-        <h1>Zeynep Lezzet Durağı</h1>
+        <h1>Örnek Kafe</h1>
         <p>Gel Al siparişi</p>
       </div>
     </div>
@@ -64,7 +64,7 @@
           <input id="jn" type="text" autocomplete="name" placeholder="Ayşe Yılmaz">
           <label for="jp">Telefon</label>
           <input id="jp" type="tel" inputmode="tel" autocomplete="tel" placeholder="05xx xxx xx xx">
-          <label class="consent"><input id="jc" type="checkbox"> <span>Kampanya ve indirimlerden WhatsApp/SMS ile haberdar olmak için adımın ve telefonumun Zeynep Lezzet Durağı tarafından saklanmasına <a href="kvkk.html#riza" target="_blank">açık rıza</a> veriyorum.</span></label>
+          <label class="consent"><input id="jc" type="checkbox"> <span>Kampanya ve indirimlerden WhatsApp/SMS ile haberdar olmak için adımın ve telefonumun işletme tarafından saklanmasına <a href="kvkk.html#riza" target="_blank">açık rıza</a> veriyorum.</span></label>
           <p class="err" id="jerr" role="alert"></p>
           <button class="btn-gold" type="submit">Kampanyalara katıl</button>
         </form>
@@ -73,7 +73,6 @@
 
       <footer class="foot">
         <p>Borcam kapları için 500 TL, baklava tepsileri için 200 TL depozito alınır. Kabı geri getirdiğinizde depozito iade edilir.</p>
-        <p><a href="https://wa.me/905444628015">WhatsApp: 0544 462 80 15</a> &nbsp; <a href="https://instagram.com/zeyneplezzetduragi">Instagram</a></p>
         <p class="foot-eve">Eve teslimat: <span id="footEve"></span></p>
       </footer>
   </main>
@@ -119,7 +118,7 @@
         <p class="dep" id="leadNote"></p>
       </fieldset>
 
-      <p class="pickup-warn">Bu sipariş adrese getirilmez. Seçtiğiniz saatte <b>Zeynep Lezzet Durağı'na gelip kendiniz alırsınız.</b></p>
+      <p class="pickup-warn">Bu sipariş adrese getirilmez. Seçtiğiniz saatte <b>dükkâna gelip kendiniz alırsınız.</b></p>
       <label for="on">Adınız</label>
       <input id="on" type="text" autocomplete="name">
       <label for="op">Telefonunuz</label>
@@ -288,6 +287,7 @@ function paintStatus(o){
   $("steps").querySelectorAll("li").forEach((li, i) => { li.className = i < idx ? "done" : i === idx ? "now" : ""; });
   const total = o.order_items.reduce((a, i) => a + i.price * i.qty, 0);
   $("okText").innerHTML = o.order_items.map(i => `${i.qty} × ${esc(itemLabel(i.name, i.option))}`).join("<br>") + `<br><b>Toplam ${tl(total)}</b>, ödeme teslimde.`;
+  $("okWa").hidden = !ZLD.WA; $("okWa").style.display = ZLD.WA ? "" : "none";
   $("okWa").href = `https://wa.me/${ZLD.WA}?text=${encodeURIComponent(`Merhaba, ${o.customer_name} adına ${slotLabel(o.pickup_time)} arası gel al siparişim var.`)}`;
 }
 async function showStatus(id){
@@ -314,7 +314,7 @@ $("okBack").onclick = () => { closeSheet(); $("okBox").hidden = true; $("orderFo
 
 $("gheroSteps").innerHTML = GELAL_ADIM;
 $("eve").innerHTML = teslimatHTML();
-$("gheroMap").href = $("okMap").href = ZLD.HARITA;
+if(ZLD.HARITA){ $("gheroMap").href = $("okMap").href = ZLD.HARITA; } else { $("gheroMap").style.display = $("okMap").style.display = "none"; }
 view.render(); updateBar();
 loadPrices().then(() => { view.render(); updateBar(); });
 watchPrices(() => { view.render(); updateBar(); });
@@ -330,7 +330,7 @@ function paintInstall(){
   $("insBody").innerHTML = installEvt
     ? `<p>Gel Al siparişlerinizi tek dokunuşla verin. Mağazadan indirmek gerekmez.</p><button type="button" class="btn gold" id="insGo">Ana ekrana ekle</button>`
     : isIOS()
-    ? `<ol><li>Ekranın altındaki ${share} <b>Paylaş</b> simgesine dokunun.</li><li>Listeden <b>Ana Ekrana Ekle</b>'yi seçin.</li><li>Sağ üstte <b>Ekle</b>'ye dokunun.</li></ol><p class="dep">Zeynep Lezzet simgesi ana ekranınıza gelir, uygulama gibi açılır.</p>`
+    ? `<ol><li>Ekranın altındaki ${share} <b>Paylaş</b> simgesine dokunun.</li><li>Listeden <b>Ana Ekrana Ekle</b>'yi seçin.</li><li>Sağ üstte <b>Ekle</b>'ye dokunun.</li></ol><p class="dep">Uygulama simgesi ana ekranınıza gelir, uygulama gibi açılır.</p>`
     : `<p>Tarayıcınızın menüsünü (sağ üstteki ⋮) açın ve <b>Ana ekrana ekle</b> ya da <b>Uygulamayı yükle</b>'yi seçin.</p>`;
 }
 $("install").addEventListener("click", async e => {

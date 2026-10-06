@@ -1,4 +1,4 @@
-/* Zeynep Lezzet Durağı: ortak menü verisi ve yardımcılar */
+/* Kafe demosu: ortak menü verisi ve yardımcılar */
 // [ad, açıklama, [[seçenek, fiyat], ...]]
 const MENU = [
  {id:"kahvalti", ad:"Kahvaltı", hint:"Her sabah, ev yapımı reçel ve sıcak ekmekle.", items:[
@@ -129,14 +129,14 @@ const MENU = [
 
 /* ===== Ayarlar ===== */
 const ZLD = {
-  WA: "905444628015",
+  WA: "",               // işletmenin WhatsApp numarası (90 ile); boşsa düğme gizlenir
   // Eve teslimat isteyenler için platform sayfaları; url boşsa platformun ana sayfası açılır
   PLATFORMLAR: [
     {ad:"Yemeksepeti", renk:"#ea004b", url:"", ana:"https://www.yemeksepeti.com"},
     {ad:"Trendyol Go", renk:"#f27a1a", url:"", ana:"https://www.trendyol.com/yemek"},
     {ad:"Uber Eats", renk:"#06c167", url:"", ana:"https://www.ubereats.com/tr"}
   ],
-  HARITA: "https://www.google.com/maps/search/?api=1&query=Zeynep+Lezzet+Dura%C4%9F%C4%B1+Sakarya",
+  HARITA: "",           // yol tarifi linki; boşsa gizlenir
   MASA_SAYISI: 12,
   SB_URL: "https://utniaprnvwakwfsumner.supabase.co",
   SB_KEY: "sb_publishable_LnGWWoHPM5692YmL1o-IzA_vuhx1BKV",

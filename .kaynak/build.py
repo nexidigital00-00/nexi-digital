@@ -17,9 +17,9 @@ def logo(uid):
 
 
 TR = {
-    "lang": "tr", "selfFile": "", "ogLocale": "tr_TR",
-    "title": "Nexi Digital | KOBİ'ler için yapay zeka danışmanlığı ve ekip eğitimi",
-    "metaDesc": "Orta ve büyük ölçekli KOBİ'lerde önce sorunu birlikte belirliyor, sonra yapay zekayla çalışan çözümü yanınızda kuruyor ve ekibinize öğretiyorum. Sakarya'da yerinde, Türkiye'de online.",
+    "lang": "tr", "selfFile": "", "ogLocale": "tr_TR", "ogLocaleAlt": "en_US",
+    "title": "KOBİ'ler için Yapay Zeka Danışmanlığı ve Ekip Eğitimi | Nexi Digital",
+    "metaDesc": "KOBİ'ler için yapay zeka danışmanlığı, otomasyon ve ekip eğitimi. Önce sorununuzu birlikte belirliyor, sonra çözümü kurup ekibinize öğretiyorum. Ön görüşme ücretsiz.",
     "ogTitle": "Nexi Digital: Sorununuzu bulup yapay zekayla yanınızda çözüyorum",
     "skip": "İçeriğe geç", "homeHref": "./", "homeLabel": "Nexi Digital ana sayfa", "navLabel": "Ana menü",
     "altHref": "en.html", "altLang": "en", "altLabel": "English version", "altShort": "EN", "menuOpen": "Menüyü aç",
@@ -76,7 +76,7 @@ TR = {
     "fdeNote": "Bu yaklaşımın teknoloji dünyasındaki adı \"forward deployed engineer\": müşterinin içinde, sahada sistem kuran kişi. Yapay zeka bunu küçük işletmeler için de mümkün kıldı.",
 
     # Packages
-    "packTitle": "Paketler",
+    "packTitle": "Danışmanlık ve eğitim paketleri",
     "packLede": "Fiyatlar başlangıç fiyatıdır. Kesin teklif, 20 dakikalık ücretsiz ön görüşmeden sonra netleşir.",
     "packBiz": "İşletmeler için", "packEdu": "Eğitim",
     "from": "başlangıç", "perMonth": "aylık, başlangıç", "perPerson": "kişi başı",
@@ -98,7 +98,7 @@ TR = {
     "packNote": "Keşif Günü ücreti, sonraki paketinizin ücretinden düşülür. Fiyatlara KDV dahil değildir.",
 
     # Education
-    "eduTitle": "Eğitim",
+    "eduTitle": "Şirketler için yapay zeka eğitimi",
     "eduLede": "Araç anlatmıyorum, iş yaptırıyorum. Her hafta kendi işinizden bir görevi yapay zekayla birlikte bitiriyoruz.",
     "week": "Hafta",
     "eduTeamT": "Ekip eğitimi", "eduTeamFor": "İşletme ekipleri için, 4 hafta, haftada 2 saat.",
@@ -114,7 +114,7 @@ TR = {
     "eduProof": "izlenme: atölyede anlattığım yöntemle kendi kanalımda aldığım sonuç",
 
     # Work
-    "workTitle": "Yaptıklarım",
+    "workTitle": "Kurduğum yapay zeka işleri",
     "workLede": "Anlattığım her şeyi önce kendim yaptım. Biri bir cafe için kuruldu ve canlı, ikisi kendi ürünüm.",
     "w3kind": "Müşteri işi, Sakarya'da bir ev yemekleri kafesi",
     "w3p": "Masadan QR ile sipariş, garson, mutfak ve kasa ekranları, kişi kişi hesap ve gelip alınan siparişler için Gel Al uygulaması. Hepsi aynı anda, canlı güncellenir.",
@@ -161,6 +161,10 @@ TR = {
     "a4": "İşe göre seçiyorum: Claude ve ChatGPT gibi yapay zeka modelleri, WhatsApp Business, Google araçları ve gerektiğinde size özel küçük web uygulamaları. Lisans ve hesaplar sizin adınıza açılır.",
     "q5": "Aylık ücret ne zaman biter?",
     "a5": "İstediğiniz zaman. Aylık Yanınızda paketi ay ay devam eder, taahhüt yok. Kurulan sistemler ayrıldığınızda da sizde kalır.",
+    "q7": "Yapay zeka danışmanlığı ne kadar tutar?",
+    "a7": "Ön görüşme ücretsiz. Keşif Günü 7.500 ₺, 4 haftalık kurulum 35.000 ₺, Aylık Yanınızda 15.000 ₺, ekip eğitimi 25.000 ₺ ve bireysel atölye kişi başı 2.500 ₺'den başlar. Fiyatlara KDV dahil değildir; kesin teklif ön görüşmeden sonra netleşir.",
+    "q8": "Nexi Digital nedir?",
+    "a8": "Nexi Digital, kurduğum yapay zeka danışmanlığı ve ekip eğitimi işi. Ben Pınar Saçu Kargün; orta ve büyük ölçekli KOBİ'lerde önce sorunu birlikte belirliyor, sonra çalışan çözümü kurup ekibinize öğretiyorum.",
     "q6": "Benim sektörümde daha önce çalıştınız mı?",
     "a6": "Şimdiye kadar yeme-içme ve emlakta çalıştım. Ama yöntemim sektöre değil soruna bakıyor: ön görüşmede sorununuzu dinliyor, neyin kurulabileceğini açıkça söylüyorum. Yapay zeka sizin sorununuza uygun değilse onu da söylüyorum.",
 
@@ -193,9 +197,9 @@ TR_JS = {
 }
 
 EN = {
-    "lang": "en", "selfFile": "en.html", "ogLocale": "en_US",
-    "title": "Nexi Digital | AI consulting and team training for SMEs",
-    "metaDesc": "For mid-sized and larger SMEs: we define the problem together first, then I set up a working AI solution beside you and train your team. On-site in Sakarya, online across Turkey.",
+    "lang": "en", "selfFile": "en.html", "ogLocale": "en_US", "ogLocaleAlt": "tr_TR",
+    "title": "AI Consulting and Team Training for SMEs | Nexi Digital",
+    "metaDesc": "AI consulting, automation and team training for SMEs. We define your problem together first, then I build the solution and train your team. The first call is free.",
     "ogTitle": "Nexi Digital: I find your problem and solve it with AI, beside you",
     "skip": "Skip to content", "homeHref": "en.html", "homeLabel": "Nexi Digital home", "navLabel": "Main menu",
     "altHref": "./", "altLang": "tr", "altLabel": "Türkçe sürüm", "altShort": "TR", "menuOpen": "Open menu",
@@ -248,7 +252,7 @@ EN = {
     "cmpO3": "Results months later", "cmpN3": "First automation on Discovery Day",
     "fdeNote": "In tech this role is called a \"forward deployed engineer\": someone who builds systems on-site, inside the client. AI has made it possible for small businesses too.",
 
-    "packTitle": "Packages",
+    "packTitle": "Consulting and training packages",
     "packLede": "Prices are starting prices. The exact quote comes after a free 20-minute call.",
     "packBiz": "For businesses", "packEdu": "Training",
     "from": "starting", "perMonth": "per month, starting", "perPerson": "per person",
@@ -269,7 +273,7 @@ EN = {
     "k5a": "A 4-week small group", "k5b": "Or one-to-one", "k5c": "Real examples from my own channel",
     "packNote": "The Discovery Day fee comes off the price of your next package. Prices exclude VAT.",
 
-    "eduTitle": "Training",
+    "eduTitle": "AI training for companies",
     "eduLede": "I don't walk through tools, I get work done. Each week we finish a task from your own work with AI.",
     "week": "Week",
     "eduTeamT": "Team training", "eduTeamFor": "For business teams, 4 weeks, 2 hours a week.",
@@ -284,7 +288,7 @@ EN = {
     "es4t": "Publishing schedule", "es4p": "Posting regularly and reading the results.",
     "eduProof": "views: what the method I teach got on my own channel",
 
-    "workTitle": "My work",
+    "workTitle": "AI work I've built",
     "workLede": "I did everything I teach myself first. One was built for a café and is live; two are my own products.",
     "w3kind": "Client work, a home-cooking café in Sakarya",
     "w3p": "QR ordering at the table, waiter, kitchen and till screens, split bills per guest, and a pick-up ordering app. Every screen updates live.",
@@ -329,6 +333,10 @@ EN = {
     "a4": "It depends on the job: AI models like Claude and ChatGPT, WhatsApp Business, Google tools and, when needed, small web apps built for you. Licences and accounts are opened in your name.",
     "q5": "When does the monthly fee end?",
     "a5": "Whenever you like. Monthly Support runs month to month, with no commitment. The systems stay with you when you leave.",
+    "q7": "How much does AI consulting cost?",
+    "a7": "The first call is free. Discovery Day starts at 7,500 TRY, the 4-week setup at 35,000 TRY, Monthly Support at 15,000 TRY, team training at 25,000 TRY and the solo workshop at 2,500 TRY per person. Prices exclude VAT; the exact quote is set after the first call.",
+    "q8": "What is Nexi Digital?",
+    "a8": "Nexi Digital is the AI consulting and team training business I founded. I'm Pınar Saçu Kargün; with mid-sized and larger SMEs I define the problem together first, then build a working solution and teach your team to use it.",
     "q6": "Have you worked in my sector before?",
     "a6": "So far I've worked in food service and real estate. But my method looks at the problem, not the sector: on the first call I listen and tell you plainly what can be built. If AI doesn't fit your problem, I'll tell you that too.",
 
@@ -380,6 +388,40 @@ def render(strings, js, out):
     (SITE / out).write_text(html, encoding="utf-8")
     print("wrote", out, len(html))
 
+
+def json_ld(lang):
+    tr = lang == "tr"
+    def offer(name, price, desc):
+        return {"@type": "Offer", "priceCurrency": "TRY",
+                "priceSpecification": {"@type": "PriceSpecification", "minPrice": price, "priceCurrency": "TRY", "valueAddedTaxIncluded": False},
+                "itemOffered": {"@type": "Service", "name": name, "description": desc}}
+    offers = [
+        offer("Keşif Günü" if tr else "Discovery Day", 7500, "Sorunun yerinde haritası ve aynı gün ilk otomasyon." if tr else "An on-site map of the problem and the first automation the same day."),
+        offer("4 Haftalık Kurulum" if tr else "4-Week Setup", 35000, "Çalışan sistemin kurulumu ve ekibe öğretilmesi." if tr else "Building the working system and teaching the team to use it."),
+        offer("Aylık Yanınızda" if tr else "Monthly Support", 15000, "Aylık destek, taahhütsüz." if tr else "Monthly support, no commitment."),
+        offer("Ekip Eğitimi" if tr else "Team Training", 25000, "Şirket ekibine uygulamalı yapay zeka eğitimi." if tr else "Hands-on AI training for a company team."),
+        offer("Bireysel Atölye" if tr else "Solo Workshop", 2500, "Kişi başı yapay zeka atölyesi." if tr else "AI workshop, per person."),
+    ]
+    data = {"@context": "https://schema.org", "@graph": [
+        {"@type": "ProfessionalService", "@id": "https://nexidigitalai.com/#org", "name": "Nexi Digital",
+         "url": "https://nexidigitalai.com/", "image": f"https://nexidigitalai.com/img/og-{lang}.png",
+         "description": ("KOBİ'ler için yapay zeka danışmanlığı ve ekip eğitimi. Önce sorunu birlikte belirler, sonra çalışan çözümü kurar ve ekibe öğretir." if tr
+                         else "AI consulting and team training for SMEs. Defines the problem together first, then builds a working solution and trains the team."),
+         "email": "nexidigital.00@gmail.com", "telephone": "+905358758848",
+         "address": {"@type": "PostalAddress", "addressLocality": "Sakarya", "addressCountry": "TR"},
+         "areaServed": {"@type": "Country", "name": "Türkiye" if tr else "Turkey"},
+         "knowsLanguage": ["tr", "en"], "founder": {"@id": "https://nexidigitalai.com/#founder"}, "makesOffer": offers},
+        {"@type": "Person", "@id": "https://nexidigitalai.com/#founder", "name": "Pınar Saçu Kargün",
+         "jobTitle": "Kurucu, yapay zeka danışmanı ve eğitmeni" if tr else "Founder, AI consultant and trainer",
+         "worksFor": {"@id": "https://nexidigitalai.com/#org"}, "sameAs": ["https://www.linkedin.com/in/pinarsacukargun/"]},
+        {"@type": "WebSite", "@id": "https://nexidigitalai.com/#website", "url": "https://nexidigitalai.com/", "name": "Nexi Digital",
+         "inLanguage": lang, "publisher": {"@id": "https://nexidigitalai.com/#org"}},
+    ]}
+    return json.dumps(data, ensure_ascii=False, indent=1).replace("</", "<\\/")
+
+
+TR["jsonLd"] = json_ld("tr")
+EN["jsonLd"] = json_ld("en")
 
 render(TR, TR_JS, "index.html")
 render(EN, EN_JS, "en.html")

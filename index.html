@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nexi Digital | YouTube otomasyonu, sosyal medya, site ve müşteri pazarlaması</title>
-<meta name="description" content="Yapay zeka ajanlarıyla YouTube videoları ve sosyal medya içerikleri üretiyor, şirketlere site ve uygulama tasarlıyor, müşteri kampanyaları kuruyorum. İlk görüşme ücretsiz.">
+<title>Nexi Digital | Restoran, cafe ve emlak ofisleri için yapay zeka danışmanlığı ve eğitimi</title>
+<meta name="description" content="Restoran, cafe ve emlak ofislerinin yanında çalışan yapay zeka sistemleri kuruyor, ekiplerine kullanmayı öğretiyorum. Keşif Günü 7.500 ₺'den. Sakarya'da yerinde, Türkiye'de online.">
 <meta name="theme-color" content="#F5F6FA" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1024" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nexi Digital">
-<meta property="og:title" content="Nexi Digital: Videonu, siteni ve müşterini ajanlarla büyütüyorum">
-<meta property="og:description" content="Yapay zeka ajanlarıyla YouTube videoları ve sosyal medya içerikleri üretiyor, şirketlere site ve uygulama tasarlıyor, müşteri kampanyaları kuruyorum. İlk görüşme ücretsiz.">
+<meta property="og:title" content="Nexi Digital: Yapay zekayı işletmenizin yanında kuruyorum">
+<meta property="og:description" content="Restoran, cafe ve emlak ofislerinin yanında çalışan yapay zeka sistemleri kuruyor, ekiplerine kullanmayı öğretiyorum. Keşif Günü 7.500 ₺'den. Sakarya'da yerinde, Türkiye'de online.">
 <meta property="og:url" content="https://nexidigitalai.com/">
 <meta property="og:image" content="https://nexidigitalai.com/img/og-tr.png">
 <meta property="og:image:width" content="1200">
@@ -154,8 +154,8 @@
 
   /* ---------- Hero: headline left, the live customer network right ---------- */
   .hero { position: relative; padding-top: 72px; }
-  .heroGrid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 48px; align-items: center; }
-  .hero h1 { font-size: clamp(2.1rem, 3.6vw, 3.2rem); line-height: 1.06; letter-spacing: -0.035em; }
+  .heroGrid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+  .hero h1 { font-size: clamp(2rem, 3.1vw, 2.75rem); line-height: 1.08; letter-spacing: -0.035em; }
   .hero h1 .w { display: inline-block; }
   .heroLede { color: var(--ink-soft); font-size: 1.18rem; max-width: 44ch; margin-top: 26px; }
   .heroLede strong { color: var(--ink); font-weight: 600; }
@@ -183,43 +183,6 @@
   .bezel { padding: 6px; border-radius: 22px; background: color-mix(in srgb, var(--ink) 5%, transparent); box-shadow: inset 0 0 0 1px var(--line), var(--shadow); }
   .bezel > .core { border-radius: 16px; overflow: hidden; background: var(--scr-2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06); }
 
-  /* Network panel */
-  .viz { margin: 0; color: var(--scr-text); }
-  .vizHead { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 15px 20px; border-bottom: 1px solid var(--scr-line); font-size: 0.87rem; }
-  .vizHead strong { font-weight: 600; }
-  .vizHead span { color: var(--scr-soft); }
-  .vizCanvas svg { width: 100%; height: auto; }
-  .vn circle { fill: var(--c); }
-  .vn, .vl, .vh { transition: opacity 0.3s var(--ease); }
-  .vl { stroke: var(--c); stroke-width: 1.2; opacity: 0.38; }
-  .vh circle.core { fill: var(--c); stroke: var(--scr-2); stroke-width: 5; paint-order: stroke; }
-  .vh circle.halo { fill: none; stroke: var(--c); stroke-opacity: 0.35; stroke-width: 1.2; }
-  .vh text { font-family: var(--font); fill: var(--scr-text); font-size: 15px; font-weight: 600; }
-  .vh text.sub { fill: var(--scr-soft); font-size: 13px; font-weight: 400; }
-  .viz.picked g[data-seg]:not(.on) { opacity: 0.22; }
-  .viz.picked .vl.on { opacity: 0.75; }
-  .viz.picked .vl:not(.on) { opacity: 0.08; }
-  .seg-kayip { --c: var(--tang-glow); }
-  .seg-sadik { --c: var(--blue-glow); }
-  .seg-yeni { --c: var(--sun); }
-  .vizFoot { border-top: 1px solid var(--scr-line); padding: 16px 20px 20px; display: grid; gap: 14px; }
-  .segTabs { display: flex; flex-wrap: wrap; gap: 8px; }
-  .segTab {
-    display: inline-flex; align-items: center; gap: 9px; min-height: 40px; padding: 0 15px; border-radius: 999px; border: 0; cursor: pointer;
-    font: inherit; font-size: 0.9rem; font-weight: 500; color: var(--scr-soft); background: transparent; box-shadow: inset 0 0 0 1px var(--scr-line);
-    transition: color 0.25s var(--ease), box-shadow 0.25s var(--ease), background-color 0.25s var(--ease), transform 0.25s var(--ease);
-  }
-  .segTab:active { transform: scale(0.97); }
-  .segTab i { width: 9px; height: 9px; border-radius: 50%; background: var(--c); }
-  .segTab:hover { color: var(--scr-text); box-shadow: inset 0 0 0 1px rgba(243, 239, 246, 0.3); }
-  .segTab[aria-pressed="true"] { color: var(--scr-text); background: rgba(243, 239, 246, 0.08); box-shadow: inset 0 0 0 1px var(--c); }
-  .msg { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; align-items: start; background: rgba(243, 239, 246, 0.05); border-radius: 12px; padding: 14px 16px; min-height: 104px; }
-  .msgCh { grid-row: span 2; font-size: 0.74rem; font-weight: 600; color: var(--scr); background: var(--c); border-radius: 999px; padding: 3px 9px; margin-top: 2px; }
-  .msgTo { font-size: 0.82rem; color: var(--scr-soft); }
-  .msgText { font-size: 0.95rem; line-height: 1.5; }
-  .vp circle { fill: var(--c); }
-  .vring { fill: none; stroke: var(--c); stroke-width: 1.5; }
-
   /* ---------- Work ---------- */
   .workTitle { margin-bottom: 44px; }
   .work { border-top: 1px solid var(--line); padding-top: 40px; }
@@ -246,9 +209,6 @@
   .short::after { content: ""; position: absolute; left: 50%; top: 50%; width: 48px; height: 48px; margin: -24px 0 0 -24px; border-radius: 50%; background: rgba(7, 11, 28, 0.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 7l8 5-8 5z' fill='%23fff'/%3E%3C/svg%3E") center / 22px no-repeat; opacity: 0; transform: scale(0.7); transition: opacity 0.3s var(--ease), transform 0.4s var(--spring); }
   .short:hover { transform: translateY(-8px) rotate(-1.5deg); box-shadow: inset 0 0 0 1px var(--line), 0 30px 60px -28px rgba(46, 75, 240, 0.5); }
   .short:hover::after { opacity: 1; transform: none; }
-  .workCase { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 64px; align-items: center; }
-  .caseBody { display: grid; gap: 18px; justify-items: start; }
-  .caseBody .stats { width: 100%; margin: 8px 0 4px; }
 
   /* ---------- What I do ---------- */
   .what { display: grid; grid-template-columns: minmax(0, 0.55fr) minmax(0, 1.45fr); gap: 32px 64px; margin-bottom: 72px; align-items: start; }
@@ -258,7 +218,6 @@
 
   /* ---------- Fit ---------- */
   .band { background: var(--bg-2); margin-top: 128px; padding: 104px 0 112px; }
-  .band h2 { max-width: 20ch; margin-bottom: 48px; }
   .fit { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 72px; }
   .fit h3 { font-size: 1.05rem; margin-bottom: 14px; }
   .fitYes { color: var(--blue-text); }
@@ -282,17 +241,6 @@
   .steps li:last-child::before { box-shadow: inset 0 0 0 2px var(--blue), 0 0 0 6px var(--bg); }
   .steps p { color: var(--ink-soft); font-size: 0.98rem; }
   .stepTag { justify-self: start; font-size: 0.8rem; font-weight: 600; color: var(--blue-text); background: color-mix(in srgb, var(--blue) 13%, transparent); padding: 3px 11px; border-radius: 999px; }
-
-  /* ---------- Stats ---------- */
-  .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .stat { padding: 20px 0; border-top: 1px solid var(--line); }
-  .stat:nth-child(odd) { padding-right: 24px; }
-  .stat b { display: block; font-family: var(--display); font-size: clamp(1.9rem, 3.2vw, 2.6rem); line-height: 1; font-weight: 600; letter-spacing: -0.04em; }
-  .stat span { display: block; margin-top: 8px; font-size: 0.93rem; color: var(--ink-soft); max-width: 24ch; }
-  .stat.c b { color: var(--tang-text); }
-  .stat.t b { color: var(--blue-text); }
-
-
 
   /* ---------- Scroll progress ---------- */
   .progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: linear-gradient(90deg, var(--blue), var(--tang)); transform-origin: left; transform: scaleX(0); }
@@ -365,10 +313,7 @@
     background: var(--surface); box-shadow: var(--shadow), inset 0 0 0 1px var(--line);
     transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
   }
-  .svc-video { grid-column: span 7; }
-  .svc-social { grid-column: span 5; --accent: var(--tang); }
-  .svc-site { grid-column: span 5; --accent: var(--tang); }
-  .svc-crm { grid-column: span 7; }
+  .svc-estate { --accent: var(--tang); }
   .svc::before {
     content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0; transition: opacity 0.4s var(--ease);
     background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
@@ -384,6 +329,66 @@
   .svc li { position: relative; padding: 10px 0 10px 26px; border-top: 1px solid var(--line); font-size: 0.97rem; }
   .svc li::before { content: ""; position: absolute; left: 3px; top: 17px; width: 10px; height: 6px; border-left: 2px solid var(--accent); border-bottom: 2px solid var(--accent); transform: rotate(-45deg); }
   .svc .textLink { justify-self: start; }
+
+  .secCols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 28px; }
+  .listLabel { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 6px; }
+  .svc ul.probs li::before { content: "\2715"; border: 0; transform: none; width: auto; height: auto; left: 2px; top: 10px; font-size: 0.8rem; font-weight: 700; color: var(--tang-text); }
+  .indiv {
+    display: flex; align-items: center; gap: 18px; margin-top: 20px; padding: 20px 26px; border-radius: 20px; text-decoration: none;
+    background: var(--bg-2); box-shadow: inset 0 0 0 1px var(--line); transition: box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .indiv:hover { box-shadow: inset 0 0 0 1px var(--blue); transform: translateY(-2px); }
+  .indivTag { flex: none; font-size: 0.8rem; font-weight: 700; color: #0F1633; background: var(--sun); padding: 4px 12px; border-radius: 999px; }
+  .indivText { flex: 1; font-weight: 500; }
+  .indiv .arr { flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); color: #fff; transition: transform 0.4s var(--spring), background-color 0.3s var(--ease); }
+  .indiv .arr svg { width: 15px; height: 15px; }
+  .indiv:hover .arr { transform: translate(3px, -1px); background: var(--tang); }
+
+  /* ---------- Classic consultant vs. me ---------- */
+  .compare { margin-top: 88px; border-radius: 20px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--line); }
+  .cmpRow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cmpRow span { padding: 18px 26px; border-top: 1px solid var(--line); font-size: 1.02rem; }
+  .cmpRow span:first-child { color: var(--ink-soft); }
+  .cmpRow span:last-child { background: color-mix(in srgb, var(--blue) 7%, var(--surface)); font-weight: 600; }
+  .cmpHead span { border-top: 0; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+  .cmpHead span:last-child { color: var(--blue-text); }
+  .fdeNote { margin-top: 20px; color: var(--ink-soft); font-size: 0.95rem; max-width: 72ch; }
+
+  /* ---------- Packages ---------- */
+  .packGroup { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 16px; }
+  .packs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-bottom: 48px; }
+  .packs2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pack { grid-column: auto; grid-template-rows: auto auto auto 1fr auto; }
+  .pack h3 { font-size: clamp(1.2rem, 1.8vw, 1.45rem); }
+  .packBadge { justify-self: start; font-size: 0.78rem; font-weight: 700; color: #0F1633; background: var(--sun); padding: 3px 11px; border-radius: 999px; }
+  .packStart { box-shadow: var(--shadow), inset 0 0 0 2px var(--blue); }
+  .price { font-family: var(--display); font-size: clamp(1.7rem, 2.6vw, 2.2rem); font-weight: 600; letter-spacing: -0.04em; line-height: 1; color: var(--blue-text); display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .price small { font-family: var(--font); font-size: 0.9rem; font-weight: 500; letter-spacing: 0; color: var(--ink-soft); }
+  .pack .btn { justify-self: stretch; margin-top: 6px; }
+  .packNote { margin-top: -20px; color: var(--ink-soft); font-size: 0.95rem; }
+
+  /* ---------- Education ---------- */
+  .edu { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 64px; }
+  .eduCol h3 { font-family: var(--display); font-size: clamp(1.35rem, 2.2vw, 1.75rem); font-weight: 600; letter-spacing: -0.03em; }
+  .eduFor { color: var(--ink-soft); margin: 8px 0 22px; }
+  .weeks { list-style: none; margin: 0; padding: 0; position: relative; }
+  .weeks::before { content: ""; position: absolute; left: 7px; top: 12px; bottom: 12px; width: 2px; background: linear-gradient(var(--tang), var(--blue)); opacity: 0.5; }
+  .weeks li { position: relative; padding: 0 0 22px 36px; display: grid; gap: 2px; }
+  .weeks li::before { content: ""; position: absolute; left: 0; top: 5px; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); box-shadow: inset 0 0 0 2px var(--blue), 0 0 0 5px var(--bg); }
+  .weeks span { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--blue-text); }
+  .weeks b { font-weight: 600; font-size: 1.05rem; }
+  .weeks p { color: var(--ink-soft); font-size: 0.97rem; }
+  .eduProof { display: flex; align-items: baseline; gap: 12px; margin-top: 8px; padding-top: 20px; border-top: 1px solid var(--line); }
+  .eduProof b { font-family: var(--display); font-size: 2rem; font-weight: 600; letter-spacing: -0.04em; line-height: 1; color: var(--tang-text); }
+  .eduProof span { color: var(--ink-soft); font-size: 0.95rem; max-width: 34ch; line-height: 1.4; }
+
+  /* ---------- About ---------- */
+  .about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px 80px; align-items: start; }
+  .aboutText { display: grid; gap: 18px; justify-items: start; }
+  .aboutText h2 { margin: 0; max-width: none; }
+  .aboutBig { font-size: clamp(1.25rem, 2vw, 1.55rem); line-height: 1.4; letter-spacing: -0.015em; font-weight: 500; }
+  .aboutP { color: var(--ink-soft); max-width: 52ch; }
+  .about .fit { grid-template-columns: minmax(0, 1fr); gap: 36px; }
 
   /* ---------- Service picker in the form ---------- */
   .pick { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
@@ -455,10 +460,10 @@
      so browsers without animation-timeline simply show the final state. */
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
-      .rv, .steps li, .svc, .faq > div, .fitList li, .stat, .facts li, .short { animation: rise linear both; animation-timeline: view(); animation-range: entry 5% entry 75%; }
-      .steps li:nth-child(2), .short:nth-child(2), .svc:nth-child(2), .fitList li:nth-child(2), .stat:nth-child(2), .facts li:nth-child(2) { animation-range: entry 12% entry 85%; }
-      .steps li:nth-child(3), .short:nth-child(3), .svc:nth-child(3), .fitList li:nth-child(3), .stat:nth-child(3), .facts li:nth-child(3) { animation-range: entry 19% entry 95%; }
-      .steps li:nth-child(4), .stat:nth-child(4) { animation-range: entry 26% cover 40%; }
+      .rv, .steps li, .svc, .faq > div, .fitList li, .weeks li, .facts li, .short { animation: rise linear both; animation-timeline: view(); animation-range: entry 5% entry 75%; }
+      .steps li:nth-child(2), .short:nth-child(2), .svc:nth-child(2), .fitList li:nth-child(2), .weeks li:nth-child(2), .facts li:nth-child(2) { animation-range: entry 12% entry 85%; }
+      .steps li:nth-child(3), .short:nth-child(3), .svc:nth-child(3), .fitList li:nth-child(3), .weeks li:nth-child(3), .facts li:nth-child(3) { animation-range: entry 19% entry 95%; }
+      .steps li:nth-child(4), .weeks li:nth-child(4) { animation-range: entry 26% cover 40%; }
       .shots .bezel { animation: tilt linear both; animation-timeline: view(); animation-range: entry 0% cover 50%; }
       .shotPhone { animation: phoneIn linear both; animation-timeline: view(); animation-range: entry 10% cover 55%; }
       .steps::before { animation: draw linear both; animation-timeline: view(); animation-range: entry 30% cover 45%; }
@@ -513,7 +518,7 @@
   @keyframes nodeBreath { 0%, 60%, 100% { transform: scale(1); } 25% { transform: scale(1.12); } }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .btn, .segTab, .waFloat, .vn, .vl, .vh, .textLink, .navLinks a, .short, .short::after, .btn .arr { transition: none !important; }
+    .btn, .indiv, .indiv .arr, .waFloat, .textLink, .navLinks a, .short, .short::after, .btn .arr { transition: none !important; }
     .tickTrack, .live::before, .logo .mk-c, .logo .mk-t, .scene *, .scene.on { animation: none !important; }
     .tabInk, .svc, .pick span { transition: none !important; }
     .tickTrack { flex-wrap: wrap; width: auto; }
@@ -524,9 +529,10 @@
 
   /* ---------- Responsive ---------- */
   @media (max-width: 1020px) {
-    .heroGrid, .workHead, .workCase, .what, .faqLead, .contact { grid-template-columns: minmax(0, 1fr); }
-    .workCase { gap: 44px; }
-    .svc, .svc-video, .svc-social, .svc-site, .svc-crm { grid-column: span 12; }
+    .heroGrid, .workHead, .what, .faqLead, .contact, .about, .edu { grid-template-columns: minmax(0, 1fr); }
+    .svc { grid-column: span 12; }
+    .packs { grid-template-columns: minmax(0, 1fr); }
+    .edu { gap: 56px; }
     .shorts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .heroGrid { gap: 48px; }
     .hero h1 { font-size: clamp(2.2rem, 6.4vw, 3.4rem); max-width: 18ch; }
@@ -544,12 +550,13 @@
     .navLinks.open { display: flex; }
     .navLinks a { padding: 14px 0; font-size: 1.05rem; border-bottom: 1px solid var(--line); }
     .navCta { display: none; }
-    .fit, .faq { grid-template-columns: minmax(0, 1fr); }
+    .faq { grid-template-columns: minmax(0, 1fr); }
     .faq { gap: 32px; }
     .block { padding-top: 96px; }
     .band { margin-top: 96px; padding: 80px 0; }
     .siteFoot { margin-top: 96px; }
     .work + .work { margin-top: 72px; }
+    .compare { margin-top: 64px; }
   }
   @media (max-width: 560px) {
     .wrap { padding-inline: 18px; }
@@ -560,9 +567,6 @@
     .ctaRow { width: 100%; }
     .ctaRow .btn { flex: 1 1 100%; }
     .navLinks { padding: 8px 18px 20px; }
-    .vizHead, .vizFoot { padding-left: 16px; padding-right: 16px; }
-    .vh text { font-size: 21px; }
-    .vh text.sub { font-size: 18px; }
     .shots { padding-right: 16%; }
     .shotPhone { width: 30%; }
     .facts { gap: 16px 28px; }
@@ -575,6 +579,12 @@
     .kHead em { font-size: 0.64rem; padding: 2px 7px; }
     .scene { padding: 16px; }
     .svc { padding: 28px 22px 24px; }
+    .secCols { grid-template-columns: minmax(0, 1fr); }
+    .cmpRow span { padding: 14px; font-size: 0.92rem; }
+    .cmpHead span { font-size: 0.7rem; }
+    .indiv { flex-wrap: wrap; padding: 18px; gap: 12px; }
+    .indivText { flex-basis: 100%; order: 3; }
+    .indiv .arr { margin-left: auto; }
   }
 </style>
 </head>
@@ -589,10 +599,11 @@
       <span class="word">Nexi <span>Digital</span></span>
     </a>
     <nav class="navLinks" id="navLinks" aria-label="Ana menü">
-      <a href="#hizmetler">Hizmetler</a>
+      <a href="#hizmetler">Sektörler</a>
+      <a href="#paketler">Paketler</a>
+      <a href="#egitim">Eğitim</a>
       <a href="#isler">İşler</a>
-      <a href="#nasil">Nasıl çalışıyorum</a>
-      <a href="#sss">SSS</a>
+      <a href="#hakkimda">Hakkımda</a>
     </nav>
     <div class="navEnd">
       <a class="lang" href="en.html" hreflang="en" lang="en" aria-label="English version">EN</a>
@@ -608,11 +619,11 @@
   <section class="hero" aria-labelledby="heroTitle">
     <div class="wrap heroGrid">
       <div class="heroText">
-        <h1 id="heroTitle">Videonu, siteni ve müşterini ajanlarla büyütüyorum.</h1>
-        <p class="heroLede">Ben Pınar. Yapay zeka ajanlarıyla YouTube videoları ve sosyal medya içerikleri üretiyor, şirketlere site ve uygulama tasarlıyor, müşteri listelerinden geri dönüş kampanyaları çıkarıyorum. <strong>İlk görüşme ücretsiz.</strong></p>
+        <h1 id="heroTitle">Restoran, cafe ve emlak ofislerine yapay zekayı yanınızda kuruyorum.</h1>
+        <p class="heroLede">Sunum değil, çalışan sistem. Danışmanlık ve ekip eğitimi; Sakarya'da yerinde, Türkiye'de online.</p>
         <div class="ctaRow">
           <a class="btn btnPrimary" href="#iletisim">Ön görüşme iste<span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M6 4h6v6"/></svg></span></a>
-          <a class="textLink" href="#hizmetler">Neler yaptığıma bak</a>
+          <a class="textLink" href="#paketler">Paketleri gör</a>
         </div>
       </div>
 
@@ -664,71 +675,169 @@
       </div>
     </div>
 
-    <div class="ticker" aria-label="Yaptığım işler">
+    <div class="ticker" aria-label="Kurduğum ve öğrettiğim şeyler">
       <div class="tickTrack">
-        <div class="tickSet"><span>YouTube otomasyonu</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Yüzsüz kanallar</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Reels ve TikTok kurgusu</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Altyazı ve çeviri</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Web sitesi</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Web ve mobil uygulama</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Müşteri segmentasyonu</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>WhatsApp kampanyaları</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Yapay zeka ajanları</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Subly</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg></div>
-        <div class="tickSet" aria-hidden="true"><span>YouTube otomasyonu</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Yüzsüz kanallar</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Reels ve TikTok kurgusu</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Altyazı ve çeviri</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Web sitesi</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Web ve mobil uygulama</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Müşteri segmentasyonu</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>WhatsApp kampanyaları</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Yapay zeka ajanları</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Subly</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg></div>
+        <div class="tickSet"><span>Keşif Günü</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>QR menü ve sipariş</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Müşteri listesi ve kampanya</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>İlan içerik üretimi</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>WhatsApp yanıt asistanı</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Ekip eğitimi</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Bireysel atölye</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg></div>
+        <div class="tickSet" aria-hidden="true"><span>Keşif Günü</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>QR menü ve sipariş</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Müşteri listesi ve kampanya</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>İlan içerik üretimi</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>WhatsApp yanıt asistanı</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Ekip eğitimi</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Bireysel atölye</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg></div>
       </div>
     </div>
   </section>
 
-  <section class="wrap block" id="hizmetler" aria-labelledby="svcTitle">
+  <section class="wrap block" id="hizmetler" aria-labelledby="secTitle">
     <div class="sectionHead rv">
-      <h2 id="svcTitle">Neler yapıyorum</h2>
-      <p class="lede">İçerik üreticileriyle de şirketlerle de çalışıyorum. Tekrar eden üretimi ajanlara veriyorum, karar ve kaliteyi ben üstleniyorum.</p>
+      <h2 id="secTitle">İki sektörü yakından tanıyorum</h2>
+      <p class="lede">Her işletmeye aynı aracı satmıyorum. Yeme-içme ve emlakta en çok zamanın nereye gittiğini biliyorum ve oradan başlıyorum.</p>
     </div>
     <div class="bento">
-      <article class="svc svc-video" data-service="video">
-        <div class="svcTop"><h3>YouTube otomasyonu</h3><p class="for"><span class="forTag">İçerik üreticileri</span><span class="forTag">Şirketler</span></p></div>
-        <p class="svcText">Yüzsüz kanallar için konu bulmaktan yüklemeye kadar bir üretim hattı. Kendi kanalım GlowTips'i bu hatla büyüttüm: 182 video, 850 binden fazla izlenme. Aynısını senin kanalın için kuruyorum.</p>
-        <ul><li>Konu ve senaryo araştırması</li><li>Yapay zeka seslendirme ve görseller</li><li>Kurgu, kapak ve yükleme takvimi</li></ul>
-        <a class="textLink" href="#iletisim" data-pick="video">Bunun için yaz</a>
+      <article class="svc svc-food" aria-labelledby="secFoodT">
+        <div class="svcTop"><h3 id="secFoodT">Restoran ve cafeler</h3><p class="for"><span class="forTag">Yeme-içme</span></p></div>
+        <div class="secCols">
+          <div><p class="listLabel">Sık gördüğüm</p><ul class="probs"><li>Siparişler WhatsApp'ta kayboluyor</li><li>Menü ve fiyat elle güncelleniyor</li><li>Gelen müşteri bir daha aranmıyor</li></ul></div>
+          <div><p class="listLabel">Kurduğum</p><ul><li>QR menü ve masadan sipariş</li><li>Mutfak, garson ve kasa ekranları</li><li>Müşteri listesi ve kampanya mesajları</li></ul></div>
+        </div>
+        <a class="textLink" href="#isler">Canlı cafe sistemini incele</a>
       </article>
-      <article class="svc svc-social" data-service="social">
-        <div class="svcTop"><h3>Sosyal medya içerik düzenleme</h3><p class="for"><span class="forTag">İçerik üreticileri</span><span class="forTag">Şirketler</span></p></div>
-        <p class="svcText">Ham videolarını ajanlarla Reels, TikTok ve Shorts için hazırlıyorum: kesim, altyazı, format.</p>
-        <ul><li>Boş ve sessiz anların kesilmesi</li><li>Altyazı ve 14 dile çeviri</li><li>Dikey format ve kapak</li></ul>
-        <a class="textLink" href="#iletisim" data-pick="social">Bunun için yaz</a>
+      <article class="svc svc-estate" aria-labelledby="secEstateT">
+        <div class="svcTop"><h3 id="secEstateT">Emlak ofisleri</h3><p class="for"><span class="forTag">Emlak</span></p></div>
+        <div class="secCols">
+          <div><p class="listLabel">Sık gördüğüm</p><ul class="probs"><li>Her ilan için metin ve görsel baştan</li><li>Sosyal medya haftalarca boş kalıyor</li><li>Müşteriye geri dönüş gecikiyor</li></ul></div>
+          <div><p class="listLabel">Kurduğum</p><ul><li>Fotoğraftan ilan metni ve dikey video</li><li>Haftalık paylaşım takvimi</li><li>Sık sorulara WhatsApp yanıt asistanı</li></ul></div>
+        </div>
+        <a class="textLink" href="#iletisim" data-pick="kesif">Ofisiniz için Keşif Günü isteyin</a>
       </article>
-      <article class="svc svc-site" data-service="site">
-        <div class="svcTop"><h3>Site ve uygulama tasarımı</h3><p class="for"><span class="forTag">Şirketler</span></p></div>
-        <p class="svcText">Şirketlere hızlı ve mobil uyumlu site ya da web uygulaması. Subly'yi fikirden canlı ürüne kadar ben geliştirdim.</p>
-        <ul><li>Tanıtım ve randevu siteleri</li><li>Web ve mobil uygulama arayüzleri</li><li>Alan adı, yayın ve bakım</li></ul>
-        <a class="textLink" href="#iletisim" data-pick="site">Bunun için yaz</a>
+    </div>
+    <a class="indiv rv" href="#egitim">
+      <span class="indivTag">Bireyseller için</span>
+      <span class="indivText">İçerik üreticisi ya da serbest çalışan mısınız? Yapay zekayla içerik ve video üretimi atölyesine bakın.</span>
+      <span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M6 4h6v6"/></svg></span>
+    </a>
+  </section>
+
+  <section class="wrap block" id="nasil" aria-labelledby="whatTitle">
+    <div class="what rv">
+      <h2 id="whatTitle">Nasıl çalışıyorum</h2>
+      <p class="whatBig"><span class="fill">Sunum yapıp gitmiyorum. <strong>İşletmenizin yanına oturuyor, çalışan sistemi kuruyor ve ekibinize öğretiyorum.</strong></span></p>
+    </div>
+    <ol class="steps">
+      <li><h3>Keşif Günü</h3><p>Haftanızı çıkarıyor, zaman kaybını buluyor ve aynı gün ilk otomasyonu kuruyorum.</p><span class="stepTag">7.500 ₺'den</span></li>
+      <li><h3>Kurulum</h3><p>En çok saat yiyen iş için çalışan sistemi kuruyor, gerçek siparişler ve ilanlarla deniyoruz.</p></li>
+      <li><h3>Ekip eğitimi</h3><p>Sistemi kullanacak kişilere uygulamalı öğretiyorum. Kimse bana bağımlı kalmıyor.</p></li>
+      <li><h3>Takip</h3><p>Kazanılan saati birlikte ölçüyor, işe yaramayanı değiştiriyoruz.</p></li>
+    </ol>
+    <div class="compare rv" role="table" aria-label="Klasik danışmanlık ile benim yaklaşımımın karşılaştırması">
+      <div class="cmpRow cmpHead" role="row"><span role="columnheader">Klasik danışmanlık</span><span role="columnheader">Benim yaklaşımım</span></div>
+      <div class="cmpRow" role="row"><span role="cell">Sunum ve rapor bırakır</span><span role="cell">Çalışan sistemi kurar</span></div>
+      <div class="cmpRow" role="row"><span role="cell">Uygulamak size kalır</span><span role="cell">Ekip kullanana kadar yanınızdayım</span></div>
+      <div class="cmpRow" role="row"><span role="cell">Sonuç aylar sonra</span><span role="cell">İlk otomasyon Keşif Günü'nde</span></div>
+    </div>
+    <p class="fdeNote rv">Bu yaklaşımın teknoloji dünyasındaki adı "forward deployed engineer": müşterinin içinde, sahada sistem kuran kişi. Yapay zeka bunu küçük işletmeler için de mümkün kıldı.</p>
+  </section>
+
+  <section class="wrap block" id="paketler" aria-labelledby="packTitle">
+    <div class="sectionHead rv">
+      <h2 id="packTitle">Paketler</h2>
+      <p class="lede">Fiyatlar başlangıç fiyatıdır. Kesin teklif, 20 dakikalık ücretsiz ön görüşmeden sonra netleşir.</p>
+    </div>
+    <p class="packGroup">İşletmeler için</p>
+    <div class="packs">
+      <article class="svc pack packStart">
+        <p class="packBadge">Buradan başlayın</p>
+        <h3>Keşif Günü</h3>
+        <p class="price">7.500 ₺<small>başlangıç</small></p>
+        <p class="svcText">Nereden başlayacağını bilmeyen işletmeler için tek günlük başlangıç.</p>
+        <ul><li>Zaman kaybı haritası</li><li>Aynı gün kurulan 1 hızlı otomasyon</li><li>30 günlük yol haritası</li></ul>
+        <a class="btn btnPrimary" href="#iletisim" data-pick="kesif">Ön görüşme iste</a>
       </article>
-      <article class="svc svc-crm" data-service="crm">
-        <div class="svcTop"><h3>Müşteri geri kazanımı</h3><p class="for"><span class="forTag">Şirketler</span></p></div>
-        <p class="svcText">Müşteri kayıtlarından kimin sadık, kimin kaybolmak üzere olduğunu buluyor, her gruba e-posta, SMS ya da WhatsApp mesajını yazıyorum.</p>
-        <ul><li>Müşteri segmentasyonu</li><li>Çok kanallı kampanya metinleri</li><li>Aylık sonuç takibi</li></ul>
-        <a class="textLink" href="#iletisim" data-pick="crm">Bunun için yaz</a>
+      <article class="svc pack">
+        <h3>4 Haftalık Kurulum</h3>
+        <p class="price">35.000 ₺<small>başlangıç</small></p>
+        <p class="svcText">En çok saat yiyen işi kalıcı olarak çözmek isteyenler için.</p>
+        <ul><li>Haftada 4 saat yanınızda</li><li>1-2 çalışan sistem</li><li>Ekip eğitimi dahil</li></ul>
+        <a class="btn btnQuiet" href="#iletisim" data-pick="kurulum">Ön görüşme iste</a>
       </article>
+      <article class="svc pack">
+        <h3>Aylık Yanınızda</h3>
+        <p class="price">15.000 ₺<small>aylık, başlangıç</small></p>
+        <p class="svcText">Kurulumdan sonra büyümeye devam etmek isteyenler için.</p>
+        <ul><li>Ayda 8 saat</li><li>Yeni otomasyon ve ölçüm</li><li>WhatsApp'tan öncelikli destek</li></ul>
+        <a class="btn btnQuiet" href="#iletisim" data-pick="aylik">Ön görüşme iste</a>
+      </article>
+    </div>
+    <p class="packGroup">Eğitim</p>
+    <div class="packs packs2">
+      <article class="svc pack">
+        <h3>Ekip Eğitimi</h3>
+        <p class="price">25.000 ₺<small>başlangıç</small></p>
+        <p class="svcText">Çalışanlarının yapay zekayı kendi işinde kullanmasını isteyen işletmeler için.</p>
+        <ul><li>4 hafta, haftada 2 saat</li><li>En fazla 10 kişi</li><li>Kendi işinizden örneklerle</li></ul>
+        <a class="btn btnQuiet" href="#iletisim" data-pick="ekip">Ön görüşme iste</a>
+      </article>
+      <article class="svc pack">
+        <h3>Bireysel Atölye</h3>
+        <p class="price">2.500 ₺<small>kişi başı</small></p>
+        <p class="svcText">Yapay zekayla içerik ve video üretmek isteyen bireyler için.</p>
+        <ul><li>4 haftalık küçük grup</li><li>Ya da birebir</li><li>Kendi kanalımdan gerçek örnekler</li></ul>
+        <a class="btn btnQuiet" href="#iletisim" data-pick="atolye">Ön görüşme iste</a>
+      </article>
+    </div>
+    <p class="packNote">Keşif Günü ücreti, kuruluma geçerseniz kurulum ücretinden düşülür. Fiyatlara KDV dahil değildir.</p>
+  </section>
+
+  <section class="wrap block" id="egitim" aria-labelledby="eduTitle">
+    <div class="sectionHead rv">
+      <h2 id="eduTitle">Eğitim</h2>
+      <p class="lede">Araç anlatmıyorum, iş yaptırıyorum. Her hafta kendi işinizden bir görevi yapay zekayla birlikte bitiriyoruz.</p>
+    </div>
+    <div class="edu">
+      <div class="eduCol rv">
+        <h3>Ekip eğitimi</h3>
+        <p class="eduFor">İşletme ekipleri için, 4 hafta, haftada 2 saat.</p>
+        <ol class="weeks">
+          <li><span>Hafta 1</span><b>Tanışma ve güvenli kullanım</b><p>Hangi iş yapay zekaya verilir, hangisi verilmez; müşteri verisi nasıl korunur.</p></li>
+          <li><span>Hafta 2</span><b>Müşteri mesajı ve metin</b><p>WhatsApp yanıtları, ilan ve menü metinleri, kampanya duyuruları.</p></li>
+          <li><span>Hafta 3</span><b>Görsel ve içerik</b><p>Ürün ve ilan fotoğrafından paylaşım, kısa video ve kapak.</p></li>
+          <li><span>Hafta 4</span><b>Kendi iş akışınız</b><p>Her çalışan kendi tekrar eden işi için bir akış kurar ve sunar.</p></li>
+        </ol>
+      </div>
+      <div class="eduCol rv">
+        <h3>Bireysel atölye</h3>
+        <p class="eduFor">İçerik üretmek isteyen bireyler için, 4 hafta.</p>
+        <ol class="weeks">
+          <li><span>Hafta 1</span><b>İçerik fikri ve konu</b><p>İzlenecek konuyu bulmak, rakip kanalları okumak.</p></li>
+          <li><span>Hafta 2</span><b>Senaryo ve seslendirme</b><p>Kısa video senaryosu ve yapay zeka sesi.</p></li>
+          <li><span>Hafta 3</span><b>Görsel ve kurgu</b><p>Dikey format, altyazı, kapak ve kesim.</p></li>
+          <li><span>Hafta 4</span><b>Yayın takvimi</b><p>Düzenli paylaşım ve sonuçları okumak.</p></li>
+        </ol>
+        <p class="eduProof"><b data-count>850 bin+</b><span>izlenme: atölyede anlattığım yöntemle kendi kanalımda aldığım sonuç</span></p>
+      </div>
     </div>
   </section>
 
   <section class="wrap block" id="isler" aria-labelledby="workTitle">
-    <h2 class="workTitle" id="workTitle">Yaptıklarım</h2>
+    <div class="sectionHead rv">
+      <h2 id="workTitle">Yaptıklarım</h2>
+      <p class="lede">Anlattığım her şeyi önce kendim yaptım. Biri bir cafede her gün kullanılıyor, ikisi kendi ürünüm.</p>
+    </div>
 
-    <article class="work workYt rv" aria-labelledby="w0Title">
+    <article class="work workZld rv" aria-labelledby="w3Title">
       <div class="workHead">
         <div>
-          <p class="workKind">Kendi yüzsüz kanalım</p>
-          <h3 id="w0Title" class="ytName"><img src="img/yt-avatar.webp" width="120" height="120" alt="" loading="lazy">GlowTips</h3>
+          <p class="workKind">Müşteri işi, Sakarya'da bir ev yemekleri kafesi</p>
+          <h3 id="w3Title">Zeynep Lezzet Durağı</h3>
         </div>
-        <p class="workText">Güzellik ve estetik temalı "This or That" Shorts kanalı. Konudan yüklemeye kadar üretimi ajanlarla kurdum; Haziran 2024'ten bu yana 182 video yayınlandı.</p>
+        <p class="workText">Masadan QR ile sipariş, garson, mutfak ve kasa ekranları, kişi kişi hesap ve gelip alınan siparişler için Gel Al uygulaması. Hepsi aynı anda, canlı güncellenir.</p>
       </div>
-      <div class="shorts">
-          <a class="short" href="https://www.youtube.com/shorts/ZHec1DFwmjI" target="_blank" rel="noopener"><img src="img/yt-1.webp" width="360" height="640" alt="GlowTips kanalından bir Shorts kapağı" loading="lazy" decoding="async"><span class="sr"> (yeni sekmede açılır)</span></a>
-          <a class="short" href="https://www.youtube.com/shorts/sWFJ_irOlgU" target="_blank" rel="noopener"><img src="img/yt-2.webp" width="360" height="640" alt="GlowTips kanalından bir Shorts kapağı" loading="lazy" decoding="async"><span class="sr"> (yeni sekmede açılır)</span></a>
-          <a class="short" href="https://www.youtube.com/shorts/v32FLReuWuM" target="_blank" rel="noopener"><img src="img/yt-3.webp" width="360" height="640" alt="GlowTips kanalından bir Shorts kapağı" loading="lazy" decoding="async"><span class="sr"> (yeni sekmede açılır)</span></a>
-          <a class="short" href="https://www.youtube.com/shorts/zMC6IflB5xQ" target="_blank" rel="noopener"><img src="img/yt-4.webp" width="360" height="640" alt="GlowTips kanalından bir Shorts kapağı" loading="lazy" decoding="async"><span class="sr"> (yeni sekmede açılır)</span></a>
+      <div class="shots">
+        <div class="bezel"><div class="core"><img src="img/zld-mutfak.webp" width="1280" height="760" alt="Zeynep Lezzet Durağı mutfak ekranı: masa, Gel Al ve Yemeksepeti siparişleri, saat yaklaşınca uyarılar" loading="lazy" decoding="async"></div></div>
+        <div class="shotPhone"><img src="img/zld-telefon.webp" width="390" height="844" alt="Zeynep Lezzet Durağı'nın masadaki QR menüsü" loading="lazy" decoding="async"></div>
       </div>
       <div class="workFoot">
         <ul class="facts">
-          <li><b data-count>182</b><span>video yayında</span></li>
-          <li><b data-count>850 bin+</b><span>toplam izlenme</span></li>
-          <li><b>3,9 bin</b><span>abone</span></li>
+          <li><b data-count>6</b><span>birbirine canlı bağlı ekran</span></li>
+          <li><b>0</b><span>mağazadan indirilecek uygulama</span></li>
+          <li><b data-count>3</b><span>porsiyon seçeneği: az, porsiyon, kilo</span></li>
         </ul>
-        <a class="btn btnQuiet" href="https://www.youtube.com/@glowtips777" target="_blank" rel="noopener">Kanalı YouTube'da aç<span class="sr"> (yeni sekmede açılır)</span></a>
+        <a class="btn btnQuiet" href="https://nexidigitalai.com/zld/index.html?masa=1" target="_blank" rel="noopener">Masa menüsünü dene<span class="sr"> (yeni sekmede açılır)</span></a>
       </div>
     </article>
 
@@ -754,88 +863,50 @@
       </div>
     </article>
 
-    <article class="work workZld rv" aria-labelledby="w3Title">
+    <article class="work workYt rv" aria-labelledby="w0Title">
       <div class="workHead">
         <div>
-          <p class="workKind">Müşteri işi, Sakarya'da bir ev yemekleri kafesi</p>
-          <h3 id="w3Title">Zeynep Lezzet Durağı</h3>
+          <p class="workKind">Kendi yüzsüz kanalım</p>
+          <h3 id="w0Title" class="ytName"><img src="img/yt-avatar.webp" width="120" height="120" alt="" loading="lazy">GlowTips</h3>
         </div>
-        <p class="workText">Masadan QR ile sipariş, garson, mutfak ve kasa ekranları, kişi kişi hesap ve gelip alınan siparişler için Gel Al uygulaması. Hepsi aynı anda, canlı güncellenir.</p>
+        <p class="workText">Güzellik ve estetik temalı "This or That" Shorts kanalı. Konudan yüklemeye kadar üretimi yapay zeka ajanlarıyla kurdum; Haziran 2024'ten bu yana 182 video yayınlandı.</p>
       </div>
-      <div class="shots">
-        <div class="bezel"><div class="core"><img src="img/zld-mutfak.webp" width="1280" height="760" alt="Zeynep Lezzet Durağı mutfak ekranı: masa, Gel Al ve Yemeksepeti siparişleri, saat yaklaşınca uyarılar" loading="lazy" decoding="async"></div></div>
-        <div class="shotPhone"><img src="img/zld-telefon.webp" width="390" height="844" alt="Zeynep Lezzet Durağı'nın masadaki QR menüsü" loading="lazy" decoding="async"></div>
+      <div class="shorts">
+          <a class="short" href="https://www.youtube.com/shorts/ZHec1DFwmjI" target="_blank" rel="noopener"><img src="img/yt-1.webp" width="360" height="640" alt="GlowTips kanalından bir Shorts kapağı" loading="lazy" decoding="async"><span class="sr"> (yeni sekmede açılır)</span></a>
+          <a class="short" href="https://www.youtube.com/shorts/sWFJ_irOlgU" target="_blank" rel="noopener"><img src="img/yt-2.webp" width="360" height="640" alt="GlowTips kanalından bir Shorts kapağı" loading="lazy" decoding="async"><span class="sr"> (yeni sekmede açılır)</span></a>
+          <a class="short" href="https://www.youtube.com/shorts/v32FLReuWuM" target="_blank" rel="noopener"><img src="img/yt-3.webp" width="360" height="640" alt="GlowTips kanalından bir Shorts kapağı" loading="lazy" decoding="async"><span class="sr"> (yeni sekmede açılır)</span></a>
+          <a class="short" href="https://www.youtube.com/shorts/zMC6IflB5xQ" target="_blank" rel="noopener"><img src="img/yt-4.webp" width="360" height="640" alt="GlowTips kanalından bir Shorts kapağı" loading="lazy" decoding="async"><span class="sr"> (yeni sekmede açılır)</span></a>
       </div>
       <div class="workFoot">
         <ul class="facts">
-          <li><b data-count>6</b><span>birbirine canlı bağlı ekran</span></li>
-          <li><b>0</b><span>mağazadan indirilecek uygulama</span></li>
-          <li><b data-count>3</b><span>porsiyon seçeneği: az, porsiyon, kilo</span></li>
+          <li><b data-count>182</b><span>video yayında</span></li>
+          <li><b data-count>850 bin+</b><span>toplam izlenme</span></li>
+          <li><b>3,9 bin</b><span>abone</span></li>
         </ul>
-        <a class="btn btnQuiet" href="https://nexidigitalai.com/zld/index.html?masa=1" target="_blank" rel="noopener">Masa menüsünü dene<span class="sr"> (yeni sekmede açılır)</span></a>
-      </div>
-    </article>
-
-    <article class="work workCase" id="ornek" aria-labelledby="w2Title">
-      <figure class="viz bezel" id="viz">
-        <div class="core">
-          <div class="vizHead"><strong>Örnek: Papatya Kuaför</strong><span class="live">28 müşteri</span></div>
-          <div class="vizCanvas">
-            <svg id="vizSvg" viewBox="0 0 560 440" role="img" aria-label="Örnek bir kuaförün 28 müşterisinin üç segmente ayrılışını gösteren ağ: 12 geri kazanılacak, 7 sadık, 9 yeni müşteri."></svg>
-          </div>
-          <div class="vizFoot">
-            <div class="segTabs" role="group" aria-label="Segment seç">
-              <button type="button" class="segTab seg-kayip" data-seg="kayip" aria-pressed="true"><i></i>Geri kazanılacak</button>
-              <button type="button" class="segTab seg-sadik" data-seg="sadik" aria-pressed="false"><i></i>Sadık</button>
-              <button type="button" class="segTab seg-yeni" data-seg="yeni" aria-pressed="false"><i></i>Yeni</button>
-            </div>
-            <div class="msg seg-kayip" id="msg" aria-live="off">
-              <span class="msgCh" id="msgCh">SMS</span>
-              <span class="msgTo" id="msgTo">Ayşe Kaya'ya, son ziyaret 94 gün önce</span>
-              <p class="msgText" id="msgText">Ayşe Hanım, sizi 3 aydır göremedik. Bu ay saç bakımında size özel %15 indirim var; randevu için bu mesajı yanıtlamanız yeterli.</p>
-            </div>
-          </div>
-        </div>
-      </figure>
-      <div class="caseBody">
-        <p class="workKind">Yöntem demosu, örnek veri</p>
-        <h3 id="w2Title">Bir kuaförün müşteri listesi, 6 segmente ayrıldı</h3>
-        <p class="workText">1.000 müşterilik örnek veriyi son ziyaret, sıklık ve harcamaya göre grupladım, her gruba ayrı mesaj yazdım. Soldaki ağ bunun 28 müşterilik kesiti: bir segmente dokun, gidecek mesajı gör.</p>
-        <div class="stats">
-          <div class="stat c"><b data-count>%25</b><span>gelirin en sadık %11'lik müşteriden geldiği</span></div>
-          <div class="stat t"><b data-count>6</b><span>anlamlı müşteri segmenti</span></div>
-          <div class="stat"><b data-count>5.388</b><span>işlem analiz edildi</span></div>
-          <div class="stat"><b data-count>12</b><span>hizmet türü karşılaştırıldı</span></div>
-        </div>
-        <a class="textLink" href="https://claude.ai/code/artifact/61ae4686-f95d-4123-a3ed-ed7d0851541f" target="_blank" rel="noopener noreferrer">Analiz panelinin tamamını aç<span class="sr"> (yeni sekmede açılır)</span></a>
+        <a class="btn btnQuiet" href="https://www.youtube.com/@glowtips777" target="_blank" rel="noopener">Kanalı YouTube'da aç<span class="sr"> (yeni sekmede açılır)</span></a>
       </div>
     </article>
   </section>
 
-  <section class="wrap block" id="nasil" aria-labelledby="whatTitle">
-    <div class="what rv">
-      <h2 id="whatTitle">Nasıl çalışıyorum</h2>
-      <p class="whatBig"><span class="fill">Ajanlar hızlı üretir, ama neyin iyi olduğuna ben karar veririm. <strong>Her videoyu, her sayfayı, her mesajı</strong> yayına çıkmadan önce kendim kontrol ediyorum.</span></p>
-    </div>
-    <ol class="steps">
-      <li><h3>Ön görüşme</h3><p>İşini ya da kanalını, hedefini konuşuyoruz. Neyin mantıklı olduğunu birlikte görüyoruz.</p><span class="stepTag">Ücretsiz</span></li>
-      <li><h3>Plan</h3><p>Hangi işin ajanlara, hangisinin bana kalacağını netleştiriyor, takvimi ve teklifi çıkarıyorum.</p></li>
-      <li><h3>Üretim</h3><p>Ajanlar üretiyor, ben her çıktıyı kontrol edip düzeltiyorum.</p></li>
-      <li><h3>Teslim ve takip</h3><p>Teslim ediyorum, sonuçları birlikte izliyor, gerekeni değiştiriyoruz.</p></li>
-    </ol>
-  </section>
-
-  <section class="band" id="kimler" aria-labelledby="fitTitle">
+  <section class="band" id="hakkimda" aria-labelledby="aboutTitle">
     <div class="wrap">
-      <h2 id="fitTitle">Birlikte çalışmamız ne zaman mantıklı?</h2>
-      <div class="fit">
-        <div>
-          <h3 class="fitYes">Sana uygun, eğer</h3>
-          <ul class="fitList yes"><li>Düzenli YouTube ya da sosyal medya içeriği istiyor ama üretmeye vaktin yoksa.</li><li>İşin için yeni bir site ya da uygulamaya ihtiyacın varsa.</li><li>Elinde bir müşteri listesi var ama onunla bir şey yapmıyorsan.</li></ul>
+      <div class="about">
+        <div class="aboutText rv">
+          <p class="workKind">Nexi Digital kurucusu, Sakarya</p>
+          <h2 id="aboutTitle">Pınar Saçu Kargün</h2>
+          <p class="aboutBig">5 yıl doktor ve eczacılarla çalışarak ilaç tanıtımı ve satışı yaptım.</p>
+          <p class="aboutP">Abdi İbrahim'de geçen bu yıllar bana güven kurmayı, teknik bir konuyu sade anlatmayı ve düzenli takiple sonuç almayı öğretti. Bugün aynı ilişki ve ikna becerisini yapay zekayla birleştiriyor, işletmelere çalışan sistemler kuruyorum.</p>
+          <a class="btn btnQuiet" href="https://www.linkedin.com/in/pinar-sa%C3%A7u-karg%C3%BCn-73a41491/" target="_blank" rel="noopener">LinkedIn'de bağlantı kurun<span class="sr"> (yeni sekmede açılır)</span></a>
         </div>
-        <div>
-          <h3 class="fitNo">Sana uygun değil, eğer</h3>
-          <ul class="fitList no"><li>Takipçi ya da beğeni satın almak istiyorsan.</li><li>Her şeyin bir gecede hazır olmasını bekliyorsan.</li><li>Sonuçları ölçmek ve takip etmek istemiyorsan.</li></ul>
+        <div class="fit">
+          <div>
+            <h3 class="fitYes">Birlikte çalışmamız mantıklı, eğer</h3>
+            <ul class="fitList yes"><li>Restoran, cafe ya da emlak ofisi işletiyorsanız.</li><li>Aynı işi her hafta elle yapmaktan yorulduysanız.</li><li>Ekibinizin yeni bir şeyi öğrenmeye birkaç saati varsa.</li></ul>
+          </div>
+          <div>
+            <h3 class="fitNo">Doğru adres değilim, eğer</h3>
+            <ul class="fitList no"><li>Rapor alıp çekmeceye koymak istiyorsanız.</li><li>Takipçi ya da beğeni satın almak istiyorsanız.</li><li>Her şeyin bir gecede bitmesini bekliyorsanız.</li></ul>
+          </div>
         </div>
       </div>
     </div>
@@ -844,53 +915,57 @@
   <div class="wrap">
     <section class="block" id="sss" aria-labelledby="faqTitle">
       <div class="sectionHead">
-        <h2 id="faqTitle">Muhtemelen bunları soracaktın</h2>
+        <h2 id="faqTitle">Sık sorulanlar</h2>
       </div>
       <div class="faqLead">
-        <h3>Bunu yapay zeka ile mi yapıyorsun? O zaman gerçek bir uzmanlık mı bu?</h3>
-        <p><strong>Gerçek bir uzmanlık.</strong> Aracı açmak işin kolay kısmı. Hangi videonun izleneceğini, hangi sayfanın müşteri getireceğini, hangi mesajın geri dönüş sağlayacağını bilmek deneyim ister. Bunu iddia etmiyorum, <a class="inlineLink" href="#isler">yaptığım işlerde</a> gösteriyorum.</p>
+        <h3>Bunu yapay zekayla mı yapıyorsunuz? O zaman gerçek bir uzmanlık mı bu?</h3>
+        <p><strong>Gerçek bir uzmanlık.</strong> Aracı açmak işin kolay kısmı. Hangi işin yapay zekaya verileceğini, ekibin onu gerçekten kullanacağı şekilde nasıl kurulacağını bilmek deneyim ister. Bunu iddia etmiyorum, <a class="inlineLink" href="#isler">yaptığım işlerde</a> gösteriyorum.</p>
       </div>
       <div class="faq">
-        <div><h3>Sadece şirketlerle mi çalışıyorsun?</h3><p>Hayır. İçerik üreticileriyle de çalışıyorum: YouTube kanalın için video üretimi ya da sosyal medya videolarının düzenlenmesi gibi. Şirketlere ise site, uygulama ve müşteri kampanyaları yapıyorum.</p></div>
-        <div><h3>Teknolojiden hiç anlamıyorum, benim de bir şeyler öğrenmem gerekecek mi?</h3><p>Hayır. Sen bana ne istediğini anlatıyorsun, kurulumu ve üretimi ben yapıyorum. Bir panele girip bir şey öğrenmen gerekmiyor; sonuçlar WhatsApp ya da e-posta ile önüne geliyor.</p></div>
-        <div><h3>Müşteri verimi paylaşmak beni tedirgin ediyor, güvenli mi?</h3><p>Haklısın, olmalı da. Verin sadece senin işin için kullanılır, üçüncü kişiyle paylaşılmaz. Nasıl saklandığını ve ne zaman sileceğimizi ilk görüşmede birlikte netleştiriyoruz.</p></div>
-        <div><h3>Neden sitede fiyat yok?</h3><p>Çünkü haftada bir video isteyen bir kanalla beş sayfalık bir site aynı işi gerektirmiyor. İlk görüşmede ihtiyacına bakıp net bir teklif çıkarıyorum, sürpriz yok.</p></div>
+        <div><h3>Ekibim teknolojiden anlamıyor, yine de olur mu?</h3><p>Olur. Bu yüzden eğitim kurulumun parçası. Ekranları tek dokunuşla çalışacak şekilde kuruyorum ve ekip alışana kadar yanınızdayım.</p></div>
+        <div><h3>Sakarya dışında çalışıyor musunuz?</h3><p>Evet. Sakarya ve çevresinde yerinde, Türkiye'nin her yerinde online çalışıyorum. Keşif Günü online da yapılabiliyor.</p></div>
+        <div><h3>Müşteri verilerim ne oluyor?</h3><p>Veriler yalnızca sizin işiniz için, sizin hesaplarınızda kullanılır ve üçüncü kişiyle paylaşılmaz. KVKK'ya uygun aydınlatma metni ve onay adımlarını kurulumda birlikte hazırlıyoruz.</p></div>
+        <div><h3>Hangi araçları kullanıyorsunuz?</h3><p>İşe göre seçiyorum: Claude ve ChatGPT gibi yapay zeka modelleri, WhatsApp Business, Google araçları ve gerektiğinde size özel küçük web uygulamaları. Lisans ve hesaplar sizin adınıza açılır.</p></div>
+        <div><h3>Aylık ücret ne zaman biter?</h3><p>İstediğiniz zaman. Aylık Yanınızda paketi ay ay devam eder, taahhüt yok. Kurulan sistemler ayrıldığınızda da sizde kalır.</p></div>
+        <div><h3>Keşif Günü'nden sonra devam etmezsem?</h3><p>Sorun değil. O gün kurulan otomasyon ve 30 günlük yol haritası sizde kalır; isterseniz kendi ekibinizle uygularsınız.</p></div>
       </div>
     </section>
 
     <section class="block" id="iletisim" aria-labelledby="contactTitle">
       <div class="contact rv">
         <div class="contactSide">
-          <h2 id="contactTitle">Kısa bir görüşme yapalım</h2>
-          <p>İlk görüşme her zaman ücretsiz. Kanalın ya da işin için neyin mantıklı olduğunu birlikte görelim.</p>
+          <h2 id="contactTitle">Önce 20 dakika konuşalım</h2>
+          <p>Ön görüşme ücretsiz. İşletmenizi dinliyor, hangi adımın mantıklı olduğunu birlikte görüyoruz.</p>
           <ul class="contactList">
             <li>En geç bir iş günü içinde dönüş</li>
-            <li>Görüşme sonunda net bir teklif</li>
+            <li>Görüşme sonunda net teklif</li>
           </ul>
           <a class="btn btnWa js-wa" href="https://wa.me/905358758848" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
-            WhatsApp'tan yaz
+            WhatsApp'tan yazın
           </a>
         </div>
         <div class="formSide">
           <form class="form" id="contactForm" action="https://formspree.io/f/mkodyrzb" method="POST">
-            <input type="hidden" name="_subject" value="Web sitesinden ücretsiz ön görüşme talebi">
+            <input type="hidden" name="_subject" value="Web sitesinden ön görüşme talebi">
             <fieldset class="pick">
-              <legend>Ne için yazıyorsun?</legend>
-              <label><input type="checkbox" name="service" value="YouTube otomasyonu" data-svc="video"><span>YouTube otomasyonu</span></label>
-              <label><input type="checkbox" name="service" value="Sosyal medya içerik düzenleme" data-svc="social"><span>Sosyal medya içerik düzenleme</span></label>
-              <label><input type="checkbox" name="service" value="Site ve uygulama tasarımı" data-svc="site"><span>Site ve uygulama tasarımı</span></label>
-              <label><input type="checkbox" name="service" value="Müşteri geri kazanımı" data-svc="crm"><span>Müşteri geri kazanımı</span></label>
+              <legend>Hangisiyle ilgileniyorsunuz?</legend>
+              <label><input type="checkbox" name="service" value="Keşif Günü" data-svc="kesif"><span>Keşif Günü</span></label>
+              <label><input type="checkbox" name="service" value="4 Haftalık Kurulum" data-svc="kurulum"><span>4 Haftalık Kurulum</span></label>
+              <label><input type="checkbox" name="service" value="Aylık Yanınızda" data-svc="aylik"><span>Aylık Yanınızda</span></label>
+              <label><input type="checkbox" name="service" value="Ekip Eğitimi" data-svc="ekip"><span>Ekip Eğitimi</span></label>
+              <label><input type="checkbox" name="service" value="Bireysel Atölye" data-svc="atolye"><span>Bireysel Atölye</span></label>
+              <label><input type="checkbox" name="service" value="Henüz emin değilim" data-svc="emin"><span>Henüz emin değilim</span></label>
             </fieldset>
             <div class="formRow">
-              <label class="field">Ad soyad<input type="text" name="name" required autocomplete="name" placeholder="Adın soyadın"></label>
-              <label class="field">İşletme ya da kanal adı<input type="text" name="business" required autocomplete="organization" placeholder="Örn. Papatya Kuaför"></label>
+              <label class="field">Ad soyad<input type="text" name="name" required autocomplete="name" placeholder="Adınız soyadınız"></label>
+              <label class="field">İşletme adı<input type="text" name="business" required autocomplete="organization" placeholder="Örn. Lezzet Cafe"></label>
             </div>
             <div class="formRow">
-              <label class="field">E-posta<input type="email" name="email" required autocomplete="email" placeholder="sen@ornek.com"></label>
+              <label class="field">E-posta<input type="email" name="email" required autocomplete="email" placeholder="siz@ornek.com"></label>
               <label class="field"><span>Telefon <small>(isteğe bağlı)</small></span><input type="tel" name="phone" autocomplete="tel" placeholder="05xx xxx xx xx"></label>
             </div>
-            <label class="field"><span>Kısaca anlat <small>(isteğe bağlı)</small></span><textarea name="message" rows="3" placeholder="Ne yapmak istiyorsun, şu an nerede takılıyorsun?"></textarea></label>
+            <label class="field"><span>Kısaca anlatın <small>(isteğe bağlı)</small></span><textarea name="message" rows="3" placeholder="Haftanızda en çok neye zaman gidiyor?"></textarea></label>
             <button type="submit" class="btn btnPrimary">Ön görüşme iste</button>
             <p class="formNote" id="formNote" role="status"></p>
           </form>
@@ -908,8 +983,9 @@
         <span class="word">Nexi <span>Digital</span></span>
       </a>
       <nav class="footLinks" aria-label="Alt menü">
-        <a href="#hizmetler">Hizmetler</a>
-        <a href="#isler">İşler</a>
+        <a href="#paketler">Paketler</a>
+        <a href="#egitim">Eğitim</a>
+        <a href="https://www.linkedin.com/in/pinar-sa%C3%A7u-karg%C3%BCn-73a41491/" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://subly.nexidigitalai.com/" target="_blank" rel="noopener">Subly</a>
         <a href="mailto:nexidigital.00@gmail.com">nexidigital.00@gmail.com</a>
       </nav>
@@ -921,13 +997,13 @@
   </div>
 </footer>
 
-<a class="waFloat js-wa" href="https://wa.me/905358758848" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp'tan yaz">
+<a class="waFloat js-wa" href="https://wa.me/905358758848" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp'tan yazın">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
 </a>
 
 <script>
 (function () {
-  var T = {"mailBody": "Merhaba,\n\nİşletmemin adı: \nİhtiyacım olan şey: \n\n(Kısa bilgi yeterli, detayları görüşmede konuşabiliriz.)", "waText": "Merhaba, Nexi Digital hakkında bilgi almak istiyorum.", "menuOpen": "Menüyü aç", "menuClose": "Menüyü kapat", "sending": "Gönderiliyor", "submit": "Ön görüşme iste", "notes": {"cafe": "Keşif Günü'nde haftanızı çıkarıyor, zaman kaybını işaretliyor ve aynı gün ilk sistemi kuruyorum.", "emlak": "İlan hazırlığı ve paylaşım ofisin en çok saatini alıyor. Onay sizde kalıyor, gerisini sistem yapıyor."}, "sent": "Talebin ulaştı. En geç bir iş günü içinde sana dönüş yapacağım.", "failed": "Form gönderilemedi. Bağlantını kontrol edip tekrar dene ya da nexidigital.00@gmail.com adresine doğrudan yaz.", "segs": {"kayip": {"name": "Geri kazanılacak", "count": "12 müşteri", "ch": "SMS", "to": "Ayşe Kaya'ya, son ziyaret 94 gün önce", "msg": "Ayşe Hanım, sizi 3 aydır göremedik. Bu ay saç bakımında size özel %15 indirim var; randevu için bu mesajı yanıtlamanız yeterli."}, "sadik": {"name": "Sadık", "count": "7 müşteri", "ch": "WhatsApp", "to": "Merve Tunç'a, 14. ziyaret", "msg": "Merve Hanım, 14. ziyaretiniz için teşekkür ederiz! Yeni sezon renklerini sadık müşterilerimize herkesten önce deniyoruz. Bu hafta uğramak ister misiniz?"}, "yeni": {"name": "Yeni", "count": "9 müşteri", "ch": "E-posta", "to": "Elif Şahin'e, ilk ziyaret 3 gün önce", "msg": "Elif Hanım, Papatya Kuaför'e hoş geldiniz. İkinci ziyaretinizde fön bizden. Sizi yeniden görmek isteriz!"}}};
+  var T = {"mailBody": "Merhaba,\n\nİşletmemin adı: \nİhtiyacım olan şey: \n\n(Kısa bilgi yeterli, detayları görüşmede konuşabiliriz.)", "waText": "Merhaba, Nexi Digital'in danışmanlık ve eğitim paketleri hakkında bilgi almak istiyorum.", "menuOpen": "Menüyü aç", "menuClose": "Menüyü kapat", "sending": "Gönderiliyor", "submit": "Ön görüşme iste", "notes": {"cafe": "Keşif Günü'nde haftanızı çıkarıyor, zaman kaybını işaretliyor ve aynı gün ilk sistemi kuruyorum.", "emlak": "İlan hazırlığı ve paylaşım ofisin en çok saatini alıyor. Onay sizde kalıyor, gerisini sistem yapıyor."}, "sent": "Talebiniz ulaştı. En geç bir iş günü içinde dönüş yapacağım.", "failed": "Form gönderilemedi. Bağlantınızı kontrol edip tekrar deneyin ya da nexidigital.00@gmail.com adresine doğrudan yazın."};
 
   // Contact links
   document.querySelectorAll('.js-mail').forEach(function (a) {
@@ -949,139 +1025,7 @@
   links.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
 
-  // Customer network: scattered customers settle into segment clusters, like the logo's nodes.
-  var NS = 'http://www.w3.org/2000/svg';
-  var svg = document.getElementById('vizSvg');
-  var viz = document.getElementById('viz');
-  var SEGS = [
-    { id: 'kayip', hub: [148, 176], n: 12, label: 'top' },
-    { id: 'sadik', hub: [418, 150], n: 7, label: 'top' },
-    { id: 'yeni',  hub: [318, 318], n: 9, label: 'bottom' }
-  ];
-  var seed = 7;
-  function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
-  function el(name, attrs, parent) {
-    var e = document.createElementNS(NS, name);
-    for (var k in attrs) e.setAttribute(k, attrs[k]);
-    parent.appendChild(e);
-    return e;
-  }
-  var lines = el('g', {}, svg);
-  var pulses = el('g', {}, svg);
-  var nodes = [];
-  SEGS.forEach(function (s, si) {
-    var group = el('g', { 'data-seg': s.id, 'class': 'seg-' + s.id }, svg);
-    for (var i = 0; i < s.n; i++) {
-      var a = i * 2.39996 + si;
-      var r = 30 + 14 * Math.sqrt(i + 1);
-      var x = s.hub[0] + Math.cos(a) * r, y = s.hub[1] + Math.sin(a) * r * 0.82;
-      el('line', { x1: s.hub[0], y1: s.hub[1], x2: x.toFixed(1), y2: y.toFixed(1), 'class': 'vl seg-' + s.id, 'data-seg': s.id }, lines);
-      var g = el('g', { 'class': 'vn' }, group);
-      var c = el('circle', { r: (3.6 + rnd() * 3.4).toFixed(1) }, g);
-      nodes.push({ g: g, c: c, seg: s.id, hub: s.hub, x: x, y: y, x0: 20 + rnd() * 520, y0: 20 + rnd() * 400, delay: i * 0.035 + si * 0.08 });
-    }
-    var hub = el('g', { 'class': 'vh', transform: 'translate(' + s.hub[0] + ' ' + s.hub[1] + ')' }, group);
-    el('circle', { 'class': 'halo', r: 21 }, hub);
-    el('circle', { 'class': 'core', r: 11 }, hub);
-    var reach = (30 + 14 * Math.sqrt(s.n)) * 0.82;
-    var ly = s.label === 'bottom' ? reach + 26 : -reach - 32;
-    var label = el('text', { x: 0, y: ly.toFixed(0), 'text-anchor': 'middle' }, hub);
-    label.textContent = T.segs[s.id].name;
-    var sub = el('text', { 'class': 'sub', x: 0, y: (ly + 21).toFixed(0), 'text-anchor': 'middle' }, hub);
-    sub.textContent = T.segs[s.id].count;
-  });
-
-  // Final layout is the resting state; the intro only animates *from* the scattered positions.
-  nodes.forEach(function (n) { n.g.setAttribute('transform', 'translate(' + n.x.toFixed(1) + ' ' + n.y.toFixed(1) + ')'); });
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!reduce && svg.animate) {
-    nodes.forEach(function (n) {
-      n.g.animate([
-        { transform: 'translate(' + n.x0.toFixed(1) + 'px, ' + n.y0.toFixed(1) + 'px)' },
-        { transform: 'translate(' + n.x.toFixed(1) + 'px, ' + n.y.toFixed(1) + 'px)' }
-      ], { duration: 1150, delay: 350 + n.delay * 1000, easing: 'cubic-bezier(.2, .75, .2, 1)', fill: 'backwards' });
-    });
-    [lines].concat([].slice.call(svg.querySelectorAll('.vh'))).forEach(function (e) {
-      e.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 600, delay: 1500, easing: 'ease-out', fill: 'backwards' });
-    });
-  }
-
-  // Segment picker
-  var tabs = document.querySelectorAll('.segTab');
-  var msg = document.getElementById('msg');
-  var current = 'kayip';
-  function pick(id, highlight) {
-    current = id;
-    tabs.forEach(function (t) { t.setAttribute('aria-pressed', t.dataset.seg === id ? 'true' : 'false'); });
-    svg.querySelectorAll('[data-seg]').forEach(function (g) { g.classList.toggle('on', g.dataset.seg === id); });
-    msg.className = 'msg seg-' + id;
-    document.getElementById('msgCh').textContent = T.segs[id].ch;
-    document.getElementById('msgTo').textContent = T.segs[id].to;
-    document.getElementById('msgText').textContent = T.segs[id].msg;
-    if (highlight) viz.classList.add('picked');
-    if (!reduce && msg.animate) {
-      msg.animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 480, easing: 'cubic-bezier(.32, .72, 0, 1)' });
-    }
-  }
-  var userPicked = false;
-  tabs.forEach(function (t) {
-    t.addEventListener('click', function () {
-      userPicked = true;
-      msg.setAttribute('aria-live', 'polite');
-      pick(t.dataset.seg, true);
-    });
-  });
-  pick('kayip', false);
-
-  // The network stays alive: customers drift, messages travel from each hub to its customers,
-  // and the segments take turns until the visitor picks one. All of it pauses off-screen.
-  var active = true;
-  if (!reduce && svg.animate) {
-    var floats = nodes.map(function (n, i) {
-      var dx = (rnd() * 2 - 1) * 5, dy = (rnd() * 2 - 1) * 5;
-      return n.c.animate([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(' + dx.toFixed(1) + 'px, ' + dy.toFixed(1) + 'px)' }],
-        { duration: 2200 + rnd() * 1800, delay: 1800 + i * 40, direction: 'alternate', iterations: Infinity, easing: 'ease-in-out' });
-    });
-    function sendPulse() {
-      if (!active) return;
-      var pool = nodes.filter(function (n) { return !viz.classList.contains('picked') || n.seg === current; });
-      var n = pool[Math.floor(Math.random() * pool.length)];
-      var p = el('g', { 'class': 'vp seg-' + n.seg }, pulses);
-      el('circle', { r: 3.2 }, p);
-      var go = p.animate([
-        { transform: 'translate(' + n.hub[0] + 'px, ' + n.hub[1] + 'px)', opacity: 0 },
-        { opacity: 1, offset: 0.15 },
-        { transform: 'translate(' + n.x.toFixed(1) + 'px, ' + n.y.toFixed(1) + 'px)', opacity: 1 }
-      ], { duration: 720, easing: 'cubic-bezier(.45, 0, .25, 1)', fill: 'forwards' });
-      go.onfinish = function () {
-        pulses.removeChild(p);
-        var ring = el('circle', { 'class': 'vring seg-' + n.seg, cx: n.x.toFixed(1), cy: n.y.toFixed(1), r: 14 }, pulses);
-        ring.style.transformBox = 'fill-box';
-        ring.style.transformOrigin = 'center';
-        ring.animate([{ transform: 'scale(0.3)', opacity: 0.9 }, { transform: 'scale(1.3)', opacity: 0 }], { duration: 700, easing: 'ease-out' })
-          .onfinish = function () { pulses.removeChild(ring); };
-        n.c.style.transformBox = 'fill-box';
-        n.c.style.transformOrigin = 'center';
-        n.g.animate([{ opacity: 1 }, { opacity: 0.55, offset: 0.3 }, { opacity: 1 }], { duration: 500 });
-      };
-    }
-    setTimeout(function () { setInterval(sendPulse, 420); }, 1900);
-    var order = ['kayip', 'sadik', 'yeni'];
-    setTimeout(function () {
-      setInterval(function () {
-        if (!active || userPicked) return;
-        pick(order[(order.indexOf(current) + 1) % order.length], true);
-      }, 4800);
-    }, 2600);
-    function setActive(on) {
-      active = on;
-      floats.forEach(function (a) { on ? a.play() : a.pause(); });
-    }
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (es) { setActive(es[0].isIntersecting && !document.hidden); }).observe(viz);
-    }
-    document.addEventListener('visibilitychange', function () { setActive(!document.hidden); });
-  }
 
   // Headline: words rise into place once, on load.
   var h1 = document.getElementById('heroTitle');
@@ -1203,7 +1147,7 @@
     });
   });
 
-  // "Write to me about this" links pre-select the service in the form.
+  // Package buttons pre-select that package in the form.
   document.querySelectorAll('[data-pick]').forEach(function (a) {
     a.addEventListener('click', function () {
       var box = document.querySelector('.pick input[data-svc="' + a.dataset.pick + '"]');

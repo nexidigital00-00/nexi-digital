@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nexi Digital | YouTube automation, social media, websites and customer marketing</title>
-<meta name="description" content="I use AI agents to produce YouTube videos and social media content, design websites and apps for businesses, and run customer win-back campaigns. The first call is free.">
+<title>Nexi Digital | AI consulting and training for restaurants, cafés and real estate offices</title>
+<meta name="description" content="I set up working AI systems inside restaurants, cafés and real estate offices, and teach their teams to use them. Discovery Day from 7,500 TRY. On-site in Sakarya, online across Turkey.">
 <meta name="theme-color" content="#F5F6FA" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1024" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nexi Digital">
-<meta property="og:title" content="Nexi Digital: I grow your videos, your site and your customers with AI agents">
-<meta property="og:description" content="I use AI agents to produce YouTube videos and social media content, design websites and apps for businesses, and run customer win-back campaigns. The first call is free.">
+<meta property="og:title" content="Nexi Digital: AI, set up right beside your team">
+<meta property="og:description" content="I set up working AI systems inside restaurants, cafés and real estate offices, and teach their teams to use them. Discovery Day from 7,500 TRY. On-site in Sakarya, online across Turkey.">
 <meta property="og:url" content="https://nexidigitalai.com/en.html">
 <meta property="og:image" content="https://nexidigitalai.com/img/og-en.png">
 <meta property="og:image:width" content="1200">
@@ -154,8 +154,8 @@
 
   /* ---------- Hero: headline left, the live customer network right ---------- */
   .hero { position: relative; padding-top: 72px; }
-  .heroGrid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 48px; align-items: center; }
-  .hero h1 { font-size: clamp(2.1rem, 3.6vw, 3.2rem); line-height: 1.06; letter-spacing: -0.035em; }
+  .heroGrid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+  .hero h1 { font-size: clamp(2rem, 3.1vw, 2.75rem); line-height: 1.08; letter-spacing: -0.035em; }
   .hero h1 .w { display: inline-block; }
   .heroLede { color: var(--ink-soft); font-size: 1.18rem; max-width: 44ch; margin-top: 26px; }
   .heroLede strong { color: var(--ink); font-weight: 600; }
@@ -183,43 +183,6 @@
   .bezel { padding: 6px; border-radius: 22px; background: color-mix(in srgb, var(--ink) 5%, transparent); box-shadow: inset 0 0 0 1px var(--line), var(--shadow); }
   .bezel > .core { border-radius: 16px; overflow: hidden; background: var(--scr-2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06); }
 
-  /* Network panel */
-  .viz { margin: 0; color: var(--scr-text); }
-  .vizHead { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 15px 20px; border-bottom: 1px solid var(--scr-line); font-size: 0.87rem; }
-  .vizHead strong { font-weight: 600; }
-  .vizHead span { color: var(--scr-soft); }
-  .vizCanvas svg { width: 100%; height: auto; }
-  .vn circle { fill: var(--c); }
-  .vn, .vl, .vh { transition: opacity 0.3s var(--ease); }
-  .vl { stroke: var(--c); stroke-width: 1.2; opacity: 0.38; }
-  .vh circle.core { fill: var(--c); stroke: var(--scr-2); stroke-width: 5; paint-order: stroke; }
-  .vh circle.halo { fill: none; stroke: var(--c); stroke-opacity: 0.35; stroke-width: 1.2; }
-  .vh text { font-family: var(--font); fill: var(--scr-text); font-size: 15px; font-weight: 600; }
-  .vh text.sub { fill: var(--scr-soft); font-size: 13px; font-weight: 400; }
-  .viz.picked g[data-seg]:not(.on) { opacity: 0.22; }
-  .viz.picked .vl.on { opacity: 0.75; }
-  .viz.picked .vl:not(.on) { opacity: 0.08; }
-  .seg-kayip { --c: var(--tang-glow); }
-  .seg-sadik { --c: var(--blue-glow); }
-  .seg-yeni { --c: var(--sun); }
-  .vizFoot { border-top: 1px solid var(--scr-line); padding: 16px 20px 20px; display: grid; gap: 14px; }
-  .segTabs { display: flex; flex-wrap: wrap; gap: 8px; }
-  .segTab {
-    display: inline-flex; align-items: center; gap: 9px; min-height: 40px; padding: 0 15px; border-radius: 999px; border: 0; cursor: pointer;
-    font: inherit; font-size: 0.9rem; font-weight: 500; color: var(--scr-soft); background: transparent; box-shadow: inset 0 0 0 1px var(--scr-line);
-    transition: color 0.25s var(--ease), box-shadow 0.25s var(--ease), background-color 0.25s var(--ease), transform 0.25s var(--ease);
-  }
-  .segTab:active { transform: scale(0.97); }
-  .segTab i { width: 9px; height: 9px; border-radius: 50%; background: var(--c); }
-  .segTab:hover { color: var(--scr-text); box-shadow: inset 0 0 0 1px rgba(243, 239, 246, 0.3); }
-  .segTab[aria-pressed="true"] { color: var(--scr-text); background: rgba(243, 239, 246, 0.08); box-shadow: inset 0 0 0 1px var(--c); }
-  .msg { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; align-items: start; background: rgba(243, 239, 246, 0.05); border-radius: 12px; padding: 14px 16px; min-height: 104px; }
-  .msgCh { grid-row: span 2; font-size: 0.74rem; font-weight: 600; color: var(--scr); background: var(--c); border-radius: 999px; padding: 3px 9px; margin-top: 2px; }
-  .msgTo { font-size: 0.82rem; color: var(--scr-soft); }
-  .msgText { font-size: 0.95rem; line-height: 1.5; }
-  .vp circle { fill: var(--c); }
-  .vring { fill: none; stroke: var(--c); stroke-width: 1.5; }
-
   /* ---------- Work ---------- */
   .workTitle { margin-bottom: 44px; }
   .work { border-top: 1px solid var(--line); padding-top: 40px; }
@@ -246,9 +209,6 @@
   .short::after { content: ""; position: absolute; left: 50%; top: 50%; width: 48px; height: 48px; margin: -24px 0 0 -24px; border-radius: 50%; background: rgba(7, 11, 28, 0.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 7l8 5-8 5z' fill='%23fff'/%3E%3C/svg%3E") center / 22px no-repeat; opacity: 0; transform: scale(0.7); transition: opacity 0.3s var(--ease), transform 0.4s var(--spring); }
   .short:hover { transform: translateY(-8px) rotate(-1.5deg); box-shadow: inset 0 0 0 1px var(--line), 0 30px 60px -28px rgba(46, 75, 240, 0.5); }
   .short:hover::after { opacity: 1; transform: none; }
-  .workCase { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 64px; align-items: center; }
-  .caseBody { display: grid; gap: 18px; justify-items: start; }
-  .caseBody .stats { width: 100%; margin: 8px 0 4px; }
 
   /* ---------- What I do ---------- */
   .what { display: grid; grid-template-columns: minmax(0, 0.55fr) minmax(0, 1.45fr); gap: 32px 64px; margin-bottom: 72px; align-items: start; }
@@ -258,7 +218,6 @@
 
   /* ---------- Fit ---------- */
   .band { background: var(--bg-2); margin-top: 128px; padding: 104px 0 112px; }
-  .band h2 { max-width: 20ch; margin-bottom: 48px; }
   .fit { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 72px; }
   .fit h3 { font-size: 1.05rem; margin-bottom: 14px; }
   .fitYes { color: var(--blue-text); }
@@ -282,17 +241,6 @@
   .steps li:last-child::before { box-shadow: inset 0 0 0 2px var(--blue), 0 0 0 6px var(--bg); }
   .steps p { color: var(--ink-soft); font-size: 0.98rem; }
   .stepTag { justify-self: start; font-size: 0.8rem; font-weight: 600; color: var(--blue-text); background: color-mix(in srgb, var(--blue) 13%, transparent); padding: 3px 11px; border-radius: 999px; }
-
-  /* ---------- Stats ---------- */
-  .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .stat { padding: 20px 0; border-top: 1px solid var(--line); }
-  .stat:nth-child(odd) { padding-right: 24px; }
-  .stat b { display: block; font-family: var(--display); font-size: clamp(1.9rem, 3.2vw, 2.6rem); line-height: 1; font-weight: 600; letter-spacing: -0.04em; }
-  .stat span { display: block; margin-top: 8px; font-size: 0.93rem; color: var(--ink-soft); max-width: 24ch; }
-  .stat.c b { color: var(--tang-text); }
-  .stat.t b { color: var(--blue-text); }
-
-
 
   /* ---------- Scroll progress ---------- */
   .progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: linear-gradient(90deg, var(--blue), var(--tang)); transform-origin: left; transform: scaleX(0); }
@@ -365,10 +313,7 @@
     background: var(--surface); box-shadow: var(--shadow), inset 0 0 0 1px var(--line);
     transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
   }
-  .svc-video { grid-column: span 7; }
-  .svc-social { grid-column: span 5; --accent: var(--tang); }
-  .svc-site { grid-column: span 5; --accent: var(--tang); }
-  .svc-crm { grid-column: span 7; }
+  .svc-estate { --accent: var(--tang); }
   .svc::before {
     content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0; transition: opacity 0.4s var(--ease);
     background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
@@ -384,6 +329,66 @@
   .svc li { position: relative; padding: 10px 0 10px 26px; border-top: 1px solid var(--line); font-size: 0.97rem; }
   .svc li::before { content: ""; position: absolute; left: 3px; top: 17px; width: 10px; height: 6px; border-left: 2px solid var(--accent); border-bottom: 2px solid var(--accent); transform: rotate(-45deg); }
   .svc .textLink { justify-self: start; }
+
+  .secCols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 28px; }
+  .listLabel { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 6px; }
+  .svc ul.probs li::before { content: "\2715"; border: 0; transform: none; width: auto; height: auto; left: 2px; top: 10px; font-size: 0.8rem; font-weight: 700; color: var(--tang-text); }
+  .indiv {
+    display: flex; align-items: center; gap: 18px; margin-top: 20px; padding: 20px 26px; border-radius: 20px; text-decoration: none;
+    background: var(--bg-2); box-shadow: inset 0 0 0 1px var(--line); transition: box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .indiv:hover { box-shadow: inset 0 0 0 1px var(--blue); transform: translateY(-2px); }
+  .indivTag { flex: none; font-size: 0.8rem; font-weight: 700; color: #0F1633; background: var(--sun); padding: 4px 12px; border-radius: 999px; }
+  .indivText { flex: 1; font-weight: 500; }
+  .indiv .arr { flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); color: #fff; transition: transform 0.4s var(--spring), background-color 0.3s var(--ease); }
+  .indiv .arr svg { width: 15px; height: 15px; }
+  .indiv:hover .arr { transform: translate(3px, -1px); background: var(--tang); }
+
+  /* ---------- Classic consultant vs. me ---------- */
+  .compare { margin-top: 88px; border-radius: 20px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--line); }
+  .cmpRow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cmpRow span { padding: 18px 26px; border-top: 1px solid var(--line); font-size: 1.02rem; }
+  .cmpRow span:first-child { color: var(--ink-soft); }
+  .cmpRow span:last-child { background: color-mix(in srgb, var(--blue) 7%, var(--surface)); font-weight: 600; }
+  .cmpHead span { border-top: 0; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+  .cmpHead span:last-child { color: var(--blue-text); }
+  .fdeNote { margin-top: 20px; color: var(--ink-soft); font-size: 0.95rem; max-width: 72ch; }
+
+  /* ---------- Packages ---------- */
+  .packGroup { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 16px; }
+  .packs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-bottom: 48px; }
+  .packs2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pack { grid-column: auto; grid-template-rows: auto auto auto 1fr auto; }
+  .pack h3 { font-size: clamp(1.2rem, 1.8vw, 1.45rem); }
+  .packBadge { justify-self: start; font-size: 0.78rem; font-weight: 700; color: #0F1633; background: var(--sun); padding: 3px 11px; border-radius: 999px; }
+  .packStart { box-shadow: var(--shadow), inset 0 0 0 2px var(--blue); }
+  .price { font-family: var(--display); font-size: clamp(1.7rem, 2.6vw, 2.2rem); font-weight: 600; letter-spacing: -0.04em; line-height: 1; color: var(--blue-text); display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .price small { font-family: var(--font); font-size: 0.9rem; font-weight: 500; letter-spacing: 0; color: var(--ink-soft); }
+  .pack .btn { justify-self: stretch; margin-top: 6px; }
+  .packNote { margin-top: -20px; color: var(--ink-soft); font-size: 0.95rem; }
+
+  /* ---------- Education ---------- */
+  .edu { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 64px; }
+  .eduCol h3 { font-family: var(--display); font-size: clamp(1.35rem, 2.2vw, 1.75rem); font-weight: 600; letter-spacing: -0.03em; }
+  .eduFor { color: var(--ink-soft); margin: 8px 0 22px; }
+  .weeks { list-style: none; margin: 0; padding: 0; position: relative; }
+  .weeks::before { content: ""; position: absolute; left: 7px; top: 12px; bottom: 12px; width: 2px; background: linear-gradient(var(--tang), var(--blue)); opacity: 0.5; }
+  .weeks li { position: relative; padding: 0 0 22px 36px; display: grid; gap: 2px; }
+  .weeks li::before { content: ""; position: absolute; left: 0; top: 5px; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); box-shadow: inset 0 0 0 2px var(--blue), 0 0 0 5px var(--bg); }
+  .weeks span { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--blue-text); }
+  .weeks b { font-weight: 600; font-size: 1.05rem; }
+  .weeks p { color: var(--ink-soft); font-size: 0.97rem; }
+  .eduProof { display: flex; align-items: baseline; gap: 12px; margin-top: 8px; padding-top: 20px; border-top: 1px solid var(--line); }
+  .eduProof b { font-family: var(--display); font-size: 2rem; font-weight: 600; letter-spacing: -0.04em; line-height: 1; color: var(--tang-text); }
+  .eduProof span { color: var(--ink-soft); font-size: 0.95rem; max-width: 34ch; line-height: 1.4; }
+
+  /* ---------- About ---------- */
+  .about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px 80px; align-items: start; }
+  .aboutText { display: grid; gap: 18px; justify-items: start; }
+  .aboutText h2 { margin: 0; max-width: none; }
+  .aboutBig { font-size: clamp(1.25rem, 2vw, 1.55rem); line-height: 1.4; letter-spacing: -0.015em; font-weight: 500; }
+  .aboutP { color: var(--ink-soft); max-width: 52ch; }
+  .about .fit { grid-template-columns: minmax(0, 1fr); gap: 36px; }
 
   /* ---------- Service picker in the form ---------- */
   .pick { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
@@ -455,10 +460,10 @@
      so browsers without animation-timeline simply show the final state. */
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
-      .rv, .steps li, .svc, .faq > div, .fitList li, .stat, .facts li, .short { animation: rise linear both; animation-timeline: view(); animation-range: entry 5% entry 75%; }
-      .steps li:nth-child(2), .short:nth-child(2), .svc:nth-child(2), .fitList li:nth-child(2), .stat:nth-child(2), .facts li:nth-child(2) { animation-range: entry 12% entry 85%; }
-      .steps li:nth-child(3), .short:nth-child(3), .svc:nth-child(3), .fitList li:nth-child(3), .stat:nth-child(3), .facts li:nth-child(3) { animation-range: entry 19% entry 95%; }
-      .steps li:nth-child(4), .stat:nth-child(4) { animation-range: entry 26% cover 40%; }
+      .rv, .steps li, .svc, .faq > div, .fitList li, .weeks li, .facts li, .short { animation: rise linear both; animation-timeline: view(); animation-range: entry 5% entry 75%; }
+      .steps li:nth-child(2), .short:nth-child(2), .svc:nth-child(2), .fitList li:nth-child(2), .weeks li:nth-child(2), .facts li:nth-child(2) { animation-range: entry 12% entry 85%; }
+      .steps li:nth-child(3), .short:nth-child(3), .svc:nth-child(3), .fitList li:nth-child(3), .weeks li:nth-child(3), .facts li:nth-child(3) { animation-range: entry 19% entry 95%; }
+      .steps li:nth-child(4), .weeks li:nth-child(4) { animation-range: entry 26% cover 40%; }
       .shots .bezel { animation: tilt linear both; animation-timeline: view(); animation-range: entry 0% cover 50%; }
       .shotPhone { animation: phoneIn linear both; animation-timeline: view(); animation-range: entry 10% cover 55%; }
       .steps::before { animation: draw linear both; animation-timeline: view(); animation-range: entry 30% cover 45%; }
@@ -513,7 +518,7 @@
   @keyframes nodeBreath { 0%, 60%, 100% { transform: scale(1); } 25% { transform: scale(1.12); } }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .btn, .segTab, .waFloat, .vn, .vl, .vh, .textLink, .navLinks a, .short, .short::after, .btn .arr { transition: none !important; }
+    .btn, .indiv, .indiv .arr, .waFloat, .textLink, .navLinks a, .short, .short::after, .btn .arr { transition: none !important; }
     .tickTrack, .live::before, .logo .mk-c, .logo .mk-t, .scene *, .scene.on { animation: none !important; }
     .tabInk, .svc, .pick span { transition: none !important; }
     .tickTrack { flex-wrap: wrap; width: auto; }
@@ -524,9 +529,10 @@
 
   /* ---------- Responsive ---------- */
   @media (max-width: 1020px) {
-    .heroGrid, .workHead, .workCase, .what, .faqLead, .contact { grid-template-columns: minmax(0, 1fr); }
-    .workCase { gap: 44px; }
-    .svc, .svc-video, .svc-social, .svc-site, .svc-crm { grid-column: span 12; }
+    .heroGrid, .workHead, .what, .faqLead, .contact, .about, .edu { grid-template-columns: minmax(0, 1fr); }
+    .svc { grid-column: span 12; }
+    .packs { grid-template-columns: minmax(0, 1fr); }
+    .edu { gap: 56px; }
     .shorts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .heroGrid { gap: 48px; }
     .hero h1 { font-size: clamp(2.2rem, 6.4vw, 3.4rem); max-width: 18ch; }
@@ -544,12 +550,13 @@
     .navLinks.open { display: flex; }
     .navLinks a { padding: 14px 0; font-size: 1.05rem; border-bottom: 1px solid var(--line); }
     .navCta { display: none; }
-    .fit, .faq { grid-template-columns: minmax(0, 1fr); }
+    .faq { grid-template-columns: minmax(0, 1fr); }
     .faq { gap: 32px; }
     .block { padding-top: 96px; }
     .band { margin-top: 96px; padding: 80px 0; }
     .siteFoot { margin-top: 96px; }
     .work + .work { margin-top: 72px; }
+    .compare { margin-top: 64px; }
   }
   @media (max-width: 560px) {
     .wrap { padding-inline: 18px; }
@@ -560,9 +567,6 @@
     .ctaRow { width: 100%; }
     .ctaRow .btn { flex: 1 1 100%; }
     .navLinks { padding: 8px 18px 20px; }
-    .vizHead, .vizFoot { padding-left: 16px; padding-right: 16px; }
-    .vh text { font-size: 21px; }
-    .vh text.sub { font-size: 18px; }
     .shots { padding-right: 16%; }
     .shotPhone { width: 30%; }
     .facts { gap: 16px 28px; }
@@ -575,6 +579,12 @@
     .kHead em { font-size: 0.64rem; padding: 2px 7px; }
     .scene { padding: 16px; }
     .svc { padding: 28px 22px 24px; }
+    .secCols { grid-template-columns: minmax(0, 1fr); }
+    .cmpRow span { padding: 14px; font-size: 0.92rem; }
+    .cmpHead span { font-size: 0.7rem; }
+    .indiv { flex-wrap: wrap; padding: 18px; gap: 12px; }
+    .indivText { flex-basis: 100%; order: 3; }
+    .indiv .arr { margin-left: auto; }
   }
 </style>
 </head>
@@ -589,10 +599,11 @@
       <span class="word">Nexi <span>Digital</span></span>
     </a>
     <nav class="navLinks" id="navLinks" aria-label="Main menu">
-      <a href="#hizmetler">Services</a>
+      <a href="#hizmetler">Sectors</a>
+      <a href="#paketler">Packages</a>
+      <a href="#egitim">Training</a>
       <a href="#isler">Work</a>
-      <a href="#nasil">How I work</a>
-      <a href="#sss">FAQ</a>
+      <a href="#hakkimda">About</a>
     </nav>
     <div class="navEnd">
       <a class="lang" href="./" hreflang="tr" lang="tr" aria-label="Türkçe sürüm">TR</a>
@@ -608,11 +619,11 @@
   <section class="hero" aria-labelledby="heroTitle">
     <div class="wrap heroGrid">
       <div class="heroText">
-        <h1 id="heroTitle">I grow your videos, your site and your customers with AI agents.</h1>
-        <p class="heroLede">I'm Pınar. I use AI agents to produce YouTube videos and social media content, design websites and apps for businesses, and turn customer lists into win-back campaigns. <strong>The first call is free.</strong></p>
+        <h1 id="heroTitle">I set up AI right beside you, for restaurants, cafés and real estate offices.</h1>
+        <p class="heroLede">Working systems, not slide decks. Consulting and team training; on-site in Sakarya, online across Turkey.</p>
         <div class="ctaRow">
           <a class="btn btnPrimary" href="#iletisim">Book a free call<span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M6 4h6v6"/></svg></span></a>
-          <a class="textLink" href="#hizmetler">See what I do</a>
+          <a class="textLink" href="#paketler">See packages</a>
         </div>
       </div>
 
@@ -664,71 +675,169 @@
       </div>
     </div>
 
-    <div class="ticker" aria-label="What I work on">
+    <div class="ticker" aria-label="What I build and teach">
       <div class="tickTrack">
-        <div class="tickSet"><span>YouTube automation</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Faceless channels</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Reels and TikTok editing</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Captions and translation</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Websites</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Web and mobile apps</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Customer segmentation</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>WhatsApp campaigns</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>AI agents</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Subly</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg></div>
-        <div class="tickSet" aria-hidden="true"><span>YouTube automation</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Faceless channels</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Reels and TikTok editing</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Captions and translation</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Websites</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Web and mobile apps</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Customer segmentation</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>WhatsApp campaigns</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>AI agents</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Subly</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg></div>
+        <div class="tickSet"><span>Discovery Day</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>QR menu and ordering</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Customer lists and offers</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Listing content</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>WhatsApp reply assistant</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Team training</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Solo workshop</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg></div>
+        <div class="tickSet" aria-hidden="true"><span>Discovery Day</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>QR menu and ordering</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Customer lists and offers</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Listing content</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>WhatsApp reply assistant</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Team training</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg><span>Solo workshop</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="currentColor" stroke-opacity=".3" stroke-width="2"/><circle cx="5" cy="12" r="4" fill="#4A67FF"/><circle cx="19" cy="12" r="4" fill="#FF7A3D"/></svg></div>
       </div>
     </div>
   </section>
 
-  <section class="wrap block" id="hizmetler" aria-labelledby="svcTitle">
+  <section class="wrap block" id="hizmetler" aria-labelledby="secTitle">
     <div class="sectionHead rv">
-      <h2 id="svcTitle">What I do</h2>
-      <p class="lede">I work with creators and with businesses. Agents handle the repetitive production; I own the decisions and the quality.</p>
+      <h2 id="secTitle">Two sectors I know up close</h2>
+      <p class="lede">I don't sell every business the same tool. I know where the hours go in food service and real estate, and I start there.</p>
     </div>
     <div class="bento">
-      <article class="svc svc-video" data-service="video">
-        <div class="svcTop"><h3>YouTube automation</h3><p class="for"><span class="forTag">Creators</span><span class="forTag">Businesses</span></p></div>
-        <p class="svcText">A production line for faceless channels, from finding the topic to uploading. I grew my own channel, GlowTips, on it: 182 videos and more than 850,000 views. I set up the same line for yours.</p>
-        <ul><li>Topic and script research</li><li>AI voiceover and visuals</li><li>Editing, thumbnails and an upload schedule</li></ul>
-        <a class="textLink" href="#iletisim" data-pick="video">Ask me about this</a>
+      <article class="svc svc-food" aria-labelledby="secFoodT">
+        <div class="svcTop"><h3 id="secFoodT">Restaurants and cafés</h3><p class="for"><span class="forTag">Food service</span></p></div>
+        <div class="secCols">
+          <div><p class="listLabel">What I often see</p><ul class="probs"><li>Orders get lost in WhatsApp</li><li>Menu and prices updated by hand</li><li>Past customers never hear back</li></ul></div>
+          <div><p class="listLabel">What I build</p><ul><li>QR menu and table ordering</li><li>Kitchen, waiter and till screens</li><li>Customer lists and offer messages</li></ul></div>
+        </div>
+        <a class="textLink" href="#isler">See the live café system</a>
       </article>
-      <article class="svc svc-social" data-service="social">
-        <div class="svcTop"><h3>Social media editing</h3><p class="for"><span class="forTag">Creators</span><span class="forTag">Businesses</span></p></div>
-        <p class="svcText">I use agents to get your raw videos ready for Reels, TikTok and Shorts: cuts, captions, format.</p>
-        <ul><li>Dead air and silences cut</li><li>Captions, translated into 14 languages</li><li>Vertical format and thumbnail</li></ul>
-        <a class="textLink" href="#iletisim" data-pick="social">Ask me about this</a>
+      <article class="svc svc-estate" aria-labelledby="secEstateT">
+        <div class="svcTop"><h3 id="secEstateT">Real estate offices</h3><p class="for"><span class="forTag">Real estate</span></p></div>
+        <div class="secCols">
+          <div><p class="listLabel">What I often see</p><ul class="probs"><li>Copy and photos redone for every listing</li><li>Social accounts sit idle for weeks</li><li>Replies to clients run late</li></ul></div>
+          <div><p class="listLabel">What I build</p><ul><li>Listing copy and vertical video from photos</li><li>A weekly posting calendar</li><li>A WhatsApp assistant for common questions</li></ul></div>
+        </div>
+        <a class="textLink" href="#iletisim" data-pick="kesif">Ask for a Discovery Day for your office</a>
       </article>
-      <article class="svc svc-site" data-service="site">
-        <div class="svcTop"><h3>Website and app design</h3><p class="for"><span class="forTag">Businesses</span></p></div>
-        <p class="svcText">Fast, mobile-friendly websites and web apps for businesses. I took Subly from idea to live product myself.</p>
-        <ul><li>Business and booking websites</li><li>Web and mobile app interfaces</li><li>Domain, launch and upkeep</li></ul>
-        <a class="textLink" href="#iletisim" data-pick="site">Ask me about this</a>
+    </div>
+    <a class="indiv rv" href="#egitim">
+      <span class="indivTag">For individuals</span>
+      <span class="indivText">A creator or freelancer? See the workshop on making content and video with AI.</span>
+      <span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M6 4h6v6"/></svg></span>
+    </a>
+  </section>
+
+  <section class="wrap block" id="nasil" aria-labelledby="whatTitle">
+    <div class="what rv">
+      <h2 id="whatTitle">How I work</h2>
+      <p class="whatBig"><span class="fill">I don't present and leave. <strong>I sit down beside your business, set up a working system and teach your team.</strong></span></p>
+    </div>
+    <ol class="steps">
+      <li><h3>Discovery Day</h3><p>I map your week, find where time is lost and set up the first automation the same day.</p><span class="stepTag">From 7,500 TRY</span></li>
+      <li><h3>Setup</h3><p>I build a working system for the job that eats the most hours, and we test it on real orders and listings.</p></li>
+      <li><h3>Team training</h3><p>I teach the people who will use it, hands-on. Nobody ends up depending on me.</p></li>
+      <li><h3>Follow-up</h3><p>We measure the hours saved together and change what doesn't work.</p></li>
+    </ol>
+    <div class="compare rv" role="table" aria-label="Classic consulting compared with my approach">
+      <div class="cmpRow cmpHead" role="row"><span role="columnheader">Classic consulting</span><span role="columnheader">My approach</span></div>
+      <div class="cmpRow" role="row"><span role="cell">Leaves a deck and a report</span><span role="cell">Sets up a working system</span></div>
+      <div class="cmpRow" role="row"><span role="cell">Doing it is up to you</span><span role="cell">I stay until the team uses it</span></div>
+      <div class="cmpRow" role="row"><span role="cell">Results months later</span><span role="cell">First automation on Discovery Day</span></div>
+    </div>
+    <p class="fdeNote rv">In tech this role is called a "forward deployed engineer": someone who builds systems on-site, inside the client. AI has made it possible for small businesses too.</p>
+  </section>
+
+  <section class="wrap block" id="paketler" aria-labelledby="packTitle">
+    <div class="sectionHead rv">
+      <h2 id="packTitle">Packages</h2>
+      <p class="lede">Prices are starting prices. The exact quote comes after a free 20-minute call.</p>
+    </div>
+    <p class="packGroup">For businesses</p>
+    <div class="packs">
+      <article class="svc pack packStart">
+        <p class="packBadge">Start here</p>
+        <h3>Discovery Day</h3>
+        <p class="price">7,500 TRY<small>starting</small></p>
+        <p class="svcText">A one-day start for businesses that don't know where to begin.</p>
+        <ul><li>A map of where time is lost</li><li>1 quick automation set up that day</li><li>A 30-day roadmap</li></ul>
+        <a class="btn btnPrimary" href="#iletisim" data-pick="kesif">Book a free call</a>
       </article>
-      <article class="svc svc-crm" data-service="crm">
-        <div class="svcTop"><h3>Customer win-back</h3><p class="for"><span class="forTag">Businesses</span></p></div>
-        <p class="svcText">I work out from your customer records who's loyal and who's drifting away, then write the email, SMS or WhatsApp message for each group.</p>
-        <ul><li>Customer segmentation</li><li>Multi-channel campaign copy</li><li>Monthly results review</li></ul>
-        <a class="textLink" href="#iletisim" data-pick="crm">Ask me about this</a>
+      <article class="svc pack">
+        <h3>4-Week Setup</h3>
+        <p class="price">35,000 TRY<small>starting</small></p>
+        <p class="svcText">For fixing the job that eats the most hours, for good.</p>
+        <ul><li>4 hours a week beside you</li><li>1-2 working systems</li><li>Team training included</li></ul>
+        <a class="btn btnQuiet" href="#iletisim" data-pick="kurulum">Book a free call</a>
       </article>
+      <article class="svc pack">
+        <h3>Monthly Support</h3>
+        <p class="price">15,000 TRY<small>per month, starting</small></p>
+        <p class="svcText">For businesses that want to keep growing after setup.</p>
+        <ul><li>8 hours a month</li><li>New automations and measurement</li><li>Priority support on WhatsApp</li></ul>
+        <a class="btn btnQuiet" href="#iletisim" data-pick="aylik">Book a free call</a>
+      </article>
+    </div>
+    <p class="packGroup">Training</p>
+    <div class="packs packs2">
+      <article class="svc pack">
+        <h3>Team Training</h3>
+        <p class="price">25,000 TRY<small>starting</small></p>
+        <p class="svcText">For businesses that want their staff using AI in their own work.</p>
+        <ul><li>4 weeks, 2 hours a week</li><li>Up to 10 people</li><li>Examples from your own business</li></ul>
+        <a class="btn btnQuiet" href="#iletisim" data-pick="ekip">Book a free call</a>
+      </article>
+      <article class="svc pack">
+        <h3>Solo Workshop</h3>
+        <p class="price">2,500 TRY<small>per person</small></p>
+        <p class="svcText">For individuals who want to make content and video with AI.</p>
+        <ul><li>A 4-week small group</li><li>Or one-to-one</li><li>Real examples from my own channel</li></ul>
+        <a class="btn btnQuiet" href="#iletisim" data-pick="atolye">Book a free call</a>
+      </article>
+    </div>
+    <p class="packNote">If you move on to setup, the Discovery Day fee comes off the setup price. Prices exclude VAT.</p>
+  </section>
+
+  <section class="wrap block" id="egitim" aria-labelledby="eduTitle">
+    <div class="sectionHead rv">
+      <h2 id="eduTitle">Training</h2>
+      <p class="lede">I don't walk through tools, I get work done. Each week we finish a task from your own work with AI.</p>
+    </div>
+    <div class="edu">
+      <div class="eduCol rv">
+        <h3>Team training</h3>
+        <p class="eduFor">For business teams, 4 weeks, 2 hours a week.</p>
+        <ol class="weeks">
+          <li><span>Week 1</span><b>Getting started safely</b><p>Which jobs to hand to AI and which not to; how to protect customer data.</p></li>
+          <li><span>Week 2</span><b>Customer messages and copy</b><p>WhatsApp replies, listing and menu copy, offer announcements.</p></li>
+          <li><span>Week 3</span><b>Visuals and content</b><p>Posts, short videos and covers from product and listing photos.</p></li>
+          <li><span>Week 4</span><b>Your own workflow</b><p>Each person builds and presents a flow for their own repeating task.</p></li>
+        </ol>
+      </div>
+      <div class="eduCol rv">
+        <h3>Solo workshop</h3>
+        <p class="eduFor">For individuals who want to create content, 4 weeks.</p>
+        <ol class="weeks">
+          <li><span>Week 1</span><b>Ideas and topics</b><p>Finding topics people watch, reading competing channels.</p></li>
+          <li><span>Week 2</span><b>Script and voice</b><p>Short-video scripts and AI voiceover.</p></li>
+          <li><span>Week 3</span><b>Visuals and editing</b><p>Vertical format, captions, covers and cuts.</p></li>
+          <li><span>Week 4</span><b>Publishing schedule</b><p>Posting regularly and reading the results.</p></li>
+        </ol>
+        <p class="eduProof"><b data-count>850K+</b><span>views: what the method I teach got on my own channel</span></p>
+      </div>
     </div>
   </section>
 
   <section class="wrap block" id="isler" aria-labelledby="workTitle">
-    <h2 class="workTitle" id="workTitle">My work</h2>
+    <div class="sectionHead rv">
+      <h2 id="workTitle">My work</h2>
+      <p class="lede">I did everything I teach myself first. One is used daily in a café; two are my own products.</p>
+    </div>
 
-    <article class="work workYt rv" aria-labelledby="w0Title">
+    <article class="work workZld rv" aria-labelledby="w3Title">
       <div class="workHead">
         <div>
-          <p class="workKind">My own faceless channel</p>
-          <h3 id="w0Title" class="ytName"><img src="img/yt-avatar.webp" width="120" height="120" alt="" loading="lazy">GlowTips</h3>
+          <p class="workKind">Client work, a home-cooking café in Sakarya</p>
+          <h3 id="w3Title">Zeynep Lezzet Durağı</h3>
         </div>
-        <p class="workText">A beauty and aesthetics "This or That" Shorts channel. I built its production with agents, from topic to upload; 182 videos have gone out since June 2024.</p>
+        <p class="workText">QR ordering at the table, waiter, kitchen and till screens, split bills per guest, and a pick-up ordering app. Every screen updates live.</p>
       </div>
-      <div class="shorts">
-          <a class="short" href="https://www.youtube.com/shorts/ZHec1DFwmjI" target="_blank" rel="noopener"><img src="img/yt-1.webp" width="360" height="640" alt="A Shorts cover from the GlowTips channel" loading="lazy" decoding="async"><span class="sr"> (opens in a new tab)</span></a>
-          <a class="short" href="https://www.youtube.com/shorts/sWFJ_irOlgU" target="_blank" rel="noopener"><img src="img/yt-2.webp" width="360" height="640" alt="A Shorts cover from the GlowTips channel" loading="lazy" decoding="async"><span class="sr"> (opens in a new tab)</span></a>
-          <a class="short" href="https://www.youtube.com/shorts/v32FLReuWuM" target="_blank" rel="noopener"><img src="img/yt-3.webp" width="360" height="640" alt="A Shorts cover from the GlowTips channel" loading="lazy" decoding="async"><span class="sr"> (opens in a new tab)</span></a>
-          <a class="short" href="https://www.youtube.com/shorts/zMC6IflB5xQ" target="_blank" rel="noopener"><img src="img/yt-4.webp" width="360" height="640" alt="A Shorts cover from the GlowTips channel" loading="lazy" decoding="async"><span class="sr"> (opens in a new tab)</span></a>
+      <div class="shots">
+        <div class="bezel"><div class="core"><img src="img/zld-mutfak.webp" width="1280" height="760" alt="Zeynep Lezzet Durağı kitchen screen: table, pick-up and delivery-platform orders with countdown alerts" loading="lazy" decoding="async"></div></div>
+        <div class="shotPhone"><img src="img/zld-telefon.webp" width="390" height="844" alt="Zeynep Lezzet Durağı's QR menu at the table" loading="lazy" decoding="async"></div>
       </div>
       <div class="workFoot">
         <ul class="facts">
-          <li><b data-count>182</b><span>videos published</span></li>
-          <li><b data-count>850K+</b><span>total views</span></li>
-          <li><b>3.9K</b><span>subscribers</span></li>
+          <li><b data-count>6</b><span>screens kept in sync live</span></li>
+          <li><b>0</b><span>apps to download from a store</span></li>
+          <li><b data-count>3</b><span>portion sizes: half, full, by the kilo</span></li>
         </ul>
-        <a class="btn btnQuiet" href="https://www.youtube.com/@glowtips777" target="_blank" rel="noopener">Open the channel on YouTube<span class="sr"> (opens in a new tab)</span></a>
+        <a class="btn btnQuiet" href="https://nexidigitalai.com/zld/index.html?masa=1" target="_blank" rel="noopener">Try the table menu<span class="sr"> (opens in a new tab)</span></a>
       </div>
     </article>
 
@@ -754,88 +863,50 @@
       </div>
     </article>
 
-    <article class="work workZld rv" aria-labelledby="w3Title">
+    <article class="work workYt rv" aria-labelledby="w0Title">
       <div class="workHead">
         <div>
-          <p class="workKind">Client work, a home-cooking café in Sakarya</p>
-          <h3 id="w3Title">Zeynep Lezzet Durağı</h3>
+          <p class="workKind">My own faceless channel</p>
+          <h3 id="w0Title" class="ytName"><img src="img/yt-avatar.webp" width="120" height="120" alt="" loading="lazy">GlowTips</h3>
         </div>
-        <p class="workText">QR ordering at the table, waiter, kitchen and till screens, split bills per guest, and a pick-up ordering app. Every screen updates live.</p>
+        <p class="workText">A beauty and aesthetics "This or That" Shorts channel. I built its production with AI agents, from topic to upload; 182 videos have gone out since June 2024.</p>
       </div>
-      <div class="shots">
-        <div class="bezel"><div class="core"><img src="img/zld-mutfak.webp" width="1280" height="760" alt="Zeynep Lezzet Durağı kitchen screen: table, pick-up and delivery-platform orders with countdown alerts" loading="lazy" decoding="async"></div></div>
-        <div class="shotPhone"><img src="img/zld-telefon.webp" width="390" height="844" alt="Zeynep Lezzet Durağı's QR menu at the table" loading="lazy" decoding="async"></div>
+      <div class="shorts">
+          <a class="short" href="https://www.youtube.com/shorts/ZHec1DFwmjI" target="_blank" rel="noopener"><img src="img/yt-1.webp" width="360" height="640" alt="A Shorts cover from the GlowTips channel" loading="lazy" decoding="async"><span class="sr"> (opens in a new tab)</span></a>
+          <a class="short" href="https://www.youtube.com/shorts/sWFJ_irOlgU" target="_blank" rel="noopener"><img src="img/yt-2.webp" width="360" height="640" alt="A Shorts cover from the GlowTips channel" loading="lazy" decoding="async"><span class="sr"> (opens in a new tab)</span></a>
+          <a class="short" href="https://www.youtube.com/shorts/v32FLReuWuM" target="_blank" rel="noopener"><img src="img/yt-3.webp" width="360" height="640" alt="A Shorts cover from the GlowTips channel" loading="lazy" decoding="async"><span class="sr"> (opens in a new tab)</span></a>
+          <a class="short" href="https://www.youtube.com/shorts/zMC6IflB5xQ" target="_blank" rel="noopener"><img src="img/yt-4.webp" width="360" height="640" alt="A Shorts cover from the GlowTips channel" loading="lazy" decoding="async"><span class="sr"> (opens in a new tab)</span></a>
       </div>
       <div class="workFoot">
         <ul class="facts">
-          <li><b data-count>6</b><span>screens kept in sync live</span></li>
-          <li><b>0</b><span>apps to download from a store</span></li>
-          <li><b data-count>3</b><span>portion sizes: half, full, by the kilo</span></li>
+          <li><b data-count>182</b><span>videos published</span></li>
+          <li><b data-count>850K+</b><span>total views</span></li>
+          <li><b>3.9K</b><span>subscribers</span></li>
         </ul>
-        <a class="btn btnQuiet" href="https://nexidigitalai.com/zld/index.html?masa=1" target="_blank" rel="noopener">Try the table menu<span class="sr"> (opens in a new tab)</span></a>
-      </div>
-    </article>
-
-    <article class="work workCase" id="ornek" aria-labelledby="w2Title">
-      <figure class="viz bezel" id="viz">
-        <div class="core">
-          <div class="vizHead"><strong>Sample: Papatya Salon</strong><span class="live">28 customers</span></div>
-          <div class="vizCanvas">
-            <svg id="vizSvg" viewBox="0 0 560 440" role="img" aria-label="Network showing a sample salon's 28 customers split into three segments: 12 to win back, 7 loyal, 9 new."></svg>
-          </div>
-          <div class="vizFoot">
-            <div class="segTabs" role="group" aria-label="Choose a segment">
-              <button type="button" class="segTab seg-kayip" data-seg="kayip" aria-pressed="true"><i></i>Win back</button>
-              <button type="button" class="segTab seg-sadik" data-seg="sadik" aria-pressed="false"><i></i>Loyal</button>
-              <button type="button" class="segTab seg-yeni" data-seg="yeni" aria-pressed="false"><i></i>New</button>
-            </div>
-            <div class="msg seg-kayip" id="msg" aria-live="off">
-              <span class="msgCh" id="msgCh">SMS</span>
-              <span class="msgTo" id="msgTo">To Ayşe Kaya, last visit 94 days ago</span>
-              <p class="msgText" id="msgText">Hi Ayşe, we haven't seen you in 3 months. This month there's 15% off hair care just for you. Reply to this message to book.</p>
-            </div>
-          </div>
-        </div>
-      </figure>
-      <div class="caseBody">
-        <p class="workKind">Method demo, sample data</p>
-        <h3 id="w2Title">A salon's customer list, split into 6 segments</h3>
-        <p class="workText">I grouped 1,000 sample customers by recency, frequency and spend, and wrote a separate message for each group. The network on the left is a 28-customer slice of it: tap a segment to see its message.</p>
-        <div class="stats">
-          <div class="stat c"><b data-count>25%</b><span>of revenue comes from the most loyal 11%</span></div>
-          <div class="stat t"><b data-count>6</b><span>meaningful customer segments</span></div>
-          <div class="stat"><b data-count>5,388</b><span>transactions analyzed</span></div>
-          <div class="stat"><b data-count>12</b><span>service types compared</span></div>
-        </div>
-        <a class="textLink" href="https://claude.ai/code/artifact/61ae4686-f95d-4123-a3ed-ed7d0851541f" target="_blank" rel="noopener noreferrer">Open the full analysis panel<span class="sr"> (opens in a new tab)</span></a>
+        <a class="btn btnQuiet" href="https://www.youtube.com/@glowtips777" target="_blank" rel="noopener">Open the channel on YouTube<span class="sr"> (opens in a new tab)</span></a>
       </div>
     </article>
   </section>
 
-  <section class="wrap block" id="nasil" aria-labelledby="whatTitle">
-    <div class="what rv">
-      <h2 id="whatTitle">How I work</h2>
-      <p class="whatBig"><span class="fill">Agents produce fast, but I decide what's good. I check <strong>every video, every page and every message</strong> myself before it goes live.</span></p>
-    </div>
-    <ol class="steps">
-      <li><h3>Intro call</h3><p>We talk about your business or channel and what you want from it, and see what makes sense.</p><span class="stepTag">Free</span></li>
-      <li><h3>Plan</h3><p>I decide which work goes to agents and which stays with me, then send a schedule and a quote.</p></li>
-      <li><h3>Production</h3><p>Agents produce; I check and fix every output.</p></li>
-      <li><h3>Delivery and follow-up</h3><p>I deliver, we watch the results together and change what needs changing.</p></li>
-    </ol>
-  </section>
-
-  <section class="band" id="kimler" aria-labelledby="fitTitle">
+  <section class="band" id="hakkimda" aria-labelledby="aboutTitle">
     <div class="wrap">
-      <h2 id="fitTitle">When does working together make sense?</h2>
-      <div class="fit">
-        <div>
-          <h3 class="fitYes">A good fit if</h3>
-          <ul class="fitList yes"><li>You want regular YouTube or social media content but don't have time to make it.</li><li>Your business needs a new website or app.</li><li>You have a customer list but aren't doing anything with it.</li></ul>
+      <div class="about">
+        <div class="aboutText rv">
+          <p class="workKind">Founder of Nexi Digital, Sakarya</p>
+          <h2 id="aboutTitle">Pınar Saçu Kargün</h2>
+          <p class="aboutBig">For 5 years I worked with doctors and pharmacists in pharmaceutical promotion and sales.</p>
+          <p class="aboutP">Those years at Abdi İbrahim taught me to build trust, explain technical things simply and get results through steady follow-up. Today I bring the same relationship and persuasion skills together with AI, setting up working systems for businesses.</p>
+          <a class="btn btnQuiet" href="https://www.linkedin.com/in/pinar-sa%C3%A7u-karg%C3%BCn-73a41491/" target="_blank" rel="noopener">Connect on LinkedIn<span class="sr"> (opens in a new tab)</span></a>
         </div>
-        <div>
-          <h3 class="fitNo">Not a fit if</h3>
-          <ul class="fitList no"><li>You want to buy followers or likes.</li><li>You expect everything to be ready overnight.</li><li>You'd rather not measure or track results.</li></ul>
+        <div class="fit">
+          <div>
+            <h3 class="fitYes">We're a good fit if</h3>
+            <ul class="fitList yes"><li>You run a restaurant, café or real estate office.</li><li>You're tired of doing the same job by hand every week.</li><li>Your team has a few hours to learn something new.</li></ul>
+          </div>
+          <div>
+            <h3 class="fitNo">I'm not the right person if</h3>
+            <ul class="fitList no"><li>You want a report to file away.</li><li>You want to buy followers or likes.</li><li>You expect everything done overnight.</li></ul>
+          </div>
         </div>
       </div>
     </div>
@@ -844,27 +915,29 @@
   <div class="wrap">
     <section class="block" id="sss" aria-labelledby="faqTitle">
       <div class="sectionHead">
-        <h2 id="faqTitle">You're probably wondering about these</h2>
+        <h2 id="faqTitle">Common questions</h2>
       </div>
       <div class="faqLead">
-        <h3>So you do this with AI? Is that real expertise?</h3>
-        <p><strong>Real expertise.</strong> Opening the tool is the easy part. Knowing which video gets watched, which page brings customers and which message brings them back takes experience. I'm not just claiming it; <a class="inlineLink" href="#isler">my work</a> shows it.</p>
+        <h3>You do this with AI? Then is it real expertise?</h3>
+        <p><strong>Real expertise.</strong> Opening the tool is the easy part. Knowing which work to hand to AI, and how to set it up so the team actually uses it, takes experience. I'm not just claiming it; <a class="inlineLink" href="#isler">my work</a> shows it.</p>
       </div>
       <div class="faq">
-        <div><h3>Do you only work with businesses?</h3><p>No. I work with creators too: producing videos for your YouTube channel or editing your social media videos. For businesses I build websites and apps and run customer campaigns.</p></div>
-        <div><h3>I know nothing about technology. Will I need to learn something?</h3><p>No. You tell me what you want; I handle the setup and the production. There's no dashboard to learn, and results land in your WhatsApp or inbox.</p></div>
-        <div><h3>Sharing my customer data makes me uneasy. Is it safe?</h3><p>It should make you careful. Your data is used only for your business and never shared with a third party. We agree on exactly how it's stored and when it's deleted on the first call.</p></div>
-        <div><h3>Why is there no price on the site?</h3><p>Because a channel that wants one video a week and a five-page website aren't the same job. I look at what you need on the first call and give you a clear quote, with no surprises.</p></div>
+        <div><h3>My team isn't technical. Will it still work?</h3><p>Yes. That's why training is part of setup. I build screens that work with one tap, and I stay until the team is comfortable.</p></div>
+        <div><h3>Do you work outside Sakarya?</h3><p>Yes. On-site in and around Sakarya, online anywhere in Turkey. A Discovery Day can be done online too.</p></div>
+        <div><h3>What happens to my customer data?</h3><p>Data is used only for your business, in your own accounts, and is never shared with third parties. We prepare KVKK-compliant notices and consent steps together during setup.</p></div>
+        <div><h3>Which tools do you use?</h3><p>It depends on the job: AI models like Claude and ChatGPT, WhatsApp Business, Google tools and, when needed, small web apps built for you. Licences and accounts are opened in your name.</p></div>
+        <div><h3>When does the monthly fee end?</h3><p>Whenever you like. Monthly Support runs month to month, with no commitment. The systems stay with you when you leave.</p></div>
+        <div><h3>What if I don't continue after the Discovery Day?</h3><p>That's fine. The automation set up that day and the 30-day roadmap stay with you; you can carry them out with your own team.</p></div>
       </div>
     </section>
 
     <section class="block" id="iletisim" aria-labelledby="contactTitle">
       <div class="contact rv">
         <div class="contactSide">
-          <h2 id="contactTitle">Let's have a short conversation</h2>
-          <p>The first call is always free. Let's see together what makes sense for your channel or business.</p>
+          <h2 id="contactTitle">Let's talk for 20 minutes first</h2>
+          <p>The first call is free. I listen to how your business runs and we see together which step makes sense.</p>
           <ul class="contactList">
-            <li>Reply within one business day</li>
+            <li>A reply within one business day</li>
             <li>A clear quote at the end of the call</li>
           </ul>
           <a class="btn btnWa js-wa" href="https://wa.me/905358758848" target="_blank" rel="noopener noreferrer">
@@ -874,23 +947,25 @@
         </div>
         <div class="formSide">
           <form class="form" id="contactForm" action="https://formspree.io/f/mkodyrzb" method="POST">
-            <input type="hidden" name="_subject" value="Free consultation request from the website (EN)">
+            <input type="hidden" name="_subject" value="Call request from the website">
             <fieldset class="pick">
-              <legend>What are you writing about?</legend>
-              <label><input type="checkbox" name="service" value="YouTube automation" data-svc="video"><span>YouTube automation</span></label>
-              <label><input type="checkbox" name="service" value="Social media editing" data-svc="social"><span>Social media editing</span></label>
-              <label><input type="checkbox" name="service" value="Website and app design" data-svc="site"><span>Website and app design</span></label>
-              <label><input type="checkbox" name="service" value="Customer win-back" data-svc="crm"><span>Customer win-back</span></label>
+              <legend>What are you interested in?</legend>
+              <label><input type="checkbox" name="service" value="Discovery Day" data-svc="kesif"><span>Discovery Day</span></label>
+              <label><input type="checkbox" name="service" value="4-Week Setup" data-svc="kurulum"><span>4-Week Setup</span></label>
+              <label><input type="checkbox" name="service" value="Monthly Support" data-svc="aylik"><span>Monthly Support</span></label>
+              <label><input type="checkbox" name="service" value="Team Training" data-svc="ekip"><span>Team Training</span></label>
+              <label><input type="checkbox" name="service" value="Solo Workshop" data-svc="atolye"><span>Solo Workshop</span></label>
+              <label><input type="checkbox" name="service" value="Not sure yet" data-svc="emin"><span>Not sure yet</span></label>
             </fieldset>
             <div class="formRow">
               <label class="field">Full name<input type="text" name="name" required autocomplete="name" placeholder="Your full name"></label>
-              <label class="field">Business or channel name<input type="text" name="business" required autocomplete="organization" placeholder="e.g. Papatya Salon"></label>
+              <label class="field">Business name<input type="text" name="business" required autocomplete="organization" placeholder="e.g. Lezzet Café"></label>
             </div>
             <div class="formRow">
               <label class="field">Email<input type="email" name="email" required autocomplete="email" placeholder="you@example.com"></label>
               <label class="field"><span>Phone <small>(optional)</small></span><input type="tel" name="phone" autocomplete="tel" placeholder="+90 5xx xxx xx xx"></label>
             </div>
-            <label class="field"><span>Tell me a bit <small>(optional)</small></span><textarea name="message" rows="3" placeholder="What do you want to do, and where are you stuck right now?"></textarea></label>
+            <label class="field"><span>Tell me a bit <small>(optional)</small></span><textarea name="message" rows="3" placeholder="What takes up most of your week?"></textarea></label>
             <button type="submit" class="btn btnPrimary">Book a free call</button>
             <p class="formNote" id="formNote" role="status"></p>
           </form>
@@ -908,8 +983,9 @@
         <span class="word">Nexi <span>Digital</span></span>
       </a>
       <nav class="footLinks" aria-label="Footer menu">
-        <a href="#hizmetler">Services</a>
-        <a href="#isler">Work</a>
+        <a href="#paketler">Packages</a>
+        <a href="#egitim">Training</a>
+        <a href="https://www.linkedin.com/in/pinar-sa%C3%A7u-karg%C3%BCn-73a41491/" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://subly.nexidigitalai.com/" target="_blank" rel="noopener">Subly</a>
         <a href="mailto:nexidigital.00@gmail.com">nexidigital.00@gmail.com</a>
       </nav>
@@ -927,7 +1003,7 @@
 
 <script>
 (function () {
-  var T = {"mailBody": "Hello,\n\nMy business name: \nWhat I need: \n\n(A short note is enough, we can go into detail on the call.)", "waText": "Hello, I'd like to learn more about Nexi Digital.", "menuOpen": "Open menu", "menuClose": "Close menu", "sending": "Sending", "submit": "Book a free call", "notes": {"cafe": "On a Discovery Day I map your week, mark where time is lost and set up the first system the same day.", "emlak": "Listings and posts eat most of an office's hours. You keep the final say; the system does the rest."}, "sent": "Your request arrived. I'll get back to you within one business day.", "failed": "The form couldn't be sent. Check your connection and try again, or write directly to nexidigital.00@gmail.com.", "segs": {"kayip": {"name": "Win back", "count": "12 customers", "ch": "SMS", "to": "To Ayşe Kaya, last visit 94 days ago", "msg": "Hi Ayşe, we haven't seen you in 3 months. This month there's 15% off hair care just for you. Reply to this message to book."}, "sadik": {"name": "Loyal", "count": "7 customers", "ch": "WhatsApp", "to": "To Merve Tunç, 14th visit", "msg": "Merve, thank you for your 14th visit! Our loyal customers get to try the new season's colours first. Would you like to drop by this week?"}, "yeni": {"name": "New", "count": "9 customers", "ch": "Email", "to": "To Elif Şahin, first visit 3 days ago", "msg": "Welcome to Papatya Salon, Elif. Your blow-dry is on us on your second visit. We'd love to see you again!"}}};
+  var T = {"mailBody": "Hello,\n\nMy business name: \nWhat I need: \n\n(A short note is enough, we can go into detail on the call.)", "waText": "Hello, I'd like to learn more about Nexi Digital's consulting and training packages.", "menuOpen": "Open menu", "menuClose": "Close menu", "sending": "Sending", "submit": "Book a free call", "notes": {"cafe": "On a Discovery Day I map your week, mark where time is lost and set up the first system the same day.", "emlak": "Listings and posts eat most of an office's hours. You keep the final say; the system does the rest."}, "sent": "Your request arrived. I'll get back to you within one business day.", "failed": "The form couldn't be sent. Check your connection and try again, or write directly to nexidigital.00@gmail.com."};
 
   // Contact links
   document.querySelectorAll('.js-mail').forEach(function (a) {
@@ -949,139 +1025,7 @@
   links.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
 
-  // Customer network: scattered customers settle into segment clusters, like the logo's nodes.
-  var NS = 'http://www.w3.org/2000/svg';
-  var svg = document.getElementById('vizSvg');
-  var viz = document.getElementById('viz');
-  var SEGS = [
-    { id: 'kayip', hub: [148, 176], n: 12, label: 'top' },
-    { id: 'sadik', hub: [418, 150], n: 7, label: 'top' },
-    { id: 'yeni',  hub: [318, 318], n: 9, label: 'bottom' }
-  ];
-  var seed = 7;
-  function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
-  function el(name, attrs, parent) {
-    var e = document.createElementNS(NS, name);
-    for (var k in attrs) e.setAttribute(k, attrs[k]);
-    parent.appendChild(e);
-    return e;
-  }
-  var lines = el('g', {}, svg);
-  var pulses = el('g', {}, svg);
-  var nodes = [];
-  SEGS.forEach(function (s, si) {
-    var group = el('g', { 'data-seg': s.id, 'class': 'seg-' + s.id }, svg);
-    for (var i = 0; i < s.n; i++) {
-      var a = i * 2.39996 + si;
-      var r = 30 + 14 * Math.sqrt(i + 1);
-      var x = s.hub[0] + Math.cos(a) * r, y = s.hub[1] + Math.sin(a) * r * 0.82;
-      el('line', { x1: s.hub[0], y1: s.hub[1], x2: x.toFixed(1), y2: y.toFixed(1), 'class': 'vl seg-' + s.id, 'data-seg': s.id }, lines);
-      var g = el('g', { 'class': 'vn' }, group);
-      var c = el('circle', { r: (3.6 + rnd() * 3.4).toFixed(1) }, g);
-      nodes.push({ g: g, c: c, seg: s.id, hub: s.hub, x: x, y: y, x0: 20 + rnd() * 520, y0: 20 + rnd() * 400, delay: i * 0.035 + si * 0.08 });
-    }
-    var hub = el('g', { 'class': 'vh', transform: 'translate(' + s.hub[0] + ' ' + s.hub[1] + ')' }, group);
-    el('circle', { 'class': 'halo', r: 21 }, hub);
-    el('circle', { 'class': 'core', r: 11 }, hub);
-    var reach = (30 + 14 * Math.sqrt(s.n)) * 0.82;
-    var ly = s.label === 'bottom' ? reach + 26 : -reach - 32;
-    var label = el('text', { x: 0, y: ly.toFixed(0), 'text-anchor': 'middle' }, hub);
-    label.textContent = T.segs[s.id].name;
-    var sub = el('text', { 'class': 'sub', x: 0, y: (ly + 21).toFixed(0), 'text-anchor': 'middle' }, hub);
-    sub.textContent = T.segs[s.id].count;
-  });
-
-  // Final layout is the resting state; the intro only animates *from* the scattered positions.
-  nodes.forEach(function (n) { n.g.setAttribute('transform', 'translate(' + n.x.toFixed(1) + ' ' + n.y.toFixed(1) + ')'); });
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!reduce && svg.animate) {
-    nodes.forEach(function (n) {
-      n.g.animate([
-        { transform: 'translate(' + n.x0.toFixed(1) + 'px, ' + n.y0.toFixed(1) + 'px)' },
-        { transform: 'translate(' + n.x.toFixed(1) + 'px, ' + n.y.toFixed(1) + 'px)' }
-      ], { duration: 1150, delay: 350 + n.delay * 1000, easing: 'cubic-bezier(.2, .75, .2, 1)', fill: 'backwards' });
-    });
-    [lines].concat([].slice.call(svg.querySelectorAll('.vh'))).forEach(function (e) {
-      e.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 600, delay: 1500, easing: 'ease-out', fill: 'backwards' });
-    });
-  }
-
-  // Segment picker
-  var tabs = document.querySelectorAll('.segTab');
-  var msg = document.getElementById('msg');
-  var current = 'kayip';
-  function pick(id, highlight) {
-    current = id;
-    tabs.forEach(function (t) { t.setAttribute('aria-pressed', t.dataset.seg === id ? 'true' : 'false'); });
-    svg.querySelectorAll('[data-seg]').forEach(function (g) { g.classList.toggle('on', g.dataset.seg === id); });
-    msg.className = 'msg seg-' + id;
-    document.getElementById('msgCh').textContent = T.segs[id].ch;
-    document.getElementById('msgTo').textContent = T.segs[id].to;
-    document.getElementById('msgText').textContent = T.segs[id].msg;
-    if (highlight) viz.classList.add('picked');
-    if (!reduce && msg.animate) {
-      msg.animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 480, easing: 'cubic-bezier(.32, .72, 0, 1)' });
-    }
-  }
-  var userPicked = false;
-  tabs.forEach(function (t) {
-    t.addEventListener('click', function () {
-      userPicked = true;
-      msg.setAttribute('aria-live', 'polite');
-      pick(t.dataset.seg, true);
-    });
-  });
-  pick('kayip', false);
-
-  // The network stays alive: customers drift, messages travel from each hub to its customers,
-  // and the segments take turns until the visitor picks one. All of it pauses off-screen.
-  var active = true;
-  if (!reduce && svg.animate) {
-    var floats = nodes.map(function (n, i) {
-      var dx = (rnd() * 2 - 1) * 5, dy = (rnd() * 2 - 1) * 5;
-      return n.c.animate([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(' + dx.toFixed(1) + 'px, ' + dy.toFixed(1) + 'px)' }],
-        { duration: 2200 + rnd() * 1800, delay: 1800 + i * 40, direction: 'alternate', iterations: Infinity, easing: 'ease-in-out' });
-    });
-    function sendPulse() {
-      if (!active) return;
-      var pool = nodes.filter(function (n) { return !viz.classList.contains('picked') || n.seg === current; });
-      var n = pool[Math.floor(Math.random() * pool.length)];
-      var p = el('g', { 'class': 'vp seg-' + n.seg }, pulses);
-      el('circle', { r: 3.2 }, p);
-      var go = p.animate([
-        { transform: 'translate(' + n.hub[0] + 'px, ' + n.hub[1] + 'px)', opacity: 0 },
-        { opacity: 1, offset: 0.15 },
-        { transform: 'translate(' + n.x.toFixed(1) + 'px, ' + n.y.toFixed(1) + 'px)', opacity: 1 }
-      ], { duration: 720, easing: 'cubic-bezier(.45, 0, .25, 1)', fill: 'forwards' });
-      go.onfinish = function () {
-        pulses.removeChild(p);
-        var ring = el('circle', { 'class': 'vring seg-' + n.seg, cx: n.x.toFixed(1), cy: n.y.toFixed(1), r: 14 }, pulses);
-        ring.style.transformBox = 'fill-box';
-        ring.style.transformOrigin = 'center';
-        ring.animate([{ transform: 'scale(0.3)', opacity: 0.9 }, { transform: 'scale(1.3)', opacity: 0 }], { duration: 700, easing: 'ease-out' })
-          .onfinish = function () { pulses.removeChild(ring); };
-        n.c.style.transformBox = 'fill-box';
-        n.c.style.transformOrigin = 'center';
-        n.g.animate([{ opacity: 1 }, { opacity: 0.55, offset: 0.3 }, { opacity: 1 }], { duration: 500 });
-      };
-    }
-    setTimeout(function () { setInterval(sendPulse, 420); }, 1900);
-    var order = ['kayip', 'sadik', 'yeni'];
-    setTimeout(function () {
-      setInterval(function () {
-        if (!active || userPicked) return;
-        pick(order[(order.indexOf(current) + 1) % order.length], true);
-      }, 4800);
-    }, 2600);
-    function setActive(on) {
-      active = on;
-      floats.forEach(function (a) { on ? a.play() : a.pause(); });
-    }
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (es) { setActive(es[0].isIntersecting && !document.hidden); }).observe(viz);
-    }
-    document.addEventListener('visibilitychange', function () { setActive(!document.hidden); });
-  }
 
   // Headline: words rise into place once, on load.
   var h1 = document.getElementById('heroTitle');
@@ -1203,7 +1147,7 @@
     });
   });
 
-  // "Write to me about this" links pre-select the service in the form.
+  // Package buttons pre-select that package in the form.
   document.querySelectorAll('[data-pick]').forEach(function (a) {
     a.addEventListener('click', function () {
       var box = document.querySelector('.pick input[data-svc="' + a.dataset.pick + '"]');

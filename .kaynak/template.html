@@ -154,8 +154,8 @@
 
   /* ---------- Hero: headline left, the live customer network right ---------- */
   .hero { position: relative; padding-top: 72px; }
-  .heroGrid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 48px; align-items: center; }
-  .hero h1 { font-size: clamp(2.1rem, 3.6vw, 3.2rem); line-height: 1.06; letter-spacing: -0.035em; }
+  .heroGrid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+  .hero h1 { font-size: clamp(2rem, 3.1vw, 2.75rem); line-height: 1.08; letter-spacing: -0.035em; }
   .hero h1 .w { display: inline-block; }
   .heroLede { color: var(--ink-soft); font-size: 1.18rem; max-width: 44ch; margin-top: 26px; }
   .heroLede strong { color: var(--ink); font-weight: 600; }
@@ -183,43 +183,6 @@
   .bezel { padding: 6px; border-radius: 22px; background: color-mix(in srgb, var(--ink) 5%, transparent); box-shadow: inset 0 0 0 1px var(--line), var(--shadow); }
   .bezel > .core { border-radius: 16px; overflow: hidden; background: var(--scr-2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06); }
 
-  /* Network panel */
-  .viz { margin: 0; color: var(--scr-text); }
-  .vizHead { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 15px 20px; border-bottom: 1px solid var(--scr-line); font-size: 0.87rem; }
-  .vizHead strong { font-weight: 600; }
-  .vizHead span { color: var(--scr-soft); }
-  .vizCanvas svg { width: 100%; height: auto; }
-  .vn circle { fill: var(--c); }
-  .vn, .vl, .vh { transition: opacity 0.3s var(--ease); }
-  .vl { stroke: var(--c); stroke-width: 1.2; opacity: 0.38; }
-  .vh circle.core { fill: var(--c); stroke: var(--scr-2); stroke-width: 5; paint-order: stroke; }
-  .vh circle.halo { fill: none; stroke: var(--c); stroke-opacity: 0.35; stroke-width: 1.2; }
-  .vh text { font-family: var(--font); fill: var(--scr-text); font-size: 15px; font-weight: 600; }
-  .vh text.sub { fill: var(--scr-soft); font-size: 13px; font-weight: 400; }
-  .viz.picked g[data-seg]:not(.on) { opacity: 0.22; }
-  .viz.picked .vl.on { opacity: 0.75; }
-  .viz.picked .vl:not(.on) { opacity: 0.08; }
-  .seg-kayip { --c: var(--tang-glow); }
-  .seg-sadik { --c: var(--blue-glow); }
-  .seg-yeni { --c: var(--sun); }
-  .vizFoot { border-top: 1px solid var(--scr-line); padding: 16px 20px 20px; display: grid; gap: 14px; }
-  .segTabs { display: flex; flex-wrap: wrap; gap: 8px; }
-  .segTab {
-    display: inline-flex; align-items: center; gap: 9px; min-height: 40px; padding: 0 15px; border-radius: 999px; border: 0; cursor: pointer;
-    font: inherit; font-size: 0.9rem; font-weight: 500; color: var(--scr-soft); background: transparent; box-shadow: inset 0 0 0 1px var(--scr-line);
-    transition: color 0.25s var(--ease), box-shadow 0.25s var(--ease), background-color 0.25s var(--ease), transform 0.25s var(--ease);
-  }
-  .segTab:active { transform: scale(0.97); }
-  .segTab i { width: 9px; height: 9px; border-radius: 50%; background: var(--c); }
-  .segTab:hover { color: var(--scr-text); box-shadow: inset 0 0 0 1px rgba(243, 239, 246, 0.3); }
-  .segTab[aria-pressed="true"] { color: var(--scr-text); background: rgba(243, 239, 246, 0.08); box-shadow: inset 0 0 0 1px var(--c); }
-  .msg { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; align-items: start; background: rgba(243, 239, 246, 0.05); border-radius: 12px; padding: 14px 16px; min-height: 104px; }
-  .msgCh { grid-row: span 2; font-size: 0.74rem; font-weight: 600; color: var(--scr); background: var(--c); border-radius: 999px; padding: 3px 9px; margin-top: 2px; }
-  .msgTo { font-size: 0.82rem; color: var(--scr-soft); }
-  .msgText { font-size: 0.95rem; line-height: 1.5; }
-  .vp circle { fill: var(--c); }
-  .vring { fill: none; stroke: var(--c); stroke-width: 1.5; }
-
   /* ---------- Work ---------- */
   .workTitle { margin-bottom: 44px; }
   .work { border-top: 1px solid var(--line); padding-top: 40px; }
@@ -246,9 +209,6 @@
   .short::after { content: ""; position: absolute; left: 50%; top: 50%; width: 48px; height: 48px; margin: -24px 0 0 -24px; border-radius: 50%; background: rgba(7, 11, 28, 0.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 7l8 5-8 5z' fill='%23fff'/%3E%3C/svg%3E") center / 22px no-repeat; opacity: 0; transform: scale(0.7); transition: opacity 0.3s var(--ease), transform 0.4s var(--spring); }
   .short:hover { transform: translateY(-8px) rotate(-1.5deg); box-shadow: inset 0 0 0 1px var(--line), 0 30px 60px -28px rgba(46, 75, 240, 0.5); }
   .short:hover::after { opacity: 1; transform: none; }
-  .workCase { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 64px; align-items: center; }
-  .caseBody { display: grid; gap: 18px; justify-items: start; }
-  .caseBody .stats { width: 100%; margin: 8px 0 4px; }
 
   /* ---------- What I do ---------- */
   .what { display: grid; grid-template-columns: minmax(0, 0.55fr) minmax(0, 1.45fr); gap: 32px 64px; margin-bottom: 72px; align-items: start; }
@@ -258,7 +218,6 @@
 
   /* ---------- Fit ---------- */
   .band { background: var(--bg-2); margin-top: 128px; padding: 104px 0 112px; }
-  .band h2 { max-width: 20ch; margin-bottom: 48px; }
   .fit { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 72px; }
   .fit h3 { font-size: 1.05rem; margin-bottom: 14px; }
   .fitYes { color: var(--blue-text); }
@@ -282,17 +241,6 @@
   .steps li:last-child::before { box-shadow: inset 0 0 0 2px var(--blue), 0 0 0 6px var(--bg); }
   .steps p { color: var(--ink-soft); font-size: 0.98rem; }
   .stepTag { justify-self: start; font-size: 0.8rem; font-weight: 600; color: var(--blue-text); background: color-mix(in srgb, var(--blue) 13%, transparent); padding: 3px 11px; border-radius: 999px; }
-
-  /* ---------- Stats ---------- */
-  .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .stat { padding: 20px 0; border-top: 1px solid var(--line); }
-  .stat:nth-child(odd) { padding-right: 24px; }
-  .stat b { display: block; font-family: var(--display); font-size: clamp(1.9rem, 3.2vw, 2.6rem); line-height: 1; font-weight: 600; letter-spacing: -0.04em; }
-  .stat span { display: block; margin-top: 8px; font-size: 0.93rem; color: var(--ink-soft); max-width: 24ch; }
-  .stat.c b { color: var(--tang-text); }
-  .stat.t b { color: var(--blue-text); }
-
-
 
   /* ---------- Scroll progress ---------- */
   .progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: linear-gradient(90deg, var(--blue), var(--tang)); transform-origin: left; transform: scaleX(0); }
@@ -365,10 +313,7 @@
     background: var(--surface); box-shadow: var(--shadow), inset 0 0 0 1px var(--line);
     transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
   }
-  .svc-video { grid-column: span 7; }
-  .svc-social { grid-column: span 5; --accent: var(--tang); }
-  .svc-site { grid-column: span 5; --accent: var(--tang); }
-  .svc-crm { grid-column: span 7; }
+  .svc-estate { --accent: var(--tang); }
   .svc::before {
     content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0; transition: opacity 0.4s var(--ease);
     background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
@@ -384,6 +329,66 @@
   .svc li { position: relative; padding: 10px 0 10px 26px; border-top: 1px solid var(--line); font-size: 0.97rem; }
   .svc li::before { content: ""; position: absolute; left: 3px; top: 17px; width: 10px; height: 6px; border-left: 2px solid var(--accent); border-bottom: 2px solid var(--accent); transform: rotate(-45deg); }
   .svc .textLink { justify-self: start; }
+
+  .secCols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 28px; }
+  .listLabel { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 6px; }
+  .svc ul.probs li::before { content: "\2715"; border: 0; transform: none; width: auto; height: auto; left: 2px; top: 10px; font-size: 0.8rem; font-weight: 700; color: var(--tang-text); }
+  .indiv {
+    display: flex; align-items: center; gap: 18px; margin-top: 20px; padding: 20px 26px; border-radius: 20px; text-decoration: none;
+    background: var(--bg-2); box-shadow: inset 0 0 0 1px var(--line); transition: box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .indiv:hover { box-shadow: inset 0 0 0 1px var(--blue); transform: translateY(-2px); }
+  .indivTag { flex: none; font-size: 0.8rem; font-weight: 700; color: #0F1633; background: var(--sun); padding: 4px 12px; border-radius: 999px; }
+  .indivText { flex: 1; font-weight: 500; }
+  .indiv .arr { flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); color: #fff; transition: transform 0.4s var(--spring), background-color 0.3s var(--ease); }
+  .indiv .arr svg { width: 15px; height: 15px; }
+  .indiv:hover .arr { transform: translate(3px, -1px); background: var(--tang); }
+
+  /* ---------- Classic consultant vs. me ---------- */
+  .compare { margin-top: 88px; border-radius: 20px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--line); }
+  .cmpRow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cmpRow span { padding: 18px 26px; border-top: 1px solid var(--line); font-size: 1.02rem; }
+  .cmpRow span:first-child { color: var(--ink-soft); }
+  .cmpRow span:last-child { background: color-mix(in srgb, var(--blue) 7%, var(--surface)); font-weight: 600; }
+  .cmpHead span { border-top: 0; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+  .cmpHead span:last-child { color: var(--blue-text); }
+  .fdeNote { margin-top: 20px; color: var(--ink-soft); font-size: 0.95rem; max-width: 72ch; }
+
+  /* ---------- Packages ---------- */
+  .packGroup { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 16px; }
+  .packs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-bottom: 48px; }
+  .packs2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pack { grid-column: auto; grid-template-rows: auto auto auto 1fr auto; }
+  .pack h3 { font-size: clamp(1.2rem, 1.8vw, 1.45rem); }
+  .packBadge { justify-self: start; font-size: 0.78rem; font-weight: 700; color: #0F1633; background: var(--sun); padding: 3px 11px; border-radius: 999px; }
+  .packStart { box-shadow: var(--shadow), inset 0 0 0 2px var(--blue); }
+  .price { font-family: var(--display); font-size: clamp(1.7rem, 2.6vw, 2.2rem); font-weight: 600; letter-spacing: -0.04em; line-height: 1; color: var(--blue-text); display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .price small { font-family: var(--font); font-size: 0.9rem; font-weight: 500; letter-spacing: 0; color: var(--ink-soft); }
+  .pack .btn { justify-self: stretch; margin-top: 6px; }
+  .packNote { margin-top: -20px; color: var(--ink-soft); font-size: 0.95rem; }
+
+  /* ---------- Education ---------- */
+  .edu { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 64px; }
+  .eduCol h3 { font-family: var(--display); font-size: clamp(1.35rem, 2.2vw, 1.75rem); font-weight: 600; letter-spacing: -0.03em; }
+  .eduFor { color: var(--ink-soft); margin: 8px 0 22px; }
+  .weeks { list-style: none; margin: 0; padding: 0; position: relative; }
+  .weeks::before { content: ""; position: absolute; left: 7px; top: 12px; bottom: 12px; width: 2px; background: linear-gradient(var(--tang), var(--blue)); opacity: 0.5; }
+  .weeks li { position: relative; padding: 0 0 22px 36px; display: grid; gap: 2px; }
+  .weeks li::before { content: ""; position: absolute; left: 0; top: 5px; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); box-shadow: inset 0 0 0 2px var(--blue), 0 0 0 5px var(--bg); }
+  .weeks span { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--blue-text); }
+  .weeks b { font-weight: 600; font-size: 1.05rem; }
+  .weeks p { color: var(--ink-soft); font-size: 0.97rem; }
+  .eduProof { display: flex; align-items: baseline; gap: 12px; margin-top: 8px; padding-top: 20px; border-top: 1px solid var(--line); }
+  .eduProof b { font-family: var(--display); font-size: 2rem; font-weight: 600; letter-spacing: -0.04em; line-height: 1; color: var(--tang-text); }
+  .eduProof span { color: var(--ink-soft); font-size: 0.95rem; max-width: 34ch; line-height: 1.4; }
+
+  /* ---------- About ---------- */
+  .about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px 80px; align-items: start; }
+  .aboutText { display: grid; gap: 18px; justify-items: start; }
+  .aboutText h2 { margin: 0; max-width: none; }
+  .aboutBig { font-size: clamp(1.25rem, 2vw, 1.55rem); line-height: 1.4; letter-spacing: -0.015em; font-weight: 500; }
+  .aboutP { color: var(--ink-soft); max-width: 52ch; }
+  .about .fit { grid-template-columns: minmax(0, 1fr); gap: 36px; }
 
   /* ---------- Service picker in the form ---------- */
   .pick { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
@@ -455,10 +460,10 @@
      so browsers without animation-timeline simply show the final state. */
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
-      .rv, .steps li, .svc, .faq > div, .fitList li, .stat, .facts li, .short { animation: rise linear both; animation-timeline: view(); animation-range: entry 5% entry 75%; }
-      .steps li:nth-child(2), .short:nth-child(2), .svc:nth-child(2), .fitList li:nth-child(2), .stat:nth-child(2), .facts li:nth-child(2) { animation-range: entry 12% entry 85%; }
-      .steps li:nth-child(3), .short:nth-child(3), .svc:nth-child(3), .fitList li:nth-child(3), .stat:nth-child(3), .facts li:nth-child(3) { animation-range: entry 19% entry 95%; }
-      .steps li:nth-child(4), .stat:nth-child(4) { animation-range: entry 26% cover 40%; }
+      .rv, .steps li, .svc, .faq > div, .fitList li, .weeks li, .facts li, .short { animation: rise linear both; animation-timeline: view(); animation-range: entry 5% entry 75%; }
+      .steps li:nth-child(2), .short:nth-child(2), .svc:nth-child(2), .fitList li:nth-child(2), .weeks li:nth-child(2), .facts li:nth-child(2) { animation-range: entry 12% entry 85%; }
+      .steps li:nth-child(3), .short:nth-child(3), .svc:nth-child(3), .fitList li:nth-child(3), .weeks li:nth-child(3), .facts li:nth-child(3) { animation-range: entry 19% entry 95%; }
+      .steps li:nth-child(4), .weeks li:nth-child(4) { animation-range: entry 26% cover 40%; }
       .shots .bezel { animation: tilt linear both; animation-timeline: view(); animation-range: entry 0% cover 50%; }
       .shotPhone { animation: phoneIn linear both; animation-timeline: view(); animation-range: entry 10% cover 55%; }
       .steps::before { animation: draw linear both; animation-timeline: view(); animation-range: entry 30% cover 45%; }
@@ -513,7 +518,7 @@
   @keyframes nodeBreath { 0%, 60%, 100% { transform: scale(1); } 25% { transform: scale(1.12); } }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .btn, .segTab, .waFloat, .vn, .vl, .vh, .textLink, .navLinks a, .short, .short::after, .btn .arr { transition: none !important; }
+    .btn, .indiv, .indiv .arr, .waFloat, .textLink, .navLinks a, .short, .short::after, .btn .arr { transition: none !important; }
     .tickTrack, .live::before, .logo .mk-c, .logo .mk-t, .scene *, .scene.on { animation: none !important; }
     .tabInk, .svc, .pick span { transition: none !important; }
     .tickTrack { flex-wrap: wrap; width: auto; }
@@ -524,9 +529,10 @@
 
   /* ---------- Responsive ---------- */
   @media (max-width: 1020px) {
-    .heroGrid, .workHead, .workCase, .what, .faqLead, .contact { grid-template-columns: minmax(0, 1fr); }
-    .workCase { gap: 44px; }
-    .svc, .svc-video, .svc-social, .svc-site, .svc-crm { grid-column: span 12; }
+    .heroGrid, .workHead, .what, .faqLead, .contact, .about, .edu { grid-template-columns: minmax(0, 1fr); }
+    .svc { grid-column: span 12; }
+    .packs { grid-template-columns: minmax(0, 1fr); }
+    .edu { gap: 56px; }
     .shorts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .heroGrid { gap: 48px; }
     .hero h1 { font-size: clamp(2.2rem, 6.4vw, 3.4rem); max-width: 18ch; }
@@ -544,12 +550,13 @@
     .navLinks.open { display: flex; }
     .navLinks a { padding: 14px 0; font-size: 1.05rem; border-bottom: 1px solid var(--line); }
     .navCta { display: none; }
-    .fit, .faq { grid-template-columns: minmax(0, 1fr); }
+    .faq { grid-template-columns: minmax(0, 1fr); }
     .faq { gap: 32px; }
     .block { padding-top: 96px; }
     .band { margin-top: 96px; padding: 80px 0; }
     .siteFoot { margin-top: 96px; }
     .work + .work { margin-top: 72px; }
+    .compare { margin-top: 64px; }
   }
   @media (max-width: 560px) {
     .wrap { padding-inline: 18px; }
@@ -560,9 +567,6 @@
     .ctaRow { width: 100%; }
     .ctaRow .btn { flex: 1 1 100%; }
     .navLinks { padding: 8px 18px 20px; }
-    .vizHead, .vizFoot { padding-left: 16px; padding-right: 16px; }
-    .vh text { font-size: 21px; }
-    .vh text.sub { font-size: 18px; }
     .shots { padding-right: 16%; }
     .shotPhone { width: 30%; }
     .facts { gap: 16px 28px; }
@@ -575,6 +579,12 @@
     .kHead em { font-size: 0.64rem; padding: 2px 7px; }
     .scene { padding: 16px; }
     .svc { padding: 28px 22px 24px; }
+    .secCols { grid-template-columns: minmax(0, 1fr); }
+    .cmpRow span { padding: 14px; font-size: 0.92rem; }
+    .cmpHead span { font-size: 0.7rem; }
+    .indiv { flex-wrap: wrap; padding: 18px; gap: 12px; }
+    .indivText { flex-basis: 100%; order: 3; }
+    .indiv .arr { margin-left: auto; }
   }
 </style>
 </head>
@@ -589,10 +599,11 @@
       <span class="word">Nexi <span>Digital</span></span>
     </a>
     <nav class="navLinks" id="navLinks" aria-label="[[navLabel]]">
-      <a href="#hizmetler">[[navServices]]</a>
+      <a href="#hizmetler">[[navSectors]]</a>
+      <a href="#paketler">[[navPackages]]</a>
+      <a href="#egitim">[[navEdu]]</a>
       <a href="#isler">[[navWork]]</a>
-      <a href="#nasil">[[navHow]]</a>
-      <a href="#sss">[[navFaq]]</a>
+      <a href="#hakkimda">[[navAbout]]</a>
     </nav>
     <div class="navEnd">
       <a class="lang" href="[[altHref]]" hreflang="[[altLang]]" lang="[[altLang]]" aria-label="[[altLabel]]">[[altShort]]</a>
@@ -612,7 +623,7 @@
         <p class="heroLede">[[heroLede]]</p>
         <div class="ctaRow">
           <a class="btn btnPrimary" href="#iletisim">[[cta]]<span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M6 4h6v6"/></svg></span></a>
-          <a class="textLink" href="#hizmetler">[[heroCta2]]</a>
+          <a class="textLink" href="#paketler">[[heroCta2]]</a>
         </div>
       </div>
 
@@ -672,41 +683,185 @@
     </div>
   </section>
 
-  <section class="wrap block" id="hizmetler" aria-labelledby="svcTitle">
+  <section class="wrap block" id="hizmetler" aria-labelledby="secTitle">
     <div class="sectionHead rv">
-      <h2 id="svcTitle">[[svcTitle]]</h2>
-      <p class="lede">[[svcLede]]</p>
+      <h2 id="secTitle">[[secTitle]]</h2>
+      <p class="lede">[[secLede]]</p>
     </div>
     <div class="bento">
-      <article class="svc svc-video" data-service="video">
-        <div class="svcTop"><h3>[[s1t]]</h3><p class="for"><span class="forTag">[[forCreators]]</span><span class="forTag">[[forBiz]]</span></p></div>
-        <p class="svcText">[[s1p]]</p>
-        <ul><li>[[s1a]]</li><li>[[s1b]]</li><li>[[s1c]]</li></ul>
-        <a class="textLink" href="#iletisim" data-pick="video">[[svcCta]]</a>
+      <article class="svc svc-food" aria-labelledby="secFoodT">
+        <div class="svcTop"><h3 id="secFoodT">[[foodT]]</h3><p class="for"><span class="forTag">[[foodTag]]</span></p></div>
+        <div class="secCols">
+          <div><p class="listLabel">[[probLabel]]</p><ul class="probs"><li>[[food1]]</li><li>[[food2]]</li><li>[[food3]]</li></ul></div>
+          <div><p class="listLabel">[[buildLabel]]</p><ul><li>[[foodB1]]</li><li>[[foodB2]]</li><li>[[foodB3]]</li></ul></div>
+        </div>
+        <a class="textLink" href="#isler">[[foodLink]]</a>
       </article>
-      <article class="svc svc-social" data-service="social">
-        <div class="svcTop"><h3>[[s2t]]</h3><p class="for"><span class="forTag">[[forCreators]]</span><span class="forTag">[[forBiz]]</span></p></div>
-        <p class="svcText">[[s2p]]</p>
-        <ul><li>[[s2a]]</li><li>[[s2b]]</li><li>[[s2c]]</li></ul>
-        <a class="textLink" href="#iletisim" data-pick="social">[[svcCta]]</a>
+      <article class="svc svc-estate" aria-labelledby="secEstateT">
+        <div class="svcTop"><h3 id="secEstateT">[[estateT]]</h3><p class="for"><span class="forTag">[[estateTag]]</span></p></div>
+        <div class="secCols">
+          <div><p class="listLabel">[[probLabel]]</p><ul class="probs"><li>[[estate1]]</li><li>[[estate2]]</li><li>[[estate3]]</li></ul></div>
+          <div><p class="listLabel">[[buildLabel]]</p><ul><li>[[estateB1]]</li><li>[[estateB2]]</li><li>[[estateB3]]</li></ul></div>
+        </div>
+        <a class="textLink" href="#iletisim" data-pick="kesif">[[estateLink]]</a>
       </article>
-      <article class="svc svc-site" data-service="site">
-        <div class="svcTop"><h3>[[s3t]]</h3><p class="for"><span class="forTag">[[forBiz]]</span></p></div>
-        <p class="svcText">[[s3p]]</p>
-        <ul><li>[[s3a]]</li><li>[[s3b]]</li><li>[[s3c]]</li></ul>
-        <a class="textLink" href="#iletisim" data-pick="site">[[svcCta]]</a>
+    </div>
+    <a class="indiv rv" href="#egitim">
+      <span class="indivTag">[[indivTag]]</span>
+      <span class="indivText">[[indivText]]</span>
+      <span class="arr" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M6 4h6v6"/></svg></span>
+    </a>
+  </section>
+
+  <section class="wrap block" id="nasil" aria-labelledby="whatTitle">
+    <div class="what rv">
+      <h2 id="whatTitle">[[whatTitle]]</h2>
+      <p class="whatBig"><span class="fill">[[whatBig]]</span></p>
+    </div>
+    <ol class="steps">
+      <li><h3>[[p1t]]</h3><p>[[p1p]]</p><span class="stepTag">[[p1tag]]</span></li>
+      <li><h3>[[p2t]]</h3><p>[[p2p]]</p></li>
+      <li><h3>[[p3t]]</h3><p>[[p3p]]</p></li>
+      <li><h3>[[p4t]]</h3><p>[[p4p]]</p></li>
+    </ol>
+    <div class="compare rv" role="table" aria-label="[[cmpLabel]]">
+      <div class="cmpRow cmpHead" role="row"><span role="columnheader">[[cmpOld]]</span><span role="columnheader">[[cmpNew]]</span></div>
+      <div class="cmpRow" role="row"><span role="cell">[[cmpO1]]</span><span role="cell">[[cmpN1]]</span></div>
+      <div class="cmpRow" role="row"><span role="cell">[[cmpO2]]</span><span role="cell">[[cmpN2]]</span></div>
+      <div class="cmpRow" role="row"><span role="cell">[[cmpO3]]</span><span role="cell">[[cmpN3]]</span></div>
+    </div>
+    <p class="fdeNote rv">[[fdeNote]]</p>
+  </section>
+
+  <section class="wrap block" id="paketler" aria-labelledby="packTitle">
+    <div class="sectionHead rv">
+      <h2 id="packTitle">[[packTitle]]</h2>
+      <p class="lede">[[packLede]]</p>
+    </div>
+    <p class="packGroup">[[packBiz]]</p>
+    <div class="packs">
+      <article class="svc pack packStart">
+        <p class="packBadge">[[k1badge]]</p>
+        <h3>[[k1t]]</h3>
+        <p class="price">[[k1price]]<small>[[from]]</small></p>
+        <p class="svcText">[[k1for]]</p>
+        <ul><li>[[k1a]]</li><li>[[k1b]]</li><li>[[k1c]]</li></ul>
+        <a class="btn btnPrimary" href="#iletisim" data-pick="kesif">[[cta]]</a>
       </article>
-      <article class="svc svc-crm" data-service="crm">
-        <div class="svcTop"><h3>[[s4t]]</h3><p class="for"><span class="forTag">[[forBiz]]</span></p></div>
-        <p class="svcText">[[s4p]]</p>
-        <ul><li>[[s4a]]</li><li>[[s4b]]</li><li>[[s4c]]</li></ul>
-        <a class="textLink" href="#iletisim" data-pick="crm">[[svcCta]]</a>
+      <article class="svc pack">
+        <h3>[[k2t]]</h3>
+        <p class="price">[[k2price]]<small>[[from]]</small></p>
+        <p class="svcText">[[k2for]]</p>
+        <ul><li>[[k2a]]</li><li>[[k2b]]</li><li>[[k2c]]</li></ul>
+        <a class="btn btnQuiet" href="#iletisim" data-pick="kurulum">[[cta]]</a>
       </article>
+      <article class="svc pack">
+        <h3>[[k3t]]</h3>
+        <p class="price">[[k3price]]<small>[[perMonth]]</small></p>
+        <p class="svcText">[[k3for]]</p>
+        <ul><li>[[k3a]]</li><li>[[k3b]]</li><li>[[k3c]]</li></ul>
+        <a class="btn btnQuiet" href="#iletisim" data-pick="aylik">[[cta]]</a>
+      </article>
+    </div>
+    <p class="packGroup">[[packEdu]]</p>
+    <div class="packs packs2">
+      <article class="svc pack">
+        <h3>[[k4t]]</h3>
+        <p class="price">[[k4price]]<small>[[from]]</small></p>
+        <p class="svcText">[[k4for]]</p>
+        <ul><li>[[k4a]]</li><li>[[k4b]]</li><li>[[k4c]]</li></ul>
+        <a class="btn btnQuiet" href="#iletisim" data-pick="ekip">[[cta]]</a>
+      </article>
+      <article class="svc pack">
+        <h3>[[k5t]]</h3>
+        <p class="price">[[k5price]]<small>[[perPerson]]</small></p>
+        <p class="svcText">[[k5for]]</p>
+        <ul><li>[[k5a]]</li><li>[[k5b]]</li><li>[[k5c]]</li></ul>
+        <a class="btn btnQuiet" href="#iletisim" data-pick="atolye">[[cta]]</a>
+      </article>
+    </div>
+    <p class="packNote">[[packNote]]</p>
+  </section>
+
+  <section class="wrap block" id="egitim" aria-labelledby="eduTitle">
+    <div class="sectionHead rv">
+      <h2 id="eduTitle">[[eduTitle]]</h2>
+      <p class="lede">[[eduLede]]</p>
+    </div>
+    <div class="edu">
+      <div class="eduCol rv">
+        <h3>[[eduTeamT]]</h3>
+        <p class="eduFor">[[eduTeamFor]]</p>
+        <ol class="weeks">
+          <li><span>[[week]] 1</span><b>[[ew1t]]</b><p>[[ew1p]]</p></li>
+          <li><span>[[week]] 2</span><b>[[ew2t]]</b><p>[[ew2p]]</p></li>
+          <li><span>[[week]] 3</span><b>[[ew3t]]</b><p>[[ew3p]]</p></li>
+          <li><span>[[week]] 4</span><b>[[ew4t]]</b><p>[[ew4p]]</p></li>
+        </ol>
+      </div>
+      <div class="eduCol rv">
+        <h3>[[eduSoloT]]</h3>
+        <p class="eduFor">[[eduSoloFor]]</p>
+        <ol class="weeks">
+          <li><span>[[week]] 1</span><b>[[es1t]]</b><p>[[es1p]]</p></li>
+          <li><span>[[week]] 2</span><b>[[es2t]]</b><p>[[es2p]]</p></li>
+          <li><span>[[week]] 3</span><b>[[es3t]]</b><p>[[es3p]]</p></li>
+          <li><span>[[week]] 4</span><b>[[es4t]]</b><p>[[es4p]]</p></li>
+        </ol>
+        <p class="eduProof"><b data-count>[[w0f2n]]</b><span>[[eduProof]]</span></p>
+      </div>
     </div>
   </section>
 
   <section class="wrap block" id="isler" aria-labelledby="workTitle">
-    <h2 class="workTitle" id="workTitle">[[workTitle]]</h2>
+    <div class="sectionHead rv">
+      <h2 id="workTitle">[[workTitle]]</h2>
+      <p class="lede">[[workLede]]</p>
+    </div>
+
+    <article class="work workZld rv" aria-labelledby="w3Title">
+      <div class="workHead">
+        <div>
+          <p class="workKind">[[w3kind]]</p>
+          <h3 id="w3Title">Zeynep Lezzet Durağı</h3>
+        </div>
+        <p class="workText">[[w3p]]</p>
+      </div>
+      <div class="shots">
+        <div class="bezel"><div class="core"><img src="img/zld-mutfak.webp" width="1280" height="760" alt="[[zldAltDesk]]" loading="lazy" decoding="async"></div></div>
+        <div class="shotPhone"><img src="img/zld-telefon.webp" width="390" height="844" alt="[[zldAltPhone]]" loading="lazy" decoding="async"></div>
+      </div>
+      <div class="workFoot">
+        <ul class="facts">
+          <li><b data-count>6</b><span>[[w3f1]]</span></li>
+          <li><b>0</b><span>[[w3f2]]</span></li>
+          <li><b data-count>3</b><span>[[w3f3]]</span></li>
+        </ul>
+        <a class="btn btnQuiet" href="https://nexidigitalai.com/zld/index.html?masa=1" target="_blank" rel="noopener">[[zldCta]]<span class="sr"> [[newTab]]</span></a>
+      </div>
+    </article>
+
+    <article class="work workSubly rv" aria-labelledby="w1Title">
+      <div class="workHead">
+        <div>
+          <p class="workKind">[[w1kind]]</p>
+          <h3 id="w1Title">Subly</h3>
+        </div>
+        <p class="workText">[[w1p]]</p>
+      </div>
+      <div class="shots">
+        <div class="bezel"><div class="core"><img src="img/subly-masaustu-[[lang]].webp" width="1280" height="760" alt="[[sublyAltDesk]]" loading="lazy" decoding="async"></div></div>
+        <div class="shotPhone"><img src="img/subly-telefon-[[lang]].webp" width="390" height="844" alt="[[sublyAltPhone]]" loading="lazy" decoding="async"></div>
+      </div>
+      <div class="workFoot">
+        <ul class="facts">
+          <li><b data-count>14</b><span>[[w1f1]]</span></li>
+          <li><b>0</b><span>[[w1f2]]</span></li>
+          <li><b data-count>3</b><span>[[w1f3]]</span></li>
+        </ul>
+        <a class="btn btnQuiet" href="https://subly.nexidigitalai.com/" target="_blank" rel="noopener">[[sublyCta]]<span class="sr"> [[newTab]]</span></a>
+      </div>
+    </article>
 
     <article class="work workYt rv" aria-labelledby="w0Title">
       <div class="workHead">
@@ -731,111 +886,27 @@
         <a class="btn btnQuiet" href="https://www.youtube.com/@glowtips777" target="_blank" rel="noopener">[[ytCta]]<span class="sr"> [[newTab]]</span></a>
       </div>
     </article>
-
-    <article class="work workSubly rv" aria-labelledby="w1Title">
-      <div class="workHead">
-        <div>
-          <p class="workKind">[[w1kind]]</p>
-          <h3 id="w1Title">[[w1t]]</h3>
-        </div>
-        <p class="workText">[[w1p]]</p>
-      </div>
-      <div class="shots">
-        <div class="bezel"><div class="core"><img src="img/subly-masaustu-[[lang]].webp" width="1280" height="760" alt="[[sublyAltDesk]]" loading="lazy" decoding="async"></div></div>
-        <div class="shotPhone"><img src="img/subly-telefon-[[lang]].webp" width="390" height="844" alt="[[sublyAltPhone]]" loading="lazy" decoding="async"></div>
-      </div>
-      <div class="workFoot">
-        <ul class="facts">
-          <li><b data-count>14</b><span>[[w1f1]]</span></li>
-          <li><b>0</b><span>[[w1f2]]</span></li>
-          <li><b data-count>3</b><span>[[w1f3]]</span></li>
-        </ul>
-        <a class="btn btnQuiet" href="https://subly.nexidigitalai.com/" target="_blank" rel="noopener">[[sublyCta]]<span class="sr"> [[newTab]]</span></a>
-      </div>
-    </article>
-
-    <article class="work workZld rv" aria-labelledby="w3Title">
-      <div class="workHead">
-        <div>
-          <p class="workKind">[[w3kind]]</p>
-          <h3 id="w3Title">Zeynep Lezzet Durağı</h3>
-        </div>
-        <p class="workText">[[w3p]]</p>
-      </div>
-      <div class="shots">
-        <div class="bezel"><div class="core"><img src="img/zld-mutfak.webp" width="1280" height="760" alt="[[zldAltDesk]]" loading="lazy" decoding="async"></div></div>
-        <div class="shotPhone"><img src="img/zld-telefon.webp" width="390" height="844" alt="[[zldAltPhone]]" loading="lazy" decoding="async"></div>
-      </div>
-      <div class="workFoot">
-        <ul class="facts">
-          <li><b data-count>6</b><span>[[w3f1]]</span></li>
-          <li><b>0</b><span>[[w3f2]]</span></li>
-          <li><b data-count>3</b><span>[[w3f3]]</span></li>
-        </ul>
-        <a class="btn btnQuiet" href="https://nexidigitalai.com/zld/index.html?masa=1" target="_blank" rel="noopener">[[zldCta]]<span class="sr"> [[newTab]]</span></a>
-      </div>
-    </article>
-
-    <article class="work workCase" id="ornek" aria-labelledby="w2Title">
-      <figure class="viz bezel" id="viz">
-        <div class="core">
-          <div class="vizHead"><strong>[[vizTitle]]</strong><span class="live">[[vizCount]]</span></div>
-          <div class="vizCanvas">
-            <svg id="vizSvg" viewBox="0 0 560 440" role="img" aria-label="[[vizAria]]"></svg>
-          </div>
-          <div class="vizFoot">
-            <div class="segTabs" role="group" aria-label="[[segGroup]]">
-              <button type="button" class="segTab seg-kayip" data-seg="kayip" aria-pressed="true"><i></i>[[segKayip]]</button>
-              <button type="button" class="segTab seg-sadik" data-seg="sadik" aria-pressed="false"><i></i>[[segSadik]]</button>
-              <button type="button" class="segTab seg-yeni" data-seg="yeni" aria-pressed="false"><i></i>[[segYeni]]</button>
-            </div>
-            <div class="msg seg-kayip" id="msg" aria-live="off">
-              <span class="msgCh" id="msgCh">SMS</span>
-              <span class="msgTo" id="msgTo">[[msgToKayip]]</span>
-              <p class="msgText" id="msgText">[[msgKayip]]</p>
-            </div>
-          </div>
-        </div>
-      </figure>
-      <div class="caseBody">
-        <p class="workKind">[[w2kind]]</p>
-        <h3 id="w2Title">[[w2t]]</h3>
-        <p class="workText">[[w2p]]</p>
-        <div class="stats">
-          <div class="stat c"><b data-count>[[st1n]]</b><span>[[st1l]]</span></div>
-          <div class="stat t"><b data-count>6</b><span>[[st2l]]</span></div>
-          <div class="stat"><b data-count>[[st3n]]</b><span>[[st3l]]</span></div>
-          <div class="stat"><b data-count>12</b><span>[[st4l]]</span></div>
-        </div>
-        <a class="textLink" href="https://claude.ai/code/artifact/61ae4686-f95d-4123-a3ed-ed7d0851541f" target="_blank" rel="noopener noreferrer">[[caseLink]]<span class="sr"> [[newTab]]</span></a>
-      </div>
-    </article>
   </section>
 
-  <section class="wrap block" id="nasil" aria-labelledby="whatTitle">
-    <div class="what rv">
-      <h2 id="whatTitle">[[whatTitle]]</h2>
-      <p class="whatBig"><span class="fill">[[whatBig]]</span></p>
-    </div>
-    <ol class="steps">
-      <li><h3>[[p1t]]</h3><p>[[p1p]]</p><span class="stepTag">[[free]]</span></li>
-      <li><h3>[[p2t]]</h3><p>[[p2p]]</p></li>
-      <li><h3>[[p3t]]</h3><p>[[p3p]]</p></li>
-      <li><h3>[[p4t]]</h3><p>[[p4p]]</p></li>
-    </ol>
-  </section>
-
-  <section class="band" id="kimler" aria-labelledby="fitTitle">
+  <section class="band" id="hakkimda" aria-labelledby="aboutTitle">
     <div class="wrap">
-      <h2 id="fitTitle">[[fitTitle]]</h2>
-      <div class="fit">
-        <div>
-          <h3 class="fitYes">[[fitYesT]]</h3>
-          <ul class="fitList yes"><li>[[y1]]</li><li>[[y2]]</li><li>[[y3]]</li></ul>
+      <div class="about">
+        <div class="aboutText rv">
+          <p class="workKind">[[aboutKind]]</p>
+          <h2 id="aboutTitle">Pınar Saçu Kargün</h2>
+          <p class="aboutBig">[[aboutBig]]</p>
+          <p class="aboutP">[[aboutP]]</p>
+          <a class="btn btnQuiet" href="https://www.linkedin.com/in/pinar-sa%C3%A7u-karg%C3%BCn-73a41491/" target="_blank" rel="noopener">[[liCta]]<span class="sr"> [[newTab]]</span></a>
         </div>
-        <div>
-          <h3 class="fitNo">[[fitNoT]]</h3>
-          <ul class="fitList no"><li>[[n1]]</li><li>[[n2]]</li><li>[[n3]]</li></ul>
+        <div class="fit">
+          <div>
+            <h3 class="fitYes">[[fitYesT]]</h3>
+            <ul class="fitList yes"><li>[[y1]]</li><li>[[y2]]</li><li>[[y3]]</li></ul>
+          </div>
+          <div>
+            <h3 class="fitNo">[[fitNoT]]</h3>
+            <ul class="fitList no"><li>[[n1]]</li><li>[[n2]]</li><li>[[n3]]</li></ul>
+          </div>
         </div>
       </div>
     </div>
@@ -851,10 +922,12 @@
         <p>[[objA]]</p>
       </div>
       <div class="faq">
-        <div><h3>[[q3]]</h3><p>[[a3]]</p></div>
         <div><h3>[[q1]]</h3><p>[[a1]]</p></div>
         <div><h3>[[q2]]</h3><p>[[a2]]</p></div>
+        <div><h3>[[q3]]</h3><p>[[a3]]</p></div>
         <div><h3>[[q4]]</h3><p>[[a4]]</p></div>
+        <div><h3>[[q5]]</h3><p>[[a5]]</p></div>
+        <div><h3>[[q6]]</h3><p>[[a6]]</p></div>
       </div>
     </section>
 
@@ -877,10 +950,12 @@
             <input type="hidden" name="_subject" value="[[formSubject]]">
             <fieldset class="pick">
               <legend>[[pickLegend]]</legend>
-              <label><input type="checkbox" name="service" value="[[s1t]]" data-svc="video"><span>[[s1t]]</span></label>
-              <label><input type="checkbox" name="service" value="[[s2t]]" data-svc="social"><span>[[s2t]]</span></label>
-              <label><input type="checkbox" name="service" value="[[s3t]]" data-svc="site"><span>[[s3t]]</span></label>
-              <label><input type="checkbox" name="service" value="[[s4t]]" data-svc="crm"><span>[[s4t]]</span></label>
+              <label><input type="checkbox" name="service" value="[[k1t]]" data-svc="kesif"><span>[[k1t]]</span></label>
+              <label><input type="checkbox" name="service" value="[[k2t]]" data-svc="kurulum"><span>[[k2t]]</span></label>
+              <label><input type="checkbox" name="service" value="[[k3t]]" data-svc="aylik"><span>[[k3t]]</span></label>
+              <label><input type="checkbox" name="service" value="[[k4t]]" data-svc="ekip"><span>[[k4t]]</span></label>
+              <label><input type="checkbox" name="service" value="[[k5t]]" data-svc="atolye"><span>[[k5t]]</span></label>
+              <label><input type="checkbox" name="service" value="[[unsure]]" data-svc="emin"><span>[[unsure]]</span></label>
             </fieldset>
             <div class="formRow">
               <label class="field">[[fName]]<input type="text" name="name" required autocomplete="name" placeholder="[[fNamePh]]"></label>
@@ -908,8 +983,9 @@
         <span class="word">Nexi <span>Digital</span></span>
       </a>
       <nav class="footLinks" aria-label="[[footNav]]">
-        <a href="#hizmetler">[[navServices]]</a>
-        <a href="#isler">[[navWork]]</a>
+        <a href="#paketler">[[navPackages]]</a>
+        <a href="#egitim">[[navEdu]]</a>
+        <a href="https://www.linkedin.com/in/pinar-sa%C3%A7u-karg%C3%BCn-73a41491/" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://subly.nexidigitalai.com/" target="_blank" rel="noopener">Subly</a>
         <a href="mailto:nexidigital.00@gmail.com">nexidigital.00@gmail.com</a>
       </nav>
@@ -949,139 +1025,7 @@
   links.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
 
-  // Customer network: scattered customers settle into segment clusters, like the logo's nodes.
-  var NS = 'http://www.w3.org/2000/svg';
-  var svg = document.getElementById('vizSvg');
-  var viz = document.getElementById('viz');
-  var SEGS = [
-    { id: 'kayip', hub: [148, 176], n: 12, label: 'top' },
-    { id: 'sadik', hub: [418, 150], n: 7, label: 'top' },
-    { id: 'yeni',  hub: [318, 318], n: 9, label: 'bottom' }
-  ];
-  var seed = 7;
-  function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
-  function el(name, attrs, parent) {
-    var e = document.createElementNS(NS, name);
-    for (var k in attrs) e.setAttribute(k, attrs[k]);
-    parent.appendChild(e);
-    return e;
-  }
-  var lines = el('g', {}, svg);
-  var pulses = el('g', {}, svg);
-  var nodes = [];
-  SEGS.forEach(function (s, si) {
-    var group = el('g', { 'data-seg': s.id, 'class': 'seg-' + s.id }, svg);
-    for (var i = 0; i < s.n; i++) {
-      var a = i * 2.39996 + si;
-      var r = 30 + 14 * Math.sqrt(i + 1);
-      var x = s.hub[0] + Math.cos(a) * r, y = s.hub[1] + Math.sin(a) * r * 0.82;
-      el('line', { x1: s.hub[0], y1: s.hub[1], x2: x.toFixed(1), y2: y.toFixed(1), 'class': 'vl seg-' + s.id, 'data-seg': s.id }, lines);
-      var g = el('g', { 'class': 'vn' }, group);
-      var c = el('circle', { r: (3.6 + rnd() * 3.4).toFixed(1) }, g);
-      nodes.push({ g: g, c: c, seg: s.id, hub: s.hub, x: x, y: y, x0: 20 + rnd() * 520, y0: 20 + rnd() * 400, delay: i * 0.035 + si * 0.08 });
-    }
-    var hub = el('g', { 'class': 'vh', transform: 'translate(' + s.hub[0] + ' ' + s.hub[1] + ')' }, group);
-    el('circle', { 'class': 'halo', r: 21 }, hub);
-    el('circle', { 'class': 'core', r: 11 }, hub);
-    var reach = (30 + 14 * Math.sqrt(s.n)) * 0.82;
-    var ly = s.label === 'bottom' ? reach + 26 : -reach - 32;
-    var label = el('text', { x: 0, y: ly.toFixed(0), 'text-anchor': 'middle' }, hub);
-    label.textContent = T.segs[s.id].name;
-    var sub = el('text', { 'class': 'sub', x: 0, y: (ly + 21).toFixed(0), 'text-anchor': 'middle' }, hub);
-    sub.textContent = T.segs[s.id].count;
-  });
-
-  // Final layout is the resting state; the intro only animates *from* the scattered positions.
-  nodes.forEach(function (n) { n.g.setAttribute('transform', 'translate(' + n.x.toFixed(1) + ' ' + n.y.toFixed(1) + ')'); });
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!reduce && svg.animate) {
-    nodes.forEach(function (n) {
-      n.g.animate([
-        { transform: 'translate(' + n.x0.toFixed(1) + 'px, ' + n.y0.toFixed(1) + 'px)' },
-        { transform: 'translate(' + n.x.toFixed(1) + 'px, ' + n.y.toFixed(1) + 'px)' }
-      ], { duration: 1150, delay: 350 + n.delay * 1000, easing: 'cubic-bezier(.2, .75, .2, 1)', fill: 'backwards' });
-    });
-    [lines].concat([].slice.call(svg.querySelectorAll('.vh'))).forEach(function (e) {
-      e.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 600, delay: 1500, easing: 'ease-out', fill: 'backwards' });
-    });
-  }
-
-  // Segment picker
-  var tabs = document.querySelectorAll('.segTab');
-  var msg = document.getElementById('msg');
-  var current = 'kayip';
-  function pick(id, highlight) {
-    current = id;
-    tabs.forEach(function (t) { t.setAttribute('aria-pressed', t.dataset.seg === id ? 'true' : 'false'); });
-    svg.querySelectorAll('[data-seg]').forEach(function (g) { g.classList.toggle('on', g.dataset.seg === id); });
-    msg.className = 'msg seg-' + id;
-    document.getElementById('msgCh').textContent = T.segs[id].ch;
-    document.getElementById('msgTo').textContent = T.segs[id].to;
-    document.getElementById('msgText').textContent = T.segs[id].msg;
-    if (highlight) viz.classList.add('picked');
-    if (!reduce && msg.animate) {
-      msg.animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 480, easing: 'cubic-bezier(.32, .72, 0, 1)' });
-    }
-  }
-  var userPicked = false;
-  tabs.forEach(function (t) {
-    t.addEventListener('click', function () {
-      userPicked = true;
-      msg.setAttribute('aria-live', 'polite');
-      pick(t.dataset.seg, true);
-    });
-  });
-  pick('kayip', false);
-
-  // The network stays alive: customers drift, messages travel from each hub to its customers,
-  // and the segments take turns until the visitor picks one. All of it pauses off-screen.
-  var active = true;
-  if (!reduce && svg.animate) {
-    var floats = nodes.map(function (n, i) {
-      var dx = (rnd() * 2 - 1) * 5, dy = (rnd() * 2 - 1) * 5;
-      return n.c.animate([{ transform: 'translate(0px, 0px)' }, { transform: 'translate(' + dx.toFixed(1) + 'px, ' + dy.toFixed(1) + 'px)' }],
-        { duration: 2200 + rnd() * 1800, delay: 1800 + i * 40, direction: 'alternate', iterations: Infinity, easing: 'ease-in-out' });
-    });
-    function sendPulse() {
-      if (!active) return;
-      var pool = nodes.filter(function (n) { return !viz.classList.contains('picked') || n.seg === current; });
-      var n = pool[Math.floor(Math.random() * pool.length)];
-      var p = el('g', { 'class': 'vp seg-' + n.seg }, pulses);
-      el('circle', { r: 3.2 }, p);
-      var go = p.animate([
-        { transform: 'translate(' + n.hub[0] + 'px, ' + n.hub[1] + 'px)', opacity: 0 },
-        { opacity: 1, offset: 0.15 },
-        { transform: 'translate(' + n.x.toFixed(1) + 'px, ' + n.y.toFixed(1) + 'px)', opacity: 1 }
-      ], { duration: 720, easing: 'cubic-bezier(.45, 0, .25, 1)', fill: 'forwards' });
-      go.onfinish = function () {
-        pulses.removeChild(p);
-        var ring = el('circle', { 'class': 'vring seg-' + n.seg, cx: n.x.toFixed(1), cy: n.y.toFixed(1), r: 14 }, pulses);
-        ring.style.transformBox = 'fill-box';
-        ring.style.transformOrigin = 'center';
-        ring.animate([{ transform: 'scale(0.3)', opacity: 0.9 }, { transform: 'scale(1.3)', opacity: 0 }], { duration: 700, easing: 'ease-out' })
-          .onfinish = function () { pulses.removeChild(ring); };
-        n.c.style.transformBox = 'fill-box';
-        n.c.style.transformOrigin = 'center';
-        n.g.animate([{ opacity: 1 }, { opacity: 0.55, offset: 0.3 }, { opacity: 1 }], { duration: 500 });
-      };
-    }
-    setTimeout(function () { setInterval(sendPulse, 420); }, 1900);
-    var order = ['kayip', 'sadik', 'yeni'];
-    setTimeout(function () {
-      setInterval(function () {
-        if (!active || userPicked) return;
-        pick(order[(order.indexOf(current) + 1) % order.length], true);
-      }, 4800);
-    }, 2600);
-    function setActive(on) {
-      active = on;
-      floats.forEach(function (a) { on ? a.play() : a.pause(); });
-    }
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (es) { setActive(es[0].isIntersecting && !document.hidden); }).observe(viz);
-    }
-    document.addEventListener('visibilitychange', function () { setActive(!document.hidden); });
-  }
 
   // Headline: words rise into place once, on load.
   var h1 = document.getElementById('heroTitle');
@@ -1203,7 +1147,7 @@
     });
   });
 
-  // "Write to me about this" links pre-select the service in the form.
+  // Package buttons pre-select that package in the form.
   document.querySelectorAll('[data-pick]').forEach(function (a) {
     a.addEventListener('click', function () {
       var box = document.querySelector('.pick input[data-svc="' + a.dataset.pick + '"]');

@@ -89,7 +89,7 @@ TR = {
     "k5t": "Bireysel Atölye", "k5price": "2.500 ₺",
     "k5for": "Yapay zekayla içerik ve video üretmek isteyen bireyler için.",
     "k5a": "4 haftalık küçük grup", "k5b": "Ya da birebir", "k5c": "Kendi kanalımdan gerçek örnekler",
-    "packNote": "Keşif Günü ücreti, kuruluma geçerseniz kurulum ücretinden düşülür. Fiyatlara KDV dahil değildir.",
+    "packNote": "Keşif Günü ücreti, sonraki paketinizin ücretinden düşülür. Fiyatlara KDV dahil değildir.",
 
     # Education
     "eduTitle": "Eğitim",
@@ -109,7 +109,7 @@ TR = {
 
     # Work
     "workTitle": "Yaptıklarım",
-    "workLede": "Anlattığım her şeyi önce kendim yaptım. Biri bir cafede her gün kullanılıyor, ikisi kendi ürünüm.",
+    "workLede": "Anlattığım her şeyi önce kendim yaptım. Biri bir cafe için kuruldu ve canlı, ikisi kendi ürünüm.",
     "w3kind": "Müşteri işi, Sakarya'da bir ev yemekleri kafesi",
     "w3p": "Masadan QR ile sipariş, garson, mutfak ve kasa ekranları, kişi kişi hesap ve gelip alınan siparişler için Gel Al uygulaması. Hepsi aynı anda, canlı güncellenir.",
     "w3f1": "birbirine canlı bağlı ekran", "w3f2": "mağazadan indirilecek uygulama", "w3f3": "porsiyon seçeneği: az, porsiyon, kilo",
@@ -255,7 +255,7 @@ EN = {
     "k5t": "Solo Workshop", "k5price": "2,500 TRY",
     "k5for": "For individuals who want to make content and video with AI.",
     "k5a": "A 4-week small group", "k5b": "Or one-to-one", "k5c": "Real examples from my own channel",
-    "packNote": "If you move on to setup, the Discovery Day fee comes off the setup price. Prices exclude VAT.",
+    "packNote": "The Discovery Day fee comes off the price of your next package. Prices exclude VAT.",
 
     "eduTitle": "Training",
     "eduLede": "I don't walk through tools, I get work done. Each week we finish a task from your own work with AI.",
@@ -273,7 +273,7 @@ EN = {
     "eduProof": "views: what the method I teach got on my own channel",
 
     "workTitle": "My work",
-    "workLede": "I did everything I teach myself first. One is used daily in a café; two are my own products.",
+    "workLede": "I did everything I teach myself first. One was built for a café and is live; two are my own products.",
     "w3kind": "Client work, a home-cooking café in Sakarya",
     "w3p": "QR ordering at the table, waiter, kitchen and till screens, split bills per guest, and a pick-up ordering app. Every screen updates live.",
     "w3f1": "screens kept in sync live", "w3f2": "apps to download from a store", "w3f3": "portion sizes: half, full, by the kilo",

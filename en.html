@@ -780,7 +780,7 @@
         <a class="btn btnQuiet" href="#iletisim" data-pick="atolye">Book a free call</a>
       </article>
     </div>
-    <p class="packNote">If you move on to setup, the Discovery Day fee comes off the setup price. Prices exclude VAT.</p>
+    <p class="packNote">The Discovery Day fee comes off the price of your next package. Prices exclude VAT.</p>
   </section>
 
   <section class="wrap block" id="egitim" aria-labelledby="eduTitle">
@@ -816,7 +816,7 @@
   <section class="wrap block" id="isler" aria-labelledby="workTitle">
     <div class="sectionHead rv">
       <h2 id="workTitle">My work</h2>
-      <p class="lede">I did everything I teach myself first. One is used daily in a café; two are my own products.</p>
+      <p class="lede">I did everything I teach myself first. One was built for a café and is live; two are my own products.</p>
     </div>
 
     <article class="work workZld rv" aria-labelledby="w3Title">
@@ -1095,6 +1095,7 @@
     }, 3200);
   }
   function showScene(i, fromUser) {
+    var same = i === sceneIdx && stageTabs[i].getAttribute('aria-selected') === 'true';
     sceneIdx = i;
     stageTabs.forEach(function (t, k) {
       var on = k === i;
@@ -1106,7 +1107,8 @@
     });
     ink.style.transform = 'translateX(' + (i * 100) + '%)';
     stageNote.textContent = T.notes[stageTabs[i].dataset.scene];
-    countSave(document.getElementById(stageTabs[i].getAttribute('aria-controls')));
+    // Re-picking the scene already showing keeps its finished count; CSS animations don't restart either.
+    if (!same) countSave(document.getElementById(stageTabs[i].getAttribute('aria-controls')));
     if (fromUser) {
       stageUser = true;
       if (timerBar.getAnimations) timerBar.getAnimations().forEach(function (a) { a.cancel(); });

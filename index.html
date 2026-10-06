@@ -780,7 +780,7 @@
         <a class="btn btnQuiet" href="#iletisim" data-pick="atolye">Ön görüşme iste</a>
       </article>
     </div>
-    <p class="packNote">Keşif Günü ücreti, kuruluma geçerseniz kurulum ücretinden düşülür. Fiyatlara KDV dahil değildir.</p>
+    <p class="packNote">Keşif Günü ücreti, sonraki paketinizin ücretinden düşülür. Fiyatlara KDV dahil değildir.</p>
   </section>
 
   <section class="wrap block" id="egitim" aria-labelledby="eduTitle">
@@ -816,7 +816,7 @@
   <section class="wrap block" id="isler" aria-labelledby="workTitle">
     <div class="sectionHead rv">
       <h2 id="workTitle">Yaptıklarım</h2>
-      <p class="lede">Anlattığım her şeyi önce kendim yaptım. Biri bir cafede her gün kullanılıyor, ikisi kendi ürünüm.</p>
+      <p class="lede">Anlattığım her şeyi önce kendim yaptım. Biri bir cafe için kuruldu ve canlı, ikisi kendi ürünüm.</p>
     </div>
 
     <article class="work workZld rv" aria-labelledby="w3Title">
@@ -1095,6 +1095,7 @@
     }, 3200);
   }
   function showScene(i, fromUser) {
+    var same = i === sceneIdx && stageTabs[i].getAttribute('aria-selected') === 'true';
     sceneIdx = i;
     stageTabs.forEach(function (t, k) {
       var on = k === i;
@@ -1106,7 +1107,8 @@
     });
     ink.style.transform = 'translateX(' + (i * 100) + '%)';
     stageNote.textContent = T.notes[stageTabs[i].dataset.scene];
-    countSave(document.getElementById(stageTabs[i].getAttribute('aria-controls')));
+    // Re-picking the scene already showing keeps its finished count; CSS animations don't restart either.
+    if (!same) countSave(document.getElementById(stageTabs[i].getAttribute('aria-controls')));
     if (fromUser) {
       stageUser = true;
       if (timerBar.getAnimations) timerBar.getAnimations().forEach(function (a) { a.cancel(); });

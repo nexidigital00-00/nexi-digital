@@ -1095,6 +1095,7 @@
     }, 3200);
   }
   function showScene(i, fromUser) {
+    var same = i === sceneIdx && stageTabs[i].getAttribute('aria-selected') === 'true';
     sceneIdx = i;
     stageTabs.forEach(function (t, k) {
       var on = k === i;
@@ -1106,7 +1107,8 @@
     });
     ink.style.transform = 'translateX(' + (i * 100) + '%)';
     stageNote.textContent = T.notes[stageTabs[i].dataset.scene];
-    countSave(document.getElementById(stageTabs[i].getAttribute('aria-controls')));
+    // Re-picking the scene already showing keeps its finished count; CSS animations don't restart either.
+    if (!same) countSave(document.getElementById(stageTabs[i].getAttribute('aria-controls')));
     if (fromUser) {
       stageUser = true;
       if (timerBar.getAnimations) timerBar.getAnimations().forEach(function (a) { a.cancel(); });

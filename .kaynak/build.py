@@ -204,11 +204,19 @@ TR.update({
     "fMsgPh": "Ne yapmak istiyorsun, şu an nerede takılıyorsun?",
     "privacy": "Bu site kişisel verilerinizi otomatik olarak toplamaz. İletişime geçtiğinizde paylaştığınız bilgiler yalnızca size dönüş yapmak için kullanılır.",
 })
+TR.update({
+    "stageLabel": "Örnek seç", "tabCafe": "Cafe", "tabEmlak": "Emlak ofisi",
+    "kSample": "Örnek Keşif Günü", "kBuilt": "Kurulan sistem", "hrs": "sa", "hrsWeek": "sa/hafta",
+    "cafeWeek": "Bir cafenin haftası",
+    "cafe1": "WhatsApp'tan sipariş yazışması", "cafe2": "Menü ve fiyat güncelleme", "cafe3": "Kampanya duyurusu", "cafe4": "Gün sonu hesap ve kasa",
+    "cafeFix": "QR menü, masadan sipariş ve kasa ekranı", "cafeSave": "9",
+    "emlakWeek": "Bir emlak ofisinin haftası",
+    "emlak1": "İlan metni ve görsel hazırlama", "emlak2": "Müşteriye geri dönüş", "emlak3": "Sosyal medya paylaşımı", "emlak4": "Portföy takibi",
+    "emlakFix": "İlan içerik üretimi ve paylaşım takvimi", "emlakSave": "8",
+})
 TR_NOTES = {
-    "video": "Yüzsüz bir YouTube kanalı için üretim hattı: konu, senaryo, ses, görsel, kurgu ve yükleme.",
-    "social": "Ham videoyu ajanlar kesiyor, altyazılıyor ve dikey formata çeviriyor; ben son hali kontrol ediyorum.",
-    "site": "Şirketin için mobil uyumlu site ya da uygulama, alan adı ve yayın dahil.",
-    "crm": "Müşteri kayıtlarını segmentlere ayırıp her gruba uygun mesajı gönderiyorum.",
+    "cafe": "Keşif Günü'nde haftanızı çıkarıyor, zaman kaybını işaretliyor ve aynı gün ilk sistemi kuruyorum.",
+    "emlak": "İlan hazırlığı ve paylaşım ofisin en çok saatini alıyor. Onay sizde kalıyor, gerisini sistem yapıyor.",
 }
 
 TR_JS = {
@@ -414,11 +422,19 @@ EN.update({
     "fBiz": "Business or channel name", "fBizPh": "e.g. Papatya Salon",
     "fMsgPh": "What do you want to do, and where are you stuck right now?",
 })
+EN.update({
+    "stageLabel": "Pick an example", "tabCafe": "Café", "tabEmlak": "Real estate office",
+    "kSample": "Sample Discovery Day", "kBuilt": "System built", "hrs": "h", "hrsWeek": "h/week",
+    "cafeWeek": "A café's week",
+    "cafe1": "Taking orders over WhatsApp", "cafe2": "Updating menu and prices", "cafe3": "Announcing offers", "cafe4": "End-of-day till count",
+    "cafeFix": "QR menu, table ordering and a till screen", "cafeSave": "9",
+    "emlakWeek": "A real estate office's week",
+    "emlak1": "Writing listings and preparing photos", "emlak2": "Getting back to clients", "emlak3": "Posting on social media", "emlak4": "Tracking the portfolio",
+    "emlakFix": "Listing content and a posting calendar", "emlakSave": "8",
+})
 EN_NOTES = {
-    "video": "A production line for a faceless YouTube channel: topic, script, voice, visuals, edit and upload.",
-    "social": "Agents cut, caption and reframe the raw video into vertical format; I check the final cut.",
-    "site": "A mobile-friendly website or app for your business, domain and launch included.",
-    "crm": "I split customer records into segments and send each group the right message.",
+    "cafe": "On a Discovery Day I map your week, mark where time is lost and set up the first system the same day.",
+    "emlak": "Listings and posts eat most of an office's hours. You keep the final say; the system does the rest.",
 }
 
 EN_JS = {
@@ -445,10 +461,7 @@ SEP = ('<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" stroke="c
 def render(strings, js, out):
     strings = dict(strings)
     ticker = strings.pop("ticker")
-    soc = strings.pop("socCapText")
-    strings["noteVideo"] = js["notes"]["video"]
-    strings["SOCCAP"] = " ".join(f"<span>{w}</span>" for w in soc.split())
-    strings["WAVE"] = "".join(f'<i style="animation-delay:-{(i * 0.37) % 0.9:.2f}s"></i>' for i in range(18))
+    strings["noteCafe"] = js["notes"]["cafe"]
     html = tpl.replace("[[TICKER]]", "".join(f"<span>{t}</span>{SEP}" for t in ticker))
     html = html.replace("[[LOGO:h]]", logo("h")).replace("[[LOGO:f]]", logo("f")).replace("[[LOGO:s]]", logo("s"))
     html = html.replace("[[JS]]", json.dumps(js, ensure_ascii=False).replace("</", "<\\/"))

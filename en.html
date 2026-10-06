@@ -300,7 +300,7 @@
   /* ---------- Hero stage: one screen, four live services ---------- */
   .stage { position: relative; }
   .stage .core { color: var(--scr-text); display: grid; grid-template-rows: auto 1fr auto; }
-  .stageTabs { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 6px; gap: 2px; border-bottom: 1px solid var(--scr-line); }
+  .stageTabs { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 6px; gap: 2px; border-bottom: 1px solid var(--scr-line); }
   .stageTabs button {
     position: relative; z-index: 1; min-height: 42px; padding: 0 8px; border: 0; border-radius: 999px; cursor: pointer; background: none;
     font: inherit; font-size: 0.84rem; font-weight: 600; color: var(--scr-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
@@ -308,8 +308,8 @@
   }
   .stageTabs button:hover { color: var(--scr-text); }
   .stageTabs button[aria-selected="true"] { color: #fff; }
-  .tabInk { position: absolute; top: 6px; bottom: 6px; left: 6px; width: calc((100% - 12px) / 4); border-radius: 999px; background: rgba(123, 147, 255, 0.22); box-shadow: inset 0 0 0 1px rgba(123, 147, 255, 0.5); transition: transform 0.55s var(--spring); }
-  .scenes { position: relative; height: 348px; overflow: hidden; }
+  .tabInk { position: absolute; top: 6px; bottom: 6px; left: 6px; width: calc((100% - 12px) / 2); border-radius: 999px; background: rgba(123, 147, 255, 0.22); box-shadow: inset 0 0 0 1px rgba(123, 147, 255, 0.5); transition: transform 0.55s var(--spring); }
+  .scenes { position: relative; height: 330px; overflow: hidden; }
   .scene { position: absolute; inset: 0; padding: 22px; }
   .scene[hidden] { display: none; }
   .scene.on { animation: sceneIn 0.6s var(--ease) both; }
@@ -318,127 +318,44 @@
   .timer { flex: none; width: 54px; height: 3px; border-radius: 3px; background: var(--scr-line); overflow: hidden; }
   .timer i { display: block; height: 100%; background: var(--scr-text); transform-origin: left; transform: scaleX(0); }
 
-  /* Scene: YouTube pipeline */
-  .pipe { list-style: none; margin: 0 0 18px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
-  .pipe li { font-size: 0.76rem; font-weight: 600; padding: 4px 10px; border-radius: 999px; color: var(--scr-soft); box-shadow: inset 0 0 0 1px var(--scr-line); }
-  .scene.on .pipe li { animation: pipeOn 0.5s var(--ease) both; }
-  .scene.on .pipe li:nth-child(2) { animation-delay: 0.55s; }
-  .scene.on .pipe li:nth-child(3) { animation-delay: 1.1s; }
-  .scene.on .pipe li:nth-child(4) { animation-delay: 1.65s; }
-  .scene.on .pipe li:nth-child(5) { animation-delay: 2.2s; }
-  .scene.on .pipe li:nth-child(6) { animation-delay: 2.75s; }
-  .ytFrame { position: relative; aspect-ratio: 16 / 9; max-height: 196px; width: 100%; border-radius: 12px; overflow: hidden; background: #070B1C; }
-  .ytImg { position: absolute; inset: 0; opacity: 0; }
-  .ytImg.a { background: radial-gradient(60% 80% at 30% 40%, #3B55F0, transparent 70%), radial-gradient(50% 60% at 80% 70%, #1B2A6B, transparent 70%), #0A0F24; }
-  .ytImg.b { background: radial-gradient(60% 80% at 70% 30%, #FF7A3D, transparent 70%), radial-gradient(50% 60% at 20% 80%, #5A2A1A, transparent 70%), #0A0F24; }
-  .ytImg.c { background: radial-gradient(55% 75% at 50% 45%, #FFC94D, transparent 65%), radial-gradient(50% 60% at 15% 20%, #2E4BF0, transparent 70%), #0A0F24; }
-  .scene.on .ytImg { animation: broll 4.5s linear infinite; }
-  .scene.on .ytImg.b { animation-delay: 1.5s; }
-  .scene.on .ytImg.c { animation-delay: 3s; }
-  .ytWave { position: absolute; left: 14px; bottom: 44px; display: flex; align-items: flex-end; gap: 3px; height: 28px; }
-  .ytWave i { width: 3px; height: 100%; border-radius: 3px; background: rgba(255, 255, 255, 0.85); transform-origin: bottom; transform: scaleY(0.3); }
-  .scene.on .ytWave i { animation: wave 0.9s ease-in-out infinite alternate; }
-  .ytCap { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); white-space: nowrap; font-family: var(--display); font-weight: 600; font-size: 0.8rem; color: #fff; background: rgba(7, 11, 28, 0.6); padding: 3px 9px; border-radius: 6px; }
-  .ytDur { position: absolute; right: 10px; top: 10px; font-size: 0.7rem; font-weight: 700; background: rgba(7, 11, 28, 0.75); padding: 2px 7px; border-radius: 5px; }
-  .ytMeta { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin-top: 14px; font-size: 0.86rem; }
-  .ytMeta b { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .ytMeta span { flex: none; color: var(--scr-soft); }
-  .ytMeta em { font-style: normal; color: var(--scr-text); font-variant-numeric: tabular-nums; }
-  .ytBar { margin-top: 10px; height: 4px; border-radius: 4px; background: var(--scr-line); overflow: hidden; }
-  .ytBar i { display: block; height: 100%; background: linear-gradient(90deg, var(--blue-glow), var(--tang-glow)); transform-origin: left; }
-  .scene.on .ytBar i { animation: grow 5.6s var(--ease) both; }
-
-  /* Scene: social edit */
-  .soc { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 22px; height: 100%; align-items: center; }
-  .socPhone { position: relative; aspect-ratio: 9 / 16; border-radius: 18px; overflow: hidden; background: #070B1C; isolation: isolate; box-shadow: 0 0 0 4px rgba(236, 240, 255, 0.08); }
-  .socPhone .blob { position: absolute; width: 90%; aspect-ratio: 1; border-radius: 50%; filter: blur(22px); z-index: -1; }
-  .socPhone .b1 { background: #3B55F0; top: 5%; left: -20%; }
-  .socPhone .b2 { background: #FF7A3D; bottom: 10%; right: -30%; }
-  .scene.on .socPhone .b1 { animation: drift1 5s ease-in-out infinite alternate; }
-  .scene.on .socPhone .b2 { animation: drift2 6s ease-in-out infinite alternate; }
-  .socCut { position: absolute; inset: 0; background: #fff; opacity: 0; }
-  .scene.on .socCut { animation: flash 2.4s linear infinite 1s; }
-  .socCap { position: absolute; left: 8px; right: 8px; bottom: 22px; text-align: center; font-family: var(--display); font-weight: 600; font-size: 0.72rem; line-height: 1.35; color: #fff; }
-  .socCap span { padding: 0 3px; border-radius: 4px; }
-  .scene.on .socCap span { animation: karaoke 3.2s steps(1) infinite; }
-  .scene.on .socCap span:nth-child(2) { animation-delay: 0.4s; }
-  .scene.on .socCap span:nth-child(3) { animation-delay: 0.8s; }
-  .scene.on .socCap span:nth-child(4) { animation-delay: 1.2s; }
-  .scene.on .socCap span:nth-child(5) { animation-delay: 1.6s; }
-  .scene.on .socCap span:nth-child(6) { animation-delay: 2s; }
-  .socLabel { font-size: 0.78rem; color: var(--scr-soft); margin-bottom: 6px; }
-  .clip { display: flex; gap: 3px; height: 22px; margin-bottom: 14px; }
-  .clip i { border-radius: 5px; background: rgba(123, 147, 255, 0.55); }
-  .clip.raw i:nth-child(1) { flex: 3; } .clip.raw i:nth-child(2) { flex: 1.4; background: rgba(236, 240, 255, 0.14); }
-  .clip.raw i:nth-child(3) { flex: 2.4; } .clip.raw i:nth-child(4) { flex: 1.2; background: rgba(236, 240, 255, 0.14); } .clip.raw i:nth-child(5) { flex: 2; }
-  .clip.edit i { flex: 1; background: linear-gradient(90deg, var(--blue-glow), var(--tang-glow)); transform-origin: left; }
-  .scene.on .clip.raw i:nth-child(2), .scene.on .clip.raw i:nth-child(4) { animation: strike 0.5s var(--ease) both 0.6s; }
-  .scene.on .clip.edit i { animation: grow 0.6s var(--ease) both 1.1s; }
-  .scene.on .clip.edit i:nth-child(2) { animation-delay: 1.3s; }
-  .scene.on .clip.edit i:nth-child(3) { animation-delay: 1.5s; }
-  .checks { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 7px; font-size: 0.86rem; }
-  .checks li { display: flex; align-items: center; gap: 9px; }
-  .checks li::before { content: "\2713"; width: 20px; height: 20px; flex: none; border-radius: 50%; display: grid; place-items: center; font-size: 0.7rem; font-weight: 800; color: #0A0F24; background: var(--sun); }
-  .scene.on .checks li { animation: pop 0.45s var(--spring) both 1.8s; }
-  .scene.on .checks li:nth-child(2) { animation-delay: 2.1s; }
-  .scene.on .checks li:nth-child(3) { animation-delay: 2.4s; }
-  .scene.on .checks li:nth-child(4) { animation-delay: 2.7s; }
-
-  /* Scene: site build */
-  .browser { height: 100%; border-radius: 12px; overflow: hidden; background: #F5F6FA; color: #0F1633; display: grid; grid-template-rows: auto 1fr; }
-  .brBar { display: flex; align-items: center; gap: 6px; padding: 9px 12px; background: #E3E7F1; }
-  .brBar span { width: 9px; height: 9px; border-radius: 50%; background: #C3C9D8; }
-  .brBar em { margin-left: 10px; font-style: normal; font-size: 0.72rem; color: #4E5775; background: #fff; padding: 2px 12px; border-radius: 999px; }
-  .brBody { position: relative; padding: 14px 16px; display: grid; gap: 14px; align-content: start; }
-  .bNav { display: flex; align-items: center; gap: 8px; }
-  .bNav b { width: 18px; height: 18px; border-radius: 6px; background: linear-gradient(135deg, #4A67FF, #FF7A3D); }
-  .bNav i { width: 34px; height: 6px; border-radius: 6px; background: #DDE1EC; }
-  .bNav i:first-of-type { margin-left: auto; }
-  .bNav u { width: 50px; height: 16px; border-radius: 999px; background: #2E4BF0; }
-  .bHero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 14px; align-items: center; }
-  .bText { display: grid; gap: 7px; justify-items: start; }
-  .bH { font-family: var(--display); font-weight: 600; font-size: 0.92rem; line-height: 1.15; letter-spacing: -0.02em; }
-  .bText i { width: 100%; height: 6px; border-radius: 6px; background: #DDE1EC; }
-  .bText i.s { width: 70%; }
-  .bBtn { margin-top: 4px; font-size: 0.66rem; font-weight: 700; color: #fff; background: #2E4BF0; padding: 5px 11px; border-radius: 999px; }
-  .bImg { aspect-ratio: 4 / 3; border-radius: 10px; background: radial-gradient(60% 70% at 30% 30%, #7B93FF, transparent 70%), radial-gradient(60% 70% at 80% 80%, #FF8A4C, transparent 70%), #111936; }
-  .bCards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .bCards i { height: 44px; border-radius: 9px; background: #fff; box-shadow: 0 6px 16px -10px rgba(15, 22, 51, 0.4), inset 0 0 0 1px #E3E7F1; }
-  .scene.on .bNav, .scene.on .bText > *, .scene.on .bImg, .scene.on .bCards i { animation: build 0.6s var(--spring) both; }
-  .scene.on .bText > :nth-child(1) { animation-delay: 0.3s; }
-  .scene.on .bText > :nth-child(2) { animation-delay: 0.45s; }
-  .scene.on .bText > :nth-child(3) { animation-delay: 0.6s; }
-  .scene.on .bText > :nth-child(4) { animation-delay: 0.75s; }
-  .scene.on .bImg { animation-delay: 0.9s; }
-  .scene.on .bCards i:nth-child(1) { animation-delay: 1.15s; }
-  .scene.on .bCards i:nth-child(2) { animation-delay: 1.3s; }
-  .scene.on .bCards i:nth-child(3) { animation-delay: 1.45s; }
-  .cursor { position: absolute; width: 20px; height: 20px; left: 70%; top: 85%; opacity: 0; }
-  .scene.on .cursor { animation: cursorMove 2.2s var(--ease) both 1.7s; }
-  .ripple { position: absolute; left: 16px; top: 134px; width: 60px; height: 60px; margin: -18px 0 0 6px; border-radius: 50%; border: 2px solid #2E4BF0; opacity: 0; }
-  .scene.on .ripple { animation: ripple 0.7s ease-out both 3.5s; }
-  .toast { position: absolute; right: 14px; bottom: 12px; font-size: 0.74rem; font-weight: 700; color: #0F1633; background: var(--sun); padding: 6px 12px; border-radius: 999px; opacity: 0; }
-  .scene.on .toast { animation: pop 0.5s var(--spring) both 3.8s; }
-
-  /* Scene: customer sort */
-  .crm { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-  .crm li { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr) auto auto; gap: 10px; align-items: center; padding: 11px 14px; border-radius: 12px; background: rgba(236, 240, 255, 0.05); font-size: 0.86rem; }
-  .crm b { font-weight: 600; white-space: nowrap; }
-  .crm span { color: var(--scr-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .crm em { font-style: normal; font-size: 0.74rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; color: #0A0F24; }
-  .crm em.k { background: var(--tang-glow); }
-  .crm em.s { background: var(--blue-glow); }
-  .crm em.y { background: var(--sun); }
-  .crm s { text-decoration: none; font-size: 0.74rem; color: var(--scr-soft); min-width: 74px; text-align: right; }
-  .crm s::after { content: " \2713"; color: #3BD671; font-weight: 800; }
-  .scene.on .crm li { animation: slideIn 0.5s var(--ease) both; }
-  .scene.on .crm em { animation: pop 0.45s var(--spring) both; }
-  .scene.on .crm s { animation: fadeIn 0.4s ease both; }
-  .scene.on .crm li:nth-child(1) em { animation-delay: 0.9s; } .scene.on .crm li:nth-child(1) s { animation-delay: 2.3s; }
-  .scene.on .crm li:nth-child(2) { animation-delay: 0.12s; } .scene.on .crm li:nth-child(2) em { animation-delay: 1.15s; } .scene.on .crm li:nth-child(2) s { animation-delay: 2.5s; }
-  .scene.on .crm li:nth-child(3) { animation-delay: 0.24s; } .scene.on .crm li:nth-child(3) em { animation-delay: 1.4s; } .scene.on .crm li:nth-child(3) s { animation-delay: 2.7s; }
-  .scene.on .crm li:nth-child(4) { animation-delay: 0.36s; } .scene.on .crm li:nth-child(4) em { animation-delay: 1.65s; } .scene.on .crm li:nth-child(4) s { animation-delay: 2.9s; }
-  .scene.on .crm li:nth-child(5) { animation-delay: 0.48s; } .scene.on .crm li:nth-child(5) em { animation-delay: 1.9s; } .scene.on .crm li:nth-child(5) s { animation-delay: 3.1s; }
+  /* Scene: Keşif Günü. A week of work is scanned, time losses light up, then the built system and the hours saved appear. */
+  .kHead { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 12px; font-size: 0.86rem; }
+  .kHead span { font-weight: 600; }
+  .kHead em { flex: none; white-space: nowrap; font-style: normal; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--scr-soft); box-shadow: inset 0 0 0 1px var(--scr-line); padding: 2px 9px; border-radius: 999px; }
+  .tasks { position: relative; list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .tasks li { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 9px 13px; border-radius: 11px; background: rgba(236, 240, 255, 0.05); box-shadow: inset 0 0 0 1px transparent; font-size: 0.86rem; }
+  .tasks li span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tasks li b { flex: none; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--scr-soft); }
+  .tasks li.loss { background: rgba(255, 138, 76, 0.13); box-shadow: inset 0 0 0 1px rgba(255, 138, 76, 0.55); }
+  .tasks li.loss b { color: var(--tang-glow); }
+  .tasks li.loss::after { content: ""; position: absolute; left: 0; top: 9px; bottom: 9px; width: 3px; border-radius: 3px; background: var(--tang-glow); transform-origin: top; }
+  .scanLine { position: absolute; left: -6px; right: -6px; top: 0; height: 2px; border-radius: 2px; background: linear-gradient(90deg, transparent, var(--blue-glow), transparent); box-shadow: 0 0 14px 2px rgba(123, 147, 255, 0.6); opacity: 0; pointer-events: none; }
+  .fix { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin-top: 12px; padding: 13px 15px; border-radius: 13px; background: linear-gradient(120deg, rgba(46, 75, 240, 0.32), rgba(46, 75, 240, 0.12)); box-shadow: inset 0 0 0 1px rgba(123, 147, 255, 0.5); }
+  .fix small { display: block; font-size: 0.72rem; font-weight: 600; color: var(--scr-soft); margin-bottom: 2px; }
+  .fix strong { display: block; font-size: 0.93rem; font-weight: 600; line-height: 1.3; }
+  .saved { flex: none; text-align: right; font-size: 0.74rem; color: var(--scr-soft); line-height: 1.2; }
+  .saved b { display: block; font-family: var(--display); font-size: 1.7rem; font-weight: 600; letter-spacing: -0.04em; color: var(--sun); font-variant-numeric: tabular-nums; }
+  .scene.on .tasks li { animation: slideIn 0.45s var(--ease) both; }
+  .scene.on .tasks li:nth-child(2) { animation-delay: 0.08s; }
+  .scene.on .tasks li:nth-child(3) { animation-delay: 0.16s; }
+  .scene.on .tasks li:nth-child(4) { animation-delay: 0.24s; }
+  .scene.on .tasks li.loss { animation: slideIn 0.45s var(--ease) both, lossOn 0.5s var(--ease) both; }
+  .scene.on .tasks li.loss:nth-child(1) { animation-delay: 0s, 1.05s; }
+  .scene.on .tasks li.loss:nth-child(2) { animation-delay: 0.08s, 1.5s; }
+  .scene.on .tasks li.loss:nth-child(3) { animation-delay: 0.16s, 1.95s; }
+  .scene.on .tasks li.loss:nth-child(4) { animation-delay: 0.24s, 2.4s; }
+  .scene.on .tasks li.loss::after { animation: barIn 0.4s var(--ease) both; }
+  .scene.on .tasks li.loss b { animation: lossTxt 0.5s var(--ease) both; }
+  .scene.on .tasks li.loss:nth-child(1) b { animation-delay: 1.05s; }
+  .scene.on .tasks li.loss:nth-child(2) b { animation-delay: 1.5s; }
+  .scene.on .tasks li.loss:nth-child(3) b { animation-delay: 1.95s; }
+  .scene.on .tasks li.loss:nth-child(4) b { animation-delay: 2.4s; }
+  .scene.on .tasks li.loss:nth-child(1)::after { animation-delay: 1.05s; }
+  .scene.on .tasks li.loss:nth-child(2)::after { animation-delay: 1.5s; }
+  .scene.on .tasks li.loss:nth-child(3)::after { animation-delay: 1.95s; }
+  .scene.on .tasks li.loss:nth-child(4)::after { animation-delay: 2.4s; }
+  .scene.on .scanLine { animation: scan 2s var(--ease) both 0.7s; }
+  .scene.on .fix { animation: build 0.6s var(--spring) both 3s; }
 
   /* ---------- Services bento ---------- */
   .bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; }
@@ -565,6 +482,10 @@
       .progress { animation: grow linear both; animation-timeline: scroll(root); }
     }
   }
+  @keyframes lossOn { from { background: rgba(236, 240, 255, 0.05); box-shadow: inset 0 0 0 1px transparent; } }
+  @keyframes lossTxt { from { color: var(--scr-soft); } }
+  @keyframes barIn { from { transform: scaleY(0); } to { transform: none; } }
+  @keyframes scan { 0% { opacity: 0; top: 0; } 10%, 85% { opacity: 1; } 100% { opacity: 0; top: 100%; } }
   @keyframes sceneIn { from { opacity: 0; transform: translateY(12px) scale(0.985); } to { opacity: 1; transform: none; } }
   @keyframes pipeOn { to { color: #0A0F24; background: var(--sun); box-shadow: none; } }
   @keyframes broll { 0% { opacity: 0; transform: scale(1.08); } 8%, 33% { opacity: 1; } 42%, 100% { opacity: 0; transform: scale(1); } }
@@ -648,14 +569,11 @@
     .steps { grid-template-columns: minmax(0, 1fr); }
     .contactSide, .formSide { padding: 32px 22px; }
     .formRow { grid-template-columns: minmax(0, 1fr); }
-    .stageTabs button { font-size: 0.74rem; padding: 0 4px; }
-    .scenes { height: 330px; }
+    .scenes { height: 352px; }
+    .fix strong { font-size: 0.86rem; }
+    .kHead { font-size: 0.8rem; }
+    .kHead em { font-size: 0.64rem; padding: 2px 7px; }
     .scene { padding: 16px; }
-    .soc { grid-template-columns: 104px minmax(0, 1fr); gap: 16px; }
-    .crm li { grid-template-columns: minmax(0, 1fr) auto auto; padding: 10px 12px; }
-    .crm span { display: none; }
-    .crm s { min-width: 0; }
-    .bHero { grid-template-columns: 1fr 0.8fr; }
     .svc { padding: 28px 22px 24px; }
   }
 </style>
@@ -700,83 +618,46 @@
 
       <div class="stage bezel heroViz" id="stage">
         <div class="core">
-          <div class="stageTabs" role="tablist" aria-label="Pick a service">
-            <button type="button" role="tab" id="tab-video" aria-controls="sc-video" aria-selected="true" data-scene="video">YouTube</button>
-            <button type="button" role="tab" id="tab-social" aria-controls="sc-social" aria-selected="false" tabindex="-1" data-scene="social">Social media</button>
-            <button type="button" role="tab" id="tab-site" aria-controls="sc-site" aria-selected="false" tabindex="-1" data-scene="site">Sites, apps</button>
-            <button type="button" role="tab" id="tab-crm" aria-controls="sc-crm" aria-selected="false" tabindex="-1" data-scene="crm">Customers</button>
+          <div class="stageTabs" role="tablist" aria-label="Pick an example">
+            <button type="button" role="tab" id="tab-cafe" aria-controls="sc-cafe" aria-selected="true" data-scene="cafe">Café</button>
+            <button type="button" role="tab" id="tab-emlak" aria-controls="sc-emlak" aria-selected="false" tabindex="-1" data-scene="emlak">Real estate office</button>
             <i class="tabInk" aria-hidden="true"></i>
           </div>
 
           <div class="scenes">
-            <div class="scene on" id="sc-video" role="tabpanel" aria-labelledby="tab-video">
-              <ol class="pipe">
-                <li>Topic</li><li>Script</li><li>Voiceover</li><li>Visuals</li><li>Edit</li><li>Upload</li>
-              </ol>
-              <div class="yt">
-                <div class="ytFrame" aria-hidden="true">
-                  <span class="ytImg a"></span><span class="ytImg b"></span><span class="ytImg c"></span>
-                  <span class="ytWave"><i style="animation-delay:-0.00s"></i><i style="animation-delay:-0.37s"></i><i style="animation-delay:-0.74s"></i><i style="animation-delay:-0.21s"></i><i style="animation-delay:-0.58s"></i><i style="animation-delay:-0.05s"></i><i style="animation-delay:-0.42s"></i><i style="animation-delay:-0.79s"></i><i style="animation-delay:-0.26s"></i><i style="animation-delay:-0.63s"></i><i style="animation-delay:-0.10s"></i><i style="animation-delay:-0.47s"></i><i style="animation-delay:-0.84s"></i><i style="animation-delay:-0.31s"></i><i style="animation-delay:-0.68s"></i><i style="animation-delay:-0.15s"></i><i style="animation-delay:-0.52s"></i><i style="animation-delay:-0.89s"></i></span>
-                  <span class="ytCap">Nobody in this town goes out at night</span>
-                  <span class="ytDur">8:42</span>
-                </div>
-                <div class="ytMeta">
-                  <b>The true story of 5 abandoned towns</b>
-                  <span>Uploading <em class="ytPct" id="ytPct">100</em>%</span>
-                </div>
-                <div class="ytBar"><i></i></div>
-              </div>
-            </div>
-
-            <div class="scene" id="sc-social" role="tabpanel" aria-labelledby="tab-social" hidden>
-              <div class="soc">
-                <div class="socPhone" aria-hidden="true">
-                  <span class="blob b1"></span><span class="blob b2"></span>
-                  <span class="socCut"></span>
-                  <p class="socCap"><span>Nobody</span> <span>told</span> <span>you</span> <span>this</span> <span>but</span></p>
-                </div>
-                <div class="socSide">
-                  <p class="socLabel">Raw footage, 2:40</p>
-                  <div class="clip raw" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-                  <p class="socLabel">Edited, 0:58</p>
-                  <div class="clip edit" aria-hidden="true"><i></i><i></i><i></i></div>
-                  <ul class="checks">
-                    <li>Dead air cut</li><li>Captions added</li><li>9:16 format</li><li>Thumbnail ready</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div class="scene" id="sc-site" role="tabpanel" aria-labelledby="tab-site" hidden>
-              <div class="browser" aria-hidden="true">
-                <div class="brBar"><span></span><span></span><span></span><em>papatyasalon.com</em></div>
-                <div class="brBody">
-                  <div class="bNav"><b></b><i></i><i></i><i></i><u></u></div>
-                  <div class="bHero">
-                    <div class="bText"><p class="bH">Book in 30 seconds</p><i></i><i class="s"></i><span class="bBtn">Book now</span></div>
-                    <div class="bImg"></div>
-                  </div>
-                  <div class="bCards"><i></i><i></i><i></i></div>
-                  <svg class="cursor" viewBox="0 0 24 24"><path d="M4 3l16 7-7 2-3 7z" fill="#fff" stroke="#0A0F24" stroke-width="1.5" stroke-linejoin="round"/></svg>
-                  <span class="ripple"></span>
-                  <span class="toast">New booking</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="scene" id="sc-crm" role="tabpanel" aria-labelledby="tab-crm" hidden>
-              <ul class="crm">
-                <li><b>Ayşe K.</b><span>Last visit 94 days ago</span><em class="k">Win back</em><s>SMS</s></li>
-                <li><b>Merve T.</b><span>14th visit</span><em class="s">Loyal</em><s>WhatsApp</s></li>
-                <li><b>Elif Ş.</b><span>First visit 3 days ago</span><em class="y">New</em><s>Email</s></li>
-                <li><b>Can D.</b><span>Last visit 61 days ago</span><em class="k">Win back</em><s>SMS</s></li>
-                <li><b>Zeynep A.</b><span>9th visit</span><em class="s">Loyal</em><s>WhatsApp</s></li>
+            <div class="scene on" id="sc-cafe" role="tabpanel" aria-labelledby="tab-cafe">
+              <p class="kHead"><span>A café's week</span><em>Sample Discovery Day</em></p>
+              <ul class="tasks">
+                <li class="loss"><span>Taking orders over WhatsApp</span><b>6 h</b></li>
+                <li class="loss"><span>Updating menu and prices</span><b>2 h</b></li>
+                <li><span>Announcing offers</span><b>3 h</b></li>
+                <li class="loss"><span>End-of-day till count</span><b>2 h</b></li>
+                <span class="scanLine" aria-hidden="true"></span>
               </ul>
+              <div class="fix">
+                <div><small>System built</small><strong>QR menu, table ordering and a till screen</strong></div>
+                <p class="saved"><b class="kSave" data-to="9">&minus;9</b>h/week</p>
+              </div>
+            </div>
+
+            <div class="scene" id="sc-emlak" role="tabpanel" aria-labelledby="tab-emlak" hidden>
+              <p class="kHead"><span>A real estate office's week</span><em>Sample Discovery Day</em></p>
+              <ul class="tasks">
+                <li class="loss"><span>Writing listings and preparing photos</span><b>5 h</b></li>
+                <li><span>Getting back to clients</span><b>4 h</b></li>
+                <li class="loss"><span>Posting on social media</span><b>3 h</b></li>
+                <li><span>Tracking the portfolio</span><b>2 h</b></li>
+                <span class="scanLine" aria-hidden="true"></span>
+              </ul>
+              <div class="fix">
+                <div><small>System built</small><strong>Listing content and a posting calendar</strong></div>
+                <p class="saved"><b class="kSave" data-to="8">&minus;8</b>h/week</p>
+              </div>
             </div>
           </div>
 
           <div class="stageFoot">
-            <p id="stageNote" aria-live="off">A production line for a faceless YouTube channel: topic, script, voice, visuals, edit and upload.</p>
+            <p id="stageNote" aria-live="off">On a Discovery Day I map your week, mark where time is lost and set up the first system the same day.</p>
             <span class="timer" aria-hidden="true"><i id="stageTimer"></i></span>
           </div>
         </div>
@@ -1046,7 +927,7 @@
 
 <script>
 (function () {
-  var T = {"mailBody": "Hello,\n\nMy business name: \nWhat I need: \n\n(A short note is enough, we can go into detail on the call.)", "waText": "Hello, I'd like to learn more about Nexi Digital.", "menuOpen": "Open menu", "menuClose": "Close menu", "sending": "Sending", "submit": "Book a free call", "notes": {"video": "A production line for a faceless YouTube channel: topic, script, voice, visuals, edit and upload.", "social": "Agents cut, caption and reframe the raw video into vertical format; I check the final cut.", "site": "A mobile-friendly website or app for your business, domain and launch included.", "crm": "I split customer records into segments and send each group the right message."}, "sent": "Your request arrived. I'll get back to you within one business day.", "failed": "The form couldn't be sent. Check your connection and try again, or write directly to nexidigital.00@gmail.com.", "segs": {"kayip": {"name": "Win back", "count": "12 customers", "ch": "SMS", "to": "To Ayşe Kaya, last visit 94 days ago", "msg": "Hi Ayşe, we haven't seen you in 3 months. This month there's 15% off hair care just for you. Reply to this message to book."}, "sadik": {"name": "Loyal", "count": "7 customers", "ch": "WhatsApp", "to": "To Merve Tunç, 14th visit", "msg": "Merve, thank you for your 14th visit! Our loyal customers get to try the new season's colours first. Would you like to drop by this week?"}, "yeni": {"name": "New", "count": "9 customers", "ch": "Email", "to": "To Elif Şahin, first visit 3 days ago", "msg": "Welcome to Papatya Salon, Elif. Your blow-dry is on us on your second visit. We'd love to see you again!"}}};
+  var T = {"mailBody": "Hello,\n\nMy business name: \nWhat I need: \n\n(A short note is enough, we can go into detail on the call.)", "waText": "Hello, I'd like to learn more about Nexi Digital.", "menuOpen": "Open menu", "menuClose": "Close menu", "sending": "Sending", "submit": "Book a free call", "notes": {"cafe": "On a Discovery Day I map your week, mark where time is lost and set up the first system the same day.", "emlak": "Listings and posts eat most of an office's hours. You keep the final say; the system does the rest."}, "sent": "Your request arrived. I'll get back to you within one business day.", "failed": "The form couldn't be sent. Check your connection and try again, or write directly to nexidigital.00@gmail.com.", "segs": {"kayip": {"name": "Win back", "count": "12 customers", "ch": "SMS", "to": "To Ayşe Kaya, last visit 94 days ago", "msg": "Hi Ayşe, we haven't seen you in 3 months. This month there's 15% off hair care just for you. Reply to this message to book."}, "sadik": {"name": "Loyal", "count": "7 customers", "ch": "WhatsApp", "to": "To Merve Tunç, 14th visit", "msg": "Merve, thank you for your 14th visit! Our loyal customers get to try the new season's colours first. Would you like to drop by this week?"}, "yeni": {"name": "New", "count": "9 customers", "ch": "Email", "to": "To Elif Şahin, first visit 3 days ago", "msg": "Welcome to Papatya Salon, Elif. Your blow-dry is on us on your second visit. We'd love to see you again!"}}};
 
   // Contact links
   document.querySelectorAll('.js-mail').forEach(function (a) {
@@ -1246,24 +1127,28 @@
     document.querySelectorAll('[data-count]').forEach(function (b) { counter.observe(b); });
   }
 
-  // Hero stage: four services take turns until the visitor picks one.
+  // Hero stage: the two Keşif Günü examples take turns until the visitor picks one.
   var stage = document.getElementById('stage');
   var stageTabs = [].slice.call(stage.querySelectorAll('[role="tab"]'));
   var ink = stage.querySelector('.tabInk');
   var stageNote = document.getElementById('stageNote');
   var timerBar = document.getElementById('stageTimer');
-  var pct = document.getElementById('ytPct');
-  var sceneIdx = 0, stageUser = false, stageActive = true, SCENE_MS = 7000, pctRaf;
-  function countPct() {
-    if (!pct) return;
-    cancelAnimationFrame(pctRaf);
-    if (reduce) { pct.textContent = '100'; return; }
-    var t0 = performance.now();
-    (function step(now) {
-      var k = Math.min(1, (now - t0) / 5600);
-      pct.textContent = String(Math.round(100 * (1 - Math.pow(1 - k, 3))));
-      if (k < 1) pctRaf = requestAnimationFrame(step);
-    })(t0);
+  var sceneIdx = 0, stageUser = false, stageActive = true, SCENE_MS = 7000, saveTimer;
+  // Hours saved count up once the built system has appeared (3.2s into the scene).
+  function countSave(panel) {
+    var b = panel.querySelector('.kSave');
+    var to = parseInt(b.dataset.to, 10);
+    clearTimeout(saveTimer);
+    if (reduce || !b.animate) { b.textContent = '\u2212' + to; return; }
+    b.textContent = '\u22120';
+    saveTimer = setTimeout(function () {
+      var t0 = performance.now();
+      (function step(now) {
+        var k = Math.min(1, (now - t0) / 900);
+        b.textContent = '\u2212' + Math.round(to * (1 - Math.pow(1 - k, 3)));
+        if (k < 1 && panel.classList.contains('on')) requestAnimationFrame(step); else b.textContent = '\u2212' + to;
+      })(t0);
+    }, 3200);
   }
   function showScene(i, fromUser) {
     sceneIdx = i;
@@ -1277,7 +1162,7 @@
     });
     ink.style.transform = 'translateX(' + (i * 100) + '%)';
     stageNote.textContent = T.notes[stageTabs[i].dataset.scene];
-    if (stageTabs[i].dataset.scene === 'video') countPct();
+    countSave(document.getElementById(stageTabs[i].getAttribute('aria-controls')));
     if (fromUser) {
       stageUser = true;
       if (timerBar.getAnimations) timerBar.getAnimations().forEach(function (a) { a.cancel(); });

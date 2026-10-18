@@ -199,6 +199,13 @@
   .shots img { width: 100%; height: auto; }
   .shotPhone { position: absolute; right: 0; bottom: 0; width: 23%; transform-origin: 100% 100%; padding: 5px; border-radius: 30px; background: color-mix(in srgb, var(--ink) 6%, transparent); box-shadow: inset 0 0 0 1px var(--line), var(--shadow); }
   .shotPhone img { border-radius: 25px; background: var(--scr-2); }
+  .emsalShots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: center; max-width: 920px; margin: 0 auto; }
+  .emsalPhone { padding: 5px; border-radius: 30px; background: color-mix(in srgb, var(--ink) 6%, transparent); box-shadow: inset 0 0 0 1px var(--line), var(--shadow); }
+  .emsalPhone:nth-child(2) { transform: translateY(32px); }
+  .emsalPhone img { display: block; width: 100%; height: auto; border-radius: 25px; background: var(--scr-2); }
+  .emsalPosts { display: grid; gap: 16px; }
+  .emsalPosts img { display: block; width: 100%; height: auto; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--line), var(--shadow); background: var(--scr-2); }
+  .emsalNote { color: var(--ink-soft); font-size: 0.9rem; text-align: center; margin-top: 48px; }
   .workFoot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; margin-top: 36px; }
   .facts { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 20px 48px; }
   .facts li { display: flex; align-items: baseline; gap: 10px; }
@@ -544,6 +551,10 @@
     .packs { grid-template-columns: minmax(0, 1fr); }
     .edu { gap: 56px; }
     .shorts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .emsalShots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .emsalPhone:nth-child(2) { transform: none; }
+    .emsalPosts { grid-column: 1 / -1; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .emsalNote { margin-top: 24px; }
     .heroGrid { gap: 48px; }
     .hero h1 { font-size: clamp(2.2rem, 6.4vw, 3.4rem); max-width: 18ch; }
     .what { margin-bottom: 52px; }
@@ -858,6 +869,33 @@
           <li><b data-count>3</b><span>[[w3f3]]</span></li>
         </ul>
         <a class="btn btnQuiet" href="https://nexidigitalai.com/zld/index.html?masa=1" target="_blank" rel="noopener">[[zldCta]]<span class="sr"> [[newTab]]</span></a>
+      </div>
+    </article>
+
+    <article class="work workEmsal rv" aria-labelledby="w4Title">
+      <div class="workHead">
+        <div>
+          <p class="workKind">[[w4kind]]</p>
+          <h3 id="w4Title">Emsal</h3>
+        </div>
+        <p class="workText">[[w4p]]</p>
+      </div>
+      <div class="emsalShots">
+        <div class="emsalPhone"><img src="img/emsal-ozet.webp" width="585" height="1266" alt="[[emsalAltOzet]]" loading="lazy" decoding="async"></div>
+        <div class="emsalPhone"><img src="img/emsal-onay.webp" width="585" height="1266" alt="[[emsalAltOnay]]" loading="lazy" decoding="async"></div>
+        <div class="emsalPosts">
+          <img src="img/emsal-brosur-koyu.webp" width="720" height="900" alt="[[emsalAltPost1]]" loading="lazy" decoding="async">
+          <img src="img/emsal-brosur-acik.webp" width="720" height="900" alt="[[emsalAltPost2]]" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <p class="emsalNote">[[emsalNote]]</p>
+      <div class="workFoot">
+        <ul class="facts">
+          <li><b data-count>3</b><span>[[w4f1]]</span></li>
+          <li><b data-count>1</b><span>[[w4f2]]</span></li>
+          <li><b>0</b><span>[[w4f3]]</span></li>
+        </ul>
+        <a class="btn btnQuiet" href="#iletisim">[[emsalCta]]</a>
       </div>
     </article>
 

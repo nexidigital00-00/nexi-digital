@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#b3121c">
+<title>Agora AVM 29 Ekim Çocuk Etkinliği</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --kirmizi: #c8102e;
+    --kirmizi-koyu: #9e0c22;
+    --bordo: #5a1218;
+    --metin: #262626;
+    --soluk: #6b6b6b;
+    --zemin: #fdf3f3;
+    --cizgi: #e6d6d6;
+    --hata: #b00020;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    font-family: "Montserrat", system-ui, sans-serif;
+    color: var(--metin);
+    background: var(--zemin);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Bayram arka planı: fotoğraf tüm sayfada silik */
+  .afis { position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background: url("kapak-29ekim.webp") center 40% / cover no-repeat; }
+  .afis::before { content: ""; position: absolute; inset: 0; background: rgba(253,243,243,.8); }
+  .afis svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  .sayfa { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+
+  /* Kırmızı başlık bandı (arkadaki fotoğraf hafif görünür) */
+  .bant {
+    position: relative; overflow: hidden; color: #fff;
+    padding: 22px 20px 26px;
+    background: linear-gradient(160deg, rgba(208,18,47,.9) 0%, rgba(165,15,36,.92) 55%, rgba(110,18,25,.95) 100%);
+  }
+  .bant-yazi { position: relative; }
+  .bant-sus { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .flama { display: block; width: 100%; height: 52px; margin-top: -6px; position: relative; z-index: 2; }
+  .bant img.logo { position: relative; display: block; width: 118px; height: auto; margin-bottom: 16px; }
+  .bant h1 { position: relative; margin: 0 0 10px; font-size: 26px; line-height: 1.2; font-weight: 800; letter-spacing: -.01em; }
+  .bant p { position: relative; margin: 0; font-size: 15px; line-height: 1.5; font-weight: 500; }
+
+  .govde { padding: 18px 16px 40px; }
+  .not { font-size: 13.5px; color: var(--soluk); line-height: 1.5; margin: 4px 0 6px; }
+  .not .yildiz { color: var(--kirmizi); }
+
+  .soru { padding: 18px 0 14px; border: 0; margin: 0; min-width: 0; }
+  .soru > legend { float: left; width: 100%; }
+  .soru > legend + * { clear: both; }
+  .soru > legend, .soru > label.baslik {
+    display: block; padding: 0; margin-bottom: 12px;
+    font-size: 17px; font-weight: 600; line-height: 1.4;
+  }
+  .no { font-weight: 600; margin-right: 6px; }
+  .zorunlu { color: var(--kirmizi); margin-left: 3px; }
+
+  input[type=text], input[type=tel], select {
+    width: 100%; font: inherit; font-size: 16px; color: var(--metin);
+    background: #fff; border: 1px solid var(--cizgi); border-bottom: 2px solid var(--cizgi);
+    border-radius: 4px; padding: 13px 14px; outline: none;
+    transition: border-color .15s;
+  }
+  input::placeholder { color: #8a8a8a; }
+  input:focus, select:focus { border-bottom-color: var(--kirmizi); }
+  select { appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23555' stroke-width='2'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+
+  .secenek { display: flex; align-items: center; gap: 14px; padding: 11px 2px; cursor: pointer; font-size: 16px; line-height: 1.4; }
+  .secenek input { appearance: none; -webkit-appearance: none; flex: 0 0 24px; width: 24px; height: 24px; margin: 0;
+    border: 2px solid #555; border-radius: 50%; background: #fff; display: grid; place-items: center; cursor: pointer; }
+  .secenek input::after { content: ""; width: 12px; height: 12px; border-radius: 50%; background: var(--kirmizi); transform: scale(0); transition: transform .12s; }
+  .secenek input:checked { border-color: var(--kirmizi); }
+  .secenek input:checked::after { transform: scale(1); }
+  .secenek input[type=checkbox] { border-radius: 5px; }
+  .secenek input[type=checkbox]:checked { background: var(--kirmizi); }
+  .secenek input[type=checkbox]::after { width: 6px; height: 12px; border-radius: 0; background: none;
+    border: solid #fff; border-width: 0 3px 3px 0; transform: rotate(45deg) scale(0); margin-top: -3px; }
+  .secenek input[type=checkbox]:checked::after { transform: rotate(45deg) scale(1); }
+  .secenek.ust { align-items: flex-start; }
+  .secenek.ust input { margin-top: 1px; }
+
+  .cocuk { background: rgba(255,255,255,.75); border: 1px solid var(--cizgi); border-radius: 6px; padding: 14px; margin-top: 12px; }
+  .cocuk h3 { margin: 0 0 10px; font-size: 15px; font-weight: 700; color: var(--kirmizi-koyu); }
+  .cocuk .satir { display: grid; grid-template-columns: 1fr 120px; gap: 10px; }
+  .cocuk label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #444; }
+
+  .kvkk-metin { font-size: 16px; line-height: 1.55; font-weight: 500; margin: 0 0 12px; }
+  .kvkk-metin a, .link { color: #4d4dd6; font-weight: 600; }
+
+  .hata-yazi { display: none; color: var(--hata); font-size: 13.5px; margin-top: 8px; font-weight: 500; }
+  .hatali .hata-yazi { display: block; }
+  .hatali input[type=text], .hatali input[type=tel], .hatali select { border-bottom-color: var(--hata); }
+
+  .gonder {
+    display: block; width: 100%; margin-top: 28px; padding: 16px; border: 0; border-radius: 4px;
+    background: var(--kirmizi); color: #fff; font: inherit; font-size: 17px; font-weight: 700; cursor: pointer;
+    transition: background .15s, transform .1s;
+  }
+  .gonder:active { transform: scale(.99); }
+  .gonder:disabled { background: #b98a90; cursor: wait; }
+  .genel-hata { display: none; margin-top: 14px; padding: 12px 14px; border-radius: 4px; background: #fdecee; color: var(--hata); font-size: 14.5px; font-weight: 500; }
+
+  .altbilgi { margin-top: 30px; font-size: 12.5px; color: var(--soluk); line-height: 1.6; text-align: center; }
+
+  .tuzak { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  /* Onay ekranı */
+  .tamam { display: none; text-align: center; padding: 34px 20px 40px; }
+  .tamam .tik { width: 76px; height: 76px; margin: 0 auto 18px; border-radius: 50%; background: #1f8a4c; display: grid; place-items: center; }
+  .tamam h2 { margin: 0 0 8px; font-size: 24px; font-weight: 800; }
+  .tamam p { margin: 0 0 6px; font-size: 15.5px; line-height: 1.5; }
+  .tamam .kayitno { display: inline-block; margin: 18px 0; padding: 14px 26px; border: 2px dashed var(--kirmizi); border-radius: 8px; background: #fff;
+    font-size: 34px; font-weight: 900; letter-spacing: .04em; color: var(--kirmizi-koyu); }
+  .tamam .kayitno small { display: block; font-size: 12px; font-weight: 600; letter-spacing: .08em; color: var(--soluk); }
+  .tamam ul { list-style: none; padding: 0; margin: 10px 0 0; font-size: 16px; font-weight: 600; }
+  .tamam li { padding: 4px 0; }
+
+  /* KVKK penceresi */
+  dialog { width: min(640px, calc(100% - 24px)); max-height: 85vh; border: 0; border-radius: 10px; padding: 0; }
+  dialog::backdrop { background: rgba(0,0,0,.5); }
+  .pencere { padding: 20px 18px; overflow-y: auto; max-height: calc(85vh - 64px); font-size: 14.5px; line-height: 1.6; }
+  .pencere h2 { margin: 0 0 12px; font-size: 18px; }
+  .pencere-alt { padding: 12px 18px; border-top: 1px solid var(--cizgi); text-align: right; }
+  .pencere-alt button { font: inherit; font-weight: 700; padding: 10px 22px; border: 0; border-radius: 4px; background: var(--kirmizi); color: #fff; }
+
+  @media (min-width: 600px) {
+    .bant { padding: 30px 32px 34px; }
+    .bant h1 { font-size: 32px; }
+    .govde { padding: 22px 32px 50px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<!--SUS:TANIM--><svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="tr" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="#e30a17"/><circle cx="425" cy="400" r="200" fill="#fff"/><circle cx="475" cy="400" r="160" fill="#e30a17"/><polygon fill="#fff" points="583.3,400.0 652.4,377.5 652.4,304.9 695.1,363.7 764.2,341.2 721.5,400.0 764.2,458.8 695.1,436.3 652.4,495.1 652.4,422.5"/></symbol><clipPath id="dalgaKirp" clipPathUnits="objectBoundingBox"><path d="M0 .04 C.2 -.03 .35 .1 .55 .04 S.85 -.02 1 .05 L1 .97 C.8 1.03 .65 .9 .45 .96 S.15 1.02 0 .95Z"/></clipPath><linearGradient id="kivrim" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".18"/><stop offset=".22" stop-color="#fff" stop-opacity=".16"/><stop offset=".45" stop-color="#000" stop-opacity=".16"/><stop offset=".7" stop-color="#fff" stop-opacity=".14"/><stop offset="1" stop-color="#000" stop-opacity=".2"/></linearGradient><symbol id="dalgaliTr" viewBox="0 0 1200 800"><g clip-path="url(#dalgaKirp)"><use href="#tr" width="1200" height="800"/><rect width="1200" height="800" fill="url(#kivrim)"/></g></symbol></defs></svg><!--/SUS:TANIM-->
+<!-- Bayram arka planı: bayraklar, konfeti, havai fişek -->
+<div class="afis" aria-hidden="true"><!--SUS:ARKA--><svg viewBox="0 0 400 860" preserveAspectRatio="xMidYMid slice"><g opacity=".5"><polygon fill="#f2a3a8" points="339.3,252.0 337.5,249.7 334.7,250.7 336.4,248.2 334.6,245.9 337.4,246.7 339.1,244.3 339.2,247.3 342.0,248.1 339.2,249.1"/><rect x="13" y="729" width="8.0" height="2.5" fill="#f2a3a8" transform="rotate(63 13 729)"/><circle cx="68" cy="373" r="2.3" fill="#d9a520"/><circle cx="328" cy="824" r="2.6" fill="#d9a520"/><rect x="375" y="316" width="7.2" height="2.8" fill="#e30a17" transform="rotate(124 375 316)"/><circle cx="65" cy="538" r="2.5" fill="#d9a520"/><polygon fill="#f2a3a8" points="276.5,837.0 277.5,832.8 273.8,830.5 278.1,830.1 279.1,825.9 280.8,829.9 285.2,829.6 281.9,832.4 283.5,836.5 279.8,834.2"/><polygon fill="#d9a520" points="1.9,650.6 4.5,648.8 3.6,645.7 6.1,647.7 8.8,645.9 7.7,648.9 10.2,650.8 7.0,650.7 5.9,653.7 5.1,650.7"/><polygon fill="#e30a17" points="56.7,791.1 58.4,788.0 56.0,785.3 59.5,786.0 61.2,782.9 61.7,786.4 65.2,787.1 62.0,788.6 62.4,792.2 60.0,789.6"/><polygon fill="#e30a17" points="2.8,544.0 2.0,541.2 -0.9,541.0 1.5,539.4 0.7,536.6 3.0,538.4 5.5,536.8 4.4,539.6 6.7,541.4 3.8,541.3"/><rect x="70" y="386" width="5.0" height="2.0" fill="#e30a17" transform="rotate(132 70 386)"/><polygon fill="#d9a520" points="342.4,560.5 338.3,559.2 335.7,562.6 335.8,558.4 331.7,557.0 335.8,555.7 335.8,551.4 338.3,554.9 342.4,553.6 339.9,557.1"/><rect x="351" y="210" width="4.0" height="2.2" fill="#d9a520" transform="rotate(148 351 210)"/><rect x="389" y="768" width="5.2" height="3.0" fill="#d9a520" transform="rotate(160 389 768)"/><circle cx="60" cy="296" r="1.6" fill="#d9a520"/><rect x="18" y="714" width="4.7" height="3.0" fill="#f2a3a8" transform="rotate(166 18 714)"/><circle cx="13" cy="549" r="2.6" fill="#e30a17"/><rect x="277" y="47" width="4.8" height="3.3" fill="#d9a520" transform="rotate(39 277 47)"/><rect x="66" y="174" width="4.6" height="2.3" fill="#d9a520" transform="rotate(65 66 174)"/><rect x="374" y="215" width="5.2" height="3.0" fill="#f2a3a8" transform="rotate(70 374 215)"/><rect x="392" y="63" width="4.4" height="3.3" fill="#d9a520" transform="rotate(146 392 63)"/><polygon fill="#d9a520" points="84.0,38.6 81.6,36.7 79.0,38.3 80.1,35.5 77.8,33.6 80.8,33.7 81.9,30.9 82.7,33.8 85.8,34.0 83.2,35.7"/><polygon fill="#f2a3a8" points="338.7,296.8 335.8,293.6 331.8,295.4 334.0,291.6 331.1,288.4 335.3,289.3 337.5,285.5 337.9,289.8 342.2,290.7 338.2,292.5"/><rect x="50" y="599" width="6.8" height="2.8" fill="#d9a520" transform="rotate(95 50 599)"/><polygon fill="#d9a520" points="83.2,812.9 80.5,810.7 77.5,812.6 78.8,809.3 76.0,807.0 79.6,807.2 80.8,803.9 81.8,807.3 85.3,807.5 82.3,809.5"/><polygon fill="#f2a3a8" points="351.8,189.7 348.7,188.3 346.4,190.8 346.8,187.4 343.6,186.1 347.0,185.4 347.3,182.0 349.0,184.9 352.3,184.2 350.1,186.7"/><polygon fill="#e30a17" points="399.6,40.7 397.9,37.9 394.8,38.7 396.8,36.2 395.2,33.5 398.1,34.7 400.2,32.3 400.0,35.5 403.0,36.7 399.8,37.5"/><rect x="27" y="78" width="5.2" height="2.3" fill="#e30a17" transform="rotate(112 27 78)"/><circle cx="384" cy="20" r="1.6" fill="#f2a3a8"/><polygon fill="#d9a520" points="385.7,219.0 386.2,216.0 383.4,214.6 386.4,214.1 386.9,211.0 388.3,213.8 391.4,213.2 389.2,215.4 390.6,218.2 387.9,216.8"/><circle cx="348" cy="8" r="2.7" fill="#d9a520"/><circle cx="267" cy="817" r="2.7" fill="#d9a520"/><rect x="324" y="3" width="5.0" height="3.1" fill="#e30a17" transform="rotate(91 324 3)"/><circle cx="9" cy="671" r="2.9" fill="#d9a520"/><rect x="45" y="813" width="6.4" height="2.0" fill="#e30a17" transform="rotate(104 45 813)"/><circle cx="382" cy="444" r="2.1" fill="#f2a3a8"/><circle cx="57" cy="113" r="1.5" fill="#d9a520"/><polygon fill="#e30a17" points="370.8,131.7 370.2,128.3 366.7,127.9 369.8,126.2 369.2,122.8 371.7,125.2 374.7,123.5 373.2,126.7 375.8,129.1 372.3,128.6"/><rect x="124" y="14" width="5.3" height="2.3" fill="#e30a17" transform="rotate(156 124 14)"/><polygon fill="#d9a520" points="33.3,210.3 30.4,208.8 28.1,211.1 28.6,207.9 25.7,206.4 28.9,205.9 29.4,202.7 30.9,205.6 34.1,205.1 31.8,207.4"/><circle cx="66" cy="21" r="2.2" fill="#d9a520"/><polygon fill="#f2a3a8" points="336.9,840.1 333.3,837.9 330.0,840.7 331.0,836.5 327.3,834.3 331.6,833.9 332.5,829.7 334.2,833.7 338.5,833.3 335.3,836.1"/><circle cx="11" cy="616" r="2.8" fill="#e30a17"/><polygon fill="#d9a520" points="15.8,801.6 12.1,802.5 11.7,806.3 9.8,803.0 6.1,803.8 8.6,801.0 6.6,797.7 10.1,799.2 12.7,796.3 12.3,800.1"/></g></svg><!--/SUS:ARKA--></div>
+
+<div class="sayfa">
+  <header class="bant">
+    <!--SUS:BANT--><!--/SUS:BANT-->
+    <img class="logo" src="agora-logo.webp" alt="Agora Alışveriş Merkezi Adapazarı" width="929" height="551">
+    <div class="bant-yazi">
+      <h1>Agora AVM 29 Ekim Çocuk Etkinliği</h1>
+      <p id="bantAciklama"></p>
+    </div>
+  </header>
+  <!--SUS:FLAMA--><svg class="flama" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 6 Q200.0 20 400 6" fill="none" stroke="#7a1a1f" stroke-width="1.6"/><polygon points="2.9,7.0 25.7,7.0 14.3,41.0" fill="#e30a17" stroke="#c9b9b9" stroke-width=".6"/><circle cx="13.3" cy="17.2" r="3.9" fill="#fff"/><circle cx="14.2" cy="17.2" r="3.1" fill="#e30a17"/><polygon fill="#fff" points="15.8,17.2 17.0,16.8 17.0,15.5 17.8,16.5 19.0,16.1 18.3,17.2 19.0,18.2 17.8,17.8 17.0,18.8 17.0,17.6"/><polygon points="31.4,8.7 54.3,8.7 42.9,42.7" fill="#ffffff" stroke="#c9b9b9" stroke-width=".6"/><polygon points="60.0,10.1 82.9,10.1 71.4,44.1" fill="#e30a17" stroke="#c9b9b9" stroke-width=".6"/><circle cx="70.5" cy="20.3" r="3.9" fill="#fff"/><circle cx="71.4" cy="20.3" r="3.1" fill="#e30a17"/><polygon fill="#fff" points="73.0,20.3 74.2,19.9 74.2,18.6 74.9,19.7 76.1,19.3 75.4,20.3 76.1,21.3 74.9,20.9 74.2,22.0 74.2,20.7"/><polygon points="88.6,11.2 111.4,11.2 100.0,45.2" fill="#ffffff" stroke="#c9b9b9" stroke-width=".6"/><polygon points="117.1,12.1 140.0,12.1 128.6,46.1" fill="#e30a17" stroke="#c9b9b9" stroke-width=".6"/><circle cx="127.6" cy="22.3" r="3.9" fill="#fff"/><circle cx="128.5" cy="22.3" r="3.1" fill="#e30a17"/><polygon fill="#fff" points="130.1,22.3 131.3,21.9 131.3,20.6 132.1,21.7 133.3,21.3 132.5,22.3 133.3,23.3 132.1,22.9 131.3,24.0 131.3,22.7"/><polygon points="145.7,12.7 168.6,12.7 157.1,46.7" fill="#ffffff" stroke="#c9b9b9" stroke-width=".6"/><polygon points="174.3,13.0 197.1,13.0 185.7,47.0" fill="#e30a17" stroke="#c9b9b9" stroke-width=".6"/><circle cx="184.7" cy="23.2" r="3.9" fill="#fff"/><circle cx="185.7" cy="23.2" r="3.1" fill="#e30a17"/><polygon fill="#fff" points="187.3,23.2 188.5,22.8 188.5,21.5 189.2,22.5 190.4,22.1 189.7,23.2 190.4,24.2 189.2,23.8 188.5,24.8 188.5,23.6"/><polygon points="202.9,13.0 225.7,13.0 214.3,47.0" fill="#ffffff" stroke="#c9b9b9" stroke-width=".6"/><polygon points="231.4,12.7 254.3,12.7 242.9,46.7" fill="#e30a17" stroke="#c9b9b9" stroke-width=".6"/><circle cx="241.9" cy="22.9" r="3.9" fill="#fff"/><circle cx="242.8" cy="22.9" r="3.1" fill="#e30a17"/><polygon fill="#fff" points="244.4,22.9 245.6,22.5 245.6,21.2 246.4,22.2 247.6,21.9 246.8,22.9 247.6,23.9 246.4,23.5 245.6,24.5 245.6,23.3"/><polygon points="260.0,12.1 282.9,12.1 271.4,46.1" fill="#ffffff" stroke="#c9b9b9" stroke-width=".6"/><polygon points="288.6,11.2 311.4,11.2 300.0,45.2" fill="#e30a17" stroke="#c9b9b9" stroke-width=".6"/><circle cx="299.0" cy="21.4" r="3.9" fill="#fff"/><circle cx="300.0" cy="21.4" r="3.1" fill="#e30a17"/><polygon fill="#fff" points="301.6,21.4 302.8,21.1 302.8,19.8 303.5,20.8 304.7,20.4 304.0,21.4 304.7,22.5 303.5,22.1 302.8,23.1 302.8,21.8"/><polygon points="317.1,10.1 340.0,10.1 328.6,44.1" fill="#ffffff" stroke="#c9b9b9" stroke-width=".6"/><polygon points="345.7,8.7 368.6,8.7 357.1,42.7" fill="#e30a17" stroke="#c9b9b9" stroke-width=".6"/><circle cx="356.2" cy="18.9" r="3.9" fill="#fff"/><circle cx="357.1" cy="18.9" r="3.1" fill="#e30a17"/><polygon fill="#fff" points="358.7,18.9 359.9,18.5 359.9,17.2 360.7,18.2 361.9,17.9 361.1,18.9 361.9,19.9 360.7,19.5 359.9,20.5 359.9,19.3"/><polygon points="374.3,7.0 397.1,7.0 385.7,41.0" fill="#ffffff" stroke="#c9b9b9" stroke-width=".6"/></svg><!--/SUS:FLAMA-->
+
+  <main class="govde">
+    <form id="form" novalidate>
+      <p class="not">Bu formu doldurarak çocuğunuzun etkinlik kaydını yapabilirsiniz.<br><span class="yildiz">*</span> Gerekli</p>
+
+      <div class="tuzak" aria-hidden="true">
+        <label>Web siteniz <input type="text" name="site" tabindex="-1" autocomplete="off"></label>
+      </div>
+
+      <div class="soru" data-alan="veli">
+        <label class="baslik" for="veli"><span class="no">1.</span>Adınız Soyadınız<span class="zorunlu">*</span></label>
+        <input id="veli" name="veli" type="text" placeholder="Yanıtınızı girin" autocomplete="name" maxlength="80">
+        <div class="hata-yazi">Lütfen adınızı ve soyadınızı yazın.</div>
+      </div>
+
+      <fieldset class="soru" data-alan="cocukSayisi">
+        <legend><span class="no">2.</span>Etkinliğe Kaç Çocuk Katılacak?<span class="zorunlu">*</span></legend>
+        <label class="secenek"><input type="radio" name="cocukSayisi" value="1"> 1</label>
+        <label class="secenek"><input type="radio" name="cocukSayisi" value="2"> 2</label>
+        <label class="secenek"><input type="radio" name="cocukSayisi" value="3"> 3</label>
+        <div class="hata-yazi">Lütfen çocuk sayısını seçin.</div>
+        <div id="cocuklar"></div>
+      </fieldset>
+
+      <div class="soru" data-alan="ilce">
+        <label class="baslik" for="ilce"><span class="no">3.</span>Yaşadığınız İl ve İlçe<span class="zorunlu">*</span></label>
+        <input id="ilce" name="ilce" type="text" placeholder="Yanıtınızı girin" autocomplete="address-level2" maxlength="60">
+        <div class="hata-yazi">Lütfen il ve ilçenizi yazın.</div>
+      </div>
+
+      <fieldset class="soru" data-alan="kaynak">
+        <legend><span class="no">4.</span>Bu etkinlikten nasıl haberiniz oldu?<span class="zorunlu">*</span></legend>
+        <label class="secenek"><input type="radio" name="kaynak" value="SMS"> SMS</label>
+        <label class="secenek"><input type="radio" name="kaynak" value="Aile veya Arkadaş"> Aile veya Arkadaş</label>
+        <label class="secenek"><input type="radio" name="kaynak" value="AVM Ziyareti"> AVM Ziyareti</label>
+        <label class="secenek"><input type="radio" name="kaynak" value="Sosyal medya"> Sosyal medya (Instagram, Facebook, X vb.)</label>
+        <div class="hata-yazi">Lütfen bir seçenek işaretleyin.</div>
+      </fieldset>
+
+      <div class="soru" data-alan="telefon">
+        <label class="baslik" for="telefon"><span class="no">5.</span>Telefon Numaranız<span class="zorunlu">*</span></label>
+        <input id="telefon" name="telefon" type="tel" inputmode="numeric" placeholder="05XX XXX XX XX" autocomplete="tel" maxlength="14">
+        <div class="hata-yazi">Lütfen 05 ile başlayan 11 haneli numaranızı yazın.</div>
+      </div>
+
+      <fieldset class="soru" data-alan="kvkk">
+        <legend class="kvkk-metin"><span class="no">6.</span>Etkinlik kapsamında tarafıma sunulan <a href="#" class="link" data-pencere="aydinlatma">Etkinlik Katılımcısı Aydınlatma Metni</a>’ni okuyarak kendime ve velisi/yasal temsilcisi olduğum çocuğuma ait kişisel verilerin işlenmesi hakkında bilgilendirildim. <a href="#" class="link" data-pencere="kosullar">Etkinlik Katılım Koşulları</a>’nı okudum ve anladım.<span class="zorunlu">*</span></legend>
+        <label class="secenek ust"><input type="checkbox" name="kvkk" value="Evet"> Aydınlatma metnini okuduğumu, bilgilendirildiğimi ve etkinlik katılım koşullarını kabul ettiğimi beyan ederim.</label>
+        <div class="hata-yazi">Devam etmek için bu beyanı onaylamanız gerekiyor.</div>
+      </fieldset>
+
+      <fieldset class="soru" data-alan="iletiIzni">
+        <legend><span class="no">7.</span>Agora AVM kampanya ve etkinliklerinden haberdar olmak ister misiniz?</legend>
+        <label class="secenek ust"><input type="checkbox" name="iletiIzni" value="Evet"> Agora AVM’nin kampanya, etkinlik ve duyurularına ilişkin SMS ve arama ile ticari elektronik ileti almayı kabul ediyorum. (İsteğe bağlı)</label>
+      </fieldset>
+
+      <button class="gonder" type="submit" id="gonder">Gönder</button>
+      <div class="genel-hata" id="genelHata" role="alert"></div>
+
+      <p class="altbilgi">Agora Alışveriş Merkezi Adapazarı<br>Arabacıalanı Mah. Eski Kazım Paşa Cd. No:10, Serdivan/Sakarya</p>
+    </form>
+
+    <section class="tamam" id="tamam" aria-live="polite">
+      <div class="tik"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+      <h2>Kaydınız alındı</h2>
+      <p>Bu ekranı etkinlik girişinde görevliye gösterin.<br>Ekran görüntüsü almanızı öneririz.</p>
+      <div class="kayitno" id="kayitNo"><small>KAYIT NO</small><span></span></div>
+      <ul id="tamamCocuklar"></ul>
+      <p class="altbilgi">29 Ekim Cumhuriyet Bayramımız kutlu olsun!</p>
+    </section>
+  </main>
+</div>
+
+<dialog id="pencere">
+  <div class="pencere" id="pencereIcerik"></div>
+  <div class="pencere-alt"><button type="button" id="pencereKapat">Kapat</button></div>
+</dialog>
+
+<script>
+  // ===== AYARLAR: AVM bilgileri gelince burayı güncelle =====
+  const AYAR = {
+    // Apps Script web app adresi (Dağıt > Yeni dağıtım sonrası verilen /exec linki)
+    kayitAdresi: "https://script.google.com/macros/s/AKfycbyIZBmCSmjFZuvoVluTO64qzAUHQyS8rlu9CN73oZ5zzUEwdOmrcSsygOYRXPj8NVB8Ig/exec",
+    bantAciklama: "Etkinlik 29 Ekim’de tüm gün devam edecektir. KATILIM ÜCRETSİZDİR.",
+    yasMin: 1,
+    yasMax: 15,
+    // AVM'nin onaylı metinleri buraya (HTML olarak) gelecek
+    aydinlatmaMetni: "<h2>Etkinlik Katılımcısı Aydınlatma Metni</h2><p><strong>[TASLAK — Agora AVM’nin onaylı KVKK aydınlatma metni buraya eklenecek.]</strong></p><p>Veri sorumlusu: Agora Alışveriş Merkezi Adapazarı. Toplanan veriler: veli adı soyadı, telefon, il/ilçe, çocuğun adı ve yaşı. Amaç: 29 Ekim çocuk etkinliğine katılımın düzenlenmesi.</p>",
+    kosullarMetni: "<h2>Etkinlik Katılım Koşulları</h2><p><strong>[TASLAK — Agora AVM’nin katılım koşulları buraya eklenecek.]</strong></p>"
+  };
+  // ==========================================================
+
+  const form = document.getElementById("form");
+  const cocuklarKutu = document.getElementById("cocuklar");
+  const telefon = document.getElementById("telefon");
+  document.getElementById("bantAciklama").textContent = AYAR.bantAciklama;
+
+  const kaynakEtiket = new URLSearchParams(location.search).get("k") || "qr";
+
+  function yasSecenekleri() {
+    let s = '<option value="">Seçin</option>';
+    for (let y = AYAR.yasMin; y <= AYAR.yasMax; y++) s += `<option value="${y}">${y}</option>`;
+    return s;
+  }
+
+  // Çocuk sayısına göre ad + yaş alanları; önceden yazılanlar korunur
+  function cocukAlanlariniCiz(sayi) {
+    const eski = [...cocuklarKutu.querySelectorAll(".cocuk")].map(k => ({
+      ad: k.querySelector("input").value, yas: k.querySelector("select").value
+    }));
+    cocuklarKutu.innerHTML = "";
+    for (let i = 0; i < sayi; i++) {
+      const k = document.createElement("div");
+      k.className = "cocuk";
+      k.dataset.alan = "cocuk" + i;
+      k.innerHTML = `
+        <h3>${i + 1}. Çocuk</h3>
+        <div class="satir">
+          <div><label for="cad${i}">Adı Soyadı</label><input id="cad${i}" type="text" placeholder="Yanıtınızı girin" maxlength="60" autocomplete="off"></div>
+          <div><label for="cyas${i}">Yaşı</label><select id="cyas${i}">${yasSecenekleri()}</select></div>
+        </div>
+        <div class="hata-yazi">Lütfen çocuğun adını ve yaşını girin.</div>`;
+      if (eski[i]) { k.querySelector("input").value = eski[i].ad; k.querySelector("select").value = eski[i].yas; }
+      cocuklarKutu.appendChild(k);
+    }
+  }
+  form.addEventListener("change", e => {
+    if (e.target.name === "cocukSayisi") cocukAlanlariniCiz(+e.target.value);
+    const kutu = e.target.closest(".hatali");
+    if (kutu) kutu.classList.remove("hatali");
+  });
+  form.addEventListener("input", e => {
+    const kutu = e.target.closest(".hatali");
+    if (kutu) kutu.classList.remove("hatali");
+  });
+
+  // Telefon: 05XX XXX XX XX biçimi
+  telefon.addEventListener("input", () => {
+    let d = telefon.value.replace(/\D/g, "");
+    if (d.startsWith("90")) d = d.slice(2);
+    if (d && d[0] !== "0") d = "0" + d;
+    d = d.slice(0, 11);
+    const p = [d.slice(0, 4), d.slice(4, 7), d.slice(7, 9), d.slice(9, 11)].filter(Boolean);
+    telefon.value = p.join(" ");
+  });
+
+  function hataGoster(kutu) { kutu.classList.add("hatali"); return kutu; }
+
+  function dogrula() {
+    const hatalar = [];
+    const veli = form.veli.value.trim().replace(/\s+/g, " ");
+    if (veli.split(" ").length < 2 || veli.length < 4) hatalar.push(hataGoster(form.querySelector('[data-alan="veli"]')));
+
+    const sayi = +(form.cocukSayisi.value || 0);
+    const cocuklar = [];
+    if (!sayi) hatalar.push(hataGoster(form.querySelector('[data-alan="cocukSayisi"]')));
+    cocuklarKutu.querySelectorAll(".cocuk").forEach(k => {
+      const ad = k.querySelector("input").value.trim().replace(/\s+/g, " ");
+      const yas = k.querySelector("select").value;
+      if (ad.length < 2 || !yas) hatalar.push(hataGoster(k));
+      cocuklar.push({ ad, yas });
+    });
+
+    const ilce = form.ilce.value.trim();
+    if (ilce.length < 2) hatalar.push(hataGoster(form.querySelector('[data-alan="ilce"]')));
+
+    const kaynak = form.kaynak.value;
+    if (!kaynak) hatalar.push(hataGoster(form.querySelector('[data-alan="kaynak"]')));
+
+    const tel = telefon.value.replace(/\D/g, "");
+    if (!/^05\d{9}$/.test(tel)) hatalar.push(hataGoster(form.querySelector('[data-alan="telefon"]')));
+
+    if (!form.kvkk.checked) hatalar.push(hataGoster(form.querySelector('[data-alan="kvkk"]')));
+
+    return {
+      hatalar,
+      veri: {
+        veli, telefon: telefon.value, ilce, kaynak, cocuklar,
+        kvkk: form.kvkk.checked ? "Evet" : "Hayır",
+        iletiIzni: form.iletiIzni.checked ? "Evet" : "Hayır",
+        qr: kaynakEtiket, site: form.site.value
+      }
+    };
+  }
+
+  const gonderBtn = document.getElementById("gonder");
+  const genelHata = document.getElementById("genelHata");
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    genelHata.style.display = "none";
+    const { hatalar, veri } = dogrula();
+    if (hatalar.length) {
+      hatalar[0].scrollIntoView({ behavior: "smooth", block: "center" });
+      const odak = hatalar[0].querySelector("input, select");
+      if (odak) setTimeout(() => odak.focus({ preventScroll: true }), 300);
+      return;
+    }
+    gonderBtn.disabled = true;
+    gonderBtn.textContent = "Gönderiliyor…";
+    try {
+      if (!AYAR.kayitAdresi) throw new Error("Kayıt adresi ayarlanmadı");
+      // text/plain: tarayıcı ön kontrol (CORS preflight) yapmaz, Apps Script ile çalışır
+      const yanit = await fetch(AYAR.kayitAdresi, { method: "POST", body: JSON.stringify(veri) });
+      const sonuc = await yanit.json();
+      if (!sonuc.ok) throw new Error(sonuc.hata || "Kayıt başarısız");
+      tamamGoster(sonuc.no, veri.cocuklar);
+    } catch (err) {
+      console.error(err);
+      genelHata.textContent = "Kaydınız gönderilemedi. İnternet bağlantınızı kontrol edip tekrar deneyin.";
+      genelHata.style.display = "block";
+      gonderBtn.disabled = false;
+      gonderBtn.textContent = "Tekrar Dene";
+    }
+  });
+
+  function tamamGoster(no, cocuklar) {
+    form.style.display = "none";
+    document.querySelector("#kayitNo span").textContent = no;
+    const ul = document.getElementById("tamamCocuklar");
+    ul.innerHTML = "";
+    cocuklar.forEach(c => { const li = document.createElement("li"); li.textContent = `${c.ad} · ${c.yas} yaş`; ul.appendChild(li); });
+    document.getElementById("tamam").style.display = "block";
+    window.scrollTo({ top: 0 });
+  }
+
+  // Metin pencereleri
+  const pencere = document.getElementById("pencere");
+  document.querySelectorAll("[data-pencere]").forEach(a => a.addEventListener("click", e => {
+    e.preventDefault();
+    document.getElementById("pencereIcerik").innerHTML = a.dataset.pencere === "aydinlatma" ? AYAR.aydinlatmaMetni : AYAR.kosullarMetni;
+    pencere.showModal();
+  }));
+  document.getElementById("pencereKapat").addEventListener("click", () => pencere.close());
+  pencere.addEventListener("click", e => { if (e.target === pencere) pencere.close(); });
+</script>
+</body>
+</html>
